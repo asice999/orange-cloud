@@ -63,8 +63,10 @@ extension FeaturePermission {
             title: String(localized: "Workers 脚本"),
             description: String(localized: "查看和管理 Workers 无服务器函数"),
             icon: "bolt.circle",
-            readScopes: ["workers-scripts.read"],
-            editScopes: ["workers-scripts.write"],
+            // workers-scripts.* 是 account 级（脚本/子域/自定义域）；workers-routes.* 是 zone 级
+            // （/zones/{id}/workers/routes 单独的权限组），缺它会让路由查询 403 cf=10000。
+            readScopes: ["workers-scripts.read", "workers-routes.read"],
+            editScopes: ["workers-scripts.write", "workers-routes.write"],
             isRequired: false
         ),
         .init(

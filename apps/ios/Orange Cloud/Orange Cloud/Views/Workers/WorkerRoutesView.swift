@@ -3,7 +3,8 @@
 //  Orange Cloud
 //
 //  Worker 域名/路由：workers.dev 子域开关 + 自定义域（挂/卸）+ Zone 路由（加/删）。
-//  写操作按 workers-scripts.write 门控。
+//  子域 / 自定义域是 account 级，按 workers-scripts.write 门控；
+//  Zone 路由是 zone 级独立权限组，按 workers-routes.write 门控。
 //
 
 import SwiftUI
@@ -21,7 +22,10 @@ struct WorkerRoutesView: View {
         ))
     }
 
-    private var canWrite: Bool { auth.hasScope("workers-scripts.write") }
+    // 子域 / 自定义域（account 级）
+    private var canWriteScript: Bool { auth.hasScope("workers-scripts.write") }
+    // Zone 路由（zone 级，独立权限组）
+    private var canWriteRoute:  Bool { auth.hasScope("workers-routes.write") }
 
     var body: some View {
         Group {
@@ -71,7 +75,7 @@ struct WorkerRoutesView: View {
                             set: { newValue in Task { await viewModel.toggleSubdomain(newValue) } }
                         ))
                         .labelsHidden()
-                        .disabled(!canWrite)
+                        .disabled(!canWriteScript)
                     }
                 }
             } else {
@@ -106,7 +110,7 @@ struct WorkerRoutesView: View {
                         Spacer()
                     }
                     .swipeActions(edge: .trailing) {
-                        if canWrite {
+                        if canWriteScript {
                             Button("移除", role: .destructive) {
                                 Task { await viewModel.detachDomain(domain) }
                             }
@@ -114,7 +118,7 @@ struct WorkerRoutesView: View {
                     }
                 }
             }
-            if canWrite && !viewModel.zones.isEmpty {
+            if canWriteScript && !viewModel.zones.isEmpty {
                 Button {
                     sheet = .domain
                 } label: {
@@ -146,7 +150,7 @@ struct WorkerRoutesView: View {
                         Spacer()
                     }
                     .swipeActions(edge: .trailing) {
-                        if canWrite {
+                        if canWriteRoute {
                             Button("删除", role: .destructive) {
                                 Task { await viewModel.deleteRoute(scoped) }
                             }
@@ -154,7 +158,7 @@ struct WorkerRoutesView: View {
                     }
                 }
             }
-            if canWrite && !viewModel.zones.isEmpty {
+            if canWriteRoute && !viewModel.zones.isEmpty {
                 Button {
                     sheet = .route
                 } label: {
