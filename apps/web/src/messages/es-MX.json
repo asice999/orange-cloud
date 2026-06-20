@@ -123,52 +123,8 @@
 		"sub": "Orange Cloud ya está en el App Store. Este es el historial de versiones; también puedes unirte a TestFlight para probar las próximas builds antes que nadie.",
 		"tfButton": "Unirse a TestFlight",
 		"tfNote": "Requiere iOS 17.0 o posterior · Solo dispositivos Apple",
-		"entries": [
-			{
-				"version": "1.2.1",
-				"date": "2026.06.18",
-				"channel": "App Store",
-				"notes": [
-					"App para Apple Watch: tus dominios y las solicitudes de 24 horas en la muñeca, con complicaciones para la esfera",
-					"Widgets de pantalla bloqueada: solicitudes de la cuenta, el tráfico de un dominio o tu medidor de uso, a un vistazo",
-					"Snippets: consulta, edita y crea snippets de código edge de Cloudflare y sus reglas desde cualquier dominio (Pro)",
-					"Totalmente accesible: VoiceOver, texto más grande, indicaciones que no dependen solo del color y contraste suficiente",
-					"Se agregó español, coreano y portugués: ahora en nueve idiomas",
-					"Los errores al actualizar ya no interrumpen con alertas y deslizar para actualizar es más estable",
-					"Mejoras y correcciones en general"
-				]
-			},
-			{
-				"version": "1.0 (5)",
-				"date": "2026.06.15",
-				"notes": [
-					"Cambiar de cuenta ahora filtra todo: Workers, almacenamiento y estadísticas siguen la cuenta seleccionada",
-					"Inicio de sesión más robusto: se corrigió la autorización que caducaba demasiado pronto y el reinicio de sesión tras un breve corte de red"
-				]
-			},
-			{
-				"version": "1.0 (4)",
-				"date": "2026.06.15",
-				"notes": [
-					"Se redujo el requisito mínimo de iOS, para que funcione en muchos más iPhone y iPad"
-				]
-			},
-			{
-				"version": "1.0 (3)",
-				"date": "2026.06.12",
-				"notes": [
-					"Primera beta pública",
-					"Inicio de sesión con OAuth oficial · sin tokens de API",
-					"Lista de dominios · gestión completa de DNS",
-					"Análisis de tráfico (solicitudes / ancho de banda / caché / amenazas)",
-					"Lista de Workers · registros en vivo",
-					"Explorador de objetos R2 · consola SQL D1 · gestión KV",
-					"Reglas WAF personalizadas · estado de Cloudflare Tunnel",
-					"Widgets de pantalla de inicio · atajos de Siri · varias cuentas",
-					"Suscripción Pro · compra única"
-				]
-			}
-		]
+		"androidSoon": "La app de Android llegará pronto a Google Play",
+		"statusInReview": "En revisión"
 	},
 	"footer": {
 		"privacy": "Política de privacidad",

@@ -123,52 +123,8 @@
 		"sub": "Orange Cloud is now on the App Store. Here's the release history — or join TestFlight for early access to upcoming builds.",
 		"tfButton": "Join TestFlight",
 		"tfNote": "Requires iOS 17.0 or later · Apple devices only",
-		"entries": [
-			{
-				"version": "1.2.1",
-				"date": "2026.06.18",
-				"channel": "App Store",
-				"notes": [
-					"Apple Watch app: your domains and 24-hour requests on your wrist, plus watch-face complications",
-					"Lock Screen widgets: account requests, a domain's traffic, or your usage gauge — a glance away",
-					"Snippets: view, edit, and create Cloudflare edge code snippets and their rules from any domain (Pro)",
-					"Fully accessible: VoiceOver, larger text, color-independent cues, and sufficient contrast throughout",
-					"Added Spanish, Korean, and Portuguese — now in nine languages",
-					"Refresh failures no longer interrupt with alerts, and pull-to-refresh is steadier",
-					"Refinements and fixes throughout"
-				]
-			},
-			{
-				"version": "1.0 (5)",
-				"date": "2026.06.15",
-				"notes": [
-					"Switching accounts now filters everything — Workers, storage and stats follow the account you've selected",
-					"Sturdier sign-in: fixed authorization expiring too soon and re-prompting after a brief network blip"
-				]
-			},
-			{
-				"version": "1.0 (4)",
-				"date": "2026.06.15",
-				"notes": [
-					"Lowered the minimum iOS requirement, so far more iPhone and iPad can run it"
-				]
-			},
-			{
-				"version": "1.0 (3)",
-				"date": "2026.06.12",
-				"notes": [
-					"First public beta",
-					"Official OAuth sign-in · no API token needed",
-					"Domain list · full DNS management",
-					"Traffic analytics (requests / bandwidth / cache / threats)",
-					"Workers list · live log tail",
-					"R2 object browser · D1 SQL console · KV management",
-					"WAF custom rules · Cloudflare Tunnel status",
-					"Home Screen widgets · Siri shortcuts · multi-account",
-					"Pro subscription · one-time purchase"
-				]
-			}
-		]
+		"androidSoon": "The Android app is coming soon to Google Play",
+		"statusInReview": "In review"
 	},
 	"footer": {
 		"privacy": "Privacy Policy",

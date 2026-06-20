@@ -10,6 +10,10 @@ import HorizonArc from "@/components/HorizonArc";
 import Reveal from "@/components/Reveal";
 import Stars from "@/components/Stars";
 import FeatureIcon from "@/components/FeatureIcon";
+import ChangelogTabs from "@/components/ChangelogTabs";
+import { decoratedReleases, localize } from "@orange-cloud/changelog";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { getReleaseState, type ReleaseState } from "@/lib/livestate/store";
 
 const SHOT_FILES = [
 	"01_dashboard",
@@ -24,6 +28,9 @@ const SHOT_FILES = [
 
 const FEATURE_ICONS = ["dns", "analytics", "tail", "storage", "waf", "tunnel", "widget", "accounts"];
 
+// 更新历史按 D1 release_state 门控（审核中 / 已上架）；ISR 每 60s 重新生成以反映 ASC/Play 信号（约 1 分钟内翻牌）。
+export const revalidate = 60;
+
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
 	const { locale } = await params;
 	setRequestLocale(locale);
@@ -36,12 +43,26 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 	const featureItems = t.raw("features.items") as Array<{ t: string; b: string }>;
 	const freeItems = t.raw("pro.freeItems") as string[];
 	const proItems = t.raw("pro.proItems") as string[];
-	const changelogEntries = t.raw("changelog.entries") as Array<{
-		version: string;
-		date: string;
-		channel?: string;
-		notes: string[];
-	}>;
+	let releaseState: ReleaseState = {};
+	try {
+		const { env } = getCloudflareContext();
+		if (env.IAP_DB) releaseState = await getReleaseState(env.IAP_DB);
+	} catch {
+		// 构建期 / 无 D1 绑定：回退到 live 标志门控（无 pending，仅展示 live:true 条目）
+	}
+	const renderTrack = (track: "ios" | "android") =>
+		decoratedReleases(track, releaseState[track]).map(({ release: r, status }) => ({
+			version: r.version,
+			date: r.date,
+			channel: r.channel,
+			status,
+			items: r.items.map((it) => ({
+				title: localize(it.title, locale) ?? "",
+				detail: it.detail ? localize(it.detail, locale) : undefined,
+			})),
+		}));
+	const iosReleases = renderTrack("ios");
+	const androidReleases = renderTrack("android");
 
 	return (
 		<>
@@ -304,49 +325,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 							</div>
 						</Reveal>
 
-						{/* 时间线 */}
-						<div className="relative mt-12">
-							<div className="absolute bottom-0 top-3 w-px bg-white/10" style={{ left: "0.5rem" }} />
-							<div className="space-y-8">
-								{changelogEntries.map((entry, i) => (
-									<Reveal key={`${entry.version}-${entry.date}`} index={i + 1}>
-										<div className="relative pl-10">
-											<div
-												className="absolute top-2 h-3 w-3 -translate-x-1/2 rounded-full ring-2 ring-orange-400/60"
-												style={{ left: "0.5rem", background: "var(--oc-orange)" }}
-											/>
-											<span className="text-[12px] font-medium tracking-wide t-tertiary">{entry.date}</span>
-											<div className="glass r-island mt-2 p-5 sm:p-6">
-												<div className="flex flex-wrap items-center gap-2">
-													<h3 className="f-display text-[17px] font-bold t-primary">v{entry.version}</h3>
-													<span
-														className="rounded-full px-2 py-0.5 text-[11px] font-medium"
-														style={{ background: "rgba(244,129,32,0.15)", color: "var(--oc-orange)" }}
-													>
-														{entry.channel ?? "TestFlight β"}
-													</span>
-												</div>
-												<ul className="mt-3 space-y-1.5">
-													{entry.notes.map((note) => (
-														<li key={note} className="flex items-start gap-2 text-[13.5px] leading-relaxed t-secondary">
-															<span
-																className="mt-[7px] h-[5px] w-[5px] flex-none rounded-full"
-																style={{ background: "var(--t-tertiary)" }}
-															/>
-															{note}
-														</li>
-													))}
-												</ul>
-											</div>
-										</div>
-									</Reveal>
-								))}
-							</div>
-						</div>
-
-						<Reveal index={changelogEntries.length + 1}>
-							<p className="mt-6 text-[12px] t-tertiary" style={{ marginLeft: "2.5rem" }}>{t("changelog.tfNote")}</p>
-						</Reveal>
+						<ChangelogTabs
+							ios={iosReleases}
+							android={androidReleases}
+							iosNote={t("changelog.tfNote")}
+							androidSoon={t("changelog.androidSoon")}
+							statusInReview={t("changelog.statusInReview")}
+							labelIOS="iOS"
+							labelAndroid="Android"
+						/>
 					</div>
 				</section>
 

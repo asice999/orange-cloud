@@ -123,52 +123,8 @@
 		"sub": "O Orange Cloud já está na App Store. Este é o histórico de versões; você também pode entrar no TestFlight para testar as próximas builds antes de todo mundo.",
 		"tfButton": "Entrar no TestFlight",
 		"tfNote": "Requer iOS 17.0 ou posterior · Apenas dispositivos Apple",
-		"entries": [
-			{
-				"version": "1.2.1",
-				"date": "2026.06.18",
-				"channel": "App Store",
-				"notes": [
-					"App para Apple Watch: seus domínios e as solicitações de 24 horas no pulso, com complicações no mostrador",
-					"Widgets da tela bloqueada: solicitações da conta, o tráfego de um domínio ou seu medidor de uso, num relance",
-					"Snippets: veja, edite e crie snippets de código edge da Cloudflare e suas regras a partir de qualquer domínio (Pro)",
-					"Totalmente acessível: VoiceOver, texto maior, indicações que não dependem só da cor e contraste suficiente",
-					"Adicionados espanhol, coreano e português — agora em nove idiomas",
-					"Falhas ao atualizar não interrompem mais com alertas e o puxar para atualizar ficou mais estável",
-					"Melhorias e correções no geral"
-				]
-			},
-			{
-				"version": "1.0 (5)",
-				"date": "2026.06.15",
-				"notes": [
-					"Trocar de conta agora filtra tudo: Workers, armazenamento e estatísticas seguem a conta selecionada",
-					"Login mais robusto: corrigimos a autorização que expirava cedo demais e o novo pedido de login após uma breve queda de rede"
-				]
-			},
-			{
-				"version": "1.0 (4)",
-				"date": "2026.06.15",
-				"notes": [
-					"Reduzimos o requisito mínimo de iOS, para rodar em muito mais iPhone e iPad"
-				]
-			},
-			{
-				"version": "1.0 (3)",
-				"date": "2026.06.12",
-				"notes": [
-					"Primeira beta pública",
-					"Login com OAuth oficial · sem tokens de API",
-					"Lista de domínios · gerenciamento completo de DNS",
-					"Análise de tráfego (solicitações / largura de banda / cache / ameaças)",
-					"Lista de Workers · logs em tempo real",
-					"Explorador de objetos R2 · console SQL D1 · gerenciamento KV",
-					"Regras WAF personalizadas · status do Cloudflare Tunnel",
-					"Widgets da tela de início · atalhos da Siri · várias contas",
-					"Assinatura Pro · compra única"
-				]
-			}
-		]
+		"androidSoon": "O app para Android chega em breve à Google Play",
+		"statusInReview": "Em análise"
 	},
 	"footer": {
 		"privacy": "Política de Privacidade",

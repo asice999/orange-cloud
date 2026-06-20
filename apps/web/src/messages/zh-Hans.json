@@ -123,52 +123,8 @@
 		"sub": "Orange Cloud 已在 App Store 上线。下面是历次更新——也可加入 TestFlight 抢先体验后续版本。",
 		"tfButton": "加入 TestFlight",
 		"tfNote": "需要 iOS 17.0 或更高版本 · 仅限 Apple 设备",
-		"entries": [
-			{
-				"version": "1.2.1",
-				"date": "2026.06.18",
-				"channel": "App Store",
-				"notes": [
-					"Apple Watch App：在手腕上查看域名与 24 小时请求，并支持表盘 complication",
-					"锁屏小组件：账号请求、单域名流量、用量仪表，锁屏一眼即见",
-					"Snippets：在域名详情查看、编辑、新建 Cloudflare 边缘代码片段并管理触发规则（Pro）",
-					"全面无障碍：VoiceOver、更大字体、不只靠颜色区分、足够对比度全面达标",
-					"新增西班牙语、韩语、葡萄牙语，现已支持九种语言",
-					"刷新失败不再弹窗打断，下拉刷新更稳定可靠",
-					"多处细节优化与问题修复"
-				]
-			},
-			{
-				"version": "1.0 (5)",
-				"date": "2026.06.15",
-				"notes": [
-					"切换账号后，Workers、存储、统计等资源现在只显示当前选中账号的内容",
-					"登录保活更稳：修复授权过早失效、网络短暂波动后被反复要求重新登录的问题"
-				]
-			},
-			{
-				"version": "1.0 (4)",
-				"date": "2026.06.15",
-				"notes": [
-					"降低最低系统要求，更多 iPhone 与 iPad 现可使用"
-				]
-			},
-			{
-				"version": "1.0 (3)",
-				"date": "2026.06.12",
-				"notes": [
-					"首个公开测试版",
-					"OAuth 官方登录 · 无需 API Token",
-					"域名列表 · DNS 增删改查",
-					"流量分析（请求 / 带宽 / 缓存命中 / 拦截威胁）",
-					"Workers 列表 · 实时日志 tail",
-					"R2 对象浏览 · D1 SQL 控制台 · KV 键值管理",
-					"WAF 自定义规则 · Cloudflare Tunnel 状态",
-					"主屏小组件 · Siri 捷径 · 多账号切换",
-					"Pro 订阅 · 一次性买断"
-				]
-			}
-		]
+		"androidSoon": "Android 版即将登陆 Google Play",
+		"statusInReview": "审核中"
 	},
 	"footer": {
 		"privacy": "隐私政策",
