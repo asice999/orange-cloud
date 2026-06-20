@@ -18,11 +18,34 @@ platform :android do
 
   desc "上传 AAB + 元数据 + 截图到指定轨道。track: internal(默认)/alpha(封闭测试)/beta/production"
   lane :deploy do |options|
+    track = options[:track] || "internal"
     upload_to_play_store(
-      track: options[:track] || "internal",
+      track: track,
       aab: "app/build/outputs/bundle/playRelease/app-play-release.aab",
       skip_upload_images: true,
       skip_upload_screenshots: false,
     )
+    # 上架生产轨后回调官网，翻出该版本的更新历史（Play 无发布 webhook，故主动通知）。
+    notify_website_release if track == "production"
+  end
+
+  # 把当前 versionName 通过共享密钥头发给官网 /api/play/release。
+  # 需环境变量 PLAY_RELEASE_SECRET（与 Worker secret 同值）。
+  private_lane :notify_website_release do
+    version = ENV["PLAY_RELEASE_VERSION"] ||
+      File.read("../app/build.gradle.kts")[/versionName\s*=\s*"([^"]+)"/, 1]
+    secret = ENV["PLAY_RELEASE_SECRET"]
+    if version.nil? || secret.nil? || secret.empty?
+      UI.important("跳过官网回调：缺 versionName 或 PLAY_RELEASE_SECRET")
+      next
+    end
+    require "net/http"
+    require "uri"
+    require "json"
+    uri = URI("https://orange-cloud.chatiro.app/api/play/release")
+    req = Net::HTTP::Post.new(uri, "Content-Type" => "application/json", "X-Play-Secret" => secret)
+    req.body = { version: version }.to_json
+    res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(req) }
+    UI.message("官网 Android 上架信号 v#{version} → HTTP #{res.code} #{res.body}")
   end
 end
