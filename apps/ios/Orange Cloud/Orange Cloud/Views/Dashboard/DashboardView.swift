@@ -519,7 +519,20 @@ struct DashboardView: View {
                     .glassIsland(cornerRadius: OCLayout.chipRadius)
             } else if let usage = viewModel.usage {
 #if OPENSOURCE_UNLOCKED
-                if viewModel.accountLevelDataLimited {
+                if viewModel.needsReauthForWorkersObservability {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Label("Workers 用量需重新授权", systemImage: "person.badge.key")
+                            .font(.caption.weight(.medium))
+                            .foregroundStyle(.orange)
+                        Text("Cloudflare 将 Workers 分析迁移至 Observability 权限。请在 设置 → 账号 重新登录并接受所有权限后可见。")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(10)
+                    .glassIsland(cornerRadius: OCLayout.chipRadius)
+                    .padding(.horizontal, 4)
+                } else if viewModel.accountLevelDataLimited {
                     Label("Workers / R2 用量需付费版 Cloudflare · D1 存储与域名分析正常", systemImage: "info.circle")
                         .font(.caption)
                         .foregroundStyle(.secondary)

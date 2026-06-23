@@ -35,6 +35,8 @@ final class DashboardViewModel {
     /// 自编译版：账户级 Analytics 部分不可用（Workers/R2/D1-GraphQL 受限）
     /// 区别于 accountAnalyticsUnavailable（整块门控卡），此标志仅用于显示温和提示条。
     private(set) var accountLevelDataLimited = false
+    /// Workers 用量需重新登录获取 workers-observability.read
+    private(set) var needsReauthForWorkersObservability = false
 
     private var loadedZoneIds: Set<String> = []
     private var assetsLoadedForAccount: String?
@@ -208,6 +210,7 @@ final class DashboardViewModel {
             // 回落至空用量/仅域名级分析，与 v1.3.2 之前的无门控行为一致。
             workers = nil
             accountLevelDataLimited = true
+            needsReauthForWorkersObservability = true
 #else
             accountAnalyticsUnavailable = true
             analyticsUnavailableForAccount = accountId
@@ -224,6 +227,7 @@ final class DashboardViewModel {
         // 账户级有权限（或仅 Workers 本次临时失败）：清除不可用态
         accountAnalyticsUnavailable = false
         accountLevelDataLimited = false
+        needsReauthForWorkersObservability = false
         analyticsUnavailableForAccount = nil
 
         var usage = workers ?? AccountUsage(
