@@ -172,6 +172,15 @@ actor CFAPIClient {
             // authz（账户级数据集未授权）单独抛——调用方据此降级到「免费账号无账户级数据」态，
             // 并停发同账号其余注定失败的账户级查询。
             if envelope.errors?.contains(where: \.isAuthz) == true {
+#if OPENSOURCE_UNLOCKED
+                // ====== 自编译版：返回部分数据 ======
+                // Cloudflare GraphQL 可在部分字段 authz 时仍返回其余字段数据
+                // （如 Free 账号 month 窗口不可用但 today 窗口正常）。
+                // 数据非空时返回部分结果，避免因单字段 authz 丢弃全部数据。
+                if let data = envelope.data {
+                    return data
+                }
+#endif
                 throw APIError.accountNotAuthorized
             }
             throw APIError.cloudflareError(code: 0, message: first.message)
