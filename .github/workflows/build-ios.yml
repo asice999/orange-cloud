@@ -50,7 +50,7 @@ jobs:
           echo "build_number=$(date +%s)" >> $GITHUB_OUTPUT
 
       - name: Build (Full)
-        if: ${{ github.event.inputs.build_type == 'full' || github.event.inputs.build_type == '' && github.ref == 'refs/heads/main' }}
+        if: ${{ github.event.inputs.build_type == 'full' }}
         working-directory: apps/ios
         run: |
           xcodebuild build \
@@ -77,7 +77,7 @@ jobs:
           ls -la OrangeCloud-*.ipa
 
       - name: Build (Self-signed Lite — no Widget extension)
-        if: ${{ github.event.inputs.build_type == 'selfsigned-lite' || github.event.inputs.build_type == '' && github.ref != 'refs/heads/main' }}
+        if: ${{ github.event.inputs.build_type == 'selfsigned-lite' || github.event_name == 'push' }}
         working-directory: apps/ios
         run: |
           # Temporarily remove Widget extension target dependency for self-signed builds
