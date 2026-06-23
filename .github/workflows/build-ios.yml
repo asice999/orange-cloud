@@ -109,3 +109,25 @@ jobs:
           path: apps/ios/OrangeCloud-*.ipa
           retention-days: 7
           compression-level: 0
+
+      - name: Create GitHub Release
+        if: github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ steps.build_number.outputs.short_sha }}-${{ steps.build_number.outputs.build_number }}
+          name: "Orange Cloud v1.3.2 (OpenSource Unlocked) — ${{ github.event.inputs.build_type }}"
+          body: |
+            ## 🔓 OpenSource Unlocked Build
+            - All Pro features unlocked via `OPENSOURCE_UNLOCKED` compilation flag
+            - Build variant: `${{ github.event.inputs.build_type }}`
+            - Commit: `${{ steps.build_number.outputs.short_sha }}`
+
+            ### 已解锁功能
+            多账号 · 存储 (R2/D1/KV) · Workers 实时日志 · WAF · Tunnel · Snippets · 7天/30天分析 · Worker 变量/触发/路由
+
+            ### 安装方式
+            使用 AltStore / SideStore / 爱思助手 自签安装 IPA
+          files: apps/ios/OrangeCloud-*.ipa
+          draft: false
+          prerelease: true
+          generate_release_notes: false
