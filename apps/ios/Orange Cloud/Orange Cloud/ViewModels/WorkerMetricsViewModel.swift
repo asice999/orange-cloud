@@ -55,8 +55,17 @@ final class WorkerMetricsViewModel {
             self.metrics = metrics
             self.series = series
         } catch let error as APIError where error.isAccountNotAuthorized {
+#if OPENSOURCE_UNLOCKED
+            // ====== 自编译版：跳过账户级数据权限门控 ======
+            // Worker metrics authz 回落至空图表，不显示门控提示。
+            self.metrics = WorkerMetrics(requests: 0, errors: 0, subrequests: 0, cpuP50Us: nil, cpuP99Us: nil, cpuTotalUs: nil, statusBreakdown: [])
+            self.series = []
+            accountAnalyticsUnavailable = false
+            self.error = nil
+#else
             accountAnalyticsUnavailable = true
             self.error = nil
+#endif
         } catch {
             self.error = error.localizedDescription
         }

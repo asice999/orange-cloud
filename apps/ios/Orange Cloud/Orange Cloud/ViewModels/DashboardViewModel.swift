@@ -200,6 +200,11 @@ final class DashboardViewModel {
         do {
             workers = try await analyticsService.accountUsage(accountId: accountId, periodStart: periodStart)
         } catch let error as APIError where error.isAccountNotAuthorized {
+#if OPENSOURCE_UNLOCKED
+            // ====== 自编译版：跳过账户级数据权限门控 ======
+            // 回落至空用量/仅域名级分析，与 v1.3.2 之前的无门控行为一致。
+            workers = nil
+#else
             accountAnalyticsUnavailable = true
             analyticsUnavailableForAccount = accountId
             self.usage = nil
@@ -207,6 +212,7 @@ final class DashboardViewModel {
             persistAnalyticsAvailability(false)
             AppLog.network.info("account-level analytics not authorized; skipping account datasets for account=\(accountId)")
             return
+#endif
         } catch {
             workers = nil   // 其它失败（多为临时）：继续尝试 R2/D1/KV，能显示多少显示多少
         }
