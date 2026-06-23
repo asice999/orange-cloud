@@ -518,6 +518,15 @@ struct DashboardView: View {
                     .padding(.vertical, 16)
                     .glassIsland(cornerRadius: OCLayout.chipRadius)
             } else if let usage = viewModel.usage {
+#if OPENSOURCE_UNLOCKED
+                if viewModel.accountLevelDataLimited {
+                    Label("Workers / R2 用量需付费版 Cloudflare · D1 存储与域名分析正常", systemImage: "info.circle")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 4)
+                }
+#endif
                 usageGrid(usage)
             } else if viewModel.accountAnalyticsUnavailable {
                 accountAnalyticsUnavailableCard

@@ -32,6 +32,9 @@ final class DashboardViewModel {
     private(set) var usageLoadFailed = false
     /// 账户级数据集未授权（免费账号常态）：UI 显示「无账户级数据权限」而非重试，且停发后续账户级查询
     private(set) var accountAnalyticsUnavailable = false
+    /// 自编译版：账户级 Analytics 部分不可用（Workers/R2/D1-GraphQL 受限）
+    /// 区别于 accountAnalyticsUnavailable（整块门控卡），此标志仅用于显示温和提示条。
+    private(set) var accountLevelDataLimited = false
 
     private var loadedZoneIds: Set<String> = []
     private var assetsLoadedForAccount: String?
@@ -204,6 +207,7 @@ final class DashboardViewModel {
             // ====== 自编译版：跳过账户级数据权限门控 ======
             // 回落至空用量/仅域名级分析，与 v1.3.2 之前的无门控行为一致。
             workers = nil
+            accountLevelDataLimited = true
 #else
             accountAnalyticsUnavailable = true
             analyticsUnavailableForAccount = accountId
@@ -219,6 +223,7 @@ final class DashboardViewModel {
 
         // 账户级有权限（或仅 Workers 本次临时失败）：清除不可用态
         accountAnalyticsUnavailable = false
+        accountLevelDataLimited = false
         analyticsUnavailableForAccount = nil
 
         var usage = workers ?? AccountUsage(
