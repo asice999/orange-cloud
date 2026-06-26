@@ -12,7 +12,7 @@ import SwiftUI
 /// 触发付费墙的场景，决定付费墙头部与锁定态文案
 nonisolated enum ProFeature: String, Identifiable, Sendable {
     case multiAccount, storage, workerTail, waf, tunnel, analyticsRange, snippets
-    case workerSecrets, workerTriggers, workerRoutes
+    case workerSecrets, workerTriggers, workerRoutes, cacheRules, pages, loadBalancing, bulkRedirects
 
     var id: String { rawValue }
 
@@ -28,6 +28,10 @@ nonisolated enum ProFeature: String, Identifiable, Sendable {
         case .workerSecrets:  String(localized: "变量与密钥需要 Pro")
         case .workerTriggers: String(localized: "触发器管理需要 Pro")
         case .workerRoutes:   String(localized: "域名管理需要 Pro")
+        case .cacheRules:     String(localized: "缓存规则需要 Pro")
+        case .pages:          String(localized: "Cloudflare Pages 需要 Pro")
+        case .loadBalancing:  String(localized: "负载均衡需要 Pro")
+        case .bulkRedirects:  String(localized: "Bulk Redirects 需要 Pro")
         }
     }
 
@@ -43,6 +47,10 @@ nonisolated enum ProFeature: String, Identifiable, Sendable {
         case .workerSecrets:  String(localized: "管理 Workers 的环境变量与密钥属于 Orange Cloud Pro。")
         case .workerTriggers: String(localized: "管理 Workers 的 Cron 定时触发器属于 Orange Cloud Pro。")
         case .workerRoutes:   String(localized: "管理 Workers 的子域、自定义域与路由属于 Orange Cloud Pro。")
+        case .cacheRules:     String(localized: "按 URL 自定义边缘/浏览器缓存 TTL、绕过缓存等缓存规则属于 Orange Cloud Pro。")
+        case .pages:          String(localized: "查看与管理 Cloudflare Pages 项目和部署（重试 / 回滚 / 删除、构建配置）属于 Orange Cloud Pro。")
+        case .loadBalancing:  String(localized: "负载均衡器、源站池与健康监测的查看与管理属于 Orange Cloud Pro。")
+        case .bulkRedirects:  String(localized: "批量 URL 重定向列表与条目的查看与管理属于 Orange Cloud Pro。")
         }
     }
 
@@ -58,6 +66,10 @@ nonisolated enum ProFeature: String, Identifiable, Sendable {
         case .workerSecrets:  "key"
         case .workerTriggers: "clock"
         case .workerRoutes:   "globe"
+        case .cacheRules:     "bolt.horizontal"
+        case .pages:          "doc.richtext"
+        case .loadBalancing:  "arrow.left.arrow.right"
+        case .bulkRedirects:  "arrowshape.turn.up.right"
         }
     }
 }

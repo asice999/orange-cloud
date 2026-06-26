@@ -43,6 +43,12 @@ actor CFAPIClient {
         let _: EmptyResponse = try await request(method: "DELETE", path: path, queryItems: [], body: nil)
     }
 
+    /// 带 JSON 体的 DELETE（如 Rules List 批量删条目：{items:[{id}]}），返回解码结果
+    func delete<T: Codable & Sendable, B: Codable & Sendable>(_ path: String, body: B) async throws -> T {
+        let data = try JSONEncoder().encode(body)
+        return try await request(method: "DELETE", path: path, queryItems: [], body: data)
+    }
+
     /// 返回原始响应体（KV value 等非 JSON 信封端点）
     func getRaw(_ path: String, queryItems: [URLQueryItem] = []) async throws -> Data {
         try await performRequest(method: "GET", path: path, queryItems: queryItems, body: nil, contentType: nil).0

@@ -34,6 +34,9 @@ final class ZoneAccessRulesViewModel {
         do {
             rules = try await service.rules(zoneId: zoneId)
             loaded = true
+        } catch is CancellationError {
+            // 下拉刷新 / searchable 取消，不算加载失败
+        } catch let urlError as URLError where urlError.code == .cancelled {
         } catch {
             self.error = error.localizedDescription
         }

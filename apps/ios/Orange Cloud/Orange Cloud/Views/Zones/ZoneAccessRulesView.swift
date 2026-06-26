@@ -14,6 +14,7 @@ struct ZoneAccessRulesView: View {
     @State private var showDenied = false
     @State private var editorTarget: EditorTarget?
     @State private var pendingDelete: FirewallAccessRule?
+    @State private var searchText = ""
 
     init(zoneId: String, session: SessionStore) {
         _viewModel = State(initialValue: ZoneAccessRulesViewModel(
@@ -22,6 +23,15 @@ struct ZoneAccessRulesView: View {
     }
 
     private var canWrite: Bool { auth.hasScope("firewall-services.write") }
+
+    private var filteredRules: [FirewallAccessRule] {
+        guard !searchText.isEmpty else { return viewModel.rules }
+        return viewModel.rules.filter { rule in
+            (rule.configuration?.value ?? "").localizedCaseInsensitiveContains(searchText)
+                || (rule.notes ?? "").localizedCaseInsensitiveContains(searchText)
+                || (rule.mode ?? "").localizedCaseInsensitiveContains(searchText)
+        }
+    }
 
     var body: some View {
         Group {
@@ -35,10 +45,13 @@ struct ZoneAccessRulesView: View {
             } else {
                 List {
                     Section {
-                        if viewModel.rules.isEmpty {
-                            Text("暂无规则").font(.footnote).foregroundStyle(.secondary)
+                        if filteredRules.isEmpty {
+                            Text(searchText.isEmpty
+                                 ? String(localized: "暂无规则")
+                                 : String(localized: "无匹配规则"))
+                                .font(.footnote).foregroundStyle(.secondary)
                         } else {
-                            ForEach(viewModel.rules) { rule in
+                            ForEach(filteredRules) { rule in
                                 row(rule)
                                     .swipeActions(edge: .trailing) {
                                         Button(role: .destructive) {
@@ -63,6 +76,7 @@ struct ZoneAccessRulesView: View {
         .background { SkyBackground() }
         .navigationTitle("IP 访问规则")
         .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $searchText, prompt: "搜索 IP / 备注")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("添加", systemImage: "plus") {

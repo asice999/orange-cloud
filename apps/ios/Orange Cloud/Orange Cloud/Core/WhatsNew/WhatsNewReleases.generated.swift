@@ -10,6 +10,33 @@ import Foundation
 
 nonisolated enum WhatsNewGenerated {
     static let releases: [WhatsNewRelease] = [
+        WhatsNewRelease(version: "1.5.0", items: [
+            WhatsNewItem(
+                icon:   "bolt.horizontal",
+                title:  String(localized: "缓存规则", table: "WhatsNew"),
+                detail: String(localized: "按 URL 自定义边缘与浏览器缓存时长、绕过缓存，直接在手机上管理缓存规则。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "arrow.left.arrow.right",
+                title:  String(localized: "负载均衡", table: "WhatsNew"),
+                detail: String(localized: "查看与管理负载均衡器、源站池和健康监测，掌握流量分发与源站健康。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "doc.richtext",
+                title:  String(localized: "Cloudflare Pages", table: "WhatsNew"),
+                detail: String(localized: "浏览 Pages 项目与部署，一键重试 / 回滚 / 删除部署，并编辑构建配置。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "arrowshape.turn.up.right",
+                title:  String(localized: "批量重定向", table: "WhatsNew"),
+                detail: String(localized: "管理批量 URL 重定向列表与条目，并一键启用，让重定向即刻生效。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "lock.open",
+                title:  String(localized: "一键重授权", table: "WhatsNew"),
+                detail: String(localized: "缺少某项权限时，无需退出登录即可一键补齐授权，新功能即开即用。", table: "WhatsNew")
+            )
+        ]),
         WhatsNewRelease(version: "1.4.0", items: [
             WhatsNewItem(
                 icon:   "checkmark.seal",

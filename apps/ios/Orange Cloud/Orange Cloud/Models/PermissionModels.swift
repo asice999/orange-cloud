@@ -142,6 +142,15 @@ extension FeaturePermission {
             isRequired: false
         ),
         .init(
+            id: "cache_rules",
+            title: String(localized: "缓存规则"),
+            description: String(localized: "按 URL 覆盖边缘/浏览器缓存时长或绕过缓存"),
+            icon: "bolt.horizontal",
+            readScopes: ["cache-settings.read"],
+            editScopes: ["cache-settings.write"],
+            isRequired: false
+        ),
+        .init(
             id: "ssl_certs",
             title: String(localized: "SSL 证书"),
             description: String(localized: "查看证书、开关 Universal SSL、删除高级证书"),
@@ -168,7 +177,34 @@ extension FeaturePermission {
             editScopes: ["firewall-services.write"],
             isRequired: false
         ),
-        // Pages 是后续功能，实现后再加回（最小权限：不为未实现功能申请 scope）
+        .init(
+            id: "load_balancing",
+            title: String(localized: "负载均衡"),
+            description: String(localized: "负载均衡器、源站池与健康监测"),
+            icon: "arrow.left.arrow.right",
+            readScopes: ["load-balancers.read", "load-balancing-monitors-and-pools.read"],
+            editScopes: ["load-balancers.write", "load-balancing-monitors-and-pools.write"],
+            isRequired: false
+        ),
+        .init(
+            id: "bulk_redirects",
+            title: "Bulk Redirects",
+            description: String(localized: "批量 URL 重定向列表与条目"),
+            icon: "arrowshape.turn.up.right",
+            readScopes: ["account-rule-lists.read", "mass-url-redirects.read"],
+            editScopes: ["account-rule-lists.write", "mass-url-redirects.write"],
+            isRequired: false
+        ),
+        // Pages（M3）：page.read / page.write 已在 OAuth client 注册并点亮（2026-06-26）。
+        .init(
+            id: "pages",
+            title: String(localized: "Cloudflare Pages"),
+            description: String(localized: "查看与管理 Pages 项目与部署"),
+            icon: "doc.richtext",
+            readScopes: ["page.read"],
+            editScopes: ["page.write"],
+            isRequired: false
+        ),
         .init(
             id: "analytics",
             title: String(localized: "流量分析"),

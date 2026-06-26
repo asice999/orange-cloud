@@ -1,5 +1,178 @@
 [
   {
+    "version": "1.5.0",
+    "date": "2026.06.26",
+    "channel": "App Store",
+    "inApp": true,
+    "items": [
+      {
+        "icon": "bolt.horizontal",
+        "title": {
+          "zh-Hans": "缓存规则",
+          "en": "Cache Rules",
+          "zh-Hant": "快取規則",
+          "zh-HK": "緩存規則",
+          "ja": "キャッシュルール",
+          "es-MX": "Reglas de caché",
+          "ko": "캐시 규칙",
+          "pt-BR": "Regras de cache",
+          "pt-PT": "Regras de cache",
+          "de": "Cache-Regeln",
+          "fr": "Règles de cache",
+          "ar": "قواعد التخزين المؤقت",
+          "tr": "Önbellek kuralları"
+        },
+        "detail": {
+          "zh-Hans": "按 URL 自定义边缘与浏览器缓存时长、绕过缓存，直接在手机上管理缓存规则。",
+          "en": "Customize edge and browser cache TTLs per URL or bypass cache entirely — manage cache rules right from your phone.",
+          "zh-Hant": "依 URL 自訂邊緣與瀏覽器快取時間、略過快取，直接在手機上管理快取規則。",
+          "zh-HK": "按 URL 自訂邊緣與瀏覽器緩存時間、繞過緩存，直接在手機上管理緩存規則。",
+          "ja": "URL ごとにエッジとブラウザーのキャッシュ TTL をカスタマイズしたり、キャッシュをバイパスしたり。キャッシュルールをスマホから管理できます。",
+          "es-MX": "Personaliza el TTL de caché en el borde y el navegador por URL u omite la caché por completo: administra las reglas de caché desde tu teléfono.",
+          "ko": "URL별로 엣지·브라우저 캐시 TTL을 설정하거나 캐시를 우회하세요. 캐시 규칙을 휴대폰에서 바로 관리할 수 있습니다.",
+          "pt-BR": "Personalize o TTL de cache na borda e no navegador por URL ou ignore o cache por completo — gerencie regras de cache direto do celular.",
+          "pt-PT": "Personalize o TTL de cache na extremidade e no navegador por URL ou ignore o cache por completo — faça a gestão das regras de cache diretamente do telemóvel.",
+          "de": "Passe Edge- und Browser-Cache-TTLs pro URL an oder umgehe den Cache ganz – verwalte Cache-Regeln direkt vom Handy.",
+          "fr": "Personnalisez les TTL de cache edge et navigateur par URL ou contournez complètement le cache — gérez les règles de cache depuis votre téléphone.",
+          "ar": "خصّص مدة التخزين المؤقت على الحافة والمتصفح لكل عنوان URL أو تجاوز التخزين المؤقت كليًا، وأدِر قواعد التخزين المؤقت من هاتفك.",
+          "tr": "URL bazında uç ve tarayıcı önbellek TTL'lerini özelleştirin veya önbelleği tamamen atlayın — önbellek kurallarını telefonunuzdan yönetin."
+        }
+      },
+      {
+        "icon": "arrow.left.arrow.right",
+        "title": {
+          "zh-Hans": "负载均衡",
+          "en": "Load Balancing",
+          "zh-Hant": "負載平衡",
+          "zh-HK": "負載平衡",
+          "ja": "ロードバランシング",
+          "es-MX": "Balanceo de carga",
+          "ko": "부하 분산",
+          "pt-BR": "Balanceamento de carga",
+          "pt-PT": "Balanceamento de carga",
+          "de": "Load Balancing",
+          "fr": "Répartition de charge",
+          "ar": "موازنة التحميل",
+          "tr": "Yük dengeleme"
+        },
+        "detail": {
+          "zh-Hans": "查看与管理负载均衡器、源站池和健康监测，掌握流量分发与源站健康。",
+          "en": "View and manage load balancers, origin pools, and health monitors — stay on top of traffic steering and origin health.",
+          "zh-Hant": "檢視並管理負載平衡器、來源池與健康監測，掌握流量分配與來源健康。",
+          "zh-HK": "查看並管理負載平衡器、來源池與健康監測，掌握流量分配與來源健康。",
+          "ja": "ロードバランサー、オリジンプール、ヘルスモニターを表示・管理し、トラフィックの分散とオリジンの健全性を把握できます。",
+          "es-MX": "Consulta y administra balanceadores de carga, grupos de origen y monitores de estado para controlar el enrutamiento del tráfico y la salud del origen.",
+          "ko": "부하 분산기, 오리진 풀, 상태 모니터를 확인·관리하여 트래픽 분산과 오리진 상태를 한눈에 파악하세요.",
+          "pt-BR": "Veja e gerencie balanceadores de carga, pools de origem e monitores de integridade — acompanhe o roteamento de tráfego e a saúde da origem.",
+          "pt-PT": "Veja e faça a gestão de balanceadores de carga, pools de origem e monitores de estado — acompanhe o encaminhamento de tráfego e a saúde da origem.",
+          "de": "Sieh dir Load Balancer, Origin-Pools und Health-Monitore an und verwalte sie – behalte Traffic-Steuerung und Origin-Zustand im Blick.",
+          "fr": "Consultez et gérez les répartiteurs de charge, les pools d'origine et les moniteurs de santé — gardez la maîtrise du routage du trafic et de l'état des origines.",
+          "ar": "اعرض وأدِر موازِنات التحميل ومجمّعات الأصل ومراقبات الصحة، وتابِع توجيه حركة المرور وصحة الأصل.",
+          "tr": "Yük dengeleyicileri, köken havuzlarını ve sağlık izleyicilerini görüntüleyip yönetin — trafik yönlendirmesini ve köken sağlığını takip edin."
+        }
+      },
+      {
+        "icon": "doc.richtext",
+        "title": {
+          "zh-Hans": "Cloudflare Pages",
+          "en": "Cloudflare Pages",
+          "zh-Hant": "Cloudflare Pages",
+          "zh-HK": "Cloudflare Pages",
+          "ja": "Cloudflare Pages",
+          "es-MX": "Cloudflare Pages",
+          "ko": "Cloudflare Pages",
+          "pt-BR": "Cloudflare Pages",
+          "pt-PT": "Cloudflare Pages",
+          "de": "Cloudflare Pages",
+          "fr": "Cloudflare Pages",
+          "ar": "Cloudflare Pages",
+          "tr": "Cloudflare Pages"
+        },
+        "detail": {
+          "zh-Hans": "浏览 Pages 项目与部署，一键重试 / 回滚 / 删除部署，并编辑构建配置。",
+          "en": "Browse Pages projects and deployments, retry / roll back / delete deployments, and edit build configuration.",
+          "zh-Hant": "瀏覽 Pages 專案與部署，一鍵重試／復原／刪除部署，並編輯建置設定。",
+          "zh-HK": "瀏覽 Pages 專案與部署，一鍵重試／回滾／刪除部署，並編輯建置設定。",
+          "ja": "Pages のプロジェクトとデプロイを閲覧し、デプロイの再試行・ロールバック・削除やビルド設定の編集ができます。",
+          "es-MX": "Explora proyectos y despliegues de Pages, reintenta, revierte o elimina despliegues y edita la configuración de compilación.",
+          "ko": "Pages 프로젝트와 배포를 살펴보고 배포를 재시도·롤백·삭제하며 빌드 구성을 편집하세요.",
+          "pt-BR": "Navegue por projetos e implantações do Pages, refaça, reverta ou exclua implantações e edite a configuração de build.",
+          "pt-PT": "Navegue por projetos e implementações do Pages, repita, reverta ou elimine implementações e edite a configuração de compilação.",
+          "de": "Durchstöbere Pages-Projekte und Deployments, wiederhole, rolle zurück oder lösche Deployments und bearbeite die Build-Konfiguration.",
+          "fr": "Parcourez les projets et déploiements Pages, relancez, annulez ou supprimez des déploiements et modifiez la configuration de build.",
+          "ar": "تصفّح مشاريع Pages وعمليات النشر، وأعد المحاولة أو التراجع أو احذف عمليات النشر، وحرّر إعدادات البناء.",
+          "tr": "Pages projelerini ve dağıtımlarını inceleyin; dağıtımları yeniden deneyin, geri alın veya silin ve derleme yapılandırmasını düzenleyin."
+        }
+      },
+      {
+        "icon": "arrowshape.turn.up.right",
+        "title": {
+          "zh-Hans": "批量重定向",
+          "en": "Bulk Redirects",
+          "zh-Hant": "大量重新導向",
+          "zh-HK": "批量重定向",
+          "ja": "一括リダイレクト",
+          "es-MX": "Redirecciones masivas",
+          "ko": "대량 리디렉션",
+          "pt-BR": "Redirecionamentos em massa",
+          "pt-PT": "Redirecionamentos em massa",
+          "de": "Bulk-Weiterleitungen",
+          "fr": "Redirections groupées",
+          "ar": "إعادة التوجيه المجمّعة",
+          "tr": "Toplu yönlendirmeler"
+        },
+        "detail": {
+          "zh-Hans": "管理批量 URL 重定向列表与条目，并一键启用，让重定向即刻生效。",
+          "en": "Manage bulk URL redirect lists and entries, then enable them with one tap to make redirects take effect.",
+          "zh-Hant": "管理大量 URL 重新導向清單與項目，並一鍵啟用，讓重新導向即刻生效。",
+          "zh-HK": "管理批量 URL 重定向清單與項目，並一鍵啟用，讓重定向即刻生效。",
+          "ja": "URL 一括リダイレクトのリストと項目を管理し、ワンタップで有効化してリダイレクトをすぐに反映できます。",
+          "es-MX": "Administra listas y entradas de redirecciones masivas de URL y actívalas con un toque para que surtan efecto.",
+          "ko": "대량 URL 리디렉션 목록과 항목을 관리하고 한 번의 탭으로 활성화하여 리디렉션을 바로 적용하세요.",
+          "pt-BR": "Gerencie listas e entradas de redirecionamentos de URL em massa e ative-as com um toque para que entrem em vigor.",
+          "pt-PT": "Faça a gestão de listas e entradas de redirecionamentos de URL em massa e ative-as com um toque para que entrem em vigor.",
+          "de": "Verwalte Listen und Einträge für Bulk-URL-Weiterleitungen und aktiviere sie mit einem Tipp, damit die Weiterleitungen greifen.",
+          "fr": "Gérez les listes et entrées de redirections d'URL groupées et activez-les d'un geste pour qu'elles prennent effet.",
+          "ar": "أدِر قوائم وعناصر إعادة توجيه عناوين URL المجمّعة، وفعّلها بنقرة واحدة لتسري على الفور.",
+          "tr": "Toplu URL yönlendirme listelerini ve girişlerini yönetin, ardından tek dokunuşla etkinleştirerek yönlendirmeleri devreye alın."
+        }
+      },
+      {
+        "icon": "lock.open",
+        "title": {
+          "zh-Hans": "一键重授权",
+          "en": "One-Tap Re-authorization",
+          "zh-Hant": "一鍵重新授權",
+          "zh-HK": "一鍵重新授權",
+          "ja": "ワンタップ再認可",
+          "es-MX": "Reautorización con un toque",
+          "ko": "원탭 재인증",
+          "pt-BR": "Reautorização com um toque",
+          "pt-PT": "Reautorização com um toque",
+          "de": "Neu autorisieren per Tipp",
+          "fr": "Réautorisation en un geste",
+          "ar": "إعادة التفويض بنقرة واحدة",
+          "tr": "Tek dokunuşla yeniden yetkilendirme"
+        },
+        "detail": {
+          "zh-Hans": "缺少某项权限时，无需退出登录即可一键补齐授权，新功能即开即用。",
+          "en": "Missing a permission? Top up your authorization with one tap — no sign-out needed — and use new features right away.",
+          "zh-Hant": "缺少某項權限時，無需登出即可一鍵補齊授權，新功能即開即用。",
+          "zh-HK": "缺少某項權限時，無需登出即可一鍵補齊授權，新功能即開即用。",
+          "ja": "権限が足りないときも、ログアウトせずワンタップで認可を追加でき、新機能をすぐに使えます。",
+          "es-MX": "¿Te falta un permiso? Completa tu autorización con un toque, sin cerrar sesión, y usa las nuevas funciones de inmediato.",
+          "ko": "권한이 부족해도 로그아웃 없이 한 번의 탭으로 권한을 추가하고 새 기능을 바로 사용할 수 있습니다.",
+          "pt-BR": "Falta uma permissão? Complete sua autorização com um toque, sem sair da conta, e use os novos recursos na hora.",
+          "pt-PT": "Falta uma permissão? Complete a sua autorização com um toque, sem terminar sessão, e use as novas funcionalidades de imediato.",
+          "de": "Fehlt eine Berechtigung? Ergänze deine Autorisierung mit einem Tipp – ohne Abmelden – und nutze neue Funktionen sofort.",
+          "fr": "Une autorisation manque ? Complétez-la d'un geste, sans vous déconnecter, et utilisez aussitôt les nouvelles fonctions.",
+          "ar": "هل تنقصك صلاحية؟ أكمِل التفويض بنقرة واحدة دون تسجيل الخروج، واستخدم الميزات الجديدة فورًا.",
+          "tr": "Bir izin mi eksik? Oturumu kapatmadan tek dokunuşla yetkilendirmenizi tamamlayın ve yeni özellikleri hemen kullanın."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.4.0",
     "date": "2026.06.25",
     "channel": "App Store",

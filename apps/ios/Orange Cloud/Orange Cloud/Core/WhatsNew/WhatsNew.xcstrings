@@ -77,6 +77,82 @@
         }
       }
     },
+    "Cloudflare Pages": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare Pages"
+          }
+        }
+      }
+    },
     "D1 数据库管理": {
       "localizations": {
         "en": {
@@ -681,6 +757,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "VoiceOver, daha büyük metin, yalnızca renge dayanmayan ipuçları ve yeterli kontrast — hepsi mevcut; böylece uygulama, sistemin erişilebilirlik özellikleriyle sorunsuz çalışır."
+          }
+        }
+      }
+    },
+    "一键重授权": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One-Tap Re-authorization"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一鍵重新授權"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一鍵重新授權"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ワンタップ再認可"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reautorización con un toque"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "원탭 재인증"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reautorização com um toque"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reautorização com um toque"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neu autorisieren per Tipp"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réautorisation en un geste"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعادة التفويض بنقرة واحدة"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tek dokunuşla yeniden yetkilendirme"
           }
         }
       }
@@ -1673,6 +1825,82 @@
         }
       }
     },
+    "批量重定向": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bulk Redirects"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "大量重新導向"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "批量重定向"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一括リダイレクト"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redirecciones masivas"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "대량 리디렉션"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redirecionamentos em massa"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redirecionamentos em massa"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bulk-Weiterleitungen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redirections groupées"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعادة التوجيه المجمّعة"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toplu yönlendirmeler"
+          }
+        }
+      }
+    },
     "把域名状态与流量概览带上手腕，还能添加到表盘复杂功能随时一瞥。": {
       "localizations": {
         "en": {
@@ -1897,6 +2125,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "URL'ye göre önbellek temizleme"
+          }
+        }
+      }
+    },
+    "按 URL 自定义边缘与浏览器缓存时长、绕过缓存，直接在手机上管理缓存规则。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Customize edge and browser cache TTLs per URL or bypass cache entirely — manage cache rules right from your phone."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依 URL 自訂邊緣與瀏覽器快取時間、略過快取，直接在手機上管理快取規則。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按 URL 自訂邊緣與瀏覽器緩存時間、繞過緩存，直接在手機上管理緩存規則。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL ごとにエッジとブラウザーのキャッシュ TTL をカスタマイズしたり、キャッシュをバイパスしたり。キャッシュルールをスマホから管理できます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personaliza el TTL de caché en el borde y el navegador por URL u omite la caché por completo: administra las reglas de caché desde tu teléfono."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL별로 엣지·브라우저 캐시 TTL을 설정하거나 캐시를 우회하세요. 캐시 규칙을 휴대폰에서 바로 관리할 수 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalize o TTL de cache na borda e no navegador por URL ou ignore o cache por completo — gerencie regras de cache direto do celular."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalize o TTL de cache na extremidade e no navegador por URL ou ignore o cache por completo — faça a gestão das regras de cache diretamente do telemóvel."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passe Edge- und Browser-Cache-TTLs pro URL an oder umgehe den Cache ganz – verwalte Cache-Regeln direkt vom Handy."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personnalisez les TTL de cache edge et navigateur par URL ou contournez complètement le cache — gérez les règles de cache depuis votre téléphone."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خصّص مدة التخزين المؤقت على الحافة والمتصفح لكل عنوان URL أو تجاوز التخزين المؤقت كليًا، وأدِر قواعد التخزين المؤقت من هاتفك."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL bazında uç ve tarayıcı önbellek TTL'lerini özelleştirin veya önbelleği tamamen atlayın — önbellek kurallarını telefonunuzdan yönetin."
           }
         }
       }
@@ -2357,6 +2661,82 @@
         }
       }
     },
+    "查看与管理负载均衡器、源站池和健康监测，掌握流量分发与源站健康。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View and manage load balancers, origin pools, and health monitors — stay on top of traffic steering and origin health."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢視並管理負載平衡器、來源池與健康監測，掌握流量分配與來源健康。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看並管理負載平衡器、來源池與健康監測，掌握流量分配與來源健康。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ロードバランサー、オリジンプール、ヘルスモニターを表示・管理し、トラフィックの分散とオリジンの健全性を把握できます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta y administra balanceadores de carga, grupos de origen y monitores de estado para controlar el enrutamiento del tráfico y la salud del origen."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "부하 분산기, 오리진 풀, 상태 모니터를 확인·관리하여 트래픽 분산과 오리진 상태를 한눈에 파악하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja e gerencie balanceadores de carga, pools de origem e monitores de integridade — acompanhe o roteamento de tráfego e a saúde da origem."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja e faça a gestão de balanceadores de carga, pools de origem e monitores de estado — acompanhe o encaminhamento de tráfego e a saúde da origem."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieh dir Load Balancer, Origin-Pools und Health-Monitore an und verwalte sie – behalte Traffic-Steuerung und Origin-Zustand im Blick."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultez et gérez les répartiteurs de charge, les pools d'origine et les moniteurs de santé — gardez la maîtrise du routage du trafic et de l'état des origines."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اعرض وأدِر موازِنات التحميل ومجمّعات الأصل ومراقبات الصحة، وتابِع توجيه حركة المرور وصحة الأصل."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yük dengeleyicileri, köken havuzlarını ve sağlık izleyicilerini görüntüleyip yönetin — trafik yönlendirmesini ve köken sağlığını takip edin."
+          }
+        }
+      }
+    },
     "查看域名的边缘证书与到期时间，开关 Universal SSL，并调整 SSL/TLS 加密模式。": {
       "localizations": {
         "en": {
@@ -2505,6 +2885,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "URL yeniden yazma, istek başlığı ve yanıt başlığı kurallarını görüntüleyip düzenleyin; trafik dönüşümlerini doğrudan telefonunuzdan yönetin."
+          }
+        }
+      }
+    },
+    "浏览 Pages 项目与部署，一键重试 / 回滚 / 删除部署，并编辑构建配置。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Browse Pages projects and deployments, retry / roll back / delete deployments, and edit build configuration."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "瀏覽 Pages 專案與部署，一鍵重試／復原／刪除部署，並編輯建置設定。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "瀏覽 Pages 專案與部署，一鍵重試／回滾／刪除部署，並編輯建置設定。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages のプロジェクトとデプロイを閲覧し、デプロイの再試行・ロールバック・削除やビルド設定の編集ができます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explora proyectos y despliegues de Pages, reintenta, revierte o elimina despliegues y edita la configuración de compilación."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages 프로젝트와 배포를 살펴보고 배포를 재시도·롤백·삭제하며 빌드 구성을 편집하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Navegue por projetos e implantações do Pages, refaça, reverta ou exclua implantações e edite a configuração de build."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Navegue por projetos e implementações do Pages, repita, reverta ou elimine implementações e edite a configuração de compilação."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durchstöbere Pages-Projekte und Deployments, wiederhole, rolle zurück oder lösche Deployments und bearbeite die Build-Konfiguration."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parcourez les projets et déploiements Pages, relancez, annulez ou supprimez des déploiements et modifiez la configuration de build."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصفّح مشاريع Pages وعمليات النشر، وأعد المحاولة أو التراجع أو احذف عمليات النشر، وحرّر إعدادات البناء."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages projelerini ve dağıtımlarını inceleyin; dağıtımları yeniden deneyin, geri alın veya silin ve derleme yapılandırmasını düzenleyin."
           }
         }
       }
@@ -3037,6 +3493,310 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bir Worker’a nasıl erişileceğini denetlemek için workers.dev alt alan adını, özel alan adlarını ve rotaları yönetin."
+          }
+        }
+      }
+    },
+    "管理批量 URL 重定向列表与条目，并一键启用，让重定向即刻生效。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manage bulk URL redirect lists and entries, then enable them with one tap to make redirects take effect."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "管理大量 URL 重新導向清單與項目，並一鍵啟用，讓重新導向即刻生效。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "管理批量 URL 重定向清單與項目，並一鍵啟用，讓重定向即刻生效。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL 一括リダイレクトのリストと項目を管理し、ワンタップで有効化してリダイレクトをすぐに反映できます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Administra listas y entradas de redirecciones masivas de URL y actívalas con un toque para que surtan efecto."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "대량 URL 리디렉션 목록과 항목을 관리하고 한 번의 탭으로 활성화하여 리디렉션을 바로 적용하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gerencie listas e entradas de redirecionamentos de URL em massa e ative-as com um toque para que entrem em vigor."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faça a gestão de listas e entradas de redirecionamentos de URL em massa e ative-as com um toque para que entrem em vigor."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verwalte Listen und Einträge für Bulk-URL-Weiterleitungen und aktiviere sie mit einem Tipp, damit die Weiterleitungen greifen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gérez les listes et entrées de redirections d'URL groupées et activez-les d'un geste pour qu'elles prennent effet."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أدِر قوائم وعناصر إعادة توجيه عناوين URL المجمّعة، وفعّلها بنقرة واحدة لتسري على الفور."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toplu URL yönlendirme listelerini ve girişlerini yönetin, ardından tek dokunuşla etkinleştirerek yönlendirmeleri devreye alın."
+          }
+        }
+      }
+    },
+    "缓存规则": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cache Rules"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "快取規則"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "緩存規則"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "キャッシュルール"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reglas de caché"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "캐시 규칙"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regras de cache"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regras de cache"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cache-Regeln"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Règles de cache"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قواعد التخزين المؤقت"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önbellek kuralları"
+          }
+        }
+      }
+    },
+    "缺少某项权限时，无需退出登录即可一键补齐授权，新功能即开即用。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Missing a permission? Top up your authorization with one tap — no sign-out needed — and use new features right away."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "缺少某項權限時，無需登出即可一鍵補齊授權，新功能即開即用。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "缺少某項權限時，無需登出即可一鍵補齊授權，新功能即開即用。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "権限が足りないときも、ログアウトせずワンタップで認可を追加でき、新機能をすぐに使えます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Te falta un permiso? Completa tu autorización con un toque, sin cerrar sesión, y usa las nuevas funciones de inmediato."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "권한이 부족해도 로그아웃 없이 한 번의 탭으로 권한을 추가하고 새 기능을 바로 사용할 수 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falta uma permissão? Complete sua autorização com um toque, sem sair da conta, e use os novos recursos na hora."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falta uma permissão? Complete a sua autorização com um toque, sem terminar sessão, e use as novas funcionalidades de imediato."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fehlt eine Berechtigung? Ergänze deine Autorisierung mit einem Tipp – ohne Abmelden – und nutze neue Funktionen sofort."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une autorisation manque ? Complétez-la d'un geste, sans vous déconnecter, et utilisez aussitôt les nouvelles fonctions."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هل تنقصك صلاحية؟ أكمِل التفويض بنقرة واحدة دون تسجيل الخروج، واستخدم الميزات الجديدة فورًا."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir izin mi eksik? Oturumu kapatmadan tek dokunuşla yetkilendirmenizi tamamlayın ve yeni özellikleri hemen kullanın."
+          }
+        }
+      }
+    },
+    "负载均衡": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Load Balancing"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "負載平衡"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "負載平衡"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ロードバランシング"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balanceo de carga"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "부하 분산"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balanceamento de carga"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balanceamento de carga"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Load Balancing"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Répartition de charge"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "موازنة التحميل"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yük dengeleme"
           }
         }
       }

@@ -32,6 +32,25 @@ struct IdentityDetailView: View {
         }
     }
 
+    /// 此身份完全未授予（读写都没有）的功能 → 可一键补齐
+    private var upgradeableFeatures: [FeaturePermission] {
+        FeaturePermission.allFeatures.filter { feature in
+            let hasRead = feature.readScopes.contains { identity.scopes.contains($0) }
+            let hasEdit = feature.editScopes.contains { identity.scopes.contains($0) }
+            return !hasRead && !hasEdit
+        }
+    }
+
+    /// 补齐 upgradeableFeatures 需要请求的 scope 全集
+    private var upgradeScopes: [String] {
+        var set = Set<String>()
+        for feature in upgradeableFeatures {
+            feature.readScopes.forEach { set.insert($0) }
+            feature.editScopes.forEach { set.insert($0) }
+        }
+        return Array(set)
+    }
+
     var body: some View {
         List {
             // ── 身份信息 ──
@@ -98,9 +117,37 @@ struct IdentityDetailView: View {
             } header: {
                 Text("已授权权限")
             } footer: {
-                Text("权限在登录时授予，无法在 App 内单独修改。如需调整请退出后重新登录，或在 Cloudflare Dashboard → Authorized Applications 中撤销。")
+                Text("权限在登录时授予。如需开放更多功能可重新授权补齐；收回权限请在 Cloudflare Dashboard → Authorized Applications 中撤销。")
             }
             .glassRow()
+
+            // ── 升级授权（补齐未授予的功能，原地重授权同一账号）──
+            if !upgradeableFeatures.isEmpty {
+                Section {
+                    ForEach(upgradeableFeatures) { feature in
+                        HStack(spacing: 12) {
+                            Image(systemName: "lock")
+                                .foregroundStyle(.tertiary)
+                            Text(feature.title)
+                            Spacer()
+                            Text("未授权")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    ReauthorizeButton(
+                        sessionId: identity.id,
+                        scopes: upgradeScopes,
+                        title: String(localized: "一键补齐以上权限")
+                    )
+                    .foregroundStyle(Color.ocOrangeText)
+                } header: {
+                    Text("升级授权")
+                } footer: {
+                    Text("一键补齐会跳转 Cloudflare 重新授权当前账号，无需退出登录；你可在授权页自行勾选要开放的权限。")
+                }
+                .glassRow()
+            }
 
             // ── 退出登录 ──
             Section {

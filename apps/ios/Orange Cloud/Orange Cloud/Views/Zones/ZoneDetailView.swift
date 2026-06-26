@@ -113,6 +113,17 @@ struct ZoneDetailView: View {
                         SnippetsListView(zoneId: zone.id, zoneName: zone.name, session: session)
                     }
 
+                    ProGatedNavigationLink(
+                        label: String(localized: "缓存规则"),
+                        systemImage: "bolt.horizontal",
+                        requiredScope: "cache-settings.read",
+                        feature: .cacheRules,
+                        tint: .cyan,
+                        showsChevron: true
+                    ) {
+                        CacheRulesListView(zoneId: zone.id, session: session)
+                    }
+
                     PermissionGatedNavigationLink(
                         label: "SSL/TLS",
                         systemImage: "lock.shield",
@@ -161,6 +172,17 @@ struct ZoneDetailView: View {
                         showsChevron: true
                     ) {
                         ZoneAccessRulesView(zoneId: zone.id, session: session)
+                    }
+
+                    ProGatedNavigationLink(
+                        label: String(localized: "负载均衡"),
+                        systemImage: "arrow.left.arrow.right",
+                        requiredScope: "load-balancers.read",
+                        feature: .loadBalancing,
+                        tint: .pink,
+                        showsChevron: true
+                    ) {
+                        LoadBalancerListView(zoneId: zone.id, zoneName: zone.name, session: session)
                     }
                 }
 
@@ -324,9 +346,15 @@ struct ZoneDetailView: View {
             showPurgeDone = true
         }
         .alert("权限不足", isPresented: $showActionDenied) {
+            if let sessionId = auth.currentSessionId, !deniedScopeHint.isEmpty {
+                Button("一键重授权") {
+                    let scope = deniedScopeHint
+                    Task { await auth.reauthorize(sessionId: sessionId, additionalScopes: [scope]) }
+                }
+            }
             Button("好", role: .cancel) {}
         } message: {
-            Text("当前授权未包含此操作所需权限（\(deniedScopeHint)）。\n请在设置中退出登录后重新授权「缓存与防护」。")
+            Text("当前授权未包含此操作所需权限（\(deniedScopeHint)）。点「一键重授权」补齐，无需退出登录。")
         }
         .alert("操作失败", isPresented: .init(
             get: { actionsViewModel.error != nil },

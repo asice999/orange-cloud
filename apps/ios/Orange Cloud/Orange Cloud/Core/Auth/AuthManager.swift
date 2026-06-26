@@ -178,25 +178,8 @@ final class AuthManager {
         defer { isLoading = false }
         AppLog.auth.notice("login start freshLogin=\(freshLogin) scopeCount=\(scopeString.split(separator: " ").count)")
 
-        let verifier  = PKCEHelper.generateCodeVerifier()
-        let challenge = PKCEHelper.generateCodeChallenge(from: verifier)
-        let state     = UUID().uuidString
-
-        var components = URLComponents(url: OAuthConfig.authorizationURL, resolvingAgainstBaseURL: false)!
-        components.queryItems = [
-            URLQueryItem(name: "response_type",         value: "code"),
-            URLQueryItem(name: "client_id",             value: OAuthConfig.clientID),
-            URLQueryItem(name: "redirect_uri",          value: OAuthConfig.redirectURI),
-            URLQueryItem(name: "scope",                 value: scopeString),
-            URLQueryItem(name: "state",                 value: state),
-            URLQueryItem(name: "code_challenge",        value: challenge),
-            URLQueryItem(name: "code_challenge_method", value: "S256"),
-        ]
-
         do {
-            let callbackURL = try await authenticate(with: components.url!, ephemeral: freshLogin)
-            let code = try Self.extractCode(from: callbackURL, expectedState: state)
-            let token = try await exchangeCodeForToken(code: code, verifier: verifier)
+            let token = try await runAuthorizationFlow(scopeString: scopeString, ephemeral: freshLogin)
 
             let id = UUID()
             TokenStore.save(token, sessionId: id)
@@ -215,6 +198,68 @@ final class AuthManager {
             AppLog.auth.error("login failed: \(error.localizedDescription)")
             errorMessage = error.localizedDescription
         }
+    }
+
+    /// 重新授权一个已存在的身份：请求 union(已授权, 新增) 的 scope，原地更新**同一身份**
+    /// （同 UUID，不新建账号、不触发 ContentView 按 currentSessionId 重建 SessionStore）。
+    /// 用于「缺失 scope → 一键补齐」。复用登录态（非 ephemeral）做到一键无感；换 token 后
+    /// 用 userinfo 邮箱校验，防止浏览器里恰好登着另一个 Cloudflare 账号时把错 token 绑到当前身份。
+    func reauthorize(sessionId: UUID, additionalScopes: [String]) async {
+        guard let index = sessions.firstIndex(where: { $0.id == sessionId }) else { return }
+        isLoading = true
+        errorMessage = nil
+        defer { isLoading = false }
+
+        let merged = Set(sessions[index].scopes).union(additionalScopes)
+        let scopeString = merged.sorted().joined(separator: " ")
+        AppLog.auth.notice("reauthorize session=\(sessionId.uuidString) scopeCount=\(merged.count)")
+
+        do {
+            let token = try await runAuthorizationFlow(scopeString: scopeString, ephemeral: false)
+
+            // 防串号：能取到邮箱、两边都是邮箱且不一致 → 中止，不写入 token
+            let currentLabel = sessions[index].label
+            if let newLabel = await fetchIdentityLabel(accessToken: token.accessToken),
+               currentLabel.contains("@"), newLabel.contains("@"), newLabel != currentLabel {
+                AppLog.auth.error("reauthorize identity mismatch expected=\(currentLabel) got=\(newLabel) → aborted")
+                errorMessage = String(localized: "重新授权返回了不同的账号（\(newLabel)），已取消以保护当前账号。请先在系统浏览器退出其它 Cloudflare 账号后重试。")
+                return
+            }
+
+            TokenStore.save(token, sessionId: sessionId)
+            AuthDiagnostics.recordWrite(refreshToken: token.refreshToken, sessionId: sessionId)
+            let granted = token.scope.components(separatedBy: " ").filter { !$0.isEmpty }.sorted()
+            AppLog.auth.info("reauthorize stored session=\(sessionId.uuidString) granted scopes=[\(granted.joined(separator: " "))]")
+            sessions[index].scopes = granted
+            persist()
+        } catch let error as ASWebAuthenticationSessionError where error.code == .canceledLogin {
+            AppLog.auth.notice("reauthorize canceled by user")
+        } catch {
+            AppLog.auth.error("reauthorize failed: \(error.localizedDescription)")
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    /// 跑一遍 OAuth 授权码 + PKCE 流程，返回换到的 token。登录与重新授权共用。
+    private func runAuthorizationFlow(scopeString: String, ephemeral: Bool) async throws -> TokenStore.StoredToken {
+        let verifier  = PKCEHelper.generateCodeVerifier()
+        let challenge = PKCEHelper.generateCodeChallenge(from: verifier)
+        let state     = UUID().uuidString
+
+        var components = URLComponents(url: OAuthConfig.authorizationURL, resolvingAgainstBaseURL: false)!
+        components.queryItems = [
+            URLQueryItem(name: "response_type",         value: "code"),
+            URLQueryItem(name: "client_id",             value: OAuthConfig.clientID),
+            URLQueryItem(name: "redirect_uri",          value: OAuthConfig.redirectURI),
+            URLQueryItem(name: "scope",                 value: scopeString),
+            URLQueryItem(name: "state",                 value: state),
+            URLQueryItem(name: "code_challenge",        value: challenge),
+            URLQueryItem(name: "code_challenge_method", value: "S256"),
+        ]
+
+        let callbackURL = try await authenticate(with: components.url!, ephemeral: ephemeral)
+        let code = try Self.extractCode(from: callbackURL, expectedState: state)
+        return try await exchangeCodeForToken(code: code, verifier: verifier)
     }
 
     /// 打开系统授权窗口，等待 orangecloud:// 回调

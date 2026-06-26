@@ -16,6 +16,7 @@ struct WAFRuleListView: View {
     @State private var showDenied = false
     @State private var showForm = false
     @State private var ruleToDelete: WAFRule?
+    @State private var searchText = ""
 
     init(zoneId: String, zoneName: String, session: SessionStore) {
         self.zoneName = zoneName
@@ -23,6 +24,15 @@ struct WAFRuleListView: View {
     }
 
     private var canWrite: Bool { auth.hasScope("zone-waf.write") }
+
+    private var filteredRules: [WAFRule] {
+        guard !searchText.isEmpty else { return viewModel.rules }
+        return viewModel.rules.filter { rule in
+            (rule.description ?? "").localizedCaseInsensitiveContains(searchText)
+                || (rule.expression ?? "").localizedCaseInsensitiveContains(searchText)
+                || (rule.action ?? "").localizedCaseInsensitiveContains(searchText)
+        }
+    }
 
     var body: some View {
         Group {
@@ -43,10 +53,12 @@ struct WAFRuleListView: View {
                             .fontWeight(.bold)
                     }
                 }
+            } else if filteredRules.isEmpty {
+                ContentUnavailableView.search(text: searchText)
             } else {
                 List {
                     Section {
-                        ForEach(viewModel.rules) { rule in
+                        ForEach(filteredRules) { rule in
                             WAFRuleRow(
                                 rule: rule,
                                 canWrite: canWrite,
@@ -82,6 +94,7 @@ struct WAFRuleListView: View {
         .background { SkyBackground() }
         .navigationTitle("WAF 防火墙")
         .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $searchText, prompt: "搜索规则")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("添加", systemImage: "plus") {

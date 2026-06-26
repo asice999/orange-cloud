@@ -133,6 +133,13 @@ struct DashboardView: View {
                         .islandReveal(3)
                     networkSection
                         .islandReveal(4)
+                    bulkRedirectsSection
+                        .islandReveal(5)
+                    // Pages：仅在已授予 page.read 时显示（点亮 PermissionModels 的 pages 条目后生效）
+                    if auth.hasScope("page.read") {
+                        pagesSection
+                            .islandReveal(6)
+                    }
                 }
                 .padding(OCLayout.pagePadding)
             }
@@ -1003,6 +1010,40 @@ struct DashboardView: View {
             showsChevron: true
         ) {
             TunnelListView(session: session)
+        }
+        .padding(.horizontal, OCLayout.islandPadding + 2)
+        .padding(.vertical, 12)
+        .glassIsland(cornerRadius: 24)
+    }
+
+    // MARK: - Bulk Redirects（account 级）
+
+    private var bulkRedirectsSection: some View {
+        ProGatedNavigationLink(
+            label: "Bulk Redirects",
+            systemImage: "arrowshape.turn.up.right",
+            requiredScope: "account-rule-lists.read",
+            feature: .bulkRedirects,
+            showsChevron: true
+        ) {
+            BulkRedirectListsView(session: session)
+        }
+        .padding(.horizontal, OCLayout.islandPadding + 2)
+        .padding(.vertical, 12)
+        .glassIsland(cornerRadius: 24)
+    }
+
+    // MARK: - Pages（account 级，page.read 授予后显示）
+
+    private var pagesSection: some View {
+        ProGatedNavigationLink(
+            label: "Cloudflare Pages",
+            systemImage: "doc.richtext",
+            requiredScope: "page.read",
+            feature: .pages,
+            showsChevron: true
+        ) {
+            PagesProjectListView(session: session)
         }
         .padding(.horizontal, OCLayout.islandPadding + 2)
         .padding(.vertical, 12)

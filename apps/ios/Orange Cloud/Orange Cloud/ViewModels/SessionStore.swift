@@ -29,6 +29,10 @@ final class SessionStore {
     let sslCertificateService:     SSLCertificateService
     let transformRuleService:      TransformRuleService
     let firewallAccessRuleService: FirewallAccessRuleService
+    let cacheRuleService:          CacheRuleService
+    let pagesService:              PagesService
+    let loadBalancerService:       LoadBalancerService
+    let bulkRedirectService:       BulkRedirectService
 
     var accounts: [Account] = []
     var selectedAccount: Account? {
@@ -66,6 +70,10 @@ final class SessionStore {
         self.sslCertificateService     = SSLCertificateService(client: client)
         self.transformRuleService      = TransformRuleService(client: client)
         self.firewallAccessRuleService = FirewallAccessRuleService(client: client)
+        self.cacheRuleService          = CacheRuleService(client: client)
+        self.pagesService              = PagesService(client: client)
+        self.loadBalancerService       = LoadBalancerService(client: client)
+        self.bulkRedirectService       = BulkRedirectService(client: client)
     }
 
     /// 幂等加载账号列表，首个账号设为当前账号
