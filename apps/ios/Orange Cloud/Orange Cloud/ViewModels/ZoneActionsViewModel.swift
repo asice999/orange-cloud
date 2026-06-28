@@ -86,4 +86,38 @@ final class ZoneActionsViewModel {
         }
         isPurging = false
     }
+
+    /// 按 URL 清理缓存（单文件 purge，调用方负责限制 ≤ 30 个 URL）
+    func purgeURLs(_ urls: [String]) async {
+        await runPurge(urls) { try await service.purgeFiles(zoneId: zoneId, urls: $0) }
+    }
+
+    /// 按 URL 前缀清理缓存（调用方负责限制 ≤ 30 个）
+    func purgePrefixes(_ prefixes: [String]) async {
+        await runPurge(prefixes) { try await service.purgePrefixes(zoneId: zoneId, prefixes: $0) }
+    }
+
+    /// 按主机名清理缓存（调用方负责限制 ≤ 30 个）
+    func purgeHosts(_ hosts: [String]) async {
+        await runPurge(hosts) { try await service.purgeHosts(zoneId: zoneId, hosts: $0) }
+    }
+
+    /// 按 Cache-Tag 清理缓存（调用方负责限制 ≤ 30 个）
+    func purgeTags(_ tags: [String]) async {
+        await runPurge(tags) { try await service.purgeTags(zoneId: zoneId, tags: $0) }
+    }
+
+    /// 缓存清理统一执行：去重并发、清空错误、成功翻 didPurge 触发反馈
+    private func runPurge(_ items: [String], _ op: ([String]) async throws -> Void) async {
+        guard !isPurging, !items.isEmpty else { return }
+        isPurging = true
+        error = nil
+        do {
+            try await op(items)
+            didPurge.toggle()
+        } catch {
+            self.error = error.localizedDescription
+        }
+        isPurging = false
+    }
 }

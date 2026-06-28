@@ -37,8 +37,8 @@ struct MainTabView: View {
                 Tab("域名", systemImage: "globe", value: AppTab.zones) {
                     zonesTab
                 }
-                Tab("Workers", systemImage: "bolt.fill", value: AppTab.workers) {
-                    workersTab
+                Tab("开发者", systemImage: "chevron.left.forwardslash.chevron.right", value: AppTab.developer) {
+                    developerTab
                 }
                 Tab("存储", systemImage: "externaldrive", value: AppTab.storage) {
                     storageTab
@@ -57,9 +57,9 @@ struct MainTabView: View {
                 zonesTab
                     .tabItem { Label("域名", systemImage: "globe") }
                     .tag(AppTab.zones)
-                workersTab
-                    .tabItem { Label("Workers", systemImage: "bolt.fill") }
-                    .tag(AppTab.workers)
+                developerTab
+                    .tabItem { Label("开发者", systemImage: "chevron.left.forwardslash.chevron.right") }
+                    .tag(AppTab.developer)
                 storageTab
                     .tabItem { Label("存储", systemImage: "externaldrive") }
                     .tag(AppTab.storage)
@@ -85,20 +85,10 @@ struct MainTabView: View {
             .id(session.selectedAccount?.id)
     }
 
-    @ViewBuilder private var workersTab: some View {
-        // Tab 恒显示（可发现性），无权限时整页锁定态
-        if auth.hasScope("workers-scripts.read") {
-            WorkerListView(session: session)
-                .id(session.selectedAccount?.id)
-        } else {
-            NavigationStack {
-                PermissionDeniedView(
-                    featureName: "Workers",
-                    requiredScope: "workers-scripts.read"
-                )
-                .navigationTitle("Workers")
-            }
-        }
+    @ViewBuilder private var developerTab: some View {
+        // 开发者平台聚合入口：Workers / Queues / Durable Objects / Hyperdrive / Workers AI / AI Gateway
+        DeveloperHubView(session: session)
+            .id(session.selectedAccount?.id)
     }
 
     @ViewBuilder private var storageTab: some View {
@@ -117,13 +107,13 @@ struct MainTabView: View {
         selectedTab = switch module {
         case .dashboard: .dashboard
         case .zones:     .zones
-        case .workers:   .workers
+        case .workers:   .developer    // Workers 现归入「开发者」聚合 Tab
         case .storage:   .storage
         case .settings:  .settings
         }
     }
 
     enum AppTab: Hashable {
-        case dashboard, zones, workers, storage, settings
+        case dashboard, zones, developer, storage, settings
     }
 }

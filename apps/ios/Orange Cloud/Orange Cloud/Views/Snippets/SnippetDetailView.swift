@@ -43,6 +43,8 @@ struct SnippetDetailView: View {
                             .textSelection(.enabled)
                     }
                     .frame(maxHeight: 320)
+                    // JS 源码始终 LTR
+                    .environment(\.layoutDirection, .leftToRight)
                 } else {
                     Text("（空）").foregroundStyle(.secondary)
                 }
@@ -253,6 +255,8 @@ private struct SnippetRuleFormView: View {
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                         .frame(minHeight: 100)
+                        // Cloudflare Rules 表达式始终 LTR
+                        .environment(\.layoutDirection, .leftToRight)
                 } header: {
                     Text("表达式")
                 } footer: {

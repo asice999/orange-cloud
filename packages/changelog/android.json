@@ -1,5 +1,314 @@
 [
   {
+    "version": "1.4.2",
+    "date": "2026.06.29",
+    "channel": "Google Play",
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "Workers AI 体验升级",
+          "en": "Workers AI improvements",
+          "zh-Hant": "Workers AI 體驗升級",
+          "zh-HK": "Workers AI 體驗升級",
+          "ja": "Workers AI の改善",
+          "es-MX": "Mejoras en Workers AI",
+          "ko": "Workers AI 개선",
+          "pt-BR": "Melhorias no Workers AI",
+          "pt-PT": "Melhorias no Workers AI",
+          "de": "Workers-AI-Verbesserungen",
+          "fr": "Améliorations de Workers AI",
+          "ar": "تحسينات Workers AI",
+          "tr": "Workers AI iyileştirmeleri"
+        },
+        "detail": {
+          "zh-Hans": "现在可按任务类型分组浏览模型、查看模型详情，并修复了文本生成模型的试运行。",
+          "en": "Browse models grouped by task type, view model details, and the text-generation test run is fixed.",
+          "zh-Hant": "現在可按任務類型分組瀏覽模型、檢視模型詳情，並修復了文字生成模型的試執行。",
+          "zh-HK": "現在可按任務類型分組瀏覽模型、查看模型詳情，並修復了文字生成模型的試運行。",
+          "ja": "モデルをタスク種別ごとに分類して閲覧でき、モデルの詳細表示と、テキスト生成モデルの試し実行の不具合を修正しました。",
+          "es-MX": "Explora los modelos agrupados por tipo de tarea, consulta sus detalles y se corrigió la prueba de los modelos de generación de texto.",
+          "ko": "모델을 작업 유형별로 묶어 살펴보고 모델 상세 정보를 확인할 수 있으며, 텍스트 생성 모델의 시험 실행 오류를 수정했습니다.",
+          "pt-BR": "Navegue pelos modelos agrupados por tipo de tarefa, veja os detalhes do modelo e corrigimos o teste dos modelos de geração de texto.",
+          "pt-PT": "Navegue pelos modelos agrupados por tipo de tarefa, veja os detalhes do modelo e corrigimos o teste dos modelos de geração de texto.",
+          "de": "Modelle nach Aufgabentyp gruppiert durchsuchen, Modelldetails ansehen – und der Testlauf für Textgenerierungsmodelle wurde behoben.",
+          "fr": "Parcourez les modèles regroupés par type de tâche, consultez leurs détails et l'essai des modèles de génération de texte est corrigé.",
+          "ar": "تصفّح النماذج مجمّعة حسب نوع المهمة، واعرض تفاصيل النموذج، وأصلحنا التشغيل التجريبي لنماذج توليد النص.",
+          "tr": "Modelleri görev türüne göre gruplandırarak inceleyin, model ayrıntılarını görün; metin oluşturma modellerinin deneme çalıştırması düzeltildi."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.4",
+    "date": "2026.06.28",
+    "channel": "Google Play",
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "全新「开发者平台」",
+          "en": "New Developer Platform",
+          "zh-Hant": "全新「開發者平台」",
+          "zh-HK": "全新「開發者平台」",
+          "ja": "新しい「開発者プラットフォーム」",
+          "es-MX": "Nueva plataforma para desarrolladores",
+          "ko": "새로운 개발자 플랫폼",
+          "pt-BR": "Nova Plataforma para Desenvolvedores",
+          "pt-PT": "Nova Plataforma para Programadores",
+          "de": "Neue Entwicklerplattform",
+          "fr": "Nouvelle plateforme développeur",
+          "ar": "منصّة المطوّرين الجديدة",
+          "tr": "Yeni Geliştirici Platformu"
+        },
+        "detail": {
+          "zh-Hans": "把 Workers 与 Workers AI、AI Gateway、队列、Hyperdrive、Durable Objects、Pages 收进统一的「开发者平台」中枢，一处直达。",
+          "en": "Workers now sits alongside Workers AI, AI Gateway, Queues, Hyperdrive, Durable Objects and Pages in a single Developer Platform hub.",
+          "zh-Hant": "把 Workers 與 Workers AI、AI Gateway、佇列、Hyperdrive、Durable Objects、Pages 收進統一的「開發者平台」中樞，一處直達。",
+          "zh-HK": "把 Workers 與 Workers AI、AI Gateway、佇列、Hyperdrive、Durable Objects、Pages 收進統一的「開發者平台」中樞，一處直達。",
+          "ja": "Workers に加え、Workers AI・AI Gateway・キュー・Hyperdrive・Durable Objects・Pages を一つの「開発者プラットフォーム」にまとめました。",
+          "es-MX": "Workers ahora convive con Workers AI, AI Gateway, Colas, Hyperdrive, Durable Objects y Pages en un único centro.",
+          "ko": "Workers와 함께 Workers AI, AI Gateway, 큐, Hyperdrive, Durable Objects, Pages를 하나의 개발자 플랫폼 허브로 모았습니다.",
+          "pt-BR": "Workers agora fica ao lado de Workers AI, AI Gateway, Filas, Hyperdrive, Durable Objects e Pages em um hub único.",
+          "pt-PT": "O Workers fica agora ao lado de Workers AI, AI Gateway, Filas, Hyperdrive, Durable Objects e Pages num único centro.",
+          "de": "Workers steht jetzt zusammen mit Workers AI, AI Gateway, Queues, Hyperdrive, Durable Objects und Pages in einem Hub.",
+          "fr": "Workers rejoint Workers AI, AI Gateway, Queues, Hyperdrive, Durable Objects et Pages dans un hub unique.",
+          "ar": "أصبح Workers إلى جانب Workers AI وAI Gateway والطوابير وHyperdrive وDurable Objects وPages في مركز واحد.",
+          "tr": "Workers artık Workers AI, AI Gateway, Kuyruklar, Hyperdrive, Durable Objects ve Pages ile tek bir merkezde."
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "缓存规则、速率限制与电子邮件路由",
+          "en": "Cache Rules, Rate Limiting & Email Routing",
+          "zh-Hant": "快取規則、速率限制與電子郵件路由",
+          "zh-HK": "緩存規則、速率限制與電子郵件路由",
+          "ja": "キャッシュルール・レート制限・メールルーティング",
+          "es-MX": "Cache Rules, límite de velocidad y enrutamiento de correo",
+          "ko": "캐시 규칙, 속도 제한, 이메일 라우팅",
+          "pt-BR": "Cache Rules, limite de taxa e roteamento de e-mail",
+          "pt-PT": "Cache Rules, limite de taxa e encaminhamento de e-mail",
+          "de": "Cache Rules, Rate Limiting & E-Mail-Routing",
+          "fr": "Cache Rules, limitation de débit & routage e-mail",
+          "ar": "قواعد التخزين المؤقت وتحديد المعدّل وتوجيه البريد",
+          "tr": "Önbellek Kuralları, Hız Sınırlama ve E-posta Yönlendirme"
+        },
+        "detail": {
+          "zh-Hans": "域名新增缓存规则与速率限制规则，以及电子邮件路由（转发规则与目的地址管理）。",
+          "en": "Zones gain Cache Rules and Rate Limiting rules, plus Email Routing with forwarding rules and destination addresses.",
+          "zh-Hant": "網域新增快取規則與速率限制規則，以及電子郵件路由（轉寄規則與目的地址管理）。",
+          "zh-HK": "域名新增緩存規則與速率限制規則，以及電子郵件路由（轉寄規則與目的地址管理）。",
+          "ja": "ゾーンにキャッシュルールとレート制限ルール、さらにメールルーティング（転送ルールと宛先アドレス管理）を追加しました。",
+          "es-MX": "Las zonas suman Cache Rules y reglas de límite de velocidad, además de enrutamiento de correo con reglas de reenvío y direcciones de destino.",
+          "ko": "영역에 캐시 규칙과 속도 제한 규칙, 그리고 전달 규칙·대상 주소 관리가 포함된 이메일 라우팅을 추가했습니다.",
+          "pt-BR": "As zonas ganham Cache Rules e regras de limite de taxa, além de roteamento de e-mail com regras de encaminhamento e endereços de destino.",
+          "pt-PT": "As zonas ganham Cache Rules e regras de limite de taxa, além de encaminhamento de e-mail com regras de reenvio e endereços de destino.",
+          "de": "Zonen erhalten Cache Rules und Rate-Limiting-Regeln sowie E-Mail-Routing mit Weiterleitungsregeln und Zieladressen.",
+          "fr": "Les zones gagnent Cache Rules et des règles de limitation de débit, ainsi que le routage e-mail avec règles de transfert et adresses de destination.",
+          "ar": "تكتسب النطاقات قواعد التخزين المؤقت وقواعد تحديد المعدّل، إضافةً إلى توجيه البريد مع قواعد إعادة التوجيه وعناوين الوجهة.",
+          "tr": "Bölgelere Cache Rules ve hız sınırlama kuralları ile yönlendirme kuralları ve hedef adresleri içeren E-posta Yönlendirme eklendi."
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "负载均衡、Zero Trust 与批量重定向",
+          "en": "Load Balancing, Zero Trust & Bulk Redirects",
+          "zh-Hant": "負載平衡、Zero Trust 與批次重新導向",
+          "zh-HK": "負載平衡、Zero Trust 與批量重新導向",
+          "ja": "ロードバランシング・Zero Trust・一括リダイレクト",
+          "es-MX": "Balanceo de carga, Zero Trust y redirecciones masivas",
+          "ko": "로드 밸런싱, Zero Trust, 대량 리디렉션",
+          "pt-BR": "Balanceamento de carga, Zero Trust e redirecionamentos em massa",
+          "pt-PT": "Balanceamento de carga, Zero Trust e redirecionamentos em massa",
+          "de": "Load Balancing, Zero Trust & Massen-Weiterleitungen",
+          "fr": "Répartition de charge, Zero Trust & redirections groupées",
+          "ar": "موازنة الحمل وZero Trust وعمليات إعادة التوجيه الجماعية",
+          "tr": "Yük Dengeleme, Zero Trust ve Toplu Yönlendirmeler"
+        },
+        "detail": {
+          "zh-Hans": "新增负载均衡器（含源池健康）、Zero Trust（Access 应用与 Gateway 策略启停）、批量重定向列表与条目管理。",
+          "en": "New load balancers (with pool health), Zero Trust (Access apps and Gateway rule toggles), and Bulk Redirect lists and items.",
+          "zh-Hant": "新增負載平衡器（含來源池健康）、Zero Trust（Access 應用與 Gateway 政策啟停）、批次重新導向清單與項目管理。",
+          "zh-HK": "新增負載平衡器（含來源池健康）、Zero Trust（Access 應用與 Gateway 政策啟停）、批量重新導向清單與項目管理。",
+          "ja": "ロードバランサー（プールの健全性付き）、Zero Trust（Access アプリと Gateway ポリシーの切替）、一括リダイレクトのリストと項目を追加しました。",
+          "es-MX": "Nuevos balanceadores (con salud de grupos), Zero Trust (apps de Access y activación de reglas de Gateway) y listas y elementos de redirección masiva.",
+          "ko": "로드 밸런서(풀 상태 포함), Zero Trust(Access 앱 및 Gateway 정책 전환), 대량 리디렉션 목록과 항목을 추가했습니다.",
+          "pt-BR": "Novos balanceadores (com saúde de pools), Zero Trust (apps do Access e alternância de regras de Gateway) e listas e itens de redirecionamento em massa.",
+          "pt-PT": "Novos balanceadores (com saúde de pools), Zero Trust (apps do Access e alternância de regras de Gateway) e listas e itens de redirecionamento em massa.",
+          "de": "Neue Load Balancer (mit Pool-Status), Zero Trust (Access-Apps und Umschalten von Gateway-Regeln) sowie Massen-Weiterleitungslisten und -einträge.",
+          "fr": "Nouveaux répartiteurs de charge (avec santé des pools), Zero Trust (apps Access et bascule des règles Gateway), et listes et éléments de redirections groupées.",
+          "ar": "موازِنات تحميل جديدة (مع صحة التجمّعات)، وZero Trust (تطبيقات Access وتبديل قواعد Gateway)، وقوائم وعناصر إعادة التوجيه الجماعية.",
+          "tr": "Yeni yük dengeleyiciler (havuz sağlığıyla), Zero Trust (Access uygulamaları ve Gateway kuralı aç/kapama) ve toplu yönlendirme listeleri ile öğeleri."
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "AI 助手与可视化 WAF",
+          "en": "AI assistant & visual WAF",
+          "zh-Hant": "AI 助手與視覺化 WAF",
+          "zh-HK": "AI 助手與視覺化 WAF",
+          "ja": "AI アシスタントとビジュアル WAF",
+          "es-MX": "Asistente de IA y WAF visual",
+          "ko": "AI 어시스턴트와 비주얼 WAF",
+          "pt-BR": "Assistente de IA e WAF visual",
+          "pt-PT": "Assistente de IA e WAF visual",
+          "de": "KI-Assistent & visuelle WAF",
+          "fr": "Assistant IA & WAF visuel",
+          "ar": "مساعد الذكاء الاصطناعي وWAF المرئي",
+          "tr": "Yapay zeka asistanı ve görsel WAF"
+        },
+        "detail": {
+          "zh-Hans": "新增由 Workers AI 驱动的 AI 助手；WAF 规则支持可视化构建，并可用自然语言生成表达式。",
+          "en": "A new AI assistant powered by Workers AI; WAF rules can be built visually or generated from natural language.",
+          "zh-Hant": "新增由 Workers AI 驅動的 AI 助手；WAF 規則支援視覺化建構，並可用自然語言產生運算式。",
+          "zh-HK": "新增由 Workers AI 驅動的 AI 助手；WAF 規則支援視覺化建構，並可用自然語言產生運算式。",
+          "ja": "Workers AI を活用した AI アシスタントを追加。WAF ルールはビジュアルに作成でき、自然言語からの生成にも対応します。",
+          "es-MX": "Nuevo asistente de IA con Workers AI; las reglas WAF se construyen visualmente o se generan desde lenguaje natural.",
+          "ko": "Workers AI 기반의 AI 어시스턴트를 추가했습니다. WAF 규칙은 시각적으로 구성하거나 자연어로 생성할 수 있습니다.",
+          "pt-BR": "Novo assistente de IA com Workers AI; as regras WAF podem ser criadas visualmente ou geradas em linguagem natural.",
+          "pt-PT": "Novo assistente de IA com Workers AI; as regras WAF podem ser criadas visualmente ou geradas em linguagem natural.",
+          "de": "Neuer KI-Assistent mit Workers AI; WAF-Regeln lassen sich visuell erstellen oder aus natürlicher Sprache generieren.",
+          "fr": "Nouvel assistant IA propulsé par Workers AI ; les règles WAF se construisent visuellement ou se génèrent en langage naturel.",
+          "ar": "مساعد ذكاء اصطناعي جديد مدعوم بـ Workers AI؛ ويمكن بناء قواعد WAF بصريًا أو توليدها من اللغة الطبيعية.",
+          "tr": "Workers AI destekli yeni yapay zeka asistanı; WAF kuralları görsel olarak oluşturulabilir veya doğal dilden üretilebilir."
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "R2 接入「文件」、流量地图与审计日志",
+          "en": "R2 in Files, traffic map & audit log",
+          "zh-Hant": "R2 接入「檔案」、流量地圖與稽核紀錄",
+          "zh-HK": "R2 接入「檔案」、流量地圖與審計記錄",
+          "ja": "R2 をファイルアプリへ、トラフィックマップと監査ログ",
+          "es-MX": "R2 en Archivos, mapa de tráfico y registro de auditoría",
+          "ko": "R2를 파일 앱에, 트래픽 지도와 감사 로그",
+          "pt-BR": "R2 no app Arquivos, mapa de tráfego e log de auditoria",
+          "pt-PT": "R2 na app Ficheiros, mapa de tráfego e registo de auditoria",
+          "de": "R2 in Dateien, Traffic-Karte & Audit-Log",
+          "fr": "R2 dans Fichiers, carte du trafic & journal d’audit",
+          "ar": "R2 في تطبيق الملفات وخريطة الزيارات وسجل التدقيق",
+          "tr": "Dosyalar’da R2, trafik haritası ve denetim günlüğü"
+        },
+        "detail": {
+          "zh-Hans": "R2 对象可在系统「文件」App 中浏览、上传、改名、移动与删除；流量分析新增按国家/地区来源；设置新增账号审计日志；Pages 支持查看部署并一键重新部署或回滚。",
+          "en": "Browse, upload, rename, move and delete R2 objects in the system Files app; analytics adds traffic by country; Settings adds an account audit log; Pages shows deployments with one-tap retry or rollback.",
+          "zh-Hant": "R2 物件可在系統「檔案」App 中瀏覽開啟；流量分析新增依國家/地區來源；設定新增帳號稽核紀錄；Pages 支援檢視部署並一鍵重新部署或回復。",
+          "zh-HK": "R2 物件可在系統「檔案」App 中瀏覽開啟；流量分析新增依國家/地區來源；設定新增帳戶審計記錄；Pages 支援檢視部署並一鍵重新部署或回滾。",
+          "ja": "R2 オブジェクトを「ファイル」アプリで閲覧・オープン。分析に国・地域別を追加、設定にアカウント監査ログを追加、Pages はデプロイ確認と再デプロイ／ロールバックに対応します。",
+          "es-MX": "Explora y abre objetos R2 en la app Archivos; analíticas suma tráfico por país; Ajustes agrega registro de auditoría; Pages muestra despliegues con reintento o reversión al toque.",
+          "ko": "시스템 파일 앱에서 R2 객체를 탐색·열람하고, 분석에 국가별 트래픽을, 설정에 계정 감사 로그를 추가했으며, Pages에서 배포 확인과 원터치 재배포·롤백을 지원합니다.",
+          "pt-BR": "Navegue e abra objetos R2 no app Arquivos; análises adicionam tráfego por país; Configurações adicionam log de auditoria; Pages mostra implantações com repetição ou reversão em um toque.",
+          "pt-PT": "Navegue e abra objetos R2 na app Ficheiros; as análises adicionam tráfego por país; as Definições adicionam registo de auditoria; o Pages mostra implementações com repetição ou reversão num toque.",
+          "de": "R2-Objekte in der Dateien-App durchsuchen und öffnen; Analytics zeigt Traffic nach Land; Einstellungen erhalten ein Konto-Audit-Log; Pages zeigt Deployments mit Ein-Tipp-Wiederholung oder Rollback.",
+          "fr": "Parcourez et ouvrez les objets R2 dans l’app Fichiers ; les analyses ajoutent le trafic par pays ; les Réglages ajoutent un journal d’audit ; Pages affiche les déploiements avec relance ou rollback en un geste.",
+          "ar": "تصفّح وفتح كائنات R2 في تطبيق الملفات؛ وإضافة الزيارات حسب الدولة للتحليلات؛ وسجل تدقيق للحساب في الإعدادات؛ ويعرض Pages عمليات النشر مع إعادة المحاولة أو التراجع بنقرة واحدة.",
+          "tr": "R2 nesnelerini Dosyalar uygulamasında gözatıp açın; analizlere ülkeye göre trafik, Ayarlar’a hesap denetim günlüğü eklendi; Pages dağıtımları tek dokunuşla yeniden deneme veya geri almayla gösterir."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.3",
+    "date": "2026.06.25",
+    "channel": "Google Play",
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "域名安全套件",
+          "en": "Domain security suite",
+          "zh-Hant": "網域安全套件",
+          "zh-HK": "域名安全套件",
+          "ja": "ドメインセキュリティ一式",
+          "es-MX": "Conjunto de seguridad del dominio",
+          "ko": "도메인 보안 모음",
+          "pt-BR": "Conjunto de segurança do domínio",
+          "pt-PT": "Conjunto de segurança do domínio",
+          "de": "Domain-Sicherheitspaket",
+          "fr": "Suite de sécurité du domaine",
+          "ar": "حزمة أمان النطاق",
+          "tr": "Alan adı güvenlik paketi"
+        },
+        "detail": {
+          "zh-Hans": "新增 SSL/TLS 加密模式与边缘证书、Universal SSL 开关、Transform Rules、IP 访问规则，以及 HTTP/2·HTTP/3·Brotli 等性能与缓存开关。",
+          "en": "New SSL/TLS encryption modes and edge certificates, Universal SSL toggle, Transform Rules, IP access rules, plus HTTP/2·HTTP/3·Brotli and other performance and cache controls.",
+          "zh-Hant": "新增 SSL/TLS 加密模式與邊緣憑證、Universal SSL 開關、Transform Rules、IP 存取規則，以及 HTTP/2·HTTP/3·Brotli 等效能與快取開關。",
+          "zh-HK": "新增 SSL/TLS 加密模式與邊緣憑證、Universal SSL 開關、Transform Rules、IP 存取規則，以及 HTTP/2·HTTP/3·Brotli 等效能與緩存開關。",
+          "ja": "SSL/TLS 暗号化モードとエッジ証明書、Universal SSL の切り替え、Transform Rules、IP アクセスルール、さらに HTTP/2・HTTP/3・Brotli などの性能とキャッシュ設定を追加しました。",
+          "es-MX": "Nuevos modos de cifrado SSL/TLS y certificados perimetrales, interruptor de Universal SSL, Transform Rules, reglas de acceso por IP y controles de rendimiento y caché como HTTP/2·HTTP/3·Brotli.",
+          "ko": "SSL/TLS 암호화 모드와 엣지 인증서, Universal SSL 전환, Transform Rules, IP 접근 규칙, 그리고 HTTP/2·HTTP/3·Brotli 등 성능·캐시 설정을 추가했습니다.",
+          "pt-BR": "Novos modos de criptografia SSL/TLS e certificados de borda, alternância do Universal SSL, Transform Rules, regras de acesso por IP e controles de desempenho e cache como HTTP/2·HTTP/3·Brotli.",
+          "pt-PT": "Novos modos de encriptação SSL/TLS e certificados de extremidade, alternância do Universal SSL, Transform Rules, regras de acesso por IP e controlos de desempenho e cache como HTTP/2·HTTP/3·Brotli.",
+          "de": "Neue SSL/TLS-Verschlüsselungsmodi und Edge-Zertifikate, Universal-SSL-Schalter, Transform Rules, IP-Zugriffsregeln sowie HTTP/2·HTTP/3·Brotli und weitere Leistungs- und Cache-Einstellungen.",
+          "fr": "Nouveaux modes de chiffrement SSL/TLS et certificats edge, bascule Universal SSL, Transform Rules, règles d’accès IP, ainsi que HTTP/2·HTTP/3·Brotli et d’autres contrôles de performance et de cache.",
+          "ar": "أوضاع تشفير SSL/TLS جديدة وشهادات طرفية، ومفتاح Universal SSL، وTransform Rules، وقواعد الوصول حسب IP، إضافةً إلى HTTP/2·HTTP/3·Brotli وعناصر تحكم أخرى للأداء والتخزين المؤقت.",
+          "tr": "Yeni SSL/TLS şifreleme modları ve uç sertifikalar, Universal SSL anahtarı, Transform Rules, IP erişim kuralları ve ayrıca HTTP/2·HTTP/3·Brotli ile diğer performans ve önbellek denetimleri."
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "R2 升级与按 URL 清缓存",
+          "en": "R2 upgrade & purge by URL",
+          "zh-Hant": "R2 升級與依 URL 清快取",
+          "zh-HK": "R2 升級與依 URL 清緩存",
+          "ja": "R2 の強化と URL 単位のキャッシュ削除",
+          "es-MX": "Mejoras de R2 y purga por URL",
+          "ko": "R2 업그레이드 및 URL 단위 캐시 제거",
+          "pt-BR": "Melhorias do R2 e limpeza por URL",
+          "pt-PT": "Melhorias do R2 e limpeza por URL",
+          "de": "R2-Upgrade & Leeren per URL",
+          "fr": "Améliorations R2 & purge par URL",
+          "ar": "تحسينات R2 والمسح حسب URL",
+          "tr": "R2 yükseltmesi ve URL’ye göre temizleme"
+        },
+        "detail": {
+          "zh-Hans": "R2 支持文件夹浏览、对象复制/移动、桶的 CORS 与公开访问设置；缓存清理新增「按 URL 清理」。",
+          "en": "R2 now supports folder browsing, object copy/move, and per-bucket CORS and public access settings; cache purge adds “purge by URL”.",
+          "zh-Hant": "R2 支援資料夾瀏覽、物件複製/移動、儲存桶的 CORS 與公開存取設定；快取清理新增「依 URL 清理」。",
+          "zh-HK": "R2 支援資料夾瀏覽、物件複製/移動、儲存桶的 CORS 與公開存取設定；緩存清理新增「依 URL 清理」。",
+          "ja": "R2 でフォルダー閲覧、オブジェクトのコピー/移動、バケットの CORS と公開アクセス設定に対応。キャッシュ削除に「URL 単位の削除」を追加しました。",
+          "es-MX": "R2 ahora admite navegación por carpetas, copiar/mover objetos y ajustes de CORS y acceso público por bucket; la purga de caché añade “purgar por URL”.",
+          "ko": "R2에서 폴더 탐색, 객체 복사/이동, 버킷별 CORS 및 공개 액세스 설정을 지원합니다. 캐시 제거에 ‘URL 단위 제거’가 추가되었습니다.",
+          "pt-BR": "O R2 agora oferece navegação por pastas, copiar/mover objetos e configurações de CORS e acesso público por bucket; a limpeza de cache ganha “limpar por URL”.",
+          "pt-PT": "O R2 agora oferece navegação por pastas, copiar/mover objetos e definições de CORS e acesso público por bucket; a limpeza de cache ganha “limpar por URL”.",
+          "de": "R2 unterstützt jetzt Ordnernavigation, Objekt-Kopieren/-Verschieben sowie CORS- und Öffentlich-Zugriffseinstellungen pro Bucket; das Cache-Leeren erhält „Leeren per URL“.",
+          "fr": "R2 prend désormais en charge la navigation par dossiers, le copier/déplacer d’objets, ainsi que les paramètres CORS et d’accès public par bucket ; la purge du cache ajoute « purge par URL ».",
+          "ar": "يدعم R2 الآن تصفح المجلدات ونسخ/نقل الكائنات وإعدادات CORS والوصول العام لكل حاوية؛ ويضيف مسح الذاكرة المؤقتة ”المسح حسب URL“.",
+          "tr": "R2 artık klasör gezinme, nesne kopyalama/taşıma ve bucket başına CORS ve genel erişim ayarlarını destekliyor; önbellek temizlemeye “URL’ye göre temizleme” eklendi."
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "桌面小组件、实况日志与更广兼容",
+          "en": "Home widget, live logs & wider support",
+          "zh-Hant": "桌面小工具、即時日誌與更廣相容",
+          "zh-HK": "桌面小工具、即時日誌與更廣相容",
+          "ja": "ホーム ウィジェット、ライブログ、対応拡大",
+          "es-MX": "Widget de inicio, registros en vivo y mayor compatibilidad",
+          "ko": "홈 위젯, 실시간 로그 및 더 넓은 지원",
+          "pt-BR": "Widget na tela inicial, logs ao vivo e suporte mais amplo",
+          "pt-PT": "Widget no ecrã inicial, registos ao vivo e suporte mais amplo",
+          "de": "Homescreen-Widget, Echtzeit-Logs & breitere Unterstützung",
+          "fr": "Widget d’accueil, journaux en direct & support élargi",
+          "ar": "أداة الشاشة الرئيسية والسجلات الحية ودعم أوسع",
+          "tr": "Ana ekran widget’ı, canlı günlükler ve daha geniş destek"
+        },
+        "detail": {
+          "zh-Hans": "新增晨昏「账号总览」桌面小组件；实时日志升级为实况通知（Android 16）；「帮助与反馈」可附带诊断日志；现已兼容 Android 9 及以上。",
+          "en": "A new daybreak “account overview” home widget; live tail logs are promoted to Live Updates (Android 16); Help & Feedback can attach a diagnostic log; now supports Android 9 and above.",
+          "zh-Hant": "新增晨昏「帳戶總覽」桌面小工具；即時日誌升級為實況通知（Android 16）；「說明與意見回饋」可附帶診斷日誌；現已相容 Android 9 以上。",
+          "zh-HK": "新增晨昏「帳戶總覽」桌面小工具；即時日誌升級為實況通知（Android 16）；「說明與意見回饋」可附帶診斷日誌；現已相容 Android 9 以上。",
+          "ja": "夜明けの「アカウント概要」ホーム ウィジェットを追加。ライブログを Live Updates（Android 16）に格上げ。ヘルプとフィードバックに診断ログを添付可能。Android 9 以降に対応しました。",
+          "es-MX": "Nuevo widget de inicio “resumen de la cuenta” al amanecer; los registros en vivo se promueven a Live Updates (Android 16); Ayuda y comentarios puede adjuntar un registro de diagnóstico; ahora compatible con Android 9 y posteriores.",
+          "ko": "여명 ‘계정 개요’ 홈 위젯 추가, 실시간 로그를 Live Updates(Android 16)로 승격, 도움말 및 피드백에 진단 로그 첨부 가능, 이제 Android 9 이상을 지원합니다.",
+          "pt-BR": "Novo widget de tela inicial “visão geral da conta” ao amanhecer; logs ao vivo promovidos a Live Updates (Android 16); Ajuda e feedback pode anexar um log de diagnóstico; agora compatível com Android 9 e superior.",
+          "pt-PT": "Novo widget de ecrã inicial “visão geral da conta” ao amanhecer; registos ao vivo promovidos a Live Updates (Android 16); Ajuda e feedback pode anexar um registo de diagnóstico; agora compatível com Android 9 e superior.",
+          "de": "Ein neues Dämmerungs-Widget „Kontoübersicht“; Echtzeit-Logs werden zu Live Updates (Android 16) hochgestuft; Hilfe & Feedback kann ein Diagnoseprotokoll anhängen; unterstützt jetzt Android 9 und höher.",
+          "fr": "Un nouveau widget d’accueil « aperçu du compte » à l’aube ; les journaux en direct sont promus en Live Updates (Android 16) ; Aide & retours peut joindre un journal de diagnostic ; prend désormais en charge Android 9 et plus.",
+          "ar": "أداة شاشة رئيسية جديدة ”نظرة عامة على الحساب“ عند الفجر؛ تُرقّى السجلات الحية إلى Live Updates (أندرويد 16)؛ ويمكن لميزة ”المساعدة والملاحظات“ إرفاق سجل تشخيصي؛ ويدعم الآن أندرويد 9 وأحدث.",
+          "tr": "Yeni bir şafak vakti “hesap özeti” ana ekran widget’ı; canlı günlükler Live Updates’e (Android 16) yükseltildi; Yardım ve geri bildirim bir tanılama günlüğü ekleyebilir; artık Android 9 ve üzerini destekliyor."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.1",
     "date": "2026.06.18",
     "channel": "Google Play",

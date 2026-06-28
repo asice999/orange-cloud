@@ -65,10 +65,12 @@ nonisolated struct ResultInfo: Codable, Sendable {
     let totalCount: Int?
     // 游标分页（R2 对象、KV keys 等）
     let cursor:      String?
+    // R2 list 传 delimiter 时回的「折叠前缀」（即子文件夹），key 就叫 delimited
+    let delimited:   [String]?
     let isTruncated: Bool?
 
     enum CodingKeys: String, CodingKey {
-        case page, count, cursor
+        case page, count, cursor, delimited
         case perPage     = "per_page"
         case totalPages  = "total_pages"
         case totalCount  = "total_count"

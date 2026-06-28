@@ -20,9 +20,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bolt
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -52,6 +54,7 @@ import jiamin.chen.orangecloud.data.model.WorkerScript
 @Composable
 fun WorkerListScreen(
     onWorkerClick: (String) -> Unit = {},
+    onCreate: () -> Unit = {},
     viewModel: WorkerListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -59,6 +62,7 @@ fun WorkerListScreen(
     val onSky = phase.onSky
 
     SkyBackground(phase = phase) {
+      Box(Modifier.fillMaxSize()) {
         Column(Modifier.fillMaxSize().systemBarsPadding()) {
             SkyHeader(
                 title = stringResource(R.string.nav_workers),
@@ -91,6 +95,15 @@ fun WorkerListScreen(
                 }
             }
         }
+        if (uiState.canWrite && !uiState.missingScope) {
+            FloatingActionButton(
+                onClick = onCreate,
+                containerColor = OcOrange,
+                contentColor = Color.White,
+                modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp).systemBarsPadding(),
+            ) { Icon(Icons.Outlined.Add, contentDescription = stringResource(R.string.worker_create_title)) }
+        }
+      }
     }
 }
 

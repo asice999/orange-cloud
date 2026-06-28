@@ -16,6 +16,7 @@ struct WAFRuleListView: View {
     @State private var showDenied = false
     @State private var showForm = false
     @State private var ruleToDelete: WAFRule?
+    @State private var searchText = ""
 
     init(zoneId: String, zoneName: String, session: SessionStore) {
         self.zoneName = zoneName
@@ -23,6 +24,15 @@ struct WAFRuleListView: View {
     }
 
     private var canWrite: Bool { auth.hasScope("zone-waf.write") }
+
+    private var filteredRules: [WAFRule] {
+        guard !searchText.isEmpty else { return viewModel.rules }
+        return viewModel.rules.filter { rule in
+            (rule.description ?? "").localizedCaseInsensitiveContains(searchText)
+                || (rule.expression ?? "").localizedCaseInsensitiveContains(searchText)
+                || (rule.action ?? "").localizedCaseInsensitiveContains(searchText)
+        }
+    }
 
     var body: some View {
         Group {
@@ -43,10 +53,12 @@ struct WAFRuleListView: View {
                             .fontWeight(.bold)
                     }
                 }
+            } else if filteredRules.isEmpty {
+                ContentUnavailableView.search(text: searchText)
             } else {
                 List {
                     Section {
-                        ForEach(viewModel.rules) { rule in
+                        ForEach(filteredRules) { rule in
                             WAFRuleRow(
                                 rule: rule,
                                 canWrite: canWrite,
@@ -82,6 +94,7 @@ struct WAFRuleListView: View {
         .background { SkyBackground() }
         .navigationTitle("WAF 防火墙")
         .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $searchText, prompt: "搜索规则")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("添加", systemImage: "plus") {
@@ -137,18 +150,54 @@ private struct WAFRuleFormView: View {
 
     @Environment(\.dismiss) private var dismiss
 
+    private enum EditorMode: String, CaseIterable, Identifiable {
+        case builder, expression
+        var id: String { rawValue }
+        var label: LocalizedStringKey { self == .builder ? "书写规则" : "表达式编辑器" }
+    }
+
+    private struct ConditionRow: Identifiable {
+        let id = UUID()
+        var fieldKey: String
+        var op: WAFOperator
+        var value: String
+    }
+
     @State private var name = ""
     @State private var action: WAFRuleAction = .block
-    @State private var expression = ""
     @State private var enabled = true
+
+    // 编辑器：两种模式
+    @State private var mode: EditorMode = .builder
+    @State private var expression = ""                 // 原始表达式（表达式模式 / 生成回填）
+    @State private var logic: WAFConditionLogic = .and
+    @State private var conditions: [ConditionRow] = [
+        ConditionRow(fieldKey: WAFExpressionCatalog.fields[0].field, op: .eq, value: "")
+    ]
 
     // 设备端 AI 生成
     @State private var nlPrompt = ""
     @State private var readback: String?
 
+    /// 由条件行实时生成的表达式
+    private var generatedExpression: String {
+        WAFExpressionBuilder.expression(
+            logic: logic,
+            conditions: conditions.compactMap { row in
+                guard let field = WAFExpressionCatalog.field(for: row.fieldKey) else { return nil }
+                return WAFExpressionBuilder.condition(field: field, op: row.op, rawValue: row.value)
+            }
+        )
+    }
+
+    /// 最终用于保存的表达式
+    private var effectiveExpression: String {
+        mode == .builder ? generatedExpression : expression.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
     private var canSave: Bool {
         !name.trimmingCharacters(in: .whitespaces).isEmpty
-            && !expression.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            && !effectiveExpression.isEmpty
             && !viewModel.isSaving
     }
 
@@ -170,15 +219,25 @@ private struct WAFRuleFormView: View {
                 }
 
                 Section {
-                    TextEditor(text: $expression)
-                        .font(.callout.monospaced())
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                        .frame(minHeight: 100)
-                } header: {
-                    Text("表达式")
-                } footer: {
-                    Text("Cloudflare Rules 语言，例如：\n(http.request.uri.path contains \"/admin\") or (ip.src eq 198.51.100.4)")
+                    // 切到「表达式编辑器」时，用当前条件生成的表达式回填，便于继续手改
+                    Picker("编辑方式", selection: Binding(
+                        get: { mode },
+                        set: { newMode in
+                            if newMode == .expression && mode == .builder {
+                                expression = generatedExpression
+                            }
+                            mode = newMode
+                        }
+                    )) {
+                        ForEach(EditorMode.allCases) { Text($0.label).tag($0) }
+                    }
+                    .pickerStyle(.segmented)
+                }
+
+                if mode == .builder {
+                    builderSections
+                } else {
+                    expressionSection
                 }
 
                 if let error = viewModel.error {
@@ -214,6 +273,92 @@ private struct WAFRuleFormView: View {
                 viewModel.generationError = nil
             }
         }
+    }
+
+    // MARK: - 书写规则（可视化构建器）
+
+    @ViewBuilder
+    private var builderSections: some View {
+        Section {
+            Picker("匹配条件", selection: $logic) {
+                ForEach(WAFConditionLogic.allCases) { Text($0.label).tag($0) }
+            }
+            .pickerStyle(.segmented)
+            .disabled(conditions.count < 2)
+        } header: {
+            Text("条件")
+        }
+
+        Section {
+            ForEach($conditions) { $row in
+                VStack(alignment: .leading, spacing: 8) {
+                    Picker("字段", selection: $row.fieldKey) {
+                        ForEach(WAFExpressionCatalog.fields) { Text($0.label).tag($0.field) }
+                    }
+                    HStack(spacing: 8) {
+                        Picker("运算符", selection: $row.op) {
+                            ForEach(availableOps(for: row.fieldKey)) { Text($0.label).tag($0) }
+                        }
+                        .labelsHidden()
+                        .fixedSize()
+                        TextField(placeholder(for: row.fieldKey), text: $row.value)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
+                            .font(.callout.monospaced())
+                    }
+                }
+                .padding(.vertical, 2)
+                .onChange(of: row.fieldKey) { _, newKey in
+                    // 换字段后若当前运算符不适用，回落到首个可用运算符
+                    let ops = availableOps(for: newKey)
+                    if !ops.contains(row.op) { row.op = ops.first ?? .eq }
+                }
+            }
+            .onDelete { conditions.remove(atOffsets: $0) }
+
+            Button {
+                conditions.append(ConditionRow(fieldKey: WAFExpressionCatalog.fields[0].field, op: .eq, value: ""))
+            } label: {
+                Label("添加条件", systemImage: "plus")
+            }
+        } footer: {
+            Text("「属于」可填多个值，用空格或逗号分隔。")
+        }
+
+        Section {
+            Text(generatedExpression.isEmpty ? String(localized: "（条件尚未填完）") : generatedExpression)
+                .font(.caption.monospaced())
+                .foregroundStyle(generatedExpression.isEmpty ? .tertiary : .secondary)
+                .textSelection(.enabled)
+        } header: {
+            Text("生成的表达式")
+        }
+    }
+
+    // MARK: - 表达式编辑器（原始）
+
+    private var expressionSection: some View {
+        Section {
+            TextEditor(text: $expression)
+                .font(.callout.monospaced())
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+                .frame(minHeight: 120)
+        } header: {
+            Text("表达式")
+        } footer: {
+            Text("Cloudflare Rules 语言，例如：\n(http.request.uri.path contains \"/admin\") or (ip.src eq 198.51.100.4)\n切回「书写规则」会用条件重新生成，手动修改将被覆盖。")
+        }
+    }
+
+    private func availableOps(for fieldKey: String) -> [WAFOperator] {
+        let type = WAFExpressionCatalog.field(for: fieldKey)?.type ?? .string
+        return WAFOperator.available(for: type)
+    }
+
+    private func placeholder(for fieldKey: String) -> String {
+        let type = WAFExpressionCatalog.field(for: fieldKey)?.type ?? .string
+        return WAFExpressionCatalog.placeholder(for: type)
     }
 
     // MARK: - 设备端 AI 生成
@@ -280,12 +425,13 @@ private struct WAFRuleFormView: View {
             action = result.action
             enabled = false        // AI 生成默认不启用，人在回路确认后再开
             readback = result.summary
+            mode = .expression      // AI 产出原始表达式，切到表达式编辑器展示
         }
     }
 
     private func save() async {
         viewModel.error = nil
-        let trimmedExpression = expression.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedExpression = effectiveExpression
         if let problem = WAFExpressionLint.problem(in: trimmedExpression) {
             viewModel.error = problem
             return

@@ -31,6 +31,17 @@ struct PermissionSelectionView: View {
             }
             .glassRow()
 
+            // 快捷预设：一键设定所有功能的读写级别
+            Section("快捷设置") {
+                HStack(spacing: 8) {
+                    quickPresetButton("全部只读", systemImage: "eye") { viewModel.applyAllReadOnly() }
+                    quickPresetButton("全部读写", systemImage: "square.and.pencil") { viewModel.applyAllReadWrite() }
+                    quickPresetButton("仅必选", systemImage: "minus.circle") { viewModel.applyMinimal() }
+                }
+                .padding(.vertical, 2)
+            }
+            .glassRow()
+
             // 功能权限列表
             Section("功能模块") {
                 ForEach($viewModel.permissions) { $permission in
@@ -108,6 +119,23 @@ struct PermissionSelectionView: View {
         } message: {
             Text(auth.errorMessage ?? "")
         }
+    }
+
+    /// 快捷预设小按钮（等宽铺满一行）
+    private func quickPresetButton(_ title: LocalizedStringKey, systemImage: String, action: @escaping () -> Void) -> some View {
+        Button {
+            withAnimation(.smooth) { action() }
+        } label: {
+            VStack(spacing: 4) {
+                Image(systemName: systemImage).font(.callout)
+                Text(title).font(.caption.weight(.medium))
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 8)
+            .background(Color.ocOrange.opacity(0.12), in: RoundedRectangle(cornerRadius: 10))
+            .foregroundStyle(Color.ocOrangeText)
+        }
+        .buttonStyle(.plain)
     }
 }
 

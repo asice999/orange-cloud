@@ -1,0 +1,7 @@
+{
+  "versionCode": 7,
+  "versionName": "1.4.2",
+  "minVersionCode": 1,
+  "url": "https://o-c.do/orange-cloud.apk",
+  "note": "Workers AI 体验升级：现在可按任务类型分组浏览模型、查看模型详情，并修复了文本生成模型的试运行。"
+}

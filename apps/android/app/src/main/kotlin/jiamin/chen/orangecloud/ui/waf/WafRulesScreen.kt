@@ -21,6 +21,7 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Shield
+import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -252,6 +253,7 @@ private fun WafRuleForm(
     var enabled by rememberSaveable { mutableStateOf(true) }
     var action by rememberSaveable { mutableStateOf(WafCreateAction.BLOCK) }
     var expanded by remember { mutableStateOf(false) }
+    var showBuilder by remember { mutableStateOf(false) }
 
     val canSave = name.isNotBlank() && expression.isNotBlank() && !isSaving
 
@@ -309,6 +311,11 @@ private fun WafRuleForm(
             fontSize = 12.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
+        TextButton(onClick = { showBuilder = true }) {
+            Icon(Icons.Outlined.Tune, contentDescription = null, tint = OcOrange)
+            Spacer(Modifier.width(6.dp))
+            Text(stringResource(R.string.wafb_open), color = OcOrange)
+        }
 
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(stringResource(R.string.waf_field_enabled), fontSize = 15.sp, color = MaterialTheme.colorScheme.onSurface)
@@ -327,6 +334,15 @@ private fun WafRuleForm(
                 Spacer(Modifier.width(8.dp))
             }
             Text(stringResource(R.string.dns_save))
+        }
+
+        if (showBuilder) {
+            ModalBottomSheet(
+                onDismissRequest = { showBuilder = false },
+                sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+            ) {
+                WafExpressionBuilder(onApply = { expr -> expression = expr; showBuilder = false })
+            }
         }
     }
 }

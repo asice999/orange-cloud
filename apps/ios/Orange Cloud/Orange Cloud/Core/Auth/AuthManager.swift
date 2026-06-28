@@ -11,6 +11,7 @@
 import Foundation
 import AuthenticationServices
 import UIKit
+import WidgetKit
 
 nonisolated enum AuthError: LocalizedError {
     case invalidCallback
@@ -69,16 +70,12 @@ final class AuthManager {
     }
 
     private var currentWebSession: ASWebAuthenticationSession?
-    /// 进行中的刷新任务：并发的 401/临期请求复用同一次刷新，避免刷新令牌轮换下的竞态
-    private var refreshTask: Task<String, Error>?
+    /// 进行中的刷新任务（按身份键）：同一身份的并发 401/临期请求复用同一次刷新，避免刷新令牌
+    /// 轮换下的竞态；不同身份各自独立，切账号后旧身份的在途刷新不会串到新身份。
+    private var refreshTasks: [UUID: Task<String, Error>] = [:]
     private let contextProvider = WebAuthContextProvider()
     private static let sessionsKey = "authSessions"
     private static let currentSessionKey = "currentSessionId"
-    static let iCloudSyncKey = "iCloudSyncEnabled"
-
-    var iCloudSyncEnabled: Bool {
-        UserDefaults.standard.bool(forKey: Self.iCloudSyncKey)
-    }
 
     init() {
         if let data = UserDefaults.standard.data(forKey: Self.sessionsKey),
@@ -94,58 +91,28 @@ final class AuthManager {
         }
         migrateLegacyTokenIfNeeded()
         migrateToSharedKeychainGroupIfNeeded()
+        migrateOffICloudSyncIfNeeded()
         // 诊断：打印当前身份 token 实际授权的 scope（排查 GraphQL "not authorized"——
         // 看 workers-observability.read 等是否真在 token 里）。重启即可见，无需重新登录。
         if let current = currentSession {
             AppLog.auth.info("active session scopes (\(current.scopes.count))=[\(current.scopes.joined(separator: " "))]")
         }
-
-        // iCloud：拉取云端身份索引（token 本体经 iCloud 钥匙串同步）+ 监听外部变更
-        NSUbiquitousKeyValueStore.default.synchronize()
-        mergeSessionsFromCloud()
-        NotificationCenter.default.addObserver(
-            forName: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
-            object: NSUbiquitousKeyValueStore.default,
-            queue: .main
-        ) { [weak self] _ in
-            AppLog.auth.info("iCloud KVS changed externally")
-            Task { @MainActor [weak self] in
-                self?.mergeSessionsFromCloud()
-            }
-        }
+        // 自愈：清掉 App Group 里已不再登录的身份残留的 Widget 数据（历史登出未清等）
+        WidgetDataStore.reconcile(liveSessionIds: Set(sessions.map { $0.id.uuidString }))
     }
 
-    /// 云端身份索引合并（只增不删：删除以本机操作为准，避免互相覆盖）
-    private func mergeSessionsFromCloud() {
-        guard iCloudSyncEnabled,
-              let data = NSUbiquitousKeyValueStore.default.data(forKey: Self.sessionsKey),
-              let cloud = try? JSONDecoder().decode([AuthSessionMeta].self, from: data) else { return }
-        var changed = false
-        for meta in cloud where !sessions.contains(where: { $0.id == meta.id }) {
-            sessions.append(meta)
-            changed = true
-        }
-        if changed {
-            AppLog.sync.notice("iCloud merged sessions from cloud, total=\(sessions.count)")
-            if currentSessionId == nil {
-                currentSessionId = sessions.first?.id
+    /// 一次性迁移：移除 iCloud 同步功能后，把已登录身份的 token 从「可同步」钥匙串条目
+    /// 迁回本机（不再随 iCloud 钥匙串跨设备同步）。重存即触发 TokenStore 删旧增新。
+    private func migrateOffICloudSyncIfNeeded() {
+        let key = "iCloudSyncRemovedMigrated"
+        guard !UserDefaults.standard.bool(forKey: key) else { return }
+        for meta in sessions {
+            if let token = TokenStore.load(sessionId: meta.id) {
+                TokenStore.save(token, sessionId: meta.id)
             }
-            persist()
         }
-    }
-
-    /// 切换 iCloud 同步：迁移钥匙串条目形态 + 推送/移除云端索引
-    func setICloudSync(_ enabled: Bool) {
-        UserDefaults.standard.set(enabled, forKey: Self.iCloudSyncKey)
-        AppLog.auth.info("iCloud sync toggled \(enabled)")
-        TokenStore.setSynchronizable(enabled, sessionIds: sessions.map(\.id))
-        if enabled {
-            persist()
-            mergeSessionsFromCloud()
-        } else {
-            NSUbiquitousKeyValueStore.default.removeObject(forKey: Self.sessionsKey)
-            NSUbiquitousKeyValueStore.default.synchronize()
-        }
+        UserDefaults.standard.removeObject(forKey: "iCloudSyncEnabled")
+        UserDefaults.standard.set(true, forKey: key)
     }
 
     /// 旧版单 token → 第一个身份会话
@@ -165,10 +132,6 @@ final class AuthManager {
     private func persist() {
         if let data = try? JSONEncoder().encode(sessions) {
             UserDefaults.standard.set(data, forKey: Self.sessionsKey)
-            if iCloudSyncEnabled {
-                NSUbiquitousKeyValueStore.default.set(data, forKey: Self.sessionsKey)
-                NSUbiquitousKeyValueStore.default.synchronize()
-            }
         }
         // 当前选中身份是设备级状态，不参与同步；同时写入 App Group 供 Widget 定位 token
         UserDefaults.standard.set(currentSessionId?.uuidString, forKey: Self.currentSessionKey)
@@ -219,6 +182,70 @@ final class AuthManager {
         defer { isLoading = false }
         AppLog.auth.notice("login start freshLogin=\(freshLogin) scopeCount=\(scopeString.split(separator: " ").count)")
 
+        do {
+            let token = try await runAuthorizationFlow(scopeString: scopeString, ephemeral: freshLogin)
+
+            let id = UUID()
+            TokenStore.save(token, sessionId: id)
+            AuthDiagnostics.recordWrite(refreshToken: token.refreshToken, sessionId: id)
+            let scopes = token.scope.components(separatedBy: " ").filter { !$0.isEmpty }.sorted()
+            AppLog.auth.info("login stored session=\(id.uuidString) granted scopes=[\(scopes.joined(separator: " "))]")
+            let label = await fetchIdentityLabel(accessToken: token.accessToken)
+                ?? String(localized: "Cloudflare 账号 \(sessions.count + 1)")
+            sessions.append(AuthSessionMeta(id: id, label: label, scopes: scopes))
+            currentSessionId = id
+            persist()
+        } catch let error as ASWebAuthenticationSessionError where error.code == .canceledLogin {
+            // 用户主动取消，不算错误
+            AppLog.auth.notice("login canceled by user")
+        } catch {
+            AppLog.auth.error("login failed: \(error.localizedDescription)")
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    /// 重新授权一个已存在的身份：请求 union(已授权, 新增) 的 scope，原地更新**同一身份**
+    /// （同 UUID，不新建账号、不触发 ContentView 按 currentSessionId 重建 SessionStore）。
+    /// 用于「缺失 scope → 一键补齐」。复用登录态（非 ephemeral）做到一键无感；换 token 后
+    /// 用 userinfo 邮箱校验，防止浏览器里恰好登着另一个 Cloudflare 账号时把错 token 绑到当前身份。
+    func reauthorize(sessionId: UUID, additionalScopes: [String]) async {
+        guard let index = sessions.firstIndex(where: { $0.id == sessionId }) else { return }
+        isLoading = true
+        errorMessage = nil
+        defer { isLoading = false }
+
+        let merged = Set(sessions[index].scopes).union(additionalScopes)
+        let scopeString = merged.sorted().joined(separator: " ")
+        AppLog.auth.notice("reauthorize session=\(sessionId.uuidString) scopeCount=\(merged.count)")
+
+        do {
+            let token = try await runAuthorizationFlow(scopeString: scopeString, ephemeral: false)
+
+            // 防串号：能取到邮箱、两边都是邮箱且不一致 → 中止，不写入 token
+            let currentLabel = sessions[index].label
+            if let newLabel = await fetchIdentityLabel(accessToken: token.accessToken),
+               currentLabel.contains("@"), newLabel.contains("@"), newLabel != currentLabel {
+                AppLog.auth.error("reauthorize identity mismatch expected=\(currentLabel) got=\(newLabel) → aborted")
+                errorMessage = String(localized: "重新授权返回了不同的账号（\(newLabel)），已取消以保护当前账号。请先在系统浏览器退出其它 Cloudflare 账号后重试。")
+                return
+            }
+
+            TokenStore.save(token, sessionId: sessionId)
+            AuthDiagnostics.recordWrite(refreshToken: token.refreshToken, sessionId: sessionId)
+            let granted = token.scope.components(separatedBy: " ").filter { !$0.isEmpty }.sorted()
+            AppLog.auth.info("reauthorize stored session=\(sessionId.uuidString) granted scopes=[\(granted.joined(separator: " "))]")
+            sessions[index].scopes = granted
+            persist()
+        } catch let error as ASWebAuthenticationSessionError where error.code == .canceledLogin {
+            AppLog.auth.notice("reauthorize canceled by user")
+        } catch {
+            AppLog.auth.error("reauthorize failed: \(error.localizedDescription)")
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    /// 跑一遍 OAuth 授权码 + PKCE 流程，返回换到的 token。登录与重新授权共用。
+    private func runAuthorizationFlow(scopeString: String, ephemeral: Bool) async throws -> TokenStore.StoredToken {
         let verifier  = PKCEHelper.generateCodeVerifier()
         let challenge = PKCEHelper.generateCodeChallenge(from: verifier)
         let state     = UUID().uuidString
@@ -234,28 +261,9 @@ final class AuthManager {
             URLQueryItem(name: "code_challenge_method", value: "S256"),
         ]
 
-        do {
-            let callbackURL = try await authenticate(with: components.url!, ephemeral: freshLogin)
-            let code = try Self.extractCode(from: callbackURL, expectedState: state)
-            let token = try await exchangeCodeForToken(code: code, verifier: verifier)
-
-            let id = UUID()
-            TokenStore.save(token, sessionId: id)
-            AuthDiagnostics.recordWrite(refreshToken: token.refreshToken, sessionId: id)
-            let scopes = token.scope.components(separatedBy: " ").filter { !$0.isEmpty }.sorted()
-            AppLog.auth.info("login stored session=\(id.uuidString) synced=\(iCloudSyncEnabled) granted scopes=[\(scopes.joined(separator: " "))]")
-            let label = await fetchIdentityLabel(accessToken: token.accessToken)
-                ?? String(localized: "Cloudflare 账号 \(sessions.count + 1)")
-            sessions.append(AuthSessionMeta(id: id, label: label, scopes: scopes))
-            currentSessionId = id
-            persist()
-        } catch let error as ASWebAuthenticationSessionError where error.code == .canceledLogin {
-            // 用户主动取消，不算错误
-            AppLog.auth.notice("login canceled by user")
-        } catch {
-            AppLog.auth.error("login failed: \(error.localizedDescription)")
-            errorMessage = error.localizedDescription
-        }
+        let callbackURL = try await authenticate(with: components.url!, ephemeral: ephemeral)
+        let code = try Self.extractCode(from: callbackURL, expectedState: state)
+        return try await exchangeCodeForToken(code: code, verifier: verifier)
     }
 
     /// 打开系统授权窗口，等待 orangecloud:// 回调
@@ -358,47 +366,52 @@ final class AuthManager {
         )
     }
 
-    /// 刷新当前身份的 access_token。并发去重：多个临期/401 请求只触发一次网络刷新，
-    /// 否则刷新令牌轮换（每次刷新作废上一枚）会让并发请求互相把令牌作废，导致误登出。
-    func refreshAccessToken() async throws -> String {
-        if let inFlight = refreshTask {
+    /// 刷新当前身份的 access_token。两条铁律：
+    /// ① 并发去重 + 按身份隔离：同一身份的多个临期/401 请求只触发一次网络刷新（刷新令牌轮换下
+    ///    避免并发请求互相作废），不同身份互不影响。
+    /// ② 绑定发起身份：调用方可传发起请求时的 `expectedSessionId`；若此刻已切到别的身份，说明这是
+    ///    上个账号的陈旧请求，直接放弃刷新——更不会误删任何身份（多账号雪崩登出的根因）。
+    func refreshAccessToken(expectedSessionId: UUID? = nil) async throws -> String {
+        guard let sessionId = currentSessionId else { throw AuthError.notLoggedIn }
+        if let expected = expectedSessionId, expected != sessionId {
+            throw AuthError.notLoggedIn
+        }
+        if let inFlight = refreshTasks[sessionId] {
             return try await inFlight.value
         }
         let task = Task<String, Error> { [weak self] in
             guard let self else { throw AuthError.notLoggedIn }
-            return try await self.performTokenRefresh()
+            return try await self.performTokenRefresh(sessionId: sessionId)
         }
-        refreshTask = task
-        defer { refreshTask = nil }
+        refreshTasks[sessionId] = task
+        defer { refreshTasks[sessionId] = nil }
         return try await task.value
     }
 
     /// 实际刷新逻辑：仅在刷新令牌确已失效（token 端点 400）时移除该身份；
     /// 网络中断 / 超时 / 5xx / 429 等瞬时失败保留身份并原样抛出，交由调用方稍后重试，
     /// 避免一次网络抖动就把用户登出（其他身份始终不受影响）。
-    private func performTokenRefresh() async throws -> String {
-        guard let sessionId = currentSessionId,
-              let stored = TokenStore.load(sessionId: sessionId) else {
-            if let id = currentSessionId {
-                AppLog.auth.error("token missing from keychain → logout. session=\(id.uuidString) synced=\(iCloudSyncEnabled)")
-                removeSession(id)
-            }
+    private func performTokenRefresh(sessionId: UUID) async throws -> String {
+        guard let stored = TokenStore.load(sessionId: sessionId) else {
+            // 钥匙串读不到该身份 token：多半是切账号竞态下的陈旧请求，或确已被清。
+            // 保留身份、抛出由调用方当未授权处理——绝不在此删身份（曾导致多账号雪崩登出）。
+            AppLog.auth.error("token missing from keychain (session kept). session=\(sessionId.uuidString)")
             throw AuthError.notLoggedIn
         }
         guard let refreshToken = stored.refreshToken else {
-            // 没有刷新令牌则无从续期，只能重新授权
-            AppLog.auth.error("stored token has no refresh token → logout. session=\(sessionId.uuidString)")
-            removeSession(sessionId)
+            // 无刷新令牌则无从续期。同样保留身份，交由用户在账号切换器里手动重新授权，
+            // 不删身份，避免一次 401 把会话连锁清空。
+            AppLog.auth.error("stored token has no refresh token (session kept). session=\(sessionId.uuidString)")
             throw AuthError.notLoggedIn
         }
 
-        // 诊断（issue #5）：对比当前刷新令牌指纹与「我们最后写入」的基线，
-        // 不一致即说明钥匙串被外部（iCloud 同步）改写。usedFP/baselineFP 提到 do 外，catch 也能引用。
+        // 诊断（issue #5 历史）：对比当前刷新令牌指纹与「我们最后写入」的基线。
+        // 移除 iCloud 同步后正常应恒等；不一致说明令牌被本进程之外改写过。usedFP/baselineFP 提到 do 外，catch 也能引用。
         let usedFP = AuthDiagnostics.fingerprint(refreshToken)
         let baselineFP = AuthDiagnostics.lastWrittenFingerprint(sessionId)
-        AppLog.auth.info("refresh attempt session=\(sessionId.uuidString) usedRefreshFP=\(usedFP) lastWrittenFP=\(baselineFP ?? "nil") synced=\(iCloudSyncEnabled) accessExpiresInSec=\(Int(stored.expiresAt.timeIntervalSinceNow))")
+        AppLog.auth.info("refresh attempt session=\(sessionId.uuidString) usedRefreshFP=\(usedFP) lastWrittenFP=\(baselineFP ?? "nil") accessExpiresInSec=\(Int(stored.expiresAt.timeIntervalSinceNow))")
         if let baselineFP, baselineFP != usedFP {
-            AppLog.auth.error("⚠️ refresh token changed externally since our last write — iCloud overwrite suspected. expected=\(baselineFP) got=\(usedFP)")
+            AppLog.auth.error("⚠️ refresh token changed externally since our last write. expected=\(baselineFP) got=\(usedFP)")
         }
 
         do {
@@ -419,7 +432,7 @@ final class AuthManager {
             return newToken.accessToken
         } catch let AuthError.tokenEndpointError(status, _) where status == 400 {
             // OAuth 标准：刷新令牌失效 / 被撤销 / 过期返回 400，确需重新授权
-            AppLog.auth.error("refresh rejected 400 (invalid_grant) → logout. usedRefreshFP=\(usedFP) lastWrittenFP=\(baselineFP ?? "nil") synced=\(iCloudSyncEnabled)")
+            AppLog.auth.error("refresh rejected 400 (invalid_grant) → logout. usedRefreshFP=\(usedFP) lastWrittenFP=\(baselineFP ?? "nil")")
             removeSession(sessionId)
             throw AuthError.notLoggedIn
         }
@@ -474,6 +487,9 @@ final class AuthManager {
             currentSessionId = sessions.first?.id
         }
         persist()
+        // 清掉该身份在 App Group 的 Widget 数据，否则其账号 / 域名仍会出现在 Widget 选择器
+        WidgetDataStore.purge(sessionId: id.uuidString)
+        WidgetCenter.shared.reloadAllTimelines()
         if sessions.isEmpty {
             SpotlightIndexer.deleteAll()
         }

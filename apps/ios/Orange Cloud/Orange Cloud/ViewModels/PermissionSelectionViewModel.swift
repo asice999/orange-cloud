@@ -38,4 +38,30 @@ final class PermissionSelectionViewModel {
         guard permissions[index].hasEditOption else { return }
         permissions[index].canEdit.toggle()
     }
+
+    // MARK: - 快捷预设
+
+    /// 全部开启、全部只读
+    func applyAllReadOnly() {
+        for i in permissions.indices {
+            permissions[i].isEnabled = true
+            permissions[i].canEdit = false
+        }
+    }
+
+    /// 全部开启、可写的都给读写
+    func applyAllReadWrite() {
+        for i in permissions.indices {
+            permissions[i].isEnabled = true
+            permissions[i].canEdit = permissions[i].hasEditOption
+        }
+    }
+
+    /// 仅保留必选项（其余关闭、只读）
+    func applyMinimal() {
+        for i in permissions.indices {
+            permissions[i].isEnabled = permissions[i].isRequired
+            permissions[i].canEdit = false
+        }
+    }
 }

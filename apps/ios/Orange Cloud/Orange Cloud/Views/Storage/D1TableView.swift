@@ -181,6 +181,8 @@ struct D1TableView: View {
             .padding(OCLayout.islandPadding)
         }
         .glassIsland(cornerRadius: OCLayout.chipRadius)
+        // 数据表格保持 LTR 列序（单元格内的阿拉伯语文本仍由 bidi 正确渲染）
+        .environment(\.layoutDirection, .leftToRight)
     }
 
     private func cellText(_ value: JSONValue?) -> String {

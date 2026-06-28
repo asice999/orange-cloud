@@ -25,8 +25,10 @@ import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Cloud
 import androidx.compose.material.icons.outlined.Hub
 import androidx.compose.material.icons.outlined.Language
+import androidx.compose.material.icons.outlined.Link
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Refresh
+import androidx.compose.material.icons.outlined.VerifiedUser
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -64,6 +66,8 @@ fun DashboardScreen(
     onOpenZones: () -> Unit,
     onOpenZone: (Zone) -> Unit,
     onAddAccount: () -> Unit,
+    onOpenRedirects: () -> Unit = {},
+    onOpenZeroTrust: () -> Unit = {},
     viewModel: DashboardViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -173,6 +177,8 @@ fun DashboardScreen(
                 ) {
                     QuickAction(Icons.Outlined.Refresh, stringResource(R.string.dash_refresh)) { viewModel.refresh() }
                     QuickAction(Icons.Outlined.Hub, stringResource(R.string.tunnel_title), onOpenTunnels)
+                    QuickAction(Icons.Outlined.Link, stringResource(R.string.redirect_title), onOpenRedirects)
+                    QuickAction(Icons.Outlined.VerifiedUser, stringResource(R.string.zt_title), onOpenZeroTrust)
                 }
             }
 

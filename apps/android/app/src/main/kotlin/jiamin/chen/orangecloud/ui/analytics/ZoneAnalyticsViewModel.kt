@@ -34,6 +34,7 @@ data class ZoneAnalyticsUiState(
     val range: AnalyticsTimeRange = AnalyticsTimeRange.LAST_24H,
     val points: List<TrafficDataPoint> = emptyList(),
     val summary: TrafficSummary? = null,
+    val countries: List<jiamin.chen.orangecloud.data.model.CountryTraffic> = emptyList(),
     val isLoading: Boolean = false,
     val hasError: Boolean = false,
     val missingScope: Boolean = false,
@@ -55,6 +56,7 @@ class ZoneAnalyticsViewModel @Inject constructor(
     private val isPro = entitlementStore.isPro.value
 
     private val cache = mutableMapOf<AnalyticsTimeRange, List<TrafficDataPoint>>()
+    private val countryCache = mutableMapOf<AnalyticsTimeRange, List<jiamin.chen.orangecloud.data.model.CountryTraffic>>()
 
     private val _uiState = MutableStateFlow(
         ZoneAnalyticsUiState(zoneName = zoneName, missingScope = !hasScope, isLoading = hasScope, isPro = isPro),
@@ -80,6 +82,7 @@ class ZoneAnalyticsViewModel @Inject constructor(
 
     fun refresh() {
         cache.clear()
+        countryCache.clear()
         load(force = true)
     }
 
@@ -95,6 +98,10 @@ class ZoneAnalyticsViewModel @Inject constructor(
                 val points = analyticsRepository.zoneTraffic(zoneId, range)
                 cache[range] = points
                 apply(points)
+                // 按国家/地区为附加视图，失败不影响主图表。
+                val countries = runCatching { analyticsRepository.zoneCountryTraffic(zoneId, range) }.getOrDefault(emptyList())
+                countryCache[range] = countries
+                _uiState.update { it.copy(countries = countries) }
             } catch (e: Exception) {
                 _uiState.update { it.copy(hasError = true) }
             } finally {
@@ -104,7 +111,7 @@ class ZoneAnalyticsViewModel @Inject constructor(
     }
 
     private fun apply(points: List<TrafficDataPoint>) {
-        _uiState.update { it.copy(points = points, summary = summarize(points)) }
+        _uiState.update { it.copy(points = points, summary = summarize(points), countries = countryCache[_uiState.value.range].orEmpty()) }
     }
 
     private fun summarize(points: List<TrafficDataPoint>): TrafficSummary = TrafficSummary(

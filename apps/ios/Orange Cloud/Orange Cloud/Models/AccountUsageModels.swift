@@ -51,7 +51,7 @@ nonisolated enum R2UsageQuery {
             limit: 10000,
             filter: { datetime_geq: $monthStart, datetime_leq: $now }
           ) {
-            dimensions { actionType }
+            dimensions { actionType bucketName }
             sum { requests }
           }
           r2Storage: r2StorageAdaptiveGroups(
@@ -174,6 +174,7 @@ nonisolated struct R2OpsGroup: Codable, Sendable {
 
 nonisolated struct R2OpsDimensions: Codable, Sendable {
     let actionType: String?
+    let bucketName: String?     // 按桶用量需要；账号级聚合忽略它，互不影响
 }
 
 nonisolated struct R2OpsSum: Codable, Sendable {

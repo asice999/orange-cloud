@@ -2,8 +2,7 @@
 //  AccountPrefsStore.swift
 //  Orange Cloud
 //
-//  按 Cloudflare 账户（account ID）存储的偏好：账单日、套餐预设。
-//  account ID 跨设备稳定，开启 iCloud 同步后经 NSUbiquitousKeyValueStore 同步。
+//  按 Cloudflare 账户（account ID）存储的偏好：账单日、套餐预设。仅本机保存，不跨设备同步。
 //
 
 import Foundation
@@ -26,10 +25,6 @@ final class AccountPrefsStore {
     private static let storeKey = "accountPrefsById"
     private let defaultsTemplate: Prefs
 
-    private var syncEnabled: Bool {
-        UserDefaults.standard.bool(forKey: AuthManager.iCloudSyncKey)
-    }
-
     private init() {
         // 旧版全局偏好作为新账户的默认模板（平滑迁移）
         var template = Prefs()
@@ -45,17 +40,6 @@ final class AccountPrefsStore {
            let decoded = try? JSONDecoder().decode([String: Prefs].self, from: data) {
             all = decoded
         }
-        mergeFromCloud()
-
-        NotificationCenter.default.addObserver(
-            forName: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
-            object: NSUbiquitousKeyValueStore.default,
-            queue: .main
-        ) { [weak self] _ in
-            Task { @MainActor [weak self] in
-                self?.mergeFromCloud()
-            }
-        }
     }
 
     func prefs(for accountId: String) -> Prefs {
@@ -70,38 +54,8 @@ final class AccountPrefsStore {
         persist()
     }
 
-    /// 同步开关变更：开启则推送 + 拉取，关闭则从云端移除
-    func applySyncChange(_ enabled: Bool) {
-        if enabled {
-            persist()
-            mergeFromCloud()
-        } else {
-            NSUbiquitousKeyValueStore.default.removeObject(forKey: Self.storeKey)
-            NSUbiquitousKeyValueStore.default.synchronize()
-        }
-    }
-
-    private func mergeFromCloud() {
-        guard syncEnabled,
-              let data = NSUbiquitousKeyValueStore.default.data(forKey: Self.storeKey),
-              let cloud = try? JSONDecoder().decode([String: Prefs].self, from: data) else { return }
-        // 按账户合并，云端较新视角优先（偏好是幂等设置，最后写入者胜出可接受）
-        var changed = false
-        for (accountId, prefs) in cloud where all[accountId] != prefs {
-            all[accountId] = prefs
-            changed = true
-        }
-        if changed {
-            persistLocalOnly()
-        }
-    }
-
     private func persist() {
         persistLocalOnly()
-        if syncEnabled, let data = try? JSONEncoder().encode(all) {
-            NSUbiquitousKeyValueStore.default.set(data, forKey: Self.storeKey)
-            NSUbiquitousKeyValueStore.default.synchronize()
-        }
     }
 
     private func persistLocalOnly() {

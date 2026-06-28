@@ -4,13 +4,17 @@
 //
 //  SwiftData 本地缓存：View 通过 @Query 读取，ViewModel 刷新 API 后写入，离线可读。
 //
+//  唯一性由各 upsert 路径（先按 id/key fetch，再 update-or-insert）在代码层保证——
+//  **不要**用 @Attribute(.unique)：该约束在部分 iOS 17.0 设备上会让 SwiftData 建容器即
+//  报 SwiftDataError、并在 @Query 读 / 写入时硬崩（do/catch 接不住）。1.3.2 build 13 实测坐实。
+//
 
 import Foundation
 import SwiftData
 
 @Model
 final class CachedZone {
-    @Attribute(.unique) var id: String
+    var id: String
     var name:        String
     var status:      String
     var planName:    String
@@ -40,8 +44,8 @@ final class CachedZone {
 
 @Model
 final class CachedWorkerScript {
-    // 脚本名只在账号内唯一，全局唯一键用 accountId/scriptId 复合
-    @Attribute(.unique) var key: String
+    // 脚本名只在账号内唯一，全局唯一键用 accountId/scriptId 复合（代码层 upsert 去重）
+    var key: String
     var id:         String          // 脚本名
     var accountId:  String
     var createdOn:  String?
@@ -75,7 +79,7 @@ final class CachedWorkerScript {
 
 @Model
 final class CachedDNSRecord {
-    @Attribute(.unique) var id: String
+    var id: String
     var type:      String
     var name:      String
     var content:   String

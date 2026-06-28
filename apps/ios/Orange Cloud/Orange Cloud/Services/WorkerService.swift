@@ -74,6 +74,149 @@ struct WorkerService {
         guard response.success else { throw response.toAPIError() }
     }
 
+    /// 新建 / 整体替换脚本（PUT 即「不存在则建、存在则覆盖」）。主模块名由我们定，
+    /// 不读 /content（OAuth 下读不到，见 cloudflare-oauth-content-405）——新建无需读旧码；
+    /// 替换时传 inheritBindings（现有绑定按名 inherit，连同读不到值的密钥一并保住），带
+    /// ?bindings_inherit=strict 缺绑定即报错而非静默丢弃。
+    func deployScript(
+        accountId: String,
+        scriptName: String,
+        code: String,
+        isModule: Bool,
+        compatibilityDate: String,
+        compatibilityFlags: [String]? = nil,
+        inheritBindings: [WorkerBindingInput]? = nil
+    ) async throws {
+        let moduleName = "worker.js"
+        let metadata = WorkerUploadMetadata(
+            mainModule:         isModule ? moduleName : nil,
+            bodyPart:           isModule ? nil : moduleName,
+            compatibilityDate:  compatibilityDate,
+            compatibilityFlags: compatibilityFlags,
+            bindings:           inheritBindings ?? []
+        )
+        var query: [URLQueryItem] = []
+        if inheritBindings != nil {
+            query.append(URLQueryItem(name: "bindings_inherit", value: "strict"))
+        }
+        let response: CFAPIResponse<EmptyResponse> = try await client.multipartRequest(
+            method: "PUT",
+            "accounts/\(accountId)/workers/scripts/\(scriptName)",
+            queryItems: query,
+            jsonPartName: "metadata",
+            jsonPart: metadata,
+            file: (
+                name: moduleName,
+                contentType: isModule ? "application/javascript+module" : "application/javascript",
+                content: Data(code.utf8)
+            )
+        )
+        guard response.success else { throw response.toAPIError() }
+    }
+
+    /// 多模块上传：metadata.main_module 指向入口，每个模块作为独立文件 part。
+    func deployModules(
+        accountId: String,
+        scriptName: String,
+        modules: [WorkerUploadModule],
+        entryName: String,
+        compatibilityDate: String,
+        compatibilityFlags: [String]? = nil,
+        inheritBindings: [WorkerBindingInput]? = nil
+    ) async throws {
+        let metadata = WorkerUploadMetadata(
+            mainModule:         entryName,
+            bodyPart:           nil,
+            compatibilityDate:  compatibilityDate,
+            compatibilityFlags: compatibilityFlags,
+            bindings:           inheritBindings ?? []
+        )
+        var query: [URLQueryItem] = []
+        if inheritBindings != nil { query.append(URLQueryItem(name: "bindings_inherit", value: "strict")) }
+        let response: CFAPIResponse<EmptyResponse> = try await client.multipartRequest(
+            method: "PUT",
+            "accounts/\(accountId)/workers/scripts/\(scriptName)",
+            queryItems: query,
+            jsonPartName: "metadata",
+            jsonPart: metadata,
+            files: modules.map { (name: $0.name, contentType: $0.contentType, content: $0.data) }
+        )
+        guard response.success else { throw response.toAPIError() }
+    }
+
+    // MARK: - 静态资源（Workers Assets）
+    //
+    // 流程：① assets-upload-session 提交 manifest（路径→{hash,size}）拿 jwt + 待传分桶
+    // → ② 按桶把资源 base64 传到 workers/assets/upload（用 session jwt）→ 末桶回完成令牌
+    // → ③ PUT 脚本，metadata.assets.jwt = 完成令牌（assets-only 时不带 main_module）。
+    //
+
+    func createAssetsUploadSession(
+        accountId: String,
+        scriptName: String,
+        manifest: [String: WorkerAssetManifestEntry]
+    ) async throws -> WorkerAssetsUploadSession {
+        let response: CFAPIResponse<WorkerAssetsUploadSession> = try await client.post(
+            "accounts/\(accountId)/workers/scripts/\(scriptName)/assets-upload-session",
+            body: WorkerAssetsUploadSessionRequest(manifest: manifest)
+        )
+        guard response.success, let session = response.result else { throw response.toAPIError() }
+        return session
+    }
+
+    /// 上传一桶资源（base64）。返回该桶响应里的完成令牌（仅末桶有）。
+    func uploadAssetsBucket(
+        accountId: String,
+        sessionJWT: String,
+        files: [(hash: String, base64: String, contentType: String)]
+    ) async throws -> String? {
+        let parts = files.map { (name: $0.hash, contentType: $0.contentType, body: Data($0.base64.utf8)) }
+        let data = try await client.bearerMultipart(
+            method: "POST",
+            path: "accounts/\(accountId)/workers/assets/upload",
+            queryItems: [URLQueryItem(name: "base64", value: "true")],
+            bearer: sessionJWT,
+            parts: parts
+        )
+        let response = try JSONDecoder().decode(CFAPIResponse<WorkerAssetsUploadResult>.self, from: data)
+        guard response.success else { throw response.toAPIError() }
+        return response.result?.jwt
+    }
+
+    /// PUT 脚本并挂上静态资源（completionJWT 来自资源上传末桶 / 无需上传时来自 session）。
+    /// mainModule 为 nil 即 assets-only（纯静态站）。
+    func deployWithAssets(
+        accountId: String,
+        scriptName: String,
+        completionJWT: String,
+        compatibilityDate: String,
+        htmlHandling: String,
+        notFoundHandling: String,
+        mainModule: (name: String, contentType: String, content: Data)? = nil
+    ) async throws {
+        let metadata = WorkerAssetsUploadMetadata(
+            mainModule:         mainModule?.name,
+            compatibilityDate:  compatibilityDate,
+            compatibilityFlags: nil,
+            assets: WorkerAssetsConfig(
+                jwt: completionJWT,
+                config: WorkerAssetsRoutingConfig(htmlHandling: htmlHandling, notFoundHandling: notFoundHandling)
+            ),
+            bindings: []
+        )
+        let files: [(name: String, contentType: String, content: Data)] = mainModule.map {
+            [(name: $0.name, contentType: $0.contentType, content: $0.content)]
+        } ?? []
+        let response: CFAPIResponse<EmptyResponse> = try await client.multipartRequest(
+            method: "PUT",
+            "accounts/\(accountId)/workers/scripts/\(scriptName)",
+            jsonPartName: "metadata",
+            jsonPart: metadata,
+            files: files
+        )
+        guard response.success else { throw response.toAPIError() }
+    }
+
     /// 改绑定（变量）：传入完整新 bindings（变更项为实体，其余 inherit），PATCH settings 不动代码。
     func patchSettings(
         accountId: String,

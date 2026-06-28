@@ -12,7 +12,10 @@ import SwiftUI
 /// 触发付费墙的场景，决定付费墙头部与锁定态文案
 nonisolated enum ProFeature: String, Identifiable, Sendable {
     case multiAccount, storage, workerTail, waf, tunnel, analyticsRange, snippets
-    case workerSecrets, workerTriggers, workerRoutes
+    case workerSecrets, workerTriggers, workerRoutes, cacheRules, pages, loadBalancing, bulkRedirects
+    case auditLog, emailRouting, rateLimit, zeroTrust, trafficMap
+    case aiInsights, aiDNS, filesApp
+    case queues, aiGateway, durableObjects, workersAI, hyperdrive
 
     var id: String { rawValue }
 
@@ -28,6 +31,23 @@ nonisolated enum ProFeature: String, Identifiable, Sendable {
         case .workerSecrets:  String(localized: "变量与密钥需要 Pro")
         case .workerTriggers: String(localized: "触发器管理需要 Pro")
         case .workerRoutes:   String(localized: "域名管理需要 Pro")
+        case .cacheRules:     String(localized: "缓存规则需要 Pro")
+        case .pages:          String(localized: "Cloudflare Pages 需要 Pro")
+        case .loadBalancing:  String(localized: "负载均衡需要 Pro")
+        case .bulkRedirects:  String(localized: "Bulk Redirects 需要 Pro")
+        case .auditLog:       String(localized: "审计日志需要 Pro")
+        case .emailRouting:   String(localized: "Email Routing 需要 Pro")
+        case .rateLimit:      String(localized: "限速规则需要 Pro")
+        case .zeroTrust:      String(localized: "Zero Trust 需要 Pro")
+        case .trafficMap:     String(localized: "全球流量地图需要 Pro")
+        case .aiInsights:     String(localized: "智能流量摘要需要 Pro")
+        case .aiDNS:          String(localized: "AI 添加记录需要 Pro")
+        case .filesApp:       String(localized: "在『文件』中访问需要 Pro")
+        case .queues:         String(localized: "Queues 需要 Pro")
+        case .aiGateway:      String(localized: "AI Gateway 需要 Pro")
+        case .durableObjects: String(localized: "Durable Objects 需要 Pro")
+        case .workersAI:      String(localized: "Workers AI 需要 Pro")
+        case .hyperdrive:     String(localized: "Hyperdrive 需要 Pro")
         }
     }
 
@@ -43,6 +63,23 @@ nonisolated enum ProFeature: String, Identifiable, Sendable {
         case .workerSecrets:  String(localized: "管理 Workers 的环境变量与密钥属于 Orange Cloud Pro。")
         case .workerTriggers: String(localized: "管理 Workers 的 Cron 定时触发器属于 Orange Cloud Pro。")
         case .workerRoutes:   String(localized: "管理 Workers 的子域、自定义域与路由属于 Orange Cloud Pro。")
+        case .cacheRules:     String(localized: "按 URL 自定义边缘/浏览器缓存 TTL、绕过缓存等缓存规则属于 Orange Cloud Pro。")
+        case .pages:          String(localized: "查看与管理 Cloudflare Pages 项目和部署（重试 / 回滚 / 删除、构建配置）属于 Orange Cloud Pro。")
+        case .loadBalancing:  String(localized: "负载均衡器、源站池与健康监测的查看与管理属于 Orange Cloud Pro。")
+        case .bulkRedirects:  String(localized: "批量 URL 重定向列表与条目的查看与管理属于 Orange Cloud Pro。")
+        case .auditLog:       String(localized: "查看账号最近 30 天的审计日志（谁在何时改了什么）属于 Orange Cloud Pro。")
+        case .emailRouting:   String(localized: "管理域名的邮件路由规则与目的地址属于 Orange Cloud Pro。")
+        case .rateLimit:      String(localized: "查看与管理限速规则属于 Orange Cloud Pro。")
+        case .zeroTrust:      String(localized: "查看 Zero Trust Access 应用与 Gateway 策略属于 Orange Cloud Pro。")
+        case .trafficMap:     String(localized: "按国家/地区在世界地图上查看请求与威胁的地理分布属于 Orange Cloud Pro。")
+        case .aiInsights:     String(localized: "用设备端 AI 一句话总结本期流量的增长、异常与主要来源（离线、免费、不出设备）属于 Orange Cloud Pro。")
+        case .aiDNS:          String(localized: "用自然语言一句话生成 DNS 记录（如「给 blog 加个指向 1.2.3.4 的 A 记录」），设备端离线属于 Orange Cloud Pro。")
+        case .filesApp:       String(localized: "把 R2 存储桶挂进系统『文件』App，像 iCloud 云盘一样浏览、读写、用任意 App 打开，属于 Orange Cloud Pro。")
+        case .queues:         String(localized: "查看与管理 Cloudflare Queues（新建 / 删除队列）属于 Orange Cloud Pro。")
+        case .aiGateway:      String(localized: "查看与管理 AI Gateway（新建 / 删除网关，配置缓存、限速与日志）属于 Orange Cloud Pro。")
+        case .durableObjects: String(localized: "查看 Durable Objects 命名空间属于 Orange Cloud Pro。")
+        case .workersAI:      String(localized: "浏览 Workers AI 模型目录属于 Orange Cloud Pro。")
+        case .hyperdrive:     String(localized: "查看与管理 Hyperdrive 数据库加速配置属于 Orange Cloud Pro。")
         }
     }
 
@@ -58,6 +95,23 @@ nonisolated enum ProFeature: String, Identifiable, Sendable {
         case .workerSecrets:  "key"
         case .workerTriggers: "clock"
         case .workerRoutes:   "globe"
+        case .cacheRules:     "bolt.horizontal"
+        case .pages:          "doc.richtext"
+        case .loadBalancing:  "arrow.left.arrow.right"
+        case .bulkRedirects:  "arrowshape.turn.up.right"
+        case .auditLog:       "clock.arrow.circlepath"
+        case .emailRouting:   "envelope"
+        case .rateLimit:      "gauge.with.dots.needle.bottom.50percent"
+        case .zeroTrust:      "lock.shield"
+        case .trafficMap:     "globe.americas"
+        case .aiInsights:     "sparkles"
+        case .aiDNS:          "sparkles"
+        case .filesApp:       "folder.badge.gearshape"
+        case .queues:         "tray.2"
+        case .aiGateway:      "brain.head.profile"
+        case .durableObjects: "cube.transparent"
+        case .workersAI:      "brain"
+        case .hyperdrive:     "bolt.horizontal.circle"
         }
     }
 }

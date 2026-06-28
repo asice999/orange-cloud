@@ -5,6 +5,7 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>jiamin.chen.Orange-Cloud.refresh</string>
+		<string>jiamin.chen.Orange-Cloud.transfer</string>
 	</array>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>

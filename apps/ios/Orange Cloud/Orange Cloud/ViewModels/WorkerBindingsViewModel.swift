@@ -112,4 +112,51 @@ final class WorkerBindingsViewModel {
             self.error = error.localizedDescription
         }
     }
+
+    // MARK: - 批量导入（JSON）
+
+    /// 批量导入变量（plain_text）：单次 PATCH，导入项设为实体、其余绑定 inherit，同名覆盖。原子。
+    func bulkImportVariables(_ pairs: [(name: String, value: String)]) async -> Bool {
+        guard let settings, !isSaving, !pairs.isEmpty else { return false }
+        isSaving = true
+        error = nil
+        defer { isSaving = false }
+        let importedNames = Set(pairs.map(\.name))
+        var bindings = settings.bindings
+            .filter { !importedNames.contains($0.name) }
+            .map { $0.asInherit() }
+        for pair in pairs {
+            bindings.append(WorkerBindingInput(type: "plain_text", name: pair.name, text: pair.value))
+        }
+        do {
+            try await service.patchSettings(accountId: accountId, scriptName: scriptName, bindings: bindings, settings: settings)
+            self.settings = try? await service.settings(accountId: accountId, scriptName: scriptName)
+            return true
+        } catch {
+            self.error = error.localizedDescription
+            return false
+        }
+    }
+
+    /// 批量导入密钥（secret_text）：逐个 PUT（端点不支持批量），同名覆盖。
+    /// 任一失败即停，报告已写入数量并刷新列表反映真实状态。
+    func bulkImportSecrets(_ pairs: [(name: String, value: String)]) async -> Bool {
+        guard !isSaving, !pairs.isEmpty else { return false }
+        isSaving = true
+        error = nil
+        defer { isSaving = false }
+        var done = 0
+        do {
+            for pair in pairs {
+                try await service.putSecret(accountId: accountId, scriptName: scriptName, name: pair.name, text: pair.value)
+                done += 1
+            }
+            secrets = (try? await service.listSecrets(accountId: accountId, scriptName: scriptName)) ?? secrets
+            return true
+        } catch {
+            self.error = String(localized: "已导入 \(done)/\(pairs.count) 项后失败：\(error.localizedDescription)")
+            secrets = (try? await service.listSecrets(accountId: accountId, scriptName: scriptName)) ?? secrets
+            return false
+        }
+    }
 }

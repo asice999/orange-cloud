@@ -24,11 +24,6 @@ nonisolated enum TokenStore {
     /// 共享钥匙串组（主 App 与 Widget 共用；Widget 只读 access_token，不做刷新）
     static let sharedAccessGroup = "6G78MMY657.jiamin.chen.orange-cloud.shared"
 
-    /// iCloud 钥匙串同步开关（设置页控制，按设备生效）
-    static var iCloudSyncEnabled: Bool {
-        UserDefaults.standard.bool(forKey: "iCloudSyncEnabled")
-    }
-
     // MARK: - 按身份读写
 
     @discardableResult
@@ -54,35 +49,21 @@ nonisolated enum TokenStore {
         SecItemDelete(baseQuery(account: legacyAccount) as CFDictionary)
     }
 
-    /// 切换 iCloud 同步：把所有身份 token 在本机条目与可同步条目之间迁移。
-    /// 注意：关闭同步会删除可同步条目（即从 iCloud 移除），改存本机。
-    static func setSynchronizable(_ sync: Bool, sessionIds: [UUID]) {
-        for id in sessionIds {
-            guard let token = load(sessionId: id) else { continue }
-            SecItemDelete(anyQuery(account: id.uuidString) as CFDictionary)
-            save(token, account: id.uuidString, synchronizable: sync)
-        }
-    }
-
     // MARK: - 内部实现
 
     @discardableResult
     private static func save(_ token: StoredToken, account: String) -> Bool {
-        save(token, account: account, synchronizable: iCloudSyncEnabled)
-    }
-
-    @discardableResult
-    private static func save(_ token: StoredToken, account: String, synchronizable: Bool) -> Bool {
         guard let data = try? JSONEncoder().encode(token) else { return false }
 
-        // 删除时匹配两种形态，避免本机/同步条目并存
+        // 删除时匹配本机与（历史遗留的）可同步两种形态，确保统一改回纯本机条目
         SecItemDelete(anyQuery(account: account) as CFDictionary)
 
         var query = baseQuery(account: account)
         query[kSecValueData as String] = data
-        // 同步条目不能用 ThisDeviceOnly 可见性
         query[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
-        query[kSecAttrSynchronizable as String] = synchronizable
+        // token 仅按设备本地保管，绝不随 iCloud 钥匙串跨设备同步
+        // （OAuth 刷新令牌每次轮换，同步旧令牌会导致并发刷新互相作废而误登出）
+        query[kSecAttrSynchronizable as String] = false
         // 写入共享组让 Widget 可读；entitlement 缺失时回退默认组，保证 token 不丢
         query[kSecAttrAccessGroup as String] = sharedAccessGroup
         if SecItemAdd(query as CFDictionary, nil) == errSecSuccess {

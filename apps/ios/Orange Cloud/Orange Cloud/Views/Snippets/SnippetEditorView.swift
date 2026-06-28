@@ -64,6 +64,8 @@ struct SnippetEditorView: View {
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
                             .frame(minHeight: 220)
+                            // JS 代码始终 LTR，避免在 RTL 语言下镜像
+                            .environment(\.layoutDirection, .leftToRight)
                     }
                 } header: {
                     Text("代码")

@@ -133,6 +133,8 @@ struct DashboardView: View {
                         .islandReveal(3)
                     networkSection
                         .islandReveal(4)
+                    bulkRedirectsSection
+                        .islandReveal(5)
                 }
                 .padding(OCLayout.pagePadding)
             }
@@ -198,6 +200,7 @@ struct DashboardView: View {
         guard auth.hasScope("analytics.read") else { return }
         await viewModel.loadTraffic(
             zones: displayZones.map { (id: $0.id, name: $0.name) },
+            accountId: session.selectedAccount?.id,
             force: force
         )
     }
@@ -291,7 +294,7 @@ struct DashboardView: View {
             services.append(WidgetUsageService(id: "kv", name: "KV", rows: rows))
         }
 
-        WidgetDataStore.saveUsage(WidgetUsageData(services: services, updatedAt: Date()))
+        WidgetDataStore.saveUsage(WidgetUsageData(services: services, updatedAt: Date()), accountId: currentAccountId)
         WidgetCenter.shared.reloadTimelines(ofKind: "UsageWidget")
     }
 
@@ -400,7 +403,7 @@ struct DashboardView: View {
                 )
                 .symbolEffect(.bounce, value: session.selectedAccount?.id)
         }
-        .popoverTip(accountSwitchTip)
+        .safePopoverTip(accountSwitchTip)
         .accessibilityLabel("切换账号")
         .accessibilityValue(session.selectedAccount?.name ?? "")
     }
@@ -1017,19 +1020,59 @@ struct DashboardView: View {
     // MARK: - 网络（单行服务，胶囊形态，不配段落标题）
 
     private var networkSection: some View {
-        ProGatedNavigationLink(
-            label: "Cloudflare Tunnel",
-            systemImage: "arrow.triangle.2.circlepath",
-            requiredScope: "argotunnel.read",
-            feature: .tunnel,
-            showsChevron: true
-        ) {
-            TunnelListView(session: session)
+        VStack(spacing: 10) {
+            ProGatedNavigationLink(
+                label: "Cloudflare Tunnel",
+                systemImage: "arrow.triangle.2.circlepath",
+                requiredScope: "argotunnel.read",
+                feature: .tunnel,
+                showsChevron: true
+            ) {
+                TunnelListView(session: session)
+            }
+            Divider().padding(.leading, 44)
+            ProGatedNavigationLink(
+                label: "Access 应用",
+                systemImage: "lock.shield",
+                requiredScope: "access.read",
+                feature: .zeroTrust,
+                showsChevron: true
+            ) {
+                AccessAppsView(session: session)
+            }
+            Divider().padding(.leading, 44)
+            ProGatedNavigationLink(
+                label: "Gateway 策略",
+                systemImage: "shield.lefthalf.filled",
+                requiredScope: "teams.read",
+                feature: .zeroTrust,
+                showsChevron: true
+            ) {
+                GatewayRulesView(session: session)
+            }
         }
         .padding(.horizontal, OCLayout.islandPadding + 2)
         .padding(.vertical, 12)
         .glassIsland(cornerRadius: 24)
     }
+
+    // MARK: - Bulk Redirects（account 级）
+
+    private var bulkRedirectsSection: some View {
+        ProGatedNavigationLink(
+            label: "Bulk Redirects",
+            systemImage: "arrowshape.turn.up.right",
+            requiredScope: "account-rule-lists.read",
+            feature: .bulkRedirects,
+            showsChevron: true
+        ) {
+            BulkRedirectListsView(session: session)
+        }
+        .padding(.horizontal, OCLayout.islandPadding + 2)
+        .padding(.vertical, 12)
+        .glassIsland(cornerRadius: 24)
+    }
+
 }
 
 // MARK: - 用量宫格的服务与瓦片

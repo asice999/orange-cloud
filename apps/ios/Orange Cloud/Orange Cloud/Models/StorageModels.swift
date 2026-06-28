@@ -14,6 +14,15 @@ nonisolated struct R2BucketList: Codable, Sendable {
     let buckets: [R2Bucket]
 }
 
+/// POST /accounts/{id}/r2/buckets 请求体。R2 端点字段为 camelCase（与多数 CF API 不同）。
+/// locationHint 为空时编码器省略，由 Cloudflare 就近放置；storageClass 省略时默认 Standard。
+/// 司法辖区（EU 等）走 cf-r2-jurisdiction 头，此处不涉及。
+nonisolated struct R2CreateRequest: Codable, Sendable {
+    let name:         String
+    let locationHint: String?
+    let storageClass: String?
+}
+
 nonisolated struct R2Bucket: Codable, Identifiable, Hashable, Sendable {
     let name:         String
     let creationDate: String?
@@ -27,6 +36,66 @@ nonisolated struct R2Bucket: Codable, Identifiable, Hashable, Sendable {
         case creationDate = "creation_date"
         case storageClass = "storage_class"
     }
+}
+
+/// 单桶用量聚合：本月操作（Class A/B）+ 当前存储/对象数快照。来自 GraphQL，缺失时全 0。
+nonisolated struct R2BucketUsage: Sendable, Hashable {
+    var classARequests = 0
+    var classBRequests = 0
+    var storageBytes   = 0
+    var objectCount    = 0
+
+    var totalRequests: Int { classARequests + classBRequests }
+}
+
+// MARK: - R2 公开访问 / CORS（桶设置，字段为 camelCase；读用可选字段宽容缺省）
+
+/// 托管公开访问 URL（r2.dev）。GET/PUT .../domains/managed
+nonisolated struct R2ManagedDomain: Codable, Sendable {
+    let bucketId: String?
+    let domain:   String?
+    let enabled:  Bool?
+}
+
+nonisolated struct R2ManagedDomainUpdate: Codable, Sendable {
+    let enabled: Bool
+}
+
+/// 自定义域列表。GET .../domains/custom
+nonisolated struct R2CustomDomainList: Codable, Sendable {
+    let domains: [R2CustomDomain]?
+}
+
+nonisolated struct R2CustomDomain: Codable, Sendable, Identifiable {
+    let domain:  String
+    let enabled: Bool?
+    let status:  R2CustomDomainStatus?
+    let minTLS:  String?
+
+    var id: String { domain }
+}
+
+nonisolated struct R2CustomDomainStatus: Codable, Sendable {
+    let ownership: String?
+    let ssl:       String?
+}
+
+/// 桶 CORS 策略。GET/PUT/DELETE .../cors
+nonisolated struct R2CorsPolicy: Codable, Sendable {
+    let rules: [R2CorsRule]?
+}
+
+nonisolated struct R2CorsRule: Codable, Sendable {
+    let id:            String?
+    let allowed:       R2CorsAllowed?
+    let exposeHeaders: [String]?
+    let maxAgeSeconds: Int?
+}
+
+nonisolated struct R2CorsAllowed: Codable, Sendable {
+    let methods: [String]?
+    let origins: [String]?
+    let headers: [String]?
 }
 
 nonisolated struct R2Object: Codable, Identifiable, Hashable, Sendable {
@@ -52,6 +121,57 @@ nonisolated struct R2HTTPMetadata: Codable, Hashable, Sendable {
 
     enum CodingKeys: String, CodingKey {
         case contentType = "contentType"   // R2 对象元数据是 camelCase
+    }
+}
+
+// MARK: - R2 文件夹浏览（list 用 delimiter=/ 让服务端折叠子前缀，免客户端逐对象分组）
+
+nonisolated struct R2ObjectListOptions: Sendable {
+    let accountId:  String
+    let bucketName: String
+    let prefix:     String
+    let cursor:     String?
+
+    init(accountId: String, bucketName: String, prefix: String = "", cursor: String? = nil) {
+        self.accountId = accountId
+        self.bucketName = bucketName
+        self.prefix = prefix
+        self.cursor = cursor
+    }
+}
+
+nonisolated struct R2ObjectPage: Sendable {
+    let objects:        [R2Object]
+    let folderPrefixes: [String]
+    let nextCursor:     String?
+}
+
+/// 一个「文件夹」= 某个折叠前缀（prefix 形如 a/b/）。name 取相对当前层的末段。
+nonisolated struct R2Folder: Identifiable, Hashable, Sendable {
+    let prefix:       String
+    let parentPrefix: String
+
+    var id: String { prefix }
+    var name: String { Self.displayName(prefix: prefix, parentPrefix: parentPrefix) }
+
+    static func makeList(from prefixes: [String], parentPrefix: String) -> [R2Folder] {
+        Array(Set(prefixes))
+            .filter { $0 != parentPrefix }
+            .sorted()
+            .map { R2Folder(prefix: $0, parentPrefix: parentPrefix) }
+    }
+
+    /// 当前前缀的上一级（a/b/c/ → a/b/，a/ → 根 ""）
+    static func parentPrefix(of prefix: String) -> String {
+        let trimmed = prefix.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        guard let lastSlash = trimmed.lastIndex(of: "/") else { return "" }
+        return String(trimmed[..<trimmed.index(after: lastSlash)])
+    }
+
+    private static func displayName(prefix: String, parentPrefix: String) -> String {
+        let relative = prefix.dropFirst(parentPrefix.count)
+        let trimmed = String(relative).trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        return trimmed.components(separatedBy: "/").last ?? trimmed
     }
 }
 
@@ -156,6 +276,11 @@ nonisolated struct D1QueryMeta: Codable, Sendable {
 
 nonisolated struct KVNamespace: Codable, Identifiable, Hashable, Sendable {
     let id:    String
+    let title: String
+}
+
+/// POST /accounts/{id}/storage/kv/namespaces 请求体（仅 title）
+nonisolated struct KVCreateRequest: Codable, Sendable {
     let title: String
 }
 

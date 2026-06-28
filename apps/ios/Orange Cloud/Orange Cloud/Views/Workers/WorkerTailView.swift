@@ -37,7 +37,7 @@ struct WorkerTailView: View {
                 ) {
                     viewModel.isPaused.toggle()
                 }
-                .popoverTip(TailPauseTip())
+                .safePopoverTip(TailPauseTip())
                 Button("清屏", systemImage: "xmark.bin") {
                     viewModel.clear()
                 }
@@ -124,6 +124,8 @@ struct WorkerTailView: View {
                         }
                     }
                     .padding(12)
+                    // 日志正文（时间戳 + 请求路径/JSON）始终 LTR，避免在阿拉伯语等 RTL 下被镜像
+                    .environment(\.layoutDirection, .leftToRight)
                 }
             }
             .background { SkyBackground() }

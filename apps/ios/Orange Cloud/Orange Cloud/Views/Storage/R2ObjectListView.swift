@@ -25,6 +25,9 @@ struct R2ObjectListView: View {
     @State private var showPhotoPicker = false
     @State private var showFileImporter = false
     @State private var previewURL: URL?
+    @State private var transferTarget: TransferRequest?
+    @State private var showTooLarge = false
+    @State private var showSettings = false
 
     init(bucket: R2Bucket, session: SessionStore) {
         self.bucket = bucket
@@ -39,9 +42,9 @@ struct R2ObjectListView: View {
 
     var body: some View {
         Group {
-            if viewModel.objects.isEmpty && viewModel.isLoading {
+            if viewModel.isContentEmpty && viewModel.isLoading {
                 SkeletonList(rows: 9, trailing: true)
-            } else if viewModel.objects.isEmpty {
+            } else if viewModel.isContentEmpty && viewModel.currentPrefix.isEmpty {
                 ContentUnavailableView {
                     Label("空存储桶", systemImage: "archivebox")
                 } description: {
@@ -52,9 +55,16 @@ struct R2ObjectListView: View {
             }
         }
         .background { SkyBackground() }
-        .navigationTitle(bucket.name)
+        .navigationTitle(viewModel.displayTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showSettings = true
+                } label: {
+                    Label("桶设置", systemImage: "gearshape")
+                }
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 if viewModel.isUploading {
                     ProgressView()
@@ -113,6 +123,9 @@ struct R2ObjectListView: View {
             R2ObjectDetailView(object: object, viewModel: viewModel, canWrite: canWrite)
                 .presentationDetents([.medium, .large])
         }
+        .sheet(isPresented: $showSettings) {
+            R2BucketSettingsView(bucket: bucket, session: session, canWrite: canWrite)
+        }
         .confirmationDialog(
             "删除对象",
             isPresented: .init(
@@ -143,6 +156,38 @@ struct R2ObjectListView: View {
             Text(viewModel.error ?? "")
         }
         .sensoryFeedback(.success, trigger: viewModel.didUpload)
+        .sensoryFeedback(.success, trigger: viewModel.didTransfer)
+        .sheet(item: $transferTarget) { request in
+            R2TransferSheet(object: request.object, mode: request.mode) { destinationKey in
+                Task {
+                    switch request.mode {
+                    case .copy: _ = await viewModel.copyObject(request.object, to: destinationKey)
+                    case .move: _ = await viewModel.moveObject(request.object, to: destinationKey)
+                    }
+                }
+            }
+            .presentationDetents([.medium])
+        }
+        .alert("对象过大", isPresented: $showTooLarge) {
+            Button("好", role: .cancel) {}
+        } message: {
+            Text("Cloudflare API 单次上传上限约 300 MB，超过的对象无法在 App 内复制或移动。")
+        }
+        .overlay {
+            if viewModel.isTransferring {
+                TransferProgressOverlay(
+                    label: viewModel.transferLabel ?? String(localized: "处理中…"),
+                    progress: viewModel.transferProgress
+                )
+            }
+        }
+    }
+
+    /// 发起复制 / 移动：先过写权限与 300MB 体积守卫，再弹目标 Key 编辑表单
+    private func startTransfer(_ object: R2Object, _ mode: TransferRequest.Mode) {
+        guard canWrite else { showDenied = true; return }
+        guard viewModel.canTransfer(object) else { showTooLarge = true; return }
+        transferTarget = TransferRequest(object: object, mode: mode)
     }
 
     /// 可预览：50 MB 以内（QuickLook 需要完整下载）
@@ -164,6 +209,7 @@ struct R2ObjectListView: View {
 
     private var objectList: some View {
         List {
+            folderRows
             ForEach(viewModel.objects) { object in
                 HStack(spacing: 8) {
                     Button {
@@ -195,6 +241,16 @@ struct R2ObjectListView: View {
                         selectedObject = object
                     } label: {
                         Label("详情", systemImage: "info.circle")
+                    }
+                    Button {
+                        startTransfer(object, .copy)
+                    } label: {
+                        Label("复制", systemImage: "doc.on.doc")
+                    }
+                    Button {
+                        startTransfer(object, .move)
+                    } label: {
+                        Label("移动 / 重命名", systemImage: "folder")
                     }
                     Button(role: .destructive) {
                         if canWrite {
@@ -236,6 +292,29 @@ struct R2ObjectListView: View {
         .refreshable { await viewModel.load() }
     }
 
+    /// 文件夹行：非根层先放「..」上级，再列出当前层的子文件夹
+    @ViewBuilder
+    private var folderRows: some View {
+        if !viewModel.currentPrefix.isEmpty {
+            Button {
+                Task { await viewModel.openParentFolder() }
+            } label: {
+                R2FolderRow(title: "..", subtitle: String(localized: "上级文件夹"), systemImage: "arrow.up")
+            }
+            .buttonStyle(.plain)
+            .glassRow()
+        }
+        ForEach(viewModel.folders) { folder in
+            Button {
+                Task { await viewModel.open(folder: folder) }
+            } label: {
+                R2FolderRow(title: folder.name, subtitle: nil)
+            }
+            .buttonStyle(.plain)
+            .glassRow()
+        }
+    }
+
     // MARK: - 上传
 
     private func uploadPhoto(_ item: PhotosPickerItem) async {
@@ -254,6 +333,36 @@ struct R2ObjectListView: View {
         let mime = UTType(filenameExtension: url.pathExtension)?.preferredMIMEType
             ?? "application/octet-stream"
         _ = await viewModel.upload(data: data, filename: url.lastPathComponent, contentType: mime)
+    }
+}
+
+private struct R2FolderRow: View {
+    let title: String
+    let subtitle: String?
+    var systemImage: String = "folder"
+
+    var body: some View {
+        HStack(spacing: 12) {
+            TintIcon(systemImage: systemImage, color: .ocOrange, size: 28)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.callout)
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+                if let subtitle {
+                    Text(subtitle)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                }
+            }
+            Spacer()
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.tertiary)
+        }
+        .contentShape(Rectangle())
     }
 }
 
@@ -397,6 +506,110 @@ private struct R2ObjectDetailView: View {
             } message: {
                 Text("此操作不可撤销。")
             }
+        }
+    }
+}
+
+// MARK: - 复制 / 移动
+
+private struct TransferRequest: Identifiable {
+    enum Mode { case copy, move }
+    let id = UUID()
+    let object: R2Object
+    let mode: Mode
+}
+
+/// 复制 / 移动目标 Key 编辑表单。仅收集目标 Key 后回调，真正的传输由列表持有 Task 执行，
+/// 这样关掉表单后进度仍在列表（前台）或系统 UI（iOS 26 后台）里继续。
+private struct R2TransferSheet: View {
+
+    let object: R2Object
+    let mode: TransferRequest.Mode
+    let onConfirm: (String) -> Void
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var destinationKey: String
+
+    init(object: R2Object, mode: TransferRequest.Mode, onConfirm: @escaping (String) -> Void) {
+        self.object = object
+        self.mode = mode
+        self.onConfirm = onConfirm
+        _destinationKey = State(initialValue: mode == .copy ? Self.copyName(of: object.key) : object.key)
+    }
+
+    private var title: String { mode == .copy ? String(localized: "复制对象") : String(localized: "移动 / 重命名") }
+    private var actionLabel: String { mode == .copy ? String(localized: "复制") : String(localized: "移动") }
+    private var trimmed: String { destinationKey.trimmingCharacters(in: .whitespacesAndNewlines) }
+    private var isValid: Bool { !trimmed.isEmpty && trimmed != object.key }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("源对象") {
+                    Text(object.key)
+                        .font(.callout.monospaced())
+                        .foregroundStyle(.secondary)
+                        .textSelection(.enabled)
+                }
+                Section {
+                    TextField("目标 Key", text: $destinationKey, axis: .vertical)
+                        .font(.callout.monospaced())
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                } header: {
+                    Text(mode == .copy ? "复制为" : "新名称")
+                } footer: {
+                    Text("Key 可包含 / 表示文件夹层级。超过 300 MB 的对象受 API 限制不可复制 / 移动。")
+                }
+            }
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("取消") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(actionLabel) {
+                        onConfirm(trimmed)
+                        dismiss()
+                    }
+                    .disabled(!isValid)
+                }
+            }
+        }
+    }
+
+    /// 复制默认名：在扩展名前插入「-副本」（无扩展名则末尾追加）
+    private static func copyName(of key: String) -> String {
+        let suffix = String(localized: "-副本")
+        let ns = key as NSString
+        let ext = ns.pathExtension
+        guard !ext.isEmpty else { return key + suffix }
+        return "\(ns.deletingPathExtension)\(suffix).\(ext)"
+    }
+}
+
+/// 前台传输进度浮层（iOS 26 后台路径由系统 UI 接管，不会用到此浮层）
+private struct TransferProgressOverlay: View {
+    let label: String
+    let progress: Double
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.15).ignoresSafeArea()
+            VStack(spacing: 12) {
+                ProgressView(value: progress)
+                    .progressViewStyle(.linear)
+                    .tint(.ocOrange)
+                    .frame(width: 200)
+                Text(label)
+                    .font(.callout)
+                Text(progress.formatted(.percent.precision(.fractionLength(0))))
+                    .font(.caption.monospaced())
+                    .foregroundStyle(.secondary)
+            }
+            .padding(22)
+            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
         }
     }
 }

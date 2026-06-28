@@ -16,11 +16,20 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.Block
+import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Dns
+import androidx.compose.material.icons.outlined.Hub
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.MailOutline
 import androidx.compose.material.icons.outlined.Shield
 import androidx.compose.material.icons.automirrored.outlined.ShowChart
+import androidx.compose.material.icons.outlined.Speed
+import androidx.compose.material.icons.outlined.SwapHoriz
+import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material.icons.outlined.Tune
+import androidx.compose.material.icons.outlined.VerifiedUser
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -51,6 +60,9 @@ import jiamin.chen.orangecloud.core.design.theme.OcOrange
 import jiamin.chen.orangecloud.core.design.theme.OcSuccess
 import jiamin.chen.orangecloud.data.model.Zone
 
+/** 域名级深入工具（统一一个回调，新增工具只加枚举项 + ToolRow，免改签名）。 */
+enum class ZoneTool { CACHE, RATE_LIMIT, EMAIL_ROUTING, LOAD_BALANCER }
+
 /** 单个域名的工具中枢 + 概览（hero 卡 + 工具分发 + Name Servers）。对应 iOS ZoneDetailView。 */
 @Composable
 fun ZoneDetailScreen(
@@ -61,7 +73,13 @@ fun ZoneDetailScreen(
     onOpenAnalytics: () -> Unit,
     onOpenWaf: () -> Unit,
     onOpenSnippets: () -> Unit,
+    onOpenSsl: () -> Unit,
+    onOpenSslCerts: () -> Unit,
+    onOpenTransform: () -> Unit,
+    onOpenAccessRules: () -> Unit,
+    onOpenPerformance: () -> Unit,
     onOpenSettings: () -> Unit,
+    onOpenZoneTool: (ZoneTool) -> Unit,
     viewModel: ZoneDetailViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(zoneId) { viewModel.bind(zoneId) }
@@ -93,6 +111,15 @@ fun ZoneDetailScreen(
                 ToolRow(Icons.Outlined.Dns, stringResource(R.string.zone_tool_dns), onOpenDns)
                 ToolRow(Icons.AutoMirrored.Outlined.ShowChart, stringResource(R.string.zone_tool_analytics), onOpenAnalytics)
                 ToolRow(Icons.Outlined.Shield, stringResource(R.string.zone_tool_waf), onOpenWaf)
+                ToolRow(Icons.Outlined.Bolt, stringResource(R.string.zone_tool_cache), { onOpenZoneTool(ZoneTool.CACHE) })
+                ToolRow(Icons.Outlined.Timer, stringResource(R.string.zone_tool_rate_limit), { onOpenZoneTool(ZoneTool.RATE_LIMIT) })
+                ToolRow(Icons.Outlined.MailOutline, stringResource(R.string.zone_tool_email_routing), { onOpenZoneTool(ZoneTool.EMAIL_ROUTING) })
+                ToolRow(Icons.Outlined.Hub, stringResource(R.string.zone_tool_load_balancer), { onOpenZoneTool(ZoneTool.LOAD_BALANCER) })
+                ToolRow(Icons.Outlined.Lock, stringResource(R.string.zone_tool_ssl), onOpenSsl)
+                ToolRow(Icons.Outlined.VerifiedUser, stringResource(R.string.zone_tool_ssl_certs), onOpenSslCerts)
+                ToolRow(Icons.Outlined.SwapHoriz, stringResource(R.string.zone_tool_transform), onOpenTransform)
+                ToolRow(Icons.Outlined.Block, stringResource(R.string.zone_tool_ip_rules), onOpenAccessRules)
+                ToolRow(Icons.Outlined.Speed, stringResource(R.string.zone_tool_performance), onOpenPerformance)
                 ToolRow(Icons.Outlined.Code, stringResource(R.string.zone_tool_snippets), onOpenSnippets)
                 ToolRow(Icons.Outlined.Tune, stringResource(R.string.zone_tool_settings), onOpenSettings)
 

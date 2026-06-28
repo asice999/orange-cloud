@@ -108,6 +108,34 @@ data class TrafficDataPoint(
     val cachedRequests: Int,
 )
 
+// MARK: - 按国家/地区流量（clientCountryName 维度，对应 iOS ZoneTrafficMapView 数据）
+
+@Serializable
+data class ZoneCountryData(val viewer: CountryViewer)
+
+@Serializable
+data class CountryViewer(val zones: List<CountryZoneNode> = emptyList())
+
+@Serializable
+data class CountryZoneNode(
+    val httpRequests1hGroups: List<CountryGroup>? = null,
+    val httpRequests1dGroups: List<CountryGroup>? = null,
+) {
+    val groups: List<CountryGroup> get() = httpRequests1hGroups ?: httpRequests1dGroups ?: emptyList()
+}
+
+@Serializable
+data class CountryGroup(
+    val dimensions: CountryDimensions? = null,
+    val sum: AnalyticsSum? = null,
+)
+
+@Serializable
+data class CountryDimensions(val clientCountryName: String? = null)
+
+/** 归一化的按国家/地区请求量。 */
+data class CountryTraffic(val country: String, val requests: Long)
+
 // MARK: - 单 Worker 指标（workersInvocationsAdaptive）
 
 @Serializable
@@ -259,6 +287,42 @@ object AnalyticsQueries {
                 dimensions { datetime }
                 sum  { requests bytes threats pageViews cachedRequests cachedBytes }
                 uniq { uniques }
+              }
+            }
+          }
+        }
+    """.trimIndent()
+
+    /** 按国家/地区请求量（24h 小时级数据集，按请求降序）。 */
+    fun zoneCountryHourly(limit: Int): String = """
+        query (${'$'}zoneTag: string!, ${'$'}since: Time!, ${'$'}until: Time!) {
+          viewer {
+            zones(filter: { zoneTag: ${'$'}zoneTag }) {
+              httpRequests1hGroups(
+                limit: $limit,
+                orderBy: [sum_requests_DESC],
+                filter: { datetime_geq: ${'$'}since, datetime_lt: ${'$'}until }
+              ) {
+                dimensions { clientCountryName }
+                sum { requests }
+              }
+            }
+          }
+        }
+    """.trimIndent()
+
+    /** 按国家/地区请求量（7d/30d 天级数据集，按请求降序）。 */
+    fun zoneCountryDaily(limit: Int): String = """
+        query (${'$'}zoneTag: string!, ${'$'}since: Date!, ${'$'}until: Date!) {
+          viewer {
+            zones(filter: { zoneTag: ${'$'}zoneTag }) {
+              httpRequests1dGroups(
+                limit: $limit,
+                orderBy: [sum_requests_DESC],
+                filter: { date_geq: ${'$'}since, date_leq: ${'$'}until }
+              ) {
+                dimensions { clientCountryName }
+                sum { requests }
               }
             }
           }

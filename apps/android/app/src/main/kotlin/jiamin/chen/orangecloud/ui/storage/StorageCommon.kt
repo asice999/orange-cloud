@@ -71,6 +71,61 @@ fun <T> StorageListBody(
     }
 }
 
+/**
+ * 与 StorageListBody 同样的状态外壳，但把条目按 groupOf 分组成小节（参考 iOS Workers AI 按任务类型分组）。
+ * 排序：「Text Generation」置顶，其余按任务名字母序。空任务归入「其它」。
+ */
+@Composable
+fun <T> StorageGroupedListBody(
+    state: StorageListUiState<T>,
+    onSky: Color,
+    emptyIcon: ImageVector,
+    emptyText: String,
+    onRetry: () -> Unit,
+    groupOf: (T) -> String,
+    itemContent: @Composable (T) -> Unit,
+) {
+    when {
+        state.missingScope ->
+            SkyEmptyState(Icons.Outlined.Lock, stringResource(R.string.scope_missing), onSky, stringResource(R.string.common_refresh), onRetry)
+
+        state.items.isEmpty() && state.isLoading ->
+            Box(Modifier.fillMaxSize(), Alignment.Center) { CircularProgressIndicator(color = onSky) }
+
+        state.items.isEmpty() && state.hasError ->
+            SkyEmptyState(emptyIcon, stringResource(R.string.error_generic), onSky, stringResource(R.string.common_refresh), onRetry)
+
+        state.items.isEmpty() ->
+            SkyEmptyState(emptyIcon, emptyText, onSky, stringResource(R.string.common_refresh), onRetry)
+
+        else -> {
+            val other = stringResource(R.string.dev_ai_task_other)
+            val groups = state.items.groupBy { groupOf(it).ifBlank { other } }
+                .toList()
+                .sortedWith(
+                    compareByDescending<Pair<String, List<T>>> { it.first == "Text Generation" }.thenBy { it.first },
+                )
+            LazyColumn(
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                groups.forEach { (group, rows) ->
+                    item(key = "h:$group") {
+                        Text(
+                            group,
+                            color = onSky,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 13.sp,
+                            modifier = Modifier.padding(top = 6.dp, bottom = 2.dp, start = 4.dp),
+                        )
+                    }
+                    rows.forEach { row -> item { itemContent(row) } }
+                }
+            }
+        }
+    }
+}
+
 /** 字节人类可读（B/KB/MB/GB/TB）。 */
 fun formatBytes(bytes: Long): String {
     if (bytes < 1024) return "$bytes B"

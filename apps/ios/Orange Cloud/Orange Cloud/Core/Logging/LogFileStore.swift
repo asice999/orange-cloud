@@ -85,14 +85,32 @@ nonisolated final class LogFileStore: @unchecked Sendable {
 
     // MARK: - 导出 / 清空
 
-    /// 上一代 + 当前合并文本（旧在前）。供反馈附件与导出用。
+    /// 上一代 + 当前合并文本（旧在前），若有未清理的上次崩溃则置于最前。
+    /// 供反馈附件与导出用。
     func exportedText() -> String {
         queue.sync {
             _ = try? handle?.synchronize()
-            let prev = (try? String(contentsOf: previousURL, encoding: .utf8)) ?? ""
-            let curr = (try? String(contentsOf: currentURL, encoding: .utf8)) ?? ""
-            return prev + curr
+            return formattedCrashReport() + combinedLogText()
         }
+    }
+
+    /// 最近 maxCharacters 字的日志尾巴（崩溃报告内嵌用，不含崩溃段避免自引用）。
+    func recentText(maxCharacters: Int) -> String {
+        queue.sync {
+            _ = try? handle?.synchronize()
+            return String(combinedLogText().suffix(maxCharacters))
+        }
+    }
+
+    private func formattedCrashReport() -> String {
+        guard let report = CrashReporter.currentReportTextForExport() else { return "" }
+        return "===== Last Crash =====\n\(report)\n\n===== App Log =====\n"
+    }
+
+    private func combinedLogText() -> String {
+        let prev = (try? String(contentsOf: previousURL, encoding: .utf8)) ?? ""
+        let curr = (try? String(contentsOf: currentURL, encoding: .utf8)) ?? ""
+        return prev + curr
     }
 
     /// 写到临时文件返回 URL（邮件附件 / 系统分享用）。无内容时返回 nil。

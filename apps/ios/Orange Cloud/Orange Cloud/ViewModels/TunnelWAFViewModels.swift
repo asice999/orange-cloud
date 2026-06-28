@@ -258,6 +258,9 @@ final class WAFRulesViewModel {
         do {
             ruleset = try await service.customRuleset(zoneId: zoneId)
             loaded = true
+        } catch is CancellationError {
+            // 下拉刷新 / searchable 取消 .refreshable 子任务，不算加载失败
+        } catch let urlError as URLError where urlError.code == .cancelled {
         } catch {
             self.error = error.localizedDescription
         }

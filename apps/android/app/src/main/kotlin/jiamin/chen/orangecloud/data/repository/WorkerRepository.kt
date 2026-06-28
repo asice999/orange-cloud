@@ -43,6 +43,20 @@ class WorkerRepository @Inject constructor(
         workerDao.replaceForAccount(accountId, scripts.map { it.toEntity(accountId) })
     }
 
+    /**
+     * 新建 / 覆盖一个 module Worker（粘贴的 JS 代码）。PUT 脚本 = multipart（metadata + worker.js 模块）。
+     * 对应 iOS WorkerService.deployScript。注意：读取现有源码端点 /content 在 OAuth 下被封（cf-10405），
+     * 故只支持「提供新代码」创建/覆盖，不预填现有代码。成功后刷新 Room 列表。
+     */
+    suspend fun deployScript(accountId: String, name: String, code: String, compatibilityDate: String) {
+        val metadata = """{"main_module":"worker.js","compatibility_date":"$compatibilityDate","bindings":[]}"""
+        api.putMultipartFile<kotlinx.serialization.json.JsonElement>(
+            "accounts/$accountId/workers/scripts/$name",
+            metadata, "worker.js", code, "application/javascript+module",
+        )
+        refreshWorkers(accountId)
+    }
+
     // MARK: - 设置（绑定 / 变量）
 
     /** 脚本设置（绑定 + 兼容性日期/标志）。 */

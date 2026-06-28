@@ -139,6 +139,8 @@ struct D1QueryView: View {
             .scrollContentBackground(.hidden)
             .padding(8)
             .glassIsland(cornerRadius: OCLayout.chipRadius)
+            // SQL 始终 LTR，避免在 RTL 语言下镜像
+            .environment(\.layoutDirection, .leftToRight)
 
             if !canWrite {
                 Label("当前授权为只读（d1.read），写入语句会被 Cloudflare 拒绝", systemImage: "lock")
@@ -201,6 +203,8 @@ private struct D1ResultCard: View {
                     }
                     .padding(.vertical, 4)
                 }
+                // 查询结果表（列名/数据值）保持 LTR 列序
+                .environment(\.layoutDirection, .leftToRight)
                 if rows.count > Self.maxRows {
                     Text("仅显示前 \(Self.maxRows) 行（共 \(rows.count) 行）")
                         .font(.caption2)

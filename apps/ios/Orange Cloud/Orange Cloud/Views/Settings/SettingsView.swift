@@ -14,14 +14,13 @@ struct SettingsView: View {
     @Environment(AuthManager.self) private var auth
     @Environment(SessionStore.self) private var session
     @Environment(EntitlementStore.self) private var entitlements
-    @Environment(\.requestReview) private var requestReview
 
     @State private var showAddAccount = false
     @State private var showProPaywall = false
     @State private var showAddAccountPaywall = false
+    @State private var showAuditPaywall = false
     @State private var showFeedback = false
     @State private var logShareItems: [Any]?
-    @State private var iCloudSync = UserDefaults.standard.bool(forKey: AuthManager.iCloudSyncKey)
 
     /// 「今日」用量的日界口径（App Group，与 Widget 共享），默认 UTC
     @AppStorage(DayBoundary.storageKey, store: UserDefaults(suiteName: WidgetSnapshot.appGroupID))
@@ -29,12 +28,7 @@ struct SettingsView: View {
 
     @AppStorage(AppAppearance.storageKey) private var appearanceRaw = AppAppearance.system.rawValue
     @AppStorage(AppLanguage.storageKey)   private var languageRaw   = AppLanguage.system.rawValue
-
-    private var appVersion: String {
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
-        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
-        return "\(version) (\(build))"
-    }
+    @AppStorage(AppMotion.storageKey)     private var reduceAnimations = false
 
     var body: some View {
         NavigationStack {
@@ -106,25 +100,6 @@ struct SettingsView: View {
                 .glassRow()
                 #endif
 
-                // ── 同步 ──
-                Section {
-                    Toggle(isOn: $iCloudSync) {
-                        HStack(spacing: 12) {
-                            TintIcon(systemImage: "icloud", color: .blue)
-                            Text("iCloud 同步")
-                        }
-                    }
-                } header: {
-                    Text("同步")
-                } footer: {
-                    Text("开启后：登录身份经 iCloud 钥匙串在你的设备间同步（端到端加密），账单日与套餐预设等偏好经 iCloud 同步。关闭将把登录信息从 iCloud 移除，仅保留本机。")
-                }
-                .onChange(of: iCloudSync) {
-                    auth.setICloudSync(iCloudSync)
-                    AccountPrefsStore.shared.applySyncChange(iCloudSync)
-                }
-                .glassRow()
-
                 // ── 用量口径 ──
                 Section {
                     Picker(selection: $dayBoundaryRaw) {
@@ -167,10 +142,17 @@ struct SettingsView: View {
                             Text("语言")
                         }
                     }
+
+                    Toggle(isOn: $reduceAnimations) {
+                        HStack(spacing: 12) {
+                            TintIcon(systemImage: "wand.and.rays.inverse", color: .purple)
+                            Text("减少动画")
+                        }
+                    }
                 } header: {
                     Text("外观与语言")
                 } footer: {
-                    Text("语言默认跟随系统。更改语言后需重新打开 App 生效。")
+                    Text("语言默认跟随系统，更改后需重新打开 App 生效。开启「减少动画」后，页面切换与界面变化将省去过渡动画，操作更跟手。")
                 }
                 .onChange(of: languageRaw) {
                     (AppLanguage(rawValue: languageRaw) ?? .system).apply()
@@ -194,6 +176,37 @@ struct SettingsView: View {
                     Text("服务状态")
                 } footer: {
                     Text("来自 cloudflarestatus.com 的官方服务状态与事件。")
+                }
+                .glassRow()
+
+                // ── 审计日志（账号级，Pro）──
+                Section {
+                    if entitlements.isPro {
+                        NavigationLink {
+                            AuditLogListView(session: session)
+                        } label: {
+                            HStack(spacing: 12) {
+                                TintIcon(systemImage: "clock.arrow.circlepath", color: .indigo)
+                                Text("审计日志")
+                            }
+                        }
+                    } else {
+                        Button {
+                            showAuditPaywall = true
+                        } label: {
+                            HStack(spacing: 12) {
+                                TintIcon(systemImage: "clock.arrow.circlepath", color: .indigo)
+                                Text("审计日志")
+                                    .foregroundStyle(.primary)
+                                Spacer()
+                                ProBadge()
+                            }
+                        }
+                    }
+                } header: {
+                    Text("审计日志")
+                } footer: {
+                    Text("查看当前账号最近 30 天「谁在何时改了什么」。")
                 }
                 .glassRow()
 
@@ -232,38 +245,18 @@ struct SettingsView: View {
                 }
                 .glassRow()
 
-                // ── 关于 ──
+                // ── 关于（详情收进二级页，给根页减负）──
                 Section {
-                    HStack(spacing: 12) {
-                        TintIcon(systemImage: "info", color: .blue)
-                        Text("版本")
-                        Spacer()
-                        Text(appVersion)
-                            .foregroundStyle(.secondary)
-                    }
-                    // 系统应用内评分弹窗（无需 App Store ID）；iOS 限频，可能不弹
-                    Button {
-                        requestReview()
+                    NavigationLink {
+                        AboutView()
                     } label: {
                         HStack(spacing: 12) {
-                            TintIcon(systemImage: "star.fill", color: .yellow)
-                            Text("为 App 评分")
-                                .foregroundStyle(.primary)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .font(.caption.weight(.semibold))
-                                .foregroundStyle(.tertiary)
+                            TintIcon(systemImage: "info", color: .blue)
+                            Text("关于")
                         }
                     }
-                    aboutLink("GitHub", icon: "chevron.left.forwardslash.chevron.right", url: "https://github.com/chen2he/orange-cloud")
-                    aboutLink(String(localized: "隐私政策"), icon: "doc.text", url: "https://orange-cloud.chatiro.app/privacy")
-                    aboutLink(String(localized: "使用条款"), icon: "doc.plaintext", url: "https://orange-cloud.chatiro.app/terms")
-                } header: {
-                    Text("关于")
                 } footer: {
-                    Text("Orange Cloud · 第三方 Cloudflare 客户端")
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.top, 8)
+                    Text("版本、评分、社区与法律信息。")
                 }
                 .glassRow()
             }
@@ -280,6 +273,9 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $showAddAccountPaywall) {
                 PaywallView(feature: .multiAccount)
+            }
+            .sheet(isPresented: $showAuditPaywall) {
+                PaywallView(feature: .auditLog)
             }
             .sheet(isPresented: $showFeedback) {
                 FeedbackView()
@@ -343,20 +339,6 @@ struct SettingsView: View {
             }
         }
         .padding(.vertical, 2)
-    }
-
-    private func aboutLink(_ title: String, icon: String, url: String) -> some View {
-        Link(destination: URL(string: url)!) {
-            HStack(spacing: 12) {
-                TintIcon(systemImage: icon, color: .gray)
-                Text(title)
-                    .foregroundStyle(.primary)
-                Spacer()
-                Image(systemName: "arrow.up.right")
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
-            }
-        }
     }
 }
 

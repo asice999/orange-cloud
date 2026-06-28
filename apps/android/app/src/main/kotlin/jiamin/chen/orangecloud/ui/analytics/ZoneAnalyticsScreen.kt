@@ -1,6 +1,7 @@
 package jiamin.chen.orangecloud.ui.analytics
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -102,6 +103,7 @@ fun ZoneAnalyticsScreen(
                         ui.summary?.let { SummaryGrid(it) }
                         ChartCard(stringResource(R.string.analytics_requests), ui.points) { it.requests.toFloat() }
                         ChartCard(stringResource(R.string.analytics_bandwidth), ui.points) { it.bytes.toFloat() }
+                        if (ui.countries.isNotEmpty()) CountryBreakdownCard(ui.countries)
                     }
                 }
             }
@@ -202,6 +204,56 @@ private fun TrafficChart(points: List<TrafficDataPoint>, value: (TrafficDataPoin
         // 末点高亮
         drawCircle(OcOrange, radius = 4f, center = Offset(px(n - 1), py(values[n - 1])))
     }
+}
+
+/** 按国家/地区请求量（晨昏地图的数据替身：旗帜 + 占比条 + 计数，取前 8）。 */
+@Composable
+private fun CountryBreakdownCard(countries: List<jiamin.chen.orangecloud.data.model.CountryTraffic>) {
+    val top = countries.take(8)
+    val max = (top.maxOfOrNull { it.requests } ?: 1L).coerceAtLeast(1L)
+    Surface(
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Text(stringResource(R.string.analytics_top_countries), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            top.forEach { c ->
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(flagEmoji(c.country), fontSize = 16.sp)
+                        Spacer(Modifier.height(0.dp))
+                        Text(
+                            "  ${c.country}",
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.weight(1f),
+                        )
+                        Text(formatCount(c.requests), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    // 占比条
+                    Box(Modifier.fillMaxWidth().height(6.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(3.dp))) {
+                        Box(
+                            Modifier
+                                .fillMaxWidth(fraction = (c.requests.toFloat() / max).coerceIn(0.02f, 1f))
+                                .height(6.dp)
+                                .background(OcOrange, RoundedCornerShape(3.dp)),
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+/** 两位国家码 → 国旗 emoji（区域指示符）。非两位字母回退地球。 */
+private fun flagEmoji(code: String): String {
+    val c = code.trim().uppercase()
+    if (c.length != 2 || !c.all { it in 'A'..'Z' }) return "🌍"
+    val first = Character.toChars(0x1F1E6 + (c[0] - 'A'))
+    val second = Character.toChars(0x1F1E6 + (c[1] - 'A'))
+    return String(first) + String(second)
 }
 
 private fun rangeLabel(range: AnalyticsTimeRange): Int = when (range) {

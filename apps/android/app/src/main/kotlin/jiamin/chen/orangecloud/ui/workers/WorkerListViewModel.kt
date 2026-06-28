@@ -26,6 +26,8 @@ data class WorkerListUiState(
     val hasError: Boolean = false,
     /** 未授予 workers-scripts.read：前置拦截，不打 API，提示去授权。 */
     val missingScope: Boolean = false,
+    /** workers-scripts.write：有则展示「新建 Worker」入口。 */
+    val canWrite: Boolean = false,
 )
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -37,6 +39,7 @@ class WorkerListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val hasReadScope = authRepository.hasScope(Scopes.WORKERS_READ)
+    private val canWriteScope = authRepository.hasScope(Scopes.WORKERS_WRITE)
     private val loading = MutableStateFlow(false)
     private val error = MutableStateFlow(false)
 
@@ -51,11 +54,12 @@ class WorkerListViewModel @Inject constructor(
                 isLoading = isLoading,
                 hasError = hasError,
                 missingScope = !hasReadScope,
+                canWrite = canWriteScope,
             )
         }.stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5_000),
-            WorkerListUiState(isLoading = hasReadScope, missingScope = !hasReadScope),
+            WorkerListUiState(isLoading = hasReadScope, missingScope = !hasReadScope, canWrite = canWriteScope),
         )
 
     init {

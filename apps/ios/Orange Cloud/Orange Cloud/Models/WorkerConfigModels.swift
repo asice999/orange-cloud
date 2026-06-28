@@ -210,6 +210,92 @@ nonisolated struct WorkerUploadMetadata: Codable, Sendable {
     }
 }
 
+// MARK: - 多模块上传
+
+/// 上传时的单个模块文件（可为二进制，如 .wasm，故用 Data）
+nonisolated struct WorkerUploadModule: Identifiable, Sendable {
+    let name:        String      // 模块说明符 / 文件名（main_module 引用它）
+    let data:        Data
+    let contentType: String
+
+    var id: String { name }
+}
+
+/// 按扩展名推断模块 Content-Type（决定 Workers 如何解析该模块）
+nonisolated enum WorkerModuleType {
+    static func contentType(forName name: String) -> String {
+        switch (name as NSString).pathExtension.lowercased() {
+        case "js", "mjs": "application/javascript+module"
+        case "cjs":       "application/javascript"
+        case "wasm":      "application/wasm"
+        case "json":      "application/json"
+        case "py":        "text/x-python"
+        case "txt":       "text/plain"
+        default:          "application/octet-stream"   // data 模块（二进制资源）
+        }
+    }
+
+    /// 可作为入口（main_module）的模块：JS / Python
+    static func canBeEntry(_ name: String) -> Bool {
+        ["js", "mjs", "cjs", "py"].contains((name as NSString).pathExtension.lowercased())
+    }
+}
+
+// MARK: - 静态资源（Workers Assets）上传
+
+/// assets manifest 单条：hash 为 sha256(base64(内容)+扩展名) 前 32 位，size 为原始字节数
+nonisolated struct WorkerAssetManifestEntry: Codable, Sendable {
+    let hash: String
+    let size: Int
+}
+
+/// POST .../assets-upload-session 请求体
+nonisolated struct WorkerAssetsUploadSessionRequest: Codable, Sendable {
+    let manifest: [String: WorkerAssetManifestEntry]
+}
+
+/// assets-upload-session 响应 result：jwt（上传/完成令牌）+ buckets（每桶为待传 hash 列表）
+nonisolated struct WorkerAssetsUploadSession: Codable, Sendable {
+    let jwt:     String?
+    let buckets: [[String]]?
+}
+
+/// assets/upload 每桶上传的响应 result（最后一桶含完成令牌 jwt）
+nonisolated struct WorkerAssetsUploadResult: Codable, Sendable {
+    let jwt: String?
+}
+
+/// PUT 脚本（带静态资源）的 metadata part。assets.jwt 为完成令牌；assets-only 时 mainModule 省略。
+nonisolated struct WorkerAssetsUploadMetadata: Codable, Sendable {
+    let mainModule:         String?
+    let compatibilityDate:  String?
+    let compatibilityFlags: [String]?
+    let assets:             WorkerAssetsConfig
+    let bindings:           [WorkerBindingInput]
+
+    enum CodingKeys: String, CodingKey {
+        case assets, bindings
+        case mainModule         = "main_module"
+        case compatibilityDate  = "compatibility_date"
+        case compatibilityFlags = "compatibility_flags"
+    }
+}
+
+nonisolated struct WorkerAssetsConfig: Codable, Sendable {
+    let jwt:    String
+    let config: WorkerAssetsRoutingConfig
+}
+
+nonisolated struct WorkerAssetsRoutingConfig: Codable, Sendable {
+    let htmlHandling:     String?
+    let notFoundHandling: String?
+
+    enum CodingKeys: String, CodingKey {
+        case htmlHandling     = "html_handling"
+        case notFoundHandling = "not_found_handling"
+    }
+}
+
 /// PATCH settings 的 settings part（改变量时回传：变更项 + 其余 inherit）
 nonisolated struct WorkerSettingsPatch: Codable, Sendable {
     let bindings:           [WorkerBindingInput]

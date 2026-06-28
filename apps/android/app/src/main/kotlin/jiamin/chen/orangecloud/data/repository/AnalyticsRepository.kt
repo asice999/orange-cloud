@@ -63,6 +63,27 @@ class AnalyticsRepository @Inject constructor(
         }
     }
 
+    /** 按国家/地区聚合请求量（合并同国家的多日/多小时分组），降序取前若干。 */
+    suspend fun zoneCountryTraffic(zoneId: String, range: AnalyticsTimeRange): List<jiamin.chen.orangecloud.data.model.CountryTraffic> {
+        val (since, until) = range.sinceUntil()
+        val query = if (range.usesHourlyGroups) {
+            AnalyticsQueries.zoneCountryHourly(1000)
+        } else {
+            AnalyticsQueries.zoneCountryDaily(1000)
+        }
+        val data = api.graphQL<jiamin.chen.orangecloud.data.model.ZoneCountryData, ZoneAnalyticsVariables>(
+            query,
+            ZoneAnalyticsVariables(zoneTag = zoneId, since = since, until = until),
+        )
+        val groups = data.viewer.zones.firstOrNull()?.groups.orEmpty()
+        return groups
+            .mapNotNull { g -> g.dimensions?.clientCountryName?.let { it to (g.sum?.requests?.toLong() ?: 0L) } }
+            .groupingBy { it.first }.fold(0L) { acc, e -> acc + e.second }
+            .map { (country, requests) -> jiamin.chen.orangecloud.data.model.CountryTraffic(country, requests) }
+            .filter { it.requests > 0 }
+            .sortedByDescending { it.requests }
+    }
+
     suspend fun zoneTraffic(zoneId: String, range: AnalyticsTimeRange): List<TrafficDataPoint> {
         val (since, until) = range.sinceUntil()
         val query = if (range.usesHourlyGroups) {

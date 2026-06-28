@@ -62,7 +62,7 @@ nonisolated struct AppLog: Sendable {
 
     /// 启动时打一条环境快照，让每份导出日志自描述（版本 / 系统 / 机型 / 语言 / 登录态）。
     /// 绝不含 token 或账号标识，仅数量。
-    static func logLaunch(loggedIn: Bool, sessionCount: Int, iCloudSync: Bool) {
+    static func logLaunch(loggedIn: Bool, sessionCount: Int) {
         let info    = Bundle.main.infoDictionary
         let version = info?["CFBundleShortVersionString"] as? String ?? "?"
         let build   = info?["CFBundleVersion"] as? String ?? "?"
@@ -71,7 +71,7 @@ nonisolated struct AppLog: Sendable {
         app.notice(
             "launch · v\(version)(\(build)) · iOS \(os.majorVersion).\(os.minorVersion).\(os.patchVersion)"
             + " · \(DiagnosticsInfo.deviceModel()) · lang=\(lang) locale=\(Locale.current.identifier)"
-            + " · loggedIn=\(loggedIn) sessions=\(sessionCount) iCloudSync=\(iCloudSync)"
+            + " · loggedIn=\(loggedIn) sessions=\(sessionCount)"
         )
     }
 }

@@ -1,5 +1,6 @@
 package jiamin.chen.orangecloud.core.network
 
+import jiamin.chen.orangecloud.core.logging.AppLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.KSerializer
@@ -11,7 +12,9 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 import java.io.IOException
 import java.util.UUID
 import javax.inject.Inject
@@ -63,6 +66,45 @@ class CfApiClient @Inject constructor(
         executeRaw("DELETE", path, emptyList(), null, JSON_MEDIA_TYPE)
     }
 
+    /** 任意方法 + JSON body 并解码 result（Bulk Redirects 的 DELETE 带 body 等）。 */
+    suspend inline fun <reified T, reified B> requestJson(method: String, path: String, body: B): T {
+        val payload = json.encodeToString(serializer<B>(), body).encodeToByteArray()
+        return decodeResult(executeRaw(method, path, emptyList(), payload, JSON_MEDIA_TYPE), serializer<T>())
+    }
+
+    /** 用外部 bearer（Pages 直接上传的短期 JWT）发 JSON 请求，返回原始字节。资源端点用此 JWT 鉴权。 */
+    suspend fun bearerJson(method: String, path: String, bearer: String, body: ByteArray): ByteArray {
+        val request = Request.Builder()
+            .url("$BASE_URL/$path".toHttpUrl())
+            .header("Authorization", "Bearer $bearer")
+            .method(method, body.toRequestBody(JSON_MEDIA_TYPE.toMediaTypeOrNull()))
+            .build()
+        val (code, bytes) = try {
+            withContext(Dispatchers.IO) {
+                httpClient.newCall(request).execute().use { resp ->
+                    resp.code to (resp.body?.bytes() ?: ByteArray(0))
+                }
+            }
+        } catch (e: IOException) {
+            throw ApiError.Network(e)
+        }
+        if (code !in 200..299) {
+            val cfErrors = runCatching {
+                json.decodeFromString(CfEnvelope.serializer(JsonElement.serializer()), bytes.decodeToString()).errors
+            }.getOrNull().orEmpty()
+            if (cfErrors.isNotEmpty()) throw ApiError.Cloudflare(cfErrors.map { ApiError.CfError(it.code, it.message) })
+            throw ApiError.Http(code)
+        }
+        return bytes
+    }
+
+    /** POST multipart 表单字段（Pages 创建部署带 manifest 字段），走 OAuth 鉴权，解码 result。 */
+    suspend inline fun <reified T> postMultipart(path: String, fields: Map<String, String>): T {
+        val boundary = "OrangeCloud-${UUID.randomUUID()}"
+        val bytes = executeRaw("POST", path, emptyList(), buildMultipartBody(boundary, fields), "multipart/form-data; boundary=$boundary")
+        return decodeResult(bytes, serializer<T>())
+    }
+
     /** JSON POST，只校验 success（写端点 result 可能为 null，如切换子域）。 */
     suspend inline fun <reified B> postChecked(path: String, body: B) {
         val payload = json.encodeToString(serializer<B>(), body).encodeToByteArray()
@@ -99,6 +141,61 @@ class CfApiClient @Inject constructor(
     /** 原始字节 PUT，只校验 success（R2 上传等 result 可能为 null）。 */
     suspend fun putRawVoid(path: String, body: ByteArray, contentType: String) {
         executeRaw("PUT", path, emptyList(), body, contentType)
+    }
+
+    /** 流式下载到文件（R2 大对象复制/移动用，避免整体读入内存）。401 刷新重试一次。 */
+    suspend fun downloadToFile(path: String, dest: File, isRetry: Boolean = false) {
+        val token = tokenProvider.validAccessToken()
+        val request = Request.Builder()
+            .url("$BASE_URL/$path".toHttpUrl())
+            .header("Authorization", "Bearer $token")
+            .get()
+            .build()
+        val code = try {
+            withContext(Dispatchers.IO) {
+                httpClient.newCall(request).execute().use { resp ->
+                    if (resp.isSuccessful) {
+                        resp.body?.byteStream()?.use { input -> dest.outputStream().use { input.copyTo(it) } }
+                    }
+                    resp.code
+                }
+            }
+        } catch (e: IOException) {
+            throw ApiError.Network(e)
+        }
+        if (code == 401 && !isRetry) {
+            tokenProvider.refreshAccessToken()
+            return downloadToFile(path, dest, isRetry = true)
+        }
+        if (code !in 200..299) throw ApiError.Http(code)
+    }
+
+    /** 流式上传文件（R2 大对象上传/复制），只校验 success。401 刷新重试一次。 */
+    suspend fun putFile(path: String, file: File, contentType: String, isRetry: Boolean = false) {
+        val token = tokenProvider.validAccessToken()
+        val request = Request.Builder()
+            .url("$BASE_URL/$path".toHttpUrl())
+            .header("Authorization", "Bearer $token")
+            .put(file.asRequestBody(contentType.toMediaTypeOrNull()))
+            .build()
+        val (code, bytes) = try {
+            withContext(Dispatchers.IO) {
+                httpClient.newCall(request).execute().use { resp -> resp.code to (resp.body?.bytes() ?: ByteArray(0)) }
+            }
+        } catch (e: IOException) {
+            throw ApiError.Network(e)
+        }
+        if (code == 401 && !isRetry) {
+            tokenProvider.refreshAccessToken()
+            return putFile(path, file, contentType, isRetry = true)
+        }
+        if (code !in 200..299) {
+            val cfErrors = runCatching {
+                json.decodeFromString(CfEnvelope.serializer(JsonElement.serializer()), bytes.decodeToString()).errors
+            }.getOrNull().orEmpty()
+            if (cfErrors.isNotEmpty()) throw ApiError.Cloudflare(cfErrors.map { ApiError.CfError(it.code, it.message) })
+            throw ApiError.Http(code)
+        }
     }
 
     /**
@@ -227,6 +324,8 @@ class CfApiClient @Inject constructor(
             .build()
 
         // execute + 读 body 都在 IO 上完成；状态判断与 401 重试留在调用方协程
+        // 诊断日志只记 方法/路径/状态/耗时（路径含资源 ID 无妨，绝不含 token / query 值）
+        val startMs = System.currentTimeMillis()
         val (code, bytes) = try {
             withContext(Dispatchers.IO) {
                 httpClient.newCall(request).execute().use { resp ->
@@ -234,8 +333,10 @@ class CfApiClient @Inject constructor(
                 }
             }
         } catch (e: IOException) {
+            AppLog.network.error("$method /$path -> 网络错误: ${e.message}")
             throw ApiError.Network(e)
         }
+        AppLog.network.info("$method /$path -> $code (${System.currentTimeMillis() - startMs}ms)${if (isRetry) " [retry]" else ""}")
 
         // 401：刷新后重试一次
         if (code == 401 && !isRetry) {

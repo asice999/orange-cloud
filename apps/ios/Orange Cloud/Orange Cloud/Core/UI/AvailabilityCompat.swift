@@ -8,6 +8,32 @@
 
 import SwiftUI
 import UIKit
+import TipKit
+
+extension ProcessInfo {
+    /// 当前系统是否落在 iOS 17.0.x（17.0 / 17.0.1 / 17.0.2 / 17.0.3）。
+    /// 这一窄段的 TipKit 把 popover 锚定到导航栏 bar button 时，会在
+    /// `-[UINavigationBar layoutSubviews]` 阶段抛未捕获异常导致崩溃，Apple 自 17.1 起修复。
+    /// 仅用于对这段版本做最小化 UI 降级，勿扩大到 17.1+。
+    nonisolated static var isBuggyTipKitNavBar: Bool {
+        let v = processInfo.operatingSystemVersion
+        return v.majorVersion == 17 && v.minorVersion == 0
+    }
+}
+
+extension View {
+    /// `popoverTip` 的安全封装：iOS 17.0.x 上跳过（见 ``ProcessInfo/isBuggyTipKitNavBar``），
+    /// 避免导航栏锚定的 TipKit popover 崩溃；17.1+ 与更高版本行为不变，正常展示气泡提示。
+    /// 适用于挂在工具栏 bar button 上的提示；非导航栏场景同样安全（17.0.x 仅少展示一次提示）。
+    @ViewBuilder
+    func safePopoverTip<T: Tip>(_ tip: T) -> some View {
+        if ProcessInfo.isBuggyTipKitNavBar {
+            self
+        } else {
+            popoverTip(tip)
+        }
+    }
+}
 
 extension View {
     /// 详情页：iOS 18+ 应用 Zoom 导航转场；iOS 17 原样返回（标准 push）。

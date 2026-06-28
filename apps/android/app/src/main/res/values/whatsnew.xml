@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_4_2_0_title">Workers AI 体验升级</string>
+    <string name="whatsnew_1_4_2_0_detail">现在可按任务类型分组浏览模型、查看模型详情，并修复了文本生成模型的试运行。</string>
+    <string name="whatsnew_1_4_0_title">全新「开发者平台」</string>
+    <string name="whatsnew_1_4_0_detail">把 Workers 与 Workers AI、AI Gateway、队列、Hyperdrive、Durable Objects、Pages 收进统一的「开发者平台」中枢，一处直达。</string>
+    <string name="whatsnew_1_4_1_title">缓存规则、速率限制与电子邮件路由</string>
+    <string name="whatsnew_1_4_1_detail">域名新增缓存规则与速率限制规则，以及电子邮件路由（转发规则与目的地址管理）。</string>
+    <string name="whatsnew_1_4_2_title">负载均衡、Zero Trust 与批量重定向</string>
+    <string name="whatsnew_1_4_2_detail">新增负载均衡器（含源池健康）、Zero Trust（Access 应用与 Gateway 策略启停）、批量重定向列表与条目管理。</string>
+    <string name="whatsnew_1_4_3_title">AI 助手与可视化 WAF</string>
+    <string name="whatsnew_1_4_3_detail">新增由 Workers AI 驱动的 AI 助手；WAF 规则支持可视化构建，并可用自然语言生成表达式。</string>
+    <string name="whatsnew_1_4_4_title">R2 接入「文件」、流量地图与审计日志</string>
+    <string name="whatsnew_1_4_4_detail">R2 对象可在系统「文件」App 中浏览、上传、改名、移动与删除；流量分析新增按国家/地区来源；设置新增账号审计日志；Pages 支持查看部署并一键重新部署或回滚。</string>
+    <string name="whatsnew_1_3_0_title">域名安全套件</string>
+    <string name="whatsnew_1_3_0_detail">新增 SSL/TLS 加密模式与边缘证书、Universal SSL 开关、Transform Rules、IP 访问规则，以及 HTTP/2·HTTP/3·Brotli 等性能与缓存开关。</string>
+    <string name="whatsnew_1_3_1_title">R2 升级与按 URL 清缓存</string>
+    <string name="whatsnew_1_3_1_detail">R2 支持文件夹浏览、对象复制/移动、桶的 CORS 与公开访问设置；缓存清理新增「按 URL 清理」。</string>
+    <string name="whatsnew_1_3_2_title">桌面小组件、实况日志与更广兼容</string>
+    <string name="whatsnew_1_3_2_detail">新增晨昏「账号总览」桌面小组件；实时日志升级为实况通知（Android 16）；「帮助与反馈」可附带诊断日志；现已兼容 Android 9 及以上。</string>
     <string name="whatsnew_1_1_0_title">从查看到管理</string>
     <string name="whatsnew_1_1_0_detail">现在可以添加域名、新建并删除 D1 数据库与隧道，管理 Worker 变量/密钥/触发器/域名，以及隧道的公共主机名路由。</string>
     <string name="whatsnew_1_0_0_title">OAuth 一键登录</string>

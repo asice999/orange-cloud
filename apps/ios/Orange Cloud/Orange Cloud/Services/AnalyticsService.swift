@@ -28,6 +28,34 @@ struct AnalyticsService {
         return try await fetch(zoneId: zoneId, range: range, since: since, until: until)
     }
 
+    /// 按国家/地区聚合的流量（全球流量地图用）。各时间桶携带 countryMap，Swift 端按国家码合并求和。
+    func zoneCountryTraffic(zoneId: String, range: AnalyticsTimeRange) async throws -> [CountryTraffic] {
+        let (since, until) = range.sinceUntil()
+        let query = range.usesHourlyGroups
+            ? AnalyticsQueries.zoneCountryHourly(limit: range.limit)
+            : AnalyticsQueries.zoneCountryDaily(limit: range.limit)
+
+        let data: ZoneAnalyticsData = try await client.graphQL(
+            query: query,
+            variables: ZoneAnalyticsVariables(zoneTag: zoneId, since: since, until: until)
+        )
+        guard let zone = data.viewer.zones.first else { return [] }
+
+        var aggregate: [String: (requests: Int, threats: Int, bytes: Int)] = [:]
+        for group in zone.groups {
+            for entry in group.sum?.countryMap ?? [] {
+                guard let code = entry.clientCountryName, !code.isEmpty else { continue }
+                aggregate[code, default: (0, 0, 0)].requests += entry.requests ?? 0
+                aggregate[code, default: (0, 0, 0)].threats  += entry.threats ?? 0
+                aggregate[code, default: (0, 0, 0)].bytes    += entry.bytes ?? 0
+            }
+        }
+
+        return aggregate
+            .map { CountryTraffic(countryCode: $0.key, requests: $0.value.requests, threats: $0.value.threats, bytes: $0.value.bytes) }
+            .sorted { $0.requests > $1.requests }
+    }
+
     /// Dashboard / Widget：多个 Zone 的 24h 流量（含前一窗口请求数做趋势），
     /// 一次 GraphQL 查完；失败回退为逐 Zone 并发查询（无趋势）。
     func trafficByZone24h(zoneIds: [String]) async throws -> [String: ZoneTrafficBundle] {
@@ -376,6 +404,40 @@ struct AnalyticsService {
         }
 
         return (classA, classB, storageBytes, objectCount)
+    }
+
+    /// 每桶用量（本月操作 Class A/B + 当前存储/对象数快照）。复用账号级 R2 查询的 bucketName 维度。
+    /// authz / schema 不支持时抛错由调用方降级（免费账号账户级 GraphQL 常被 authz 挡）。
+    func r2UsageByBucket(accountId: String, periodStart: Date? = nil) async throws -> [String: R2BucketUsage] {
+        let data: R2UsageData = try await client.graphQL(
+            query: R2UsageQuery.text,
+            variables: Self.usageVariables(accountId: accountId, periodStart: periodStart)
+        )
+        guard let account = data.viewer.accounts.first else {
+            throw APIError.notFound
+        }
+
+        var byBucket: [String: R2BucketUsage] = [:]
+        for group in account.r2Storage ?? [] {
+            guard let bucket = group.dimensions?.bucketName, !bucket.isEmpty else { continue }
+            var usage = byBucket[bucket] ?? R2BucketUsage()
+            usage.storageBytes = (group.max?.payloadSize ?? 0) + (group.max?.metadataSize ?? 0)
+            usage.objectCount  = group.max?.objectCount ?? 0
+            byBucket[bucket] = usage
+        }
+        for group in account.r2Ops ?? [] {
+            guard let bucket = group.dimensions?.bucketName, !bucket.isEmpty,
+                  let action = group.dimensions?.actionType else { continue }
+            let count = group.sum?.requests ?? 0
+            var usage = byBucket[bucket] ?? R2BucketUsage()
+            if R2OperationClass.classA.contains(action) {
+                usage.classARequests += count
+            } else if R2OperationClass.classB.contains(action) {
+                usage.classBRequests += count
+            }
+            byBucket[bucket] = usage
+        }
+        return byBucket
     }
 
     private func fetch(

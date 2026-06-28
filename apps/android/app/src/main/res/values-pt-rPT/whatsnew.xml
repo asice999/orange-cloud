@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_4_2_0_title">Melhorias no Workers AI</string>
+    <string name="whatsnew_1_4_2_0_detail">Navegue pelos modelos agrupados por tipo de tarefa, veja os detalhes do modelo e corrigimos o teste dos modelos de geração de texto.</string>
+    <string name="whatsnew_1_4_0_title">Nova Plataforma para Programadores</string>
+    <string name="whatsnew_1_4_0_detail">O Workers fica agora ao lado de Workers AI, AI Gateway, Filas, Hyperdrive, Durable Objects e Pages num único centro.</string>
+    <string name="whatsnew_1_4_1_title">Cache Rules, limite de taxa e encaminhamento de e-mail</string>
+    <string name="whatsnew_1_4_1_detail">As zonas ganham Cache Rules e regras de limite de taxa, além de encaminhamento de e-mail com regras de reenvio e endereços de destino.</string>
+    <string name="whatsnew_1_4_2_title">Balanceamento de carga, Zero Trust e redirecionamentos em massa</string>
+    <string name="whatsnew_1_4_2_detail">Novos balanceadores (com saúde de pools), Zero Trust (apps do Access e alternância de regras de Gateway) e listas e itens de redirecionamento em massa.</string>
+    <string name="whatsnew_1_4_3_title">Assistente de IA e WAF visual</string>
+    <string name="whatsnew_1_4_3_detail">Novo assistente de IA com Workers AI; as regras WAF podem ser criadas visualmente ou geradas em linguagem natural.</string>
+    <string name="whatsnew_1_4_4_title">R2 na app Ficheiros, mapa de tráfego e registo de auditoria</string>
+    <string name="whatsnew_1_4_4_detail">Navegue e abra objetos R2 na app Ficheiros; as análises adicionam tráfego por país; as Definições adicionam registo de auditoria; o Pages mostra implementações com repetição ou reversão num toque.</string>
+    <string name="whatsnew_1_3_0_title">Conjunto de segurança do domínio</string>
+    <string name="whatsnew_1_3_0_detail">Novos modos de encriptação SSL/TLS e certificados de extremidade, alternância do Universal SSL, Transform Rules, regras de acesso por IP e controlos de desempenho e cache como HTTP/2·HTTP/3·Brotli.</string>
+    <string name="whatsnew_1_3_1_title">Melhorias do R2 e limpeza por URL</string>
+    <string name="whatsnew_1_3_1_detail">O R2 agora oferece navegação por pastas, copiar/mover objetos e definições de CORS e acesso público por bucket; a limpeza de cache ganha “limpar por URL”.</string>
+    <string name="whatsnew_1_3_2_title">Widget no ecrã inicial, registos ao vivo e suporte mais amplo</string>
+    <string name="whatsnew_1_3_2_detail">Novo widget de ecrã inicial “visão geral da conta” ao amanhecer; registos ao vivo promovidos a Live Updates (Android 16); Ajuda e feedback pode anexar um registo de diagnóstico; agora compatível com Android 9 e superior.</string>
     <string name="whatsnew_1_1_0_title">De ver a gerir</string>
     <string name="whatsnew_1_1_0_detail">Agora pode adicionar domínios, criar e eliminar bases de dados D1 e túneis, gerir variáveis/segredos/acionadores/domínios de Workers e as rotas de nome de anfitrião público de um túnel.</string>
     <string name="whatsnew_1_0_0_title">Início de sessão OAuth com um toque</string>

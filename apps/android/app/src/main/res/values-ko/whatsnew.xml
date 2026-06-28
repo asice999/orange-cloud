@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_4_2_0_title">Workers AI 개선</string>
+    <string name="whatsnew_1_4_2_0_detail">모델을 작업 유형별로 묶어 살펴보고 모델 상세 정보를 확인할 수 있으며, 텍스트 생성 모델의 시험 실행 오류를 수정했습니다.</string>
+    <string name="whatsnew_1_4_0_title">새로운 개발자 플랫폼</string>
+    <string name="whatsnew_1_4_0_detail">Workers와 함께 Workers AI, AI Gateway, 큐, Hyperdrive, Durable Objects, Pages를 하나의 개발자 플랫폼 허브로 모았습니다.</string>
+    <string name="whatsnew_1_4_1_title">캐시 규칙, 속도 제한, 이메일 라우팅</string>
+    <string name="whatsnew_1_4_1_detail">영역에 캐시 규칙과 속도 제한 규칙, 그리고 전달 규칙·대상 주소 관리가 포함된 이메일 라우팅을 추가했습니다.</string>
+    <string name="whatsnew_1_4_2_title">로드 밸런싱, Zero Trust, 대량 리디렉션</string>
+    <string name="whatsnew_1_4_2_detail">로드 밸런서(풀 상태 포함), Zero Trust(Access 앱 및 Gateway 정책 전환), 대량 리디렉션 목록과 항목을 추가했습니다.</string>
+    <string name="whatsnew_1_4_3_title">AI 어시스턴트와 비주얼 WAF</string>
+    <string name="whatsnew_1_4_3_detail">Workers AI 기반의 AI 어시스턴트를 추가했습니다. WAF 규칙은 시각적으로 구성하거나 자연어로 생성할 수 있습니다.</string>
+    <string name="whatsnew_1_4_4_title">R2를 파일 앱에, 트래픽 지도와 감사 로그</string>
+    <string name="whatsnew_1_4_4_detail">시스템 파일 앱에서 R2 객체를 탐색·열람하고, 분석에 국가별 트래픽을, 설정에 계정 감사 로그를 추가했으며, Pages에서 배포 확인과 원터치 재배포·롤백을 지원합니다.</string>
+    <string name="whatsnew_1_3_0_title">도메인 보안 모음</string>
+    <string name="whatsnew_1_3_0_detail">SSL/TLS 암호화 모드와 엣지 인증서, Universal SSL 전환, Transform Rules, IP 접근 규칙, 그리고 HTTP/2·HTTP/3·Brotli 등 성능·캐시 설정을 추가했습니다.</string>
+    <string name="whatsnew_1_3_1_title">R2 업그레이드 및 URL 단위 캐시 제거</string>
+    <string name="whatsnew_1_3_1_detail">R2에서 폴더 탐색, 객체 복사/이동, 버킷별 CORS 및 공개 액세스 설정을 지원합니다. 캐시 제거에 ‘URL 단위 제거’가 추가되었습니다.</string>
+    <string name="whatsnew_1_3_2_title">홈 위젯, 실시간 로그 및 더 넓은 지원</string>
+    <string name="whatsnew_1_3_2_detail">여명 ‘계정 개요’ 홈 위젯 추가, 실시간 로그를 Live Updates(Android 16)로 승격, 도움말 및 피드백에 진단 로그 첨부 가능, 이제 Android 9 이상을 지원합니다.</string>
     <string name="whatsnew_1_1_0_title">보기에서 관리로</string>
     <string name="whatsnew_1_1_0_detail">이제 도메인 추가, D1 데이터베이스·터널 생성 및 삭제, Worker 변수/시크릿/트리거/도메인, 터널 공개 호스트 이름 경로를 관리할 수 있습니다.</string>
     <string name="whatsnew_1_0_0_title">OAuth 원탭 로그인</string>

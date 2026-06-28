@@ -5,6 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.widget.Toast
+import androidx.core.content.FileProvider
+import jiamin.chen.orangecloud.core.logging.AppLog
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -30,6 +32,7 @@ import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Email
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.MonitorHeart
 import androidx.compose.material.icons.outlined.Notifications
@@ -79,6 +82,7 @@ fun SettingsScreen(
     onOpenIdentity: (String) -> Unit = {},
     onAddAccount: () -> Unit = {},
     onOpenPaywall: () -> Unit = {},
+    onOpenAudit: () -> Unit = {},
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -99,24 +103,45 @@ fun SettingsScreen(
     }
     fun openUrl(url: String) = context.launchCustomTab(Uri.parse(url))
 
-    // 帮助与反馈：邮件 intent，正文预填诊断头（版本/系统/设备/账号数），不含任何令牌或密钥。
+    // 帮助与反馈：邮件 intent，正文预填诊断头（版本/系统/设备/账号数）+ 附带诊断日志文件，
+    // 全程不含任何令牌或密钥（日志由 AppLog 脱敏写入，附件经 FileProvider 授权给邮件应用）。
     val feedbackSubject = stringResource(R.string.feedback_subject)
     val noMailMsg = stringResource(R.string.feedback_no_mail)
+    val feedbackLogNote = stringResource(R.string.feedback_log_note)
     fun sendFeedback() {
+        val logUri = AppLog.exportedFile()?.let { file ->
+            runCatching {
+                FileProvider.getUriForFile(context, "${BuildConfig.APPLICATION_ID}.fileprovider", file)
+            }.getOrNull()
+        }
         val diag = buildString {
             append("\n\n---\n")
             append("App ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n")
             append("Android ${Build.VERSION.RELEASE} (SDK ${Build.VERSION.SDK_INT})\n")
             append("${Build.MANUFACTURER} ${Build.MODEL}\n")
             append("Accounts: ${state.sessions.size}")
+            if (logUri != null) append("\n$feedbackLogNote")
         }
-        val intent = Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:")
-            putExtra(Intent.EXTRA_EMAIL, arrayOf("orange-cloud@hz.do"))
-            putExtra(Intent.EXTRA_SUBJECT, feedbackSubject)
-            putExtra(Intent.EXTRA_TEXT, diag)
+        val intent = if (logUri != null) {
+            // 带附件：ACTION_SEND（mailto 不支持 EXTRA_STREAM），偏向邮件应用
+            Intent(Intent.ACTION_SEND).apply {
+                type = "message/rfc822"
+                putExtra(Intent.EXTRA_EMAIL, arrayOf("orange-cloud@hz.do"))
+                putExtra(Intent.EXTRA_SUBJECT, feedbackSubject)
+                putExtra(Intent.EXTRA_TEXT, diag)
+                putExtra(Intent.EXTRA_STREAM, logUri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+        } else {
+            Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf("orange-cloud@hz.do"))
+                putExtra(Intent.EXTRA_SUBJECT, feedbackSubject)
+                putExtra(Intent.EXTRA_TEXT, diag)
+            }
         }
-        runCatching { context.startActivity(intent) }
+        val launch = if (logUri != null) Intent.createChooser(intent, null) else intent
+        runCatching { context.startActivity(launch) }
             .onFailure { Toast.makeText(context, noMailMsg, Toast.LENGTH_SHORT).show() }
     }
 
@@ -219,6 +244,8 @@ fun SettingsScreen(
             // ── 服务状态 ──
             SettingsSection(stringResource(R.string.settings_service), stringResource(R.string.settings_service_footer)) {
                 NavRow(Icons.Outlined.MonitorHeart, OcSuccess, stringResource(R.string.status_title), onOpenStatus)
+                RowDivider(indent = true)
+                NavRow(Icons.Outlined.History, Color(0xFF8B6CC7), stringResource(R.string.audit_title), onOpenAudit)
             }
 
             // ── 帮助与反馈 ──
@@ -242,9 +269,9 @@ fun SettingsScreen(
                 RowDivider(indent = true)
                 LinkRow(Icons.Outlined.Code, cs.onSurfaceVariant, stringResource(R.string.settings_github)) { openUrl("https://github.com/chen2he/orange-cloud") }
                 RowDivider(indent = true)
-                LinkRow(Icons.Outlined.PrivacyTip, cs.onSurfaceVariant, stringResource(R.string.settings_privacy)) { openUrl("https://orange-cloud.chatiro.app/privacy") }
+                LinkRow(Icons.Outlined.PrivacyTip, cs.onSurfaceVariant, stringResource(R.string.settings_privacy)) { openUrl("https://o-c.do/privacy") }
                 RowDivider(indent = true)
-                LinkRow(Icons.Outlined.Description, cs.onSurfaceVariant, stringResource(R.string.settings_terms)) { openUrl("https://orange-cloud.chatiro.app/terms") }
+                LinkRow(Icons.Outlined.Description, cs.onSurfaceVariant, stringResource(R.string.settings_terms)) { openUrl("https://o-c.do/terms") }
             }
 
             Text(

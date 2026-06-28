@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_4_2_0_title">Workers AI improvements</string>
+    <string name="whatsnew_1_4_2_0_detail">Browse models grouped by task type, view model details, and the text-generation test run is fixed.</string>
+    <string name="whatsnew_1_4_0_title">New Developer Platform</string>
+    <string name="whatsnew_1_4_0_detail">Workers now sits alongside Workers AI, AI Gateway, Queues, Hyperdrive, Durable Objects and Pages in a single Developer Platform hub.</string>
+    <string name="whatsnew_1_4_1_title">Cache Rules, Rate Limiting &amp; Email Routing</string>
+    <string name="whatsnew_1_4_1_detail">Zones gain Cache Rules and Rate Limiting rules, plus Email Routing with forwarding rules and destination addresses.</string>
+    <string name="whatsnew_1_4_2_title">Load Balancing, Zero Trust &amp; Bulk Redirects</string>
+    <string name="whatsnew_1_4_2_detail">New load balancers (with pool health), Zero Trust (Access apps and Gateway rule toggles), and Bulk Redirect lists and items.</string>
+    <string name="whatsnew_1_4_3_title">AI assistant &amp; visual WAF</string>
+    <string name="whatsnew_1_4_3_detail">A new AI assistant powered by Workers AI; WAF rules can be built visually or generated from natural language.</string>
+    <string name="whatsnew_1_4_4_title">R2 in Files, traffic map &amp; audit log</string>
+    <string name="whatsnew_1_4_4_detail">Browse, upload, rename, move and delete R2 objects in the system Files app; analytics adds traffic by country; Settings adds an account audit log; Pages shows deployments with one-tap retry or rollback.</string>
+    <string name="whatsnew_1_3_0_title">Domain security suite</string>
+    <string name="whatsnew_1_3_0_detail">New SSL/TLS encryption modes and edge certificates, Universal SSL toggle, Transform Rules, IP access rules, plus HTTP/2·HTTP/3·Brotli and other performance and cache controls.</string>
+    <string name="whatsnew_1_3_1_title">R2 upgrade &amp; purge by URL</string>
+    <string name="whatsnew_1_3_1_detail">R2 now supports folder browsing, object copy/move, and per-bucket CORS and public access settings; cache purge adds “purge by URL”.</string>
+    <string name="whatsnew_1_3_2_title">Home widget, live logs &amp; wider support</string>
+    <string name="whatsnew_1_3_2_detail">A new daybreak “account overview” home widget; live tail logs are promoted to Live Updates (Android 16); Help &amp; Feedback can attach a diagnostic log; now supports Android 9 and above.</string>
     <string name="whatsnew_1_1_0_title">From viewing to managing</string>
     <string name="whatsnew_1_1_0_detail">You can now add domains, create and delete D1 databases and tunnels, manage Worker variables/secrets/triggers/domains, and a tunnel’s public hostname routes.</string>
     <string name="whatsnew_1_0_0_title">One-tap OAuth sign-in</string>

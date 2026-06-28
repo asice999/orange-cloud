@@ -22,11 +22,29 @@ enum StorageKind: String, CaseIterable, Identifiable {
         }
     }
 
+    /// 创建 / 删除所需的写权限
+    var writeScope: String {
+        switch self {
+        case .r2: "workers-r2.write"
+        case .d1: "d1.write"
+        case .kv: "workers-kv-storage.write"
+        }
+    }
+
     var featureName: String {
         switch self {
         case .r2: String(localized: "R2 对象存储")
         case .d1: String(localized: "D1 数据库")
         case .kv: String(localized: "KV 存储")
+        }
+    }
+
+    /// 「+」按钮标题
+    var createLabel: LocalizedStringKey {
+        switch self {
+        case .r2: "创建存储桶"
+        case .d1: "创建数据库"
+        case .kv: "创建命名空间"
         }
     }
 }
@@ -41,15 +59,22 @@ struct StorageView: View {
     @State private var r2ViewModel: R2BucketListViewModel
     @State private var d1ViewModel: D1DatabaseListViewModel
     @State private var kvViewModel: KVNamespaceListViewModel
+    @State private var showR2Create = false
     @State private var showD1Create = false
+    @State private var showKVCreate = false
+    @State private var bucketToDelete: R2Bucket?
     @State private var databaseToDelete: D1Database?
-    @State private var d1Denied = false
+    @State private var namespaceToDelete: KVNamespace?
+    @State private var writeDenied = false
 
-    /// 创建 / 删除 D1 数据库都需要写权限（读权限已是进入 D1 段的前置条件）
-    private var canWriteD1: Bool { auth.hasScope("d1.write") }
+    /// 当前段的创建 / 删除是否有写权限（读权限已是进入该段的前置条件）
+    private var canWriteCurrent: Bool { auth.hasScope(kind.writeScope) }
+    private var canWriteR2: Bool { auth.hasScope(StorageKind.r2.writeScope) }
+    private var canWriteD1: Bool { auth.hasScope(StorageKind.d1.writeScope) }
+    private var canWriteKV: Bool { auth.hasScope(StorageKind.kv.writeScope) }
 
     init(session: SessionStore) {
-        _r2ViewModel = State(initialValue: R2BucketListViewModel(service: session.r2Service))
+        _r2ViewModel = State(initialValue: R2BucketListViewModel(service: session.r2Service, analyticsService: session.analyticsService))
         _d1ViewModel = State(initialValue: D1DatabaseListViewModel(service: session.d1Service))
         _kvViewModel = State(initialValue: KVNamespaceListViewModel(service: session.kvService))
     }
@@ -68,28 +93,42 @@ struct StorageView: View {
             .background { SkyBackground() }
             .navigationTitle("存储")
             .toolbar {
-                // 仅 D1 段提供「创建数据库」入口（R2/KV 暂只读浏览）
-                if entitlements.isPro, kind == .d1, auth.hasScope(StorageKind.d1.requiredScope) {
+                // R2 / D1 / KV 三段均提供创建入口（按各自写权限门控）
+                if entitlements.isPro, auth.hasScope(kind.requiredScope) {
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button("创建数据库", systemImage: "plus") {
-                            if canWriteD1 { showD1Create = true } else { d1Denied = true }
-                        }
+                        Button(kind.createLabel, systemImage: "plus") { startCreate() }
                     }
                 }
+            }
+            .sheet(isPresented: $showR2Create) {
+                R2CreateView(viewModel: r2ViewModel, accountId: session.selectedAccount?.id ?? "")
             }
             .sheet(isPresented: $showD1Create) {
                 D1CreateView(viewModel: d1ViewModel, accountId: session.selectedAccount?.id ?? "")
             }
+            .sheet(isPresented: $showKVCreate) {
+                KVCreateView(viewModel: kvViewModel, accountId: session.selectedAccount?.id ?? "")
+            }
+            .sheet(item: $bucketToDelete) { bucket in
+                R2BucketDeleteConfirmView(bucket: bucket, viewModel: r2ViewModel, accountId: session.selectedAccount?.id ?? "")
+            }
             .sheet(item: $databaseToDelete) { database in
                 D1DeleteConfirmView(database: database, viewModel: d1ViewModel, accountId: session.selectedAccount?.id ?? "")
             }
-            .alert("权限不足", isPresented: $d1Denied) {
+            .sheet(item: $namespaceToDelete) { namespace in
+                KVNamespaceDeleteConfirmView(namespace: namespace, viewModel: kvViewModel, accountId: session.selectedAccount?.id ?? "")
+            }
+            .alert("权限不足", isPresented: $writeDenied) {
                 Button("好", role: .cancel) {}
             } message: {
-                Text("当前授权未包含 D1 写权限（d1.write）。\n请在设置中退出登录后重新授权以启用此功能。")
+                Text("当前授权未包含此资源的写权限（\(kind.writeScope)）。\n请在设置中退出登录后重新授权以启用此功能。")
             }
+            .sensoryFeedback(.success, trigger: r2ViewModel.didCreate)
+            .sensoryFeedback(.success, trigger: r2ViewModel.didDelete)
             .sensoryFeedback(.success, trigger: d1ViewModel.didCreate)
             .sensoryFeedback(.success, trigger: d1ViewModel.didDelete)
+            .sensoryFeedback(.success, trigger: kvViewModel.didCreate)
+            .sensoryFeedback(.success, trigger: kvViewModel.didDelete)
         }
     }
 
@@ -132,7 +171,19 @@ struct StorageView: View {
         if r2ViewModel.buckets.isEmpty && r2ViewModel.isLoading {
             loadingView
         } else if r2ViewModel.buckets.isEmpty {
-            emptyView(icon: "archivebox", title: String(localized: "没有存储桶"), body: String(localized: "在 Cloudflare Dashboard 创建 R2 存储桶。"))
+            ContentUnavailableView {
+                Label("没有存储桶", systemImage: "archivebox")
+            } description: {
+                Text(canWriteR2 ? String(localized: "点击右上角 + 创建第一个存储桶") : String(localized: "当前授权仅限读取，无法创建存储桶"))
+            } actions: {
+                if canWriteR2 {
+                    Button("创建存储桶") { showR2Create = true }
+                        .buttonStyle(.borderedProminent)
+                        .tint(Color.ocOrangePressed)
+                        .fontWeight(.bold)
+                }
+            }
+            .frame(maxHeight: .infinity)
         } else {
             List(r2ViewModel.buckets) { bucket in
                 NavigationLink {
@@ -141,15 +192,33 @@ struct StorageView: View {
                     StorageRow(
                         icon: "externaldrive", tint: .ocOrange, mono: false,
                         name: bucket.name,
-                        sub: [bucket.location, WorkerScript.parseDate(bucket.creationDate).map { $0.formatted(.dateTime.year().month().day()) }]
-                            .compactMap(\.self).joined(separator: " · ")
+                        sub: r2Subtitle(for: bucket)
                     )
+                }
+                .swipeActions(edge: .trailing) {
+                    Button(role: .destructive) {
+                        if canWriteR2 { bucketToDelete = bucket } else { writeDenied = true }
+                    } label: {
+                        Label("删除", systemImage: "trash")
+                    }
                 }
                 .glassRow()
             }
             .scrollContentBackground(.hidden)
             .refreshable { await load() }
         }
+    }
+
+    /// 桶副标题：有用量数据时显示存储/对象/请求，否则回退到位置 · 创建日期
+    private func r2Subtitle(for bucket: R2Bucket) -> String {
+        if let usage = r2ViewModel.usageByBucket[bucket.name], usage.storageBytes > 0 || usage.objectCount > 0 {
+            var parts = [Int64(usage.storageBytes).formatted(.byteCount(style: .file))]
+            if usage.objectCount > 0 { parts.append(String(localized: "\(usage.objectCount) 个对象")) }
+            if usage.totalRequests > 0 { parts.append(String(localized: "本月 \(usage.totalRequests.formatted()) 次操作")) }
+            return parts.joined(separator: " · ")
+        }
+        return [bucket.location, WorkerScript.parseDate(bucket.creationDate).map { $0.formatted(.dateTime.year().month().day()) }]
+            .compactMap(\.self).joined(separator: " · ")
     }
 
     // MARK: - D1
@@ -188,7 +257,7 @@ struct StorageView: View {
                 }
                 .swipeActions(edge: .trailing) {
                     Button(role: .destructive) {
-                        if canWriteD1 { databaseToDelete = database } else { d1Denied = true }
+                        if canWriteD1 { databaseToDelete = database } else { writeDenied = true }
                     } label: {
                         Label("删除", systemImage: "trash")
                     }
@@ -207,7 +276,19 @@ struct StorageView: View {
         if kvViewModel.namespaces.isEmpty && kvViewModel.isLoading {
             loadingView
         } else if kvViewModel.namespaces.isEmpty {
-            emptyView(icon: "key", title: String(localized: "没有命名空间"), body: String(localized: "在 Cloudflare Dashboard 创建 KV 命名空间。"))
+            ContentUnavailableView {
+                Label("没有命名空间", systemImage: "key")
+            } description: {
+                Text(canWriteKV ? String(localized: "点击右上角 + 创建第一个命名空间") : String(localized: "当前授权仅限读取，无法创建命名空间"))
+            } actions: {
+                if canWriteKV {
+                    Button("创建命名空间") { showKVCreate = true }
+                        .buttonStyle(.borderedProminent)
+                        .tint(Color.ocOrangePressed)
+                        .fontWeight(.bold)
+                }
+            }
+            .frame(maxHeight: .infinity)
         } else {
             List(kvViewModel.namespaces) { namespace in
                 NavigationLink {
@@ -218,6 +299,13 @@ struct StorageView: View {
                         name: namespace.title,
                         sub: namespace.id
                     )
+                }
+                .swipeActions(edge: .trailing) {
+                    Button(role: .destructive) {
+                        if canWriteKV { namespaceToDelete = namespace } else { writeDenied = true }
+                    } label: {
+                        Label("删除", systemImage: "trash")
+                    }
                 }
                 .glassRow()
             }
@@ -232,13 +320,14 @@ struct StorageView: View {
         SkeletonList(rows: 7)
     }
 
-    private func emptyView(icon: String, title: String, body bodyText: String) -> some View {
-        ContentUnavailableView {
-            Label(title, systemImage: icon)
-        } description: {
-            Text(bodyText)
+    /// 「+」按钮：有写权限则弹对应创建表单，否则提示权限不足
+    private func startCreate() {
+        guard canWriteCurrent else { writeDenied = true; return }
+        switch kind {
+        case .r2: showR2Create = true
+        case .d1: showD1Create = true
+        case .kv: showKVCreate = true
         }
-        .frame(maxHeight: .infinity)
     }
 
     private func load() async {

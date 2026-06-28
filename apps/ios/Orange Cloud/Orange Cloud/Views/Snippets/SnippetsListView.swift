@@ -16,6 +16,7 @@ struct SnippetsListView: View {
     @State private var viewModel: SnippetsViewModel
     @State private var showDenied = false
     @State private var showEditor = false
+    @State private var searchText = ""
 
     init(zoneId: String, zoneName: String, session: SessionStore) {
         self.zoneName = zoneName
@@ -23,6 +24,11 @@ struct SnippetsListView: View {
     }
 
     private var canWrite: Bool { auth.hasScope("snippets.write") }
+
+    private var filteredSnippets: [Snippet] {
+        guard !searchText.isEmpty else { return viewModel.snippets }
+        return viewModel.snippets.filter { $0.snippetName.localizedCaseInsensitiveContains(searchText) }
+    }
 
     var body: some View {
         Group {
@@ -43,10 +49,12 @@ struct SnippetsListView: View {
                             .fontWeight(.bold)
                     }
                 }
+            } else if filteredSnippets.isEmpty {
+                ContentUnavailableView.search(text: searchText)
             } else {
                 List {
                     Section {
-                        ForEach(viewModel.snippets) { snippet in
+                        ForEach(filteredSnippets) { snippet in
                             NavigationLink {
                                 SnippetDetailView(snippet: snippet, zoneName: zoneName, viewModel: viewModel)
                             } label: {
@@ -70,6 +78,7 @@ struct SnippetsListView: View {
         .background { SkyBackground() }
         .navigationTitle("Snippets")
         .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $searchText, prompt: "搜索 Snippet")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("新建", systemImage: "plus") {

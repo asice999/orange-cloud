@@ -24,6 +24,7 @@ struct ZoneDetailView: View {
     // 操作区
     @State private var actionsViewModel: ZoneActionsViewModel
     @State private var showPurgeConfirm = false
+    @State private var showPurgeSheet = false
     @State private var showPurgeDone = false
     @State private var showActionDenied = false
     @State private var deniedScopeHint = ""
@@ -102,6 +103,17 @@ struct ZoneDetailView: View {
                     }
 
                     ProGatedNavigationLink(
+                        label: "Rate Limiting",
+                        systemImage: "gauge.with.dots.needle.bottom.50percent",
+                        requiredScope: "zone-waf.read",
+                        feature: .rateLimit,
+                        tint: .pink,
+                        showsChevron: true
+                    ) {
+                        RateLimitRulesView(zoneId: zone.id, zoneName: zone.name, session: session)
+                    }
+
+                    ProGatedNavigationLink(
                         label: String(localized: "Snippets"),
                         systemImage: "curlybraces",
                         requiredScope: "snippets.read",
@@ -110,6 +122,89 @@ struct ZoneDetailView: View {
                         showsChevron: true
                     ) {
                         SnippetsListView(zoneId: zone.id, zoneName: zone.name, session: session)
+                    }
+
+                    ProGatedNavigationLink(
+                        label: String(localized: "缓存规则"),
+                        systemImage: "bolt.horizontal",
+                        requiredScope: "cache-settings.read",
+                        feature: .cacheRules,
+                        tint: .cyan,
+                        showsChevron: true
+                    ) {
+                        CacheRulesListView(zoneId: zone.id, session: session)
+                    }
+
+                    ProGatedNavigationLink(
+                        label: "Email Routing",
+                        systemImage: "envelope",
+                        requiredScope: "email-routing-rule.read",
+                        feature: .emailRouting,
+                        tint: .pink,
+                        showsChevron: true
+                    ) {
+                        EmailRoutingView(zoneId: zone.id, zoneName: zone.name, session: session)
+                    }
+
+                    PermissionGatedNavigationLink(
+                        label: "SSL/TLS",
+                        systemImage: "lock.shield",
+                        requiredScope: "zone-settings.read",
+                        tint: .green,
+                        showsChevron: true
+                    ) {
+                        ZoneSSLSettingsView(zoneId: zone.id, zoneName: zone.name, session: session)
+                    }
+
+                    PermissionGatedNavigationLink(
+                        label: String(localized: "性能与缓存"),
+                        systemImage: "speedometer",
+                        requiredScope: "zone-settings.read",
+                        tint: .teal,
+                        showsChevron: true
+                    ) {
+                        ZonePerformanceView(zoneId: zone.id, session: session)
+                    }
+
+                    PermissionGatedNavigationLink(
+                        label: String(localized: "SSL 证书"),
+                        systemImage: "checkmark.seal",
+                        requiredScope: "ssl-and-certificates.read",
+                        tint: .green,
+                        showsChevron: true
+                    ) {
+                        ZoneSSLCertsView(zoneId: zone.id, session: session)
+                    }
+
+                    PermissionGatedNavigationLink(
+                        label: "Transform Rules",
+                        systemImage: "arrow.triangle.branch",
+                        requiredScope: "zone-transform-rules.read",
+                        tint: .indigo,
+                        showsChevron: true
+                    ) {
+                        ZoneTransformRulesView(zoneId: zone.id, session: session)
+                    }
+
+                    PermissionGatedNavigationLink(
+                        label: String(localized: "IP 访问规则"),
+                        systemImage: "hand.raised",
+                        requiredScope: "firewall-services.read",
+                        tint: .red,
+                        showsChevron: true
+                    ) {
+                        ZoneAccessRulesView(zoneId: zone.id, session: session)
+                    }
+
+                    ProGatedNavigationLink(
+                        label: String(localized: "负载均衡"),
+                        systemImage: "arrow.left.arrow.right",
+                        requiredScope: "load-balancers.read",
+                        feature: .loadBalancing,
+                        tint: .pink,
+                        showsChevron: true
+                    ) {
+                        LoadBalancerListView(zoneId: zone.id, zoneName: zone.name, session: session)
                     }
                 }
 
@@ -154,6 +249,26 @@ struct ZoneDetailView: View {
                                     .font(.caption)
                                     .foregroundStyle(.tertiary)
                             }
+                        }
+                    }
+                    .disabled(actionsViewModel.isPurging)
+
+                    Button {
+                        if canPurge {
+                            showPurgeSheet = true
+                        } else {
+                            deniedScopeHint = "cache.purge"
+                            showActionDenied = true
+                        }
+                    } label: {
+                        HStack(spacing: 12) {
+                            TintIcon(systemImage: "scissors", color: .ocOrange)
+                            Text("按目标清理缓存")
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Image(systemName: canPurge ? "chevron.right" : "lock.fill")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.tertiary)
                         }
                     }
                     .disabled(actionsViewModel.isPurging)
@@ -244,13 +359,29 @@ struct ZoneDetailView: View {
         } message: {
             Text("边缘节点将在数秒内完成清理。")
         }
+        .sheet(isPresented: $showPurgeSheet) {
+            PurgeCacheSheet(zoneName: zone.name) { mode, items in
+                switch mode {
+                case .url:    await actionsViewModel.purgeURLs(items)
+                case .prefix: await actionsViewModel.purgePrefixes(items)
+                case .host:   await actionsViewModel.purgeHosts(items)
+                case .tag:    await actionsViewModel.purgeTags(items)
+                }
+            }
+        }
         .onChange(of: actionsViewModel.didPurge) {
             showPurgeDone = true
         }
         .alert("权限不足", isPresented: $showActionDenied) {
+            if let sessionId = auth.currentSessionId, !deniedScopeHint.isEmpty {
+                Button("一键重授权") {
+                    let scope = deniedScopeHint
+                    Task { await auth.reauthorize(sessionId: sessionId, additionalScopes: [scope]) }
+                }
+            }
             Button("好", role: .cancel) {}
         } message: {
-            Text("当前授权未包含此操作所需权限（\(deniedScopeHint)）。\n请在设置中退出登录后重新授权「缓存与防护」。")
+            Text("当前授权未包含此操作所需权限（\(deniedScopeHint)）。点「一键重授权」补齐，无需退出登录。")
         }
         .alert("操作失败", isPresented: .init(
             get: { actionsViewModel.error != nil },

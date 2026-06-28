@@ -15,6 +15,9 @@ struct WorkerDetailView: View {
 
     @Environment(AuthManager.self) private var auth
     @State private var metricsViewModel: WorkerMetricsViewModel
+    @State private var uploadViewModel: WorkerUploadViewModel
+    @State private var showUpload = false
+    @State private var uploadDenied = false
 
     init(script: CachedWorkerScript, session: SessionStore) {
         self.script = script
@@ -24,9 +27,14 @@ struct WorkerDetailView: View {
             accountId: script.accountId,
             scriptName: script.id
         ))
+        _uploadViewModel = State(initialValue: WorkerUploadViewModel(
+            service: session.workerService,
+            accountId: script.accountId
+        ))
     }
 
     private var canViewMetrics: Bool { auth.hasScope("account-analytics.read") }
+    private var canWrite: Bool { auth.hasScope("workers-scripts.write") }
 
     var body: some View {
         List {
@@ -55,6 +63,18 @@ struct WorkerDetailView: View {
                 .glassRow()
 
             Section("管理") {
+                Button {
+                    if canWrite { showUpload = true } else { uploadDenied = true }
+                } label: {
+                    HStack(spacing: 12) {
+                        TintIcon(systemImage: "arrow.up.doc", color: .ocOrange)
+                        Text("更新代码").foregroundStyle(.primary)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.tertiary)
+                    }
+                }
                 ProGatedNavigationLink(
                     label: String(localized: "变量与密钥"),
                     systemImage: "key",
@@ -97,6 +117,15 @@ struct WorkerDetailView: View {
         .daybreakList()
         .navigationTitle(script.id)
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showUpload) {
+            WorkerUploadView(mode: .replace(scriptName: script.id), viewModel: uploadViewModel) {}
+        }
+        .sensoryFeedback(.success, trigger: uploadViewModel.didUpload)
+        .alert("权限不足", isPresented: $uploadDenied) {
+            Button("好", role: .cancel) {}
+        } message: {
+            Text("当前授权未包含 Workers 写权限（workers-scripts.write）。\n请在设置中退出登录后重新授权以启用此功能。")
+        }
         .task(id: metricsViewModel.range) {
             guard canViewMetrics else { return }
             await metricsViewModel.load()

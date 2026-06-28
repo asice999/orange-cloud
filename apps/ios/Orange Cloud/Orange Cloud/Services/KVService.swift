@@ -61,6 +61,23 @@ struct KVService {
         return (response.result ?? [], next)
     }
 
+    /// 创建命名空间（workers-kv-storage.write）。POST 返回新建的 KVNamespace。
+    func createNamespace(accountId: String, title: String) async throws -> KVNamespace {
+        let response: CFAPIResponse<KVNamespace> = try await client.post(
+            "accounts/\(accountId)/storage/kv/namespaces",
+            body: KVCreateRequest(title: title)
+        )
+        guard response.success, let namespace = response.result else {
+            throw response.toAPIError()
+        }
+        return namespace
+    }
+
+    /// 删除命名空间（workers-kv-storage.write）。连同全部键值，不可恢复。
+    func deleteNamespace(accountId: String, namespaceId: String) async throws {
+        try await client.delete("accounts/\(accountId)/storage/kv/namespaces/\(namespaceId)")
+    }
+
     /// 读取值（原始字节，调用方决定如何展示）
     func getValue(accountId: String, namespaceId: String, key: String) async throws -> Data {
         try await client.getRaw(
