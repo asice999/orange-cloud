@@ -40,7 +40,7 @@ struct R2ObjectListView: View {
 
     private var canWrite: Bool { auth.hasScope("workers-r2.write") }
 
-    var body: some View {
+    private var contentView: some View {
         Group {
             if viewModel.isContentEmpty && viewModel.isLoading {
                 SkeletonList(rows: 9, trailing: true)
@@ -54,133 +54,141 @@ struct R2ObjectListView: View {
                 objectList
             }
         }
-        .background { SkyBackground() }
-        .navigationTitle(viewModel.displayTitle)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showSettings = true
-                } label: {
-                    Label("桶设置", systemImage: "gearshape")
-                }
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                if viewModel.isUploading {
-                    ProgressView()
-                } else {
-                    Menu {
-                        if canWrite {
-                            Button {
-                                showPhotoPicker = true
-                            } label: {
-                                Label("上传照片或视频", systemImage: "photo")
-                            }
-                            Button {
-                                showFileImporter = true
-                            } label: {
-                                Label("上传文件", systemImage: "doc")
-                            }
-                        } else {
-                            Button {
-                                showDenied = true
-                            } label: {
-                                Label("需要 R2 写权限", systemImage: "lock")
-                            }
+    }
+
+    private var uploadToolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            if viewModel.isUploading {
+                ProgressView()
+            } else {
+                Menu {
+                    if canWrite {
+                        Button {
+                            showPhotoPicker = true
+                        } label: {
+                            Label("上传照片或视频", systemImage: "photo")
                         }
+                        Button {
+                            showFileImporter = true
+                        } label: {
+                            Label("上传文件", systemImage: "doc")
+                        }
+                    } else {
+                        Button {
+                            showDenied = true
+                        } label: {
+                            Label("需要 R2 写权限", systemImage: "lock")
+                        }
+                    }
+                } label: {
+                    Label("上传", systemImage: "square.and.arrow.up")
+                }
+            }
+        }
+    }
+
+    var body: some View {
+        contentView
+            .background { SkyBackground() }
+            .navigationTitle(viewModel.displayTitle)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                uploadToolbar
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showSettings = true
                     } label: {
-                        Label("上传", systemImage: "square.and.arrow.up")
+                        Label("桶设置", systemImage: "gearshape")
                     }
                 }
             }
-        }
-        .photosPicker(isPresented: $showPhotoPicker, selection: $photoItem, matching: .any(of: [.images, .videos]))
-        .quickLookPreview($previewURL)
-        .overlay {
-            if viewModel.isDownloading {
-                ZStack {
-                    Color.black.opacity(0.15).ignoresSafeArea()
-                    ProgressView("下载中…")
-                        .padding(18)
-                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+            .photosPicker(isPresented: $showPhotoPicker, selection: $photoItem, matching: .any(of: [.images, .videos]))
+            .quickLookPreview($previewURL)
+            .task { await viewModel.load() }
+            .onChange(of: photoItem) {
+                guard let item = photoItem else { return }
+                photoItem = nil
+                guard canWrite else { showDenied = true; return }
+                Task { await uploadPhoto(item) }
+            }
+            .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.item]) { result in
+                guard canWrite else { showDenied = true; return }
+                if case .success(let url) = result {
+                    Task { await uploadFile(url) }
                 }
             }
-        }
-        .task { await viewModel.load() }
-        .onChange(of: photoItem) {
-            guard let item = photoItem else { return }
-            photoItem = nil
-            guard canWrite else { showDenied = true; return }
-            Task { await uploadPhoto(item) }
-        }
-        .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.item]) { result in
-            guard canWrite else { showDenied = true; return }
-            if case .success(let url) = result {
-                Task { await uploadFile(url) }
+            .sheet(item: $selectedObject) { object in
+                R2ObjectDetailView(object: object, viewModel: viewModel, canWrite: canWrite)
+                    .presentationDetents([.medium, .large])
             }
-        }
-        .sheet(item: $selectedObject) { object in
-            R2ObjectDetailView(object: object, viewModel: viewModel, canWrite: canWrite)
-                .presentationDetents([.medium, .large])
-        }
-        .sheet(isPresented: $showSettings) {
-            R2BucketSettingsView(bucket: bucket, session: session, canWrite: canWrite)
-        }
-        .confirmationDialog(
-            "删除对象",
-            isPresented: .init(
-                get: { objectToDelete != nil },
-                set: { if !$0 { objectToDelete = nil } }
-            ),
-            titleVisibility: .visible
-        ) {
-            if let object = objectToDelete {
-                Button("删除 \(object.key)", role: .destructive) {
-                    Task { _ = await viewModel.delete(key: object.key) }
+            .sheet(isPresented: $showSettings) {
+                R2BucketSettingsView(bucket: bucket, session: session, canWrite: canWrite)
+            }
+            .confirmationDialog(
+                "删除对象",
+                isPresented: .init(
+                    get: { objectToDelete != nil },
+                    set: { if !$0 { objectToDelete = nil } }
+                ),
+                titleVisibility: .visible
+            ) {
+                if let object = objectToDelete {
+                    Button("删除 \(object.key)", role: .destructive) {
+                        Task { _ = await viewModel.delete(key: object.key) }
+                    }
                 }
+            } message: {
+                Text("此操作不可撤销。")
             }
-        } message: {
-            Text("此操作不可撤销。")
-        }
-        .alert("权限不足", isPresented: $showDenied) {
-            Button("好", role: .cancel) {}
-        } message: {
-            Text("当前授权未包含 R2 写权限（workers-r2.write）。\n请在设置中退出登录后重新授权以启用此功能。")
-        }
-        .alert("出错了", isPresented: .init(
-            get: { viewModel.error != nil && selectedObject == nil },
-            set: { if !$0 { viewModel.error = nil } }
-        )) {
-            Button("好", role: .cancel) {}
-        } message: {
-            Text(viewModel.error ?? "")
-        }
-        .sensoryFeedback(.success, trigger: viewModel.didUpload)
-        .sensoryFeedback(.success, trigger: viewModel.didTransfer)
-        .sheet(item: $transferTarget) { request in
-            R2TransferSheet(object: request.object, mode: request.mode) { destinationKey in
-                Task {
-                    switch request.mode {
-                    case .copy: _ = await viewModel.copyObject(request.object, to: destinationKey)
-                    case .move: _ = await viewModel.moveObject(request.object, to: destinationKey)
+            .alert("权限不足", isPresented: $showDenied) {
+                Button("好", role: .cancel) {}
+            } message: {
+                Text("当前授权未包含 R2 写权限（workers-r2.write）。\n请在设置中退出登录后重新授权以启用此功能。")
+            }
+            .alert("出错了", isPresented: .init(
+                get: { viewModel.error != nil && selectedObject == nil },
+                set: { if !$0 { viewModel.error = nil } }
+            )) {
+                Button("好", role: .cancel) {}
+            } message: {
+                Text(viewModel.error ?? "")
+            }
+            .sensoryFeedback(.success, trigger: viewModel.didUpload)
+            .sensoryFeedback(.success, trigger: viewModel.didTransfer)
+            .sheet(item: $transferTarget) { request in
+                R2TransferSheet(object: request.object, mode: request.mode) { destinationKey in
+                    Task {
+                        switch request.mode {
+                        case .copy: _ = await viewModel.copyObject(request.object, to: destinationKey)
+                        case .move: _ = await viewModel.moveObject(request.object, to: destinationKey)
+                        }
+                    }
+                }
+                .presentationDetents([.medium])
+            }
+            .alert("对象过大", isPresented: $showTooLarge) {
+                Button("好", role: .cancel) {}
+            } message: {
+                Text("Cloudflare API 单次上传上限约 300 MB，超过的对象无法在 App 内复制或移动。")
+            }
+            .overlay {
+                if viewModel.isDownloading {
+                    ZStack {
+                        Color.black.opacity(0.15).ignoresSafeArea()
+                        ProgressView("下载中…")
+                            .padding(18)
+                            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
                     }
                 }
             }
-            .presentationDetents([.medium])
-        }
-        .alert("对象过大", isPresented: $showTooLarge) {
-            Button("好", role: .cancel) {}
-        } message: {
-            Text("Cloudflare API 单次上传上限约 300 MB，超过的对象无法在 App 内复制或移动。")
-        }
-        .overlay {
-            if viewModel.isTransferring {
-                TransferProgressOverlay(
-                    label: viewModel.transferLabel ?? String(localized: "处理中…"),
-                    progress: viewModel.transferProgress
-                )
+            .overlay {
+                if viewModel.isTransferring {
+                    TransferProgressOverlay(
+                        label: viewModel.transferLabel ?? String(localized: "处理中…"),
+                        progress: viewModel.transferProgress
+                    )
+                }
             }
-        }
     }
 
     /// 发起复制 / 移动：先过写权限与 300MB 体积守卫，再弹目标 Key 编辑表单
