@@ -988,4 +988,11 @@
     <string name="pages_deployed">تم النشر</string>
     <string name="pages_deploy_empty">لم يُعثر على ملفات قابلة للنشر</string>
     <string name="pages_deploy_too_big">الملف %1$s يتجاوز حد 25 ميجابايت</string>
+    <string name="dev_ai_task_other">أخرى</string>
+    <string name="dev_ai_info_task">المهمة</string>
+    <string name="dev_ai_info_model">النموذج</string>
+    <string name="dev_ai_playground">التجربة</string>
+    <string name="dev_ai_run_note">يرسل رسالة مستخدم واحدة ويعرض رد النموذج. يستهلك حصة Workers AI لحسابك (10,000 Neuron مجانًا يوميًا).</string>
+    <string name="dev_ai_needs_write">يتطلب تشغيل نموذج توليد النص إذن الكتابة في Workers AI (ai.write). سجّل الخروج ثم أعد المنح مع تحديد هذا الإذن.</string>
+    <string name="dev_ai_unsupported">تختلف صيغة إدخال/إخراج هذا النموذج عن توليد النص، لذا لا يمكن تشغيله داخل التطبيق بعد.</string>
 </resources>

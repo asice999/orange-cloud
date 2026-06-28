@@ -1027,4 +1027,11 @@
     <string name="pages_deployed">デプロイしました</string>
     <string name="pages_deploy_empty">デプロイ可能なファイルが見つかりません</string>
     <string name="pages_deploy_too_big">ファイル %1$s が 25 MB の上限を超えています</string>
+    <string name="dev_ai_task_other">その他</string>
+    <string name="dev_ai_info_task">タスク</string>
+    <string name="dev_ai_info_model">モデル</string>
+    <string name="dev_ai_playground">試し実行</string>
+    <string name="dev_ai_run_note">ユーザーメッセージを1件送信し、モデルの応答を表示します。アカウントの Workers AI 使用量（1日あたり1万 Neuron 無料）を消費します。</string>
+    <string name="dev_ai_needs_write">テキスト生成モデルの試し実行には Workers AI の書き込み権限（ai.write）が必要です。ログアウトしてから、その権限を選択して再認証してください。</string>
+    <string name="dev_ai_unsupported">このモデルの入出力形式はテキスト生成と異なるため、アプリ内での試し実行には現在対応していません。</string>
 </resources>

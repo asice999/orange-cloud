@@ -988,4 +988,11 @@
     <string name="pages_deployed">Déployé</string>
     <string name="pages_deploy_empty">Aucun fichier déployable trouvé</string>
     <string name="pages_deploy_too_big">Le fichier %1$s dépasse la limite de 25 Mo</string>
+    <string name="dev_ai_task_other">Autres</string>
+    <string name="dev_ai_info_task">Tâche</string>
+    <string name="dev_ai_info_model">Modèle</string>
+    <string name="dev_ai_playground">Essayer</string>
+    <string name="dev_ai_run_note">Envoie un message utilisateur et affiche la réponse du modèle. Consomme le quota Workers AI de votre compte (10 000 Neurones gratuits par jour).</string>
+    <string name="dev_ai_needs_write">L\'exécution d\'un modèle de génération de texte nécessite l\'autorisation d\'écriture Workers AI (ai.write). Déconnectez-vous et réautorisez en cochant cette autorisation.</string>
+    <string name="dev_ai_unsupported">Le format d\'entrée/sortie de ce modèle diffère de la génération de texte ; il ne peut pas encore être exécuté dans l\'app.</string>
 </resources>

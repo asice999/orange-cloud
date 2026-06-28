@@ -1027,4 +1027,11 @@
     <string name="pages_deployed">배포됨</string>
     <string name="pages_deploy_empty">배포할 파일을 찾지 못했습니다</string>
     <string name="pages_deploy_too_big">파일 %1$s 이(가) 25 MB 한도를 초과했습니다</string>
+    <string name="dev_ai_task_other">기타</string>
+    <string name="dev_ai_info_task">작업</string>
+    <string name="dev_ai_info_model">모델</string>
+    <string name="dev_ai_playground">체험 실행</string>
+    <string name="dev_ai_run_note">사용자 메시지 한 개를 보내고 모델의 응답을 표시합니다. 계정의 Workers AI 사용량(하루 1만 뉴런 무료)을 소비합니다.</string>
+    <string name="dev_ai_needs_write">텍스트 생성 모델을 실행하려면 Workers AI 쓰기 권한(ai.write)이 필요합니다. 로그아웃한 후 해당 권한을 선택하여 다시 인증하세요.</string>
+    <string name="dev_ai_unsupported">이 모델의 입력/출력 형식은 텍스트 생성과 달라 아직 앱에서 실행할 수 없습니다.</string>
 </resources>

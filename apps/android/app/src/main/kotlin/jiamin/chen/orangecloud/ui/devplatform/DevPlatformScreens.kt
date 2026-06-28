@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -82,6 +83,7 @@ import jiamin.chen.orangecloud.data.model.AIModel
 import jiamin.chen.orangecloud.data.model.CFQueue
 import jiamin.chen.orangecloud.data.model.DurableObjectNamespace
 import jiamin.chen.orangecloud.data.model.HyperdriveConfig
+import jiamin.chen.orangecloud.ui.storage.StorageGroupedListBody
 import jiamin.chen.orangecloud.ui.storage.StorageListBody
 import jiamin.chen.orangecloud.ui.storage.StorageRow
 
@@ -326,19 +328,24 @@ private fun HyperdriveCreateForm(isSaving: Boolean, onSave: (name: String, schem
 @Composable
 fun WorkersAIScreen(
     onBack: () -> Unit,
-    onRunModel: (String) -> Unit,
+    onOpenModel: (AIModel) -> Unit,
     viewModel: WorkersAIViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     DevListScaffold(stringResource(R.string.dev_workers_ai), state.isLoading, onBack, { viewModel.load() }) { onSky ->
-        StorageListBody(state, onSky, Icons.Outlined.Psychology, stringResource(R.string.dev_workers_ai_empty), { viewModel.load() }) { m: AIModel ->
-            val isTextGen = m.taskName.contains("Text Generation", ignoreCase = true)
+        StorageGroupedListBody(
+            state = state,
+            onSky = onSky,
+            emptyIcon = Icons.Outlined.Psychology,
+            emptyText = stringResource(R.string.dev_workers_ai_empty),
+            onRetry = { viewModel.load() },
+            groupOf = { it.taskName },
+        ) { m: AIModel ->
             StorageRow(
                 Icons.Outlined.Psychology,
                 m.shortName,
-                m.taskName.ifBlank { null },
-                showChevron = isTextGen && viewModel.canRun,
-                onClick = if (isTextGen && viewModel.canRun) ({ onRunModel(m.id) }) else null,
+                m.description?.takeIf { it.isNotBlank() } ?: m.name,
+                onClick = { onOpenModel(m) },
             )
         }
     }
@@ -364,41 +371,77 @@ fun AIRunScreen(onBack: () -> Unit, viewModel: AIRunViewModel = hiltViewModel())
                 Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                OutlinedTextField(
-                    value = state.prompt,
-                    onValueChange = viewModel::updatePrompt,
-                    label = { Text(stringResource(R.string.dev_ai_prompt)) },
-                    minLines = 3,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                Button(
-                    onClick = { viewModel.run() },
-                    enabled = state.prompt.isNotBlank() && !state.isRunning,
-                    colors = ButtonDefaults.buttonColors(containerColor = OcOrange, contentColor = Color.White),
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    if (state.isRunning) {
-                        CircularProgressIndicator(Modifier.height(18.dp).width(18.dp), strokeWidth = 2.dp, color = Color.White)
-                        Spacer(Modifier.width(8.dp))
-                    } else {
-                        Icon(Icons.AutoMirrored.Outlined.Send, contentDescription = null, modifier = Modifier.width(18.dp))
-                        Spacer(Modifier.width(8.dp))
+                // 模型信息卡（说明 / 任务 / 模型 ID，参考 iOS 详情页）
+                Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
+                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        if (state.description.isNotBlank()) {
+                            Text(state.description, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurface)
+                        }
+                        if (state.task.isNotBlank()) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(stringResource(R.string.dev_ai_info_task), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Spacer(Modifier.weight(1f))
+                                Text(state.task, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+                            }
+                        }
+                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                            Text(stringResource(R.string.dev_ai_info_model), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            SelectionContainer {
+                                Text(state.model, fontSize = 12.sp, fontFamily = FontFamily.Monospace, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                        }
                     }
-                    Text(stringResource(R.string.dev_ai_run))
                 }
-                state.error?.let {
-                    Text(it, color = MaterialTheme.colorScheme.error, fontSize = 13.sp)
-                }
-                if (state.response.isNotBlank()) {
-                    Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
-                        Text(
-                            state.response,
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily.Monospace,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.padding(16.dp),
+
+                when {
+                    state.isTextGen && state.canRun -> {
+                        Text(stringResource(R.string.dev_ai_playground), fontSize = 13.sp, fontWeight = FontWeight.Bold, color = onSky)
+                        OutlinedTextField(
+                            value = state.prompt,
+                            onValueChange = viewModel::updatePrompt,
+                            label = { Text(stringResource(R.string.dev_ai_prompt)) },
+                            minLines = 3,
+                            modifier = Modifier.fillMaxWidth(),
                         )
+                        Button(
+                            onClick = { viewModel.run() },
+                            enabled = state.prompt.isNotBlank() && !state.isRunning,
+                            colors = ButtonDefaults.buttonColors(containerColor = OcOrange, contentColor = Color.White),
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            if (state.isRunning) {
+                                CircularProgressIndicator(Modifier.height(18.dp).width(18.dp), strokeWidth = 2.dp, color = Color.White)
+                                Spacer(Modifier.width(8.dp))
+                            } else {
+                                Icon(Icons.AutoMirrored.Outlined.Send, contentDescription = null, modifier = Modifier.width(18.dp))
+                                Spacer(Modifier.width(8.dp))
+                            }
+                            Text(stringResource(R.string.dev_ai_run))
+                        }
+                        Text(stringResource(R.string.dev_ai_run_note), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        state.error?.let {
+                            Text(it, color = MaterialTheme.colorScheme.error, fontSize = 13.sp)
+                        }
+                        if (state.response.isNotBlank()) {
+                            Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
+                                SelectionContainer {
+                                    Text(
+                                        state.response,
+                                        fontSize = 14.sp,
+                                        fontFamily = FontFamily.Monospace,
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                        modifier = Modifier.padding(16.dp),
+                                    )
+                                }
+                            }
+                        }
                     }
+
+                    state.isTextGen ->
+                        Text(stringResource(R.string.dev_ai_needs_write), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+
+                    else ->
+                        Text(stringResource(R.string.dev_ai_unsupported), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
         }

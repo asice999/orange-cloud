@@ -1,5 +1,44 @@
 [
   {
+    "version": "1.4.2",
+    "date": "2026.06.29",
+    "channel": "Google Play",
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "Workers AI 体验升级",
+          "en": "Workers AI improvements",
+          "zh-Hant": "Workers AI 體驗升級",
+          "zh-HK": "Workers AI 體驗升級",
+          "ja": "Workers AI の改善",
+          "es-MX": "Mejoras en Workers AI",
+          "ko": "Workers AI 개선",
+          "pt-BR": "Melhorias no Workers AI",
+          "pt-PT": "Melhorias no Workers AI",
+          "de": "Workers-AI-Verbesserungen",
+          "fr": "Améliorations de Workers AI",
+          "ar": "تحسينات Workers AI",
+          "tr": "Workers AI iyileştirmeleri"
+        },
+        "detail": {
+          "zh-Hans": "现在可按任务类型分组浏览模型、查看模型详情，并修复了文本生成模型的试运行。",
+          "en": "Browse models grouped by task type, view model details, and the text-generation test run is fixed.",
+          "zh-Hant": "現在可按任務類型分組瀏覽模型、檢視模型詳情，並修復了文字生成模型的試執行。",
+          "zh-HK": "現在可按任務類型分組瀏覽模型、查看模型詳情，並修復了文字生成模型的試運行。",
+          "ja": "モデルをタスク種別ごとに分類して閲覧でき、モデルの詳細表示と、テキスト生成モデルの試し実行の不具合を修正しました。",
+          "es-MX": "Explora los modelos agrupados por tipo de tarea, consulta sus detalles y se corrigió la prueba de los modelos de generación de texto.",
+          "ko": "모델을 작업 유형별로 묶어 살펴보고 모델 상세 정보를 확인할 수 있으며, 텍스트 생성 모델의 시험 실행 오류를 수정했습니다.",
+          "pt-BR": "Navegue pelos modelos agrupados por tipo de tarefa, veja os detalhes do modelo e corrigimos o teste dos modelos de geração de texto.",
+          "pt-PT": "Navegue pelos modelos agrupados por tipo de tarefa, veja os detalhes do modelo e corrigimos o teste dos modelos de geração de texto.",
+          "de": "Modelle nach Aufgabentyp gruppiert durchsuchen, Modelldetails ansehen – und der Testlauf für Textgenerierungsmodelle wurde behoben.",
+          "fr": "Parcourez les modèles regroupés par type de tâche, consultez leurs détails et l'essai des modèles de génération de texte est corrigé.",
+          "ar": "تصفّح النماذج مجمّعة حسب نوع المهمة، واعرض تفاصيل النموذج، وأصلحنا التشغيل التجريبي لنماذج توليد النص.",
+          "tr": "Modelleri görev türüne göre gruplandırarak inceleyin, model ayrıntılarını görün; metin oluşturma modellerinin deneme çalıştırması düzeltildi."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.4",
     "date": "2026.06.28",
     "channel": "Google Play",

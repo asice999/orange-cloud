@@ -1016,6 +1016,13 @@
     <string name="dev_gateway_sub">缓存 TTL %1$d 秒</string>
     <string name="dev_ai_prompt">输入提示词</string>
     <string name="dev_ai_run">运行</string>
+    <string name="dev_ai_task_other">其它</string>
+    <string name="dev_ai_info_task">任务</string>
+    <string name="dev_ai_info_model">模型</string>
+    <string name="dev_ai_playground">试运行</string>
+    <string name="dev_ai_run_note">发送一条用户消息并显示模型回复，会消耗账号的 Workers AI 用量（每天 1 万 Neuron 免费额度）。</string>
+    <string name="dev_ai_needs_write">试运行文本生成模型需要 Workers AI 写权限（ai.write）。请退出登录后重新授权并勾选该权限。</string>
+    <string name="dev_ai_unsupported">该模型的输入/输出格式与文本生成不同，暂不支持在 App 内试运行。</string>
     <!-- 开发者平台 写操作 -->
     <string name="dev_action_do">执行</string>
     <string name="dev_delete_confirm">确认删除？</string>

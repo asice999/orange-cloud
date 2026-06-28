@@ -161,7 +161,7 @@ private object Dest {
     const val DEV_HYPERDRIVE = "dev/hyperdrive"
     const val DEV_DO = "dev/do"
     const val DEV_ASSISTANT = "dev/assistant"
-    const val AI_RUN_ROUTE = "dev/ai/run/{model}"
+    const val AI_RUN_ROUTE = "dev/ai/run/{model}?task={task}&desc={desc}"
     const val STORAGE = "storage"
     const val SETTINGS = "settings"
     const val IDENTITY_ROUTE = "identity/{sessionId}"
@@ -230,7 +230,8 @@ private object Dest {
         "snippetEdit/$zoneId?zoneName=${Uri.encode(zoneName)}&name=${Uri.encode(name)}"
     fun redirectItems(listId: String, listName: String): String = "redirects/$listId?listName=${Uri.encode(listName)}"
     fun pagesDetail(project: String): String = "pages/${Uri.encode(project)}"
-    fun aiRun(model: String): String = "dev/ai/run/${Uri.encode(model)}"
+    fun aiModel(model: String, task: String, desc: String): String =
+        "dev/ai/run/${Uri.encode(model)}?task=${Uri.encode(task)}&desc=${Uri.encode(desc)}"
     fun identity(sessionId: String): String = "identity/${Uri.encode(sessionId)}"
     fun tunnelDetail(id: String, name: String): String = "tunnel/$id?tunnelName=${Uri.encode(name)}"
     fun worker(scriptName: String): String = "worker/${Uri.encode(scriptName)}"
@@ -608,28 +609,34 @@ private fun MainScaffold() {
                 )
             }
             composable(Dest.DEV_WORKERS_AI) {
-                WorkersAIScreen(
-                    onBack = { navController.popBackStack() },
-                    onRunModel = { model -> navController.navigate(Dest.aiRun(model)) },
-                )
+                ProGate {
+                    WorkersAIScreen(
+                        onBack = { navController.popBackStack() },
+                        onOpenModel = { m -> navController.navigate(Dest.aiModel(m.name ?: m.id, m.taskName, m.description.orEmpty())) },
+                    )
+                }
             }
             composable(
                 route = Dest.AI_RUN_ROUTE,
-                arguments = listOf(navArgument("model") { type = NavType.StringType }),
+                arguments = listOf(
+                    navArgument("model") { type = NavType.StringType },
+                    navArgument("task") { type = NavType.StringType; defaultValue = "" },
+                    navArgument("desc") { type = NavType.StringType; defaultValue = "" },
+                ),
             ) {
-                AIRunScreen(onBack = { navController.popBackStack() })
+                ProGate { AIRunScreen(onBack = { navController.popBackStack() }) }
             }
             composable(Dest.DEV_AI_GATEWAY) {
-                AIGatewayScreen(onBack = { navController.popBackStack() })
+                ProGate { AIGatewayScreen(onBack = { navController.popBackStack() }) }
             }
             composable(Dest.DEV_QUEUES) {
-                QueuesScreen(onBack = { navController.popBackStack() })
+                ProGate { QueuesScreen(onBack = { navController.popBackStack() }) }
             }
             composable(Dest.DEV_HYPERDRIVE) {
-                HyperdriveScreen(onBack = { navController.popBackStack() })
+                ProGate { HyperdriveScreen(onBack = { navController.popBackStack() }) }
             }
             composable(Dest.DEV_DO) {
-                DurableObjectsScreen(onBack = { navController.popBackStack() })
+                ProGate { DurableObjectsScreen(onBack = { navController.popBackStack() }) }
             }
             composable(
                 route = Dest.WORKER_ROUTE,

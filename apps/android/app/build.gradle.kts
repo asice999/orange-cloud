@@ -40,8 +40,8 @@ android {
         // 实况通知促升(API36) 均 if-guard 渐进增强，Android 9–11 落固定品牌调色板与常驻通知回退。
         minSdk = 28
         targetSdk = 36
-        versionCode = 6
-        versionName = "1.4.1"
+        versionCode = 7
+        versionName = "1.4.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // OAuth 回调（Web 后端 302 跳回的自定义 scheme）

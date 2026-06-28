@@ -1051,4 +1051,11 @@
     <string name="pages_deployed">Deployed</string>
     <string name="pages_deploy_empty">No deployable files found</string>
     <string name="pages_deploy_too_big">File %1$s exceeds the 25 MB limit</string>
+    <string name="dev_ai_task_other">Other</string>
+    <string name="dev_ai_info_task">Task</string>
+    <string name="dev_ai_info_model">Model</string>
+    <string name="dev_ai_playground">Playground</string>
+    <string name="dev_ai_run_note">Sends one user message and shows the model\'s reply. Uses your account\'s Workers AI quota (10,000 free Neurons per day).</string>
+    <string name="dev_ai_needs_write">Running a text-generation model requires Workers AI write permission (ai.write). Sign out and authorize again with that permission enabled.</string>
+    <string name="dev_ai_unsupported">This model\'s input/output format differs from text generation, so it can\'t be run in the app yet.</string>
 </resources>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_4_2_0_title">Workers AI 體驗升級</string>
+    <string name="whatsnew_1_4_2_0_detail">現在可按任務類型分組瀏覽模型、查看模型詳情，並修復了文字生成模型的試運行。</string>
     <string name="whatsnew_1_4_0_title">全新「開發者平台」</string>
     <string name="whatsnew_1_4_0_detail">把 Workers 與 Workers AI、AI Gateway、佇列、Hyperdrive、Durable Objects、Pages 收進統一的「開發者平台」中樞，一處直達。</string>
     <string name="whatsnew_1_4_1_title">緩存規則、速率限制與電子郵件路由</string>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_4_2_0_title">Workers AI iyileştirmeleri</string>
+    <string name="whatsnew_1_4_2_0_detail">Modelleri görev türüne göre gruplandırarak inceleyin, model ayrıntılarını görün; metin oluşturma modellerinin deneme çalıştırması düzeltildi.</string>
     <string name="whatsnew_1_4_0_title">Yeni Geliştirici Platformu</string>
     <string name="whatsnew_1_4_0_detail">Workers artık Workers AI, AI Gateway, Kuyruklar, Hyperdrive, Durable Objects ve Pages ile tek bir merkezde.</string>
     <string name="whatsnew_1_4_1_title">Önbellek Kuralları, Hız Sınırlama ve E-posta Yönlendirme</string>

@@ -1028,4 +1028,11 @@
     <string name="pages_deployed">Implementado</string>
     <string name="pages_deploy_empty">Nenhum ficheiro implementável encontrado</string>
     <string name="pages_deploy_too_big">O ficheiro %1$s excede o limite de 25 MB</string>
+    <string name="dev_ai_task_other">Outros</string>
+    <string name="dev_ai_info_task">Tarefa</string>
+    <string name="dev_ai_info_model">Modelo</string>
+    <string name="dev_ai_playground">Testar</string>
+    <string name="dev_ai_run_note">Envia uma mensagem de utilizador e mostra a resposta do modelo. Consome a quota de Workers AI da sua conta (10 000 Neurónios grátis por dia).</string>
+    <string name="dev_ai_needs_write">Executar um modelo de geração de texto requer permissão de escrita do Workers AI (ai.write). Termine sessão e autorize novamente com essa permissão selecionada.</string>
+    <string name="dev_ai_unsupported">O formato de entrada/saída deste modelo difere da geração de texto, pelo que ainda não é possível executá-lo na app.</string>
 </resources>

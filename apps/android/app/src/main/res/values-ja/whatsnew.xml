@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_4_2_0_title">Workers AI の改善</string>
+    <string name="whatsnew_1_4_2_0_detail">モデルをタスク種別ごとに分類して閲覧でき、モデルの詳細表示と、テキスト生成モデルの試し実行の不具合を修正しました。</string>
     <string name="whatsnew_1_4_0_title">新しい「開発者プラットフォーム」</string>
     <string name="whatsnew_1_4_0_detail">Workers に加え、Workers AI・AI Gateway・キュー・Hyperdrive・Durable Objects・Pages を一つの「開発者プラットフォーム」にまとめました。</string>
     <string name="whatsnew_1_4_1_title">キャッシュルール・レート制限・メールルーティング</string>

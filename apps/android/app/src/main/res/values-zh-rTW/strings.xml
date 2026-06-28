@@ -1027,4 +1027,11 @@
     <string name="pages_deployed">已部署</string>
     <string name="pages_deploy_empty">未找到可部署的檔案</string>
     <string name="pages_deploy_too_big">檔案 %1$s 超過 25 MB 上限</string>
+    <string name="dev_ai_task_other">其他</string>
+    <string name="dev_ai_info_task">任務</string>
+    <string name="dev_ai_info_model">模型</string>
+    <string name="dev_ai_playground">試執行</string>
+    <string name="dev_ai_run_note">傳送一則使用者訊息並顯示模型回覆，會消耗帳戶的 Workers AI 用量（每天 1 萬 Neuron 免費額度）。</string>
+    <string name="dev_ai_needs_write">試執行文字生成模型需要 Workers AI 寫入權限（ai.write）。請登出後重新授權並勾選該權限。</string>
+    <string name="dev_ai_unsupported">此模型的輸入/輸出格式與文字生成不同，暫不支援在 App 內試執行。</string>
 </resources>

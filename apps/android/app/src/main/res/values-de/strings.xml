@@ -988,4 +988,11 @@
     <string name="pages_deployed">Bereitgestellt</string>
     <string name="pages_deploy_empty">Keine bereitstellbaren Dateien gefunden</string>
     <string name="pages_deploy_too_big">Datei %1$s überschreitet das 25-MB-Limit</string>
+    <string name="dev_ai_task_other">Sonstige</string>
+    <string name="dev_ai_info_task">Aufgabe</string>
+    <string name="dev_ai_info_model">Modell</string>
+    <string name="dev_ai_playground">Ausprobieren</string>
+    <string name="dev_ai_run_note">Sendet eine Nutzernachricht und zeigt die Antwort des Modells. Verbraucht das Workers-AI-Kontingent deines Kontos (10.000 Neuronen pro Tag kostenlos).</string>
+    <string name="dev_ai_needs_write">Das Ausführen eines Textgenerierungsmodells erfordert die Workers-AI-Schreibberechtigung (ai.write). Melde dich ab und autorisiere erneut mit aktivierter Berechtigung.</string>
+    <string name="dev_ai_unsupported">Das Eingabe-/Ausgabeformat dieses Modells unterscheidet sich von der Textgenerierung und kann in der App noch nicht ausgeführt werden.</string>
 </resources>

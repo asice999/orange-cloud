@@ -988,4 +988,11 @@
     <string name="pages_deployed">Dağıtıldı</string>
     <string name="pages_deploy_empty">Dağıtılabilir dosya bulunamadı</string>
     <string name="pages_deploy_too_big">%1$s dosyası 25 MB sınırını aşıyor</string>
+    <string name="dev_ai_task_other">Diğer</string>
+    <string name="dev_ai_info_task">Görev</string>
+    <string name="dev_ai_info_model">Model</string>
+    <string name="dev_ai_playground">Deneme</string>
+    <string name="dev_ai_run_note">Bir kullanıcı mesajı gönderir ve modelin yanıtını gösterir. Hesabınızın Workers AI kotasını kullanır (günde 10.000 Neuron ücretsiz).</string>
+    <string name="dev_ai_needs_write">Bir metin oluşturma modelini çalıştırmak Workers AI yazma izni (ai.write) gerektirir. Oturumu kapatıp bu izni seçerek yeniden yetki verin.</string>
+    <string name="dev_ai_unsupported">Bu modelin giriş/çıkış biçimi metin oluşturmadan farklı olduğundan uygulama içinde henüz çalıştırılamıyor.</string>
 </resources>

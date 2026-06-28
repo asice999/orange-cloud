@@ -186,22 +186,36 @@ class WorkersAIViewModel @Inject constructor(
 
 data class AIRunUiState(
     val model: String = "",
+    val task: String = "",
+    val description: String = "",
+    val canRun: Boolean = false,
     val prompt: String = "",
     val response: String = "",
     val isRunning: Boolean = false,
     val error: String? = null,
-)
+) {
+    /** 仅文本生成模型可在 App 内试运行（输入/输出契约与 iOS 一致）。 */
+    val isTextGen: Boolean get() = task.contains("Text Generation", ignoreCase = true)
+}
 
 @HiltViewModel
 class AIRunViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val accountStore: AccountStore,
     private val repository: DeveloperPlatformRepository,
+    authRepository: AuthRepository,
 ) : ViewModel() {
 
     private val model: String = checkNotNull(savedStateHandle["model"])
 
-    private val _uiState = MutableStateFlow(AIRunUiState(model = model))
+    private val _uiState = MutableStateFlow(
+        AIRunUiState(
+            model = model,
+            task = savedStateHandle.get<String>("task").orEmpty(),
+            description = savedStateHandle.get<String>("desc").orEmpty(),
+            canRun = authRepository.hasScope(Scopes.AI_WRITE),
+        ),
+    )
     val uiState: StateFlow<AIRunUiState> = _uiState.asStateFlow()
 
     fun updatePrompt(text: String) = _uiState.update { it.copy(prompt = text) }
