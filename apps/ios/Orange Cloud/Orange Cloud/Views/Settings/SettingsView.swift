@@ -162,6 +162,27 @@ struct SettingsView: View {
                 // ── 通知 ──
                 NotificationSettingsSection()
 
+                // ── 推送中心（免登录可用；登录后可联动 CF 告警）──
+                Section {
+                    NavigationLink {
+                        PushCenterView()
+                    } label: {
+                        HStack(spacing: 12) {
+                            TintIcon(systemImage: "bell.badge.fill", color: .ocOrange)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("推送中心")
+                                    .foregroundStyle(.primary)
+                                Text("推送端点 · CF 告警直推")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                } footer: {
+                    Text("给自己的端点 curl 即推到手机；登录后还能把 Cloudflare 告警的 webhook 指过来。")
+                }
+                .glassRow()
+
                 // ── 服务状态 ──
                 Section {
                     NavigationLink {
@@ -176,6 +197,28 @@ struct SettingsView: View {
                     Text("服务状态")
                 } footer: {
                     Text("来自 cloudflarestatus.com 的官方服务状态与事件。")
+                }
+                .glassRow()
+
+                // ── 开发者工具箱（免登录可用）──
+                Section {
+                    Button {
+                        AppRouter.shared.presentToolbox = true
+                    } label: {
+                        HStack(spacing: 12) {
+                            TintIcon(systemImage: "wrench.and.screwdriver", color: .ocOrange)
+                            Text("开发者工具箱")
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.tertiary)
+                        }
+                    }
+                } header: {
+                    Text("工具")
+                } footer: {
+                    Text("DNS、SSL、HTTP、WHOIS、CIDR 等随身工具，无需 CF 账号。")
                 }
                 .glassRow()
 

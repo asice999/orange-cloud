@@ -457,6 +457,82 @@
         }
       }
     },
+    "Queues 现可暂停/恢复投递、清空消息、调整保留期与延迟；Hyperdrive 可编辑查询缓存与源数据库连接；Durable Objects 可浏览对象实例；Workers AI 能直接在 App 内试运行文本生成模型，缺权限时可一键补授权、无需退出登录。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queues can now pause/resume delivery, purge messages, and adjust retention and delay; Hyperdrive lets you edit query caching and the origin database connection; Durable Objects can browse object instances; and Workers AI runs text-generation models right in the app — with one-tap permission top-up, no sign-out needed."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queues 現可暫停／恢復投遞、清空訊息、調整保留期與延遲；Hyperdrive 可編輯查詢快取與來源資料庫連線；Durable Objects 可瀏覽物件實例；Workers AI 能直接在 App 內試執行文字生成模型，缺權限時可一鍵補授權、無需登出。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queues 現可暫停／恢復投遞、清空訊息、調整保留期與延遲；Hyperdrive 可編輯查詢緩存與來源資料庫連線；Durable Objects 可瀏覽物件實例；Workers AI 能直接在 App 內試執行文字生成模型，缺權限時可一鍵補授權、無需登出。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queues は配信の一時停止／再開、メッセージの消去、保持期間と遅延の調整に対応。Hyperdrive はクエリキャッシュとオリジンDB接続を編集可能。Durable Objects はオブジェクトインスタンスを閲覧可能。Workers AI はテキスト生成モデルをアプリ内で試せます（権限はワンタップで追加、サインアウト不要）。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queues ahora puede pausar/reanudar la entrega, vaciar mensajes y ajustar la retención y el retraso; Hyperdrive permite editar el caché de consultas y la conexión a la base de datos de origen; Durable Objects puede explorar instancias de objetos; y Workers AI ejecuta modelos de generación de texto dentro de la app, con permisos añadidos en un toque y sin cerrar sesión."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이제 Queues에서 전송 일시중지/재개, 메시지 비우기, 보존 기간 및 지연 조정이 가능합니다. Hyperdrive에서는 쿼리 캐시와 원본 데이터베이스 연결을 편집할 수 있고, Durable Objects에서는 객체 인스턴스를 둘러볼 수 있으며, Workers AI에서는 앱 안에서 바로 텍스트 생성 모델을 실행할 수 있습니다(권한은 한 번의 탭으로 추가, 로그아웃 불필요)."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Queues agora pode pausar/retomar a entrega, limpar mensagens e ajustar retenção e atraso; o Hyperdrive permite editar o cache de consultas e a conexão com o banco de dados de origem; o Durable Objects pode navegar pelas instâncias de objeto; e o Workers AI executa modelos de geração de texto dentro do app, com permissão concedida em um toque e sem sair da conta."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Queues passa a poder pausar/retomar a entrega, limpar mensagens e ajustar retenção e atraso; o Hyperdrive permite editar a cache de consultas e a ligação à base de dados de origem; o Durable Objects pode navegar pelas instâncias de objeto; e o Workers AI executa modelos de geração de texto dentro da app, com permissão concedida num toque e sem terminar sessão."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queues kann jetzt die Zustellung pausieren/fortsetzen, Nachrichten leeren sowie Aufbewahrung und Verzögerung anpassen; bei Hyperdrive lassen sich Query-Caching und die Verbindung zur Ursprungsdatenbank bearbeiten; Durable Objects kann Objektinstanzen durchsuchen; und Workers AI führt Textgenerierungsmodelle direkt in der App aus – Berechtigung per Tipp ergänzt, ohne Abmelden."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queues peut désormais suspendre/reprendre la distribution, purger les messages et ajuster la rétention et le délai ; Hyperdrive permet de modifier le cache de requêtes et la connexion à la base de données d'origine ; Durable Objects permet de parcourir les instances d'objet ; et Workers AI exécute des modèles de génération de texte directement dans l'app — autorisation ajoutée en un geste, sans déconnexion."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يمكن الآن في Queues إيقاف/استئناف التسليم مؤقتًا، ومسح الرسائل، وضبط مدة الاحتفاظ والتأخير؛ ويتيح Hyperdrive تعديل التخزين المؤقت للاستعلامات والاتصال بقاعدة البيانات المصدر؛ ويمكن في Durable Objects تصفّح مثيلات الكائنات؛ ويشغّل Workers AI نماذج توليد النص داخل التطبيق مباشرةً — مع إضافة الإذن بنقرة واحدة دون تسجيل الخروج."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queues artık teslimatı duraklatıp/sürdürebilir, mesajları temizleyebilir, saklama ve gecikmeyi ayarlayabilir; Hyperdrive sorgu önbelleğini ve kaynak veritabanı bağlantısını düzenlemenize olanak tanır; Durable Objects nesne örneklerine göz atabilir; ve Workers AI metin üretme modellerini doğrudan uygulamada çalıştırır — izin tek dokunuşla eklenir, oturum kapatmak gerekmez."
+          }
+        }
+      }
+    },
     "R2 存储升级": {
       "localizations": {
         "en": {
@@ -1597,6 +1673,82 @@
         }
       }
     },
+    "免登录开发者工具箱": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No-login developer toolbox"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "免登入開發者工具箱"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "免登入開發者工具箱"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログイン不要の開発者ツールボックス"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caja de herramientas para desarrolladores sin iniciar sesión"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "로그인 없는 개발자 도구 모음"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caixa de ferramentas do desenvolvedor sem login"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caixa de ferramentas do programador sem início de sessão"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entwickler-Toolbox ohne Anmeldung"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boîte à outils développeur sans connexion"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "صندوق أدوات المطوّر بدون تسجيل دخول"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Girişsiz geliştirici araç kutusu"
+          }
+        }
+      }
+    },
     "全新「开发者平台」": {
       "localizations": {
         "en": {
@@ -1821,6 +1973,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tamamen erişilebilir"
+          }
+        }
+      }
+    },
+    "内置推送服务：拿到一个专属端点，用 curl 或脚本就能把消息推到这台设备，支持标题、分组、铃声与端到端加密。无需登录 Cloudflare 即可使用。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A built-in push service: get your own endpoint and send messages to this device with a simple curl or script — with titles, groups, sounds and end-to-end encryption. No Cloudflare sign-in required."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "內建推送服務：取得專屬端點，用 curl 或指令稿就能把訊息推到這台裝置，支援標題、分組、鈴聲與端對端加密。無需登入 Cloudflare 即可使用。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "內建推送服務：取得專屬端點，用 curl 或指令稿就能把訊息推到這部裝置，支援標題、分組、鈴聲與端對端加密。無需登入 Cloudflare 即可使用。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "プッシュ機能を内蔵。専用エンドポイントを取得すれば、curl やスクリプトでこの端末にメッセージを送れます。タイトル、グループ、サウンドと端末間暗号化に対応。Cloudflare へのサインインは不要です。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Servicio de notificaciones integrado: obtén tu propio endpoint y envía mensajes a este dispositivo con un simple curl o script, con título, grupo, sonido y cifrado de extremo a extremo. No requiere iniciar sesión en Cloudflare."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "푸시 기능 내장: 전용 엔드포인트를 받아 curl이나 스크립트로 이 기기에 메시지를 보낼 수 있습니다. 제목, 그룹, 사운드와 종단 간 암호화를 지원합니다. Cloudflare 로그인이 필요 없습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serviço de push integrado: obtenha seu próprio endpoint e envie mensagens para este dispositivo com um simples curl ou script — com título, grupo, som e criptografia de ponta a ponta. Não exige login na Cloudflare."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serviço de push integrado: obtenha o seu próprio endpoint e envie mensagens para este dispositivo com um simples curl ou script — com título, grupo, som e encriptação de ponta a ponta. Não exige iniciar sessão na Cloudflare."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Integrierter Push-Dienst: Hol dir deinen eigenen Endpunkt und sende Nachrichten per curl oder Skript an dieses Gerät – mit Titel, Gruppe, Ton und Ende-zu-Ende-Verschlüsselung. Keine Cloudflare-Anmeldung nötig."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Service de push intégré : obtenez votre propre point de terminaison et envoyez des messages à cet appareil avec un simple curl ou script — avec titre, groupe, son et chiffrement de bout en bout. Aucune connexion Cloudflare requise."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خدمة دفع مدمجة: احصل على نقطة نهاية خاصة بك وأرسل الرسائل إلى هذا الجهاز باستخدام curl أو سكربت بسيط — مع عنوان ومجموعة وصوت وتشفير من طرف إلى طرف. لا يتطلب تسجيل الدخول إلى Cloudflare."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yerleşik push hizmeti: kendi uç noktanızı alın ve basit bir curl veya betikle bu cihaza mesaj gönderin — başlık, grup, ses ve uçtan uca şifreleme ile. Cloudflare oturumu gerekmez."
           }
         }
       }
@@ -2813,6 +3041,158 @@
         }
       }
     },
+    "开发者平台更进一步": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Developer Platform goes further"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開發者平台更進一步"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開發者平台更進一步"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開発者プラットフォームがさらに進化"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La plataforma para desarrolladores va más allá"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "한 걸음 더 나아간 개발자 플랫폼"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A plataforma do desenvolvedor vai além"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A plataforma do programador vai mais longe"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Entwicklerplattform geht weiter"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La plateforme développeur va plus loin"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "منصة المطوّرين تتقدّم خطوة أخرى"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geliştirici Platformu daha da ileride"
+          }
+        }
+      }
+    },
+    "把 Cloudflare 告警推到手机": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare alerts on your phone"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 Cloudflare 告警推到手機"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "把 Cloudflare 告警推到手機"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare のアラートをスマホへ"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertas de Cloudflare en tu teléfono"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "휴대폰으로 받는 Cloudflare 경고"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertas da Cloudflare no seu celular"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertas da Cloudflare no seu telemóvel"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare-Warnungen auf deinem Handy"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les alertes Cloudflare sur votre téléphone"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تنبيهات Cloudflare على هاتفك"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudflare uyarıları telefonunuzda"
+          }
+        }
+      }
+    },
     "把 R2 存储桶挂进系统「文件」App，像 iCloud 云盘一样浏览、上传、下载、重命名，并用任意 App 直接打开。Pro 功能。": {
       "localizations": {
         "en": {
@@ -3421,6 +3801,82 @@
         }
       }
     },
+    "推送中心": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Push Center"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "推送中心"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "推送中心"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "プッシュセンター"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Centro de notificaciones"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "푸시 센터"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Central de Push"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Centro de Push"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Push-Center"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Centre de push"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مركز الإشعارات"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Push Merkezi"
+          }
+        }
+      }
+    },
     "新增「减少动画」开关让界面更跟手，优化多账号切换的稳定性，并在后台预热数据，切回前台更快看到最新内容。": {
       "localizations": {
         "en": {
@@ -3873,6 +4329,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tüm siteyi temizlemeden belirli URL'lerin önbelleğini yenileyin; ayrıca yeni bir performans ve önbellek ayarları sayfası eklendi."
+          }
+        }
+      }
+    },
+    "无需登录即可使用一组常用网络工具：DNS 查询、SSL 证书检查、HTTP 头、WHOIS、IP 归属、CIDR 计算与 Cloudflare trace。打开 App 在登录页就能直接进入。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A set of handy network tools you can use without signing in: DNS lookup, SSL certificate inspection, HTTP headers, WHOIS, IP geolocation, a CIDR calculator and Cloudflare trace — reachable right from the login screen."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無需登入即可使用一組常用網路工具：DNS 查詢、SSL 憑證檢查、HTTP 標頭、WHOIS、IP 歸屬、CIDR 計算與 Cloudflare trace。開啟 App 在登入頁就能直接進入。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無需登入即可使用一組常用網路工具：DNS 查詢、SSL 憑證檢查、HTTP 標頭、WHOIS、IP 歸屬、CIDR 計算與 Cloudflare trace。開啟 App 在登入頁就能直接進入。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログインせずに使える定番のネットワークツール群：DNS 検索、SSL 証明書チェック、HTTP ヘッダー、WHOIS、IP 位置情報、CIDR 計算、Cloudflare trace。ログイン画面からそのまま開けます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un conjunto de herramientas de red prácticas que puedes usar sin iniciar sesión: consulta DNS, inspección de certificados SSL, encabezados HTTP, WHOIS, geolocalización de IP, calculadora CIDR y Cloudflare trace, accesibles desde la pantalla de inicio de sesión."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "로그인 없이 사용할 수 있는 유용한 네트워크 도구 모음: DNS 조회, SSL 인증서 검사, HTTP 헤더, WHOIS, IP 위치, CIDR 계산기, Cloudflare trace. 로그인 화면에서 바로 열 수 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um conjunto de ferramentas de rede úteis que você pode usar sem fazer login: consulta DNS, inspeção de certificado SSL, cabeçalhos HTTP, WHOIS, geolocalização de IP, calculadora CIDR e Cloudflare trace — acessíveis direto na tela de login."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um conjunto de ferramentas de rede úteis que pode usar sem iniciar sessão: consulta DNS, inspeção de certificado SSL, cabeçalhos HTTP, WHOIS, geolocalização de IP, calculadora CIDR e Cloudflare trace — acessíveis a partir do ecrã de início de sessão."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Praktische Netzwerk-Tools, die du ohne Anmeldung nutzen kannst: DNS-Abfrage, SSL-Zertifikatsprüfung, HTTP-Header, WHOIS, IP-Geolokalisierung, ein CIDR-Rechner und Cloudflare-Trace – direkt vom Anmeldebildschirm aus erreichbar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un ensemble d'outils réseau pratiques utilisables sans connexion : requête DNS, inspection de certificat SSL, en-têtes HTTP, WHOIS, géolocalisation IP, calculateur CIDR et Cloudflare trace — accessibles depuis l'écran de connexion."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مجموعة من أدوات الشبكة العملية التي يمكنك استخدامها دون تسجيل الدخول: استعلام DNS، فحص شهادة SSL، ترويسات HTTP، WHOIS، تحديد موقع IP، حاسبة CIDR، وCloudflare trace — يمكن الوصول إليها مباشرةً من شاشة تسجيل الدخول."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oturum açmadan kullanabileceğiniz pratik ağ araçları: DNS sorgusu, SSL sertifikası incelemesi, HTTP başlıkları, WHOIS, IP konumu, CIDR hesaplayıcı ve Cloudflare trace — giriş ekranından doğrudan erişilebilir."
           }
         }
       }
@@ -4785,6 +5317,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oturum açma bilgileri artık yalnızca cihazınızda güvenle saklanır; bu, ara sıra yaşanan beklenmedik oturum kapanmalarını giderir. Oturum durumu artık iCloud ile cihazlar arasında eşitlenmez."
+          }
+        }
+      }
+    },
+    "登录后可直接管理 Cloudflare 告警策略：选择想关注的告警类型（DDoS、健康检查、证书到期、Workers 错误率等），一键接到推送中心，事件发生时直推到这台设备。需账号下有 Pro 及以上套餐的域名。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Once signed in, manage your Cloudflare alert policies right here: pick the alert types you care about (DDoS, health checks, certificate expiry, Workers error rate and more) and wire them to the Push Center in one tap, so events land on this device. Requires a domain on a Pro or higher plan."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入後可直接管理 Cloudflare 告警策略：選擇想關注的告警類型（DDoS、健康檢查、憑證到期、Workers 錯誤率等），一鍵接到推送中心，事件發生時直推到這台裝置。需帳戶下有 Pro 及以上方案的網域。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "登入後可直接管理 Cloudflare 告警策略：選擇想關注的告警類型（DDoS、健康檢查、憑證到期、Workers 錯誤率等），一鍵接到推送中心，事件發生時直推到這部裝置。需帳戶下有 Pro 及以上計劃的域名。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サインインすると Cloudflare のアラートポリシーをここで管理できます。気になるアラートの種類（DDoS、ヘルスチェック、証明書の有効期限、Workers のエラー率など）を選び、ワンタップでプッシュセンターに接続。イベント発生時にこの端末へ直接届きます。Pro 以上のプランのドメインが必要です。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una vez que inicies sesión, administra aquí tus políticas de alertas de Cloudflare: elige los tipos de alerta que te importan (DDoS, comprobaciones de estado, vencimiento de certificados, tasa de errores de Workers y más) y conéctalos al Centro de notificaciones con un toque, para que los eventos lleguen a este dispositivo. Requiere un dominio con plan Pro o superior."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "로그인하면 여기에서 Cloudflare 경고 정책을 관리할 수 있습니다. 원하는 경고 유형(DDoS, 상태 확인, 인증서 만료, Workers 오류율 등)을 골라 한 번의 탭으로 푸시 센터에 연결하면, 이벤트가 이 기기로 바로 전달됩니다. Pro 이상 요금제의 도메인이 필요합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Depois de fazer login, gerencie aqui suas políticas de alerta da Cloudflare: escolha os tipos de alerta que importam para você (DDoS, verificações de integridade, expiração de certificados, taxa de erros do Workers e mais) e conecte-os à Central de Push com um toque, para que os eventos cheguem a este dispositivo. Requer um domínio com plano Pro ou superior."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Depois de iniciar sessão, faça aqui a gestão das suas políticas de alerta da Cloudflare: escolha os tipos de alerta que lhe interessam (DDoS, verificações de estado, expiração de certificados, taxa de erros do Workers e mais) e ligue-os ao Centro de Push com um toque, para que os eventos cheguem a este dispositivo. Requer um domínio com plano Pro ou superior."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach der Anmeldung verwaltest du hier deine Cloudflare-Warnrichtlinien: Wähle die Warntypen, die dich interessieren (DDoS, Health Checks, Zertifikatsablauf, Workers-Fehlerrate und mehr), und verbinde sie mit einem Tippen mit dem Push-Center, damit Ereignisse auf diesem Gerät ankommen. Erfordert eine Domain mit Pro-Tarif oder höher."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une fois connecté, gérez ici vos politiques d'alerte Cloudflare : choisissez les types d'alerte qui vous intéressent (DDoS, contrôles d'état, expiration de certificat, taux d'erreur Workers, etc.) et reliez-les au centre de push en un geste, pour que les événements arrivent sur cet appareil. Nécessite un domaine avec un forfait Pro ou supérieur."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بعد تسجيل الدخول، يمكنك إدارة سياسات تنبيهات Cloudflare من هنا: اختر أنواع التنبيهات التي تهمّك (DDoS، فحوصات السلامة، انتهاء الشهادات، معدل أخطاء Workers والمزيد) واربطها بمركز الإشعارات بنقرة واحدة، لتصل الأحداث إلى هذا الجهاز. يتطلب نطاقًا بخطة Pro أو أعلى."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oturum açtıktan sonra Cloudflare uyarı politikalarınızı buradan yönetin: önemsediğiniz uyarı türlerini (DDoS, durum denetimleri, sertifika süresi dolması, Workers hata oranı ve daha fazlası) seçin ve tek dokunuşla Push Merkezi'ne bağlayın; böylece olaylar bu cihaza ulaşsın. Pro veya üzeri planda bir alan adı gerektirir."
           }
         }
       }

@@ -10,6 +10,8 @@
 
 <a href="https://apps.apple.com/app/id6779323783"><img src="https://o-c.do/api/ranks/badge" alt="Orange Cloud App Store rank" height="20" /></a>
 
+<a href="https://trendshift.io/repositories/53962" target="_blank"><img src="https://trendshift.io/api/badge/trendshift/repositories/53962/daily?language=Swift" alt="#3 Swift Repository Of The Day" height="20" /></a>
+
 [Website](https://o-c.do) · [Privacy](https://o-c.do/privacy) · [Terms](https://o-c.do/terms) · [TestFlight (beta)](https://testflight.apple.com/join/ZGhbsphj) · [Telegram](https://t.me/orange_cloud_channel)
 
 [English](#english) | [中文](#中文)

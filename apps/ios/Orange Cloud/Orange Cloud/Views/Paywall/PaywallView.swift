@@ -292,8 +292,8 @@ struct PaywallView: View {
                 .multilineTextAlignment(.center)
 
             HStack(spacing: 16) {
-                Link("隐私政策", destination: URL(string: "https://orange-cloud.chatiro.app/privacy")!)
-                Link("使用条款", destination: URL(string: "https://orange-cloud.chatiro.app/terms")!)
+                Link("隐私政策", destination: URL(string: "https://o-c.do/privacy")!)
+                Link("使用条款", destination: URL(string: "https://o-c.do/terms")!)
             }
             .font(.caption2)
             .foregroundStyle(.secondary)

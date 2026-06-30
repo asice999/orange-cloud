@@ -10,6 +10,28 @@ import Foundation
 
 nonisolated enum WhatsNewGenerated {
     static let releases: [WhatsNewRelease] = [
+        WhatsNewRelease(version: "1.8.0", items: [
+            WhatsNewItem(
+                icon:   "bell.badge.fill",
+                title:  String(localized: "推送中心", table: "WhatsNew"),
+                detail: String(localized: "内置推送服务：拿到一个专属端点，用 curl 或脚本就能把消息推到这台设备，支持标题、分组、铃声与端到端加密。无需登录 Cloudflare 即可使用。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "wrench.and.screwdriver.fill",
+                title:  String(localized: "免登录开发者工具箱", table: "WhatsNew"),
+                detail: String(localized: "无需登录即可使用一组常用网络工具：DNS 查询、SSL 证书检查、HTTP 头、WHOIS、IP 归属、CIDR 计算与 Cloudflare trace。打开 App 在登录页就能直接进入。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "exclamationmark.bubble.fill",
+                title:  String(localized: "把 Cloudflare 告警推到手机", table: "WhatsNew"),
+                detail: String(localized: "登录后可直接管理 Cloudflare 告警策略：选择想关注的告警类型（DDoS、健康检查、证书到期、Workers 错误率等），一键接到推送中心，事件发生时直推到这台设备。需账号下有 Pro 及以上套餐的域名。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "rectangle.3.group.fill",
+                title:  String(localized: "开发者平台更进一步", table: "WhatsNew"),
+                detail: String(localized: "Queues 现可暂停/恢复投递、清空消息、调整保留期与延迟；Hyperdrive 可编辑查询缓存与源数据库连接；Durable Objects 可浏览对象实例；Workers AI 能直接在 App 内试运行文本生成模型，缺权限时可一键补授权、无需退出登录。", table: "WhatsNew")
+            )
+        ]),
         WhatsNewRelease(version: "1.7.0", items: [
             WhatsNewItem(
                 icon:   "rectangle.3.group.fill",

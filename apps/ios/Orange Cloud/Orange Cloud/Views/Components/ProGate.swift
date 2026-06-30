@@ -75,11 +75,11 @@ nonisolated enum ProFeature: String, Identifiable, Sendable {
         case .aiInsights:     String(localized: "用设备端 AI 一句话总结本期流量的增长、异常与主要来源（离线、免费、不出设备）属于 Orange Cloud Pro。")
         case .aiDNS:          String(localized: "用自然语言一句话生成 DNS 记录（如「给 blog 加个指向 1.2.3.4 的 A 记录」），设备端离线属于 Orange Cloud Pro。")
         case .filesApp:       String(localized: "把 R2 存储桶挂进系统『文件』App，像 iCloud 云盘一样浏览、读写、用任意 App 打开，属于 Orange Cloud Pro。")
-        case .queues:         String(localized: "查看与管理 Cloudflare Queues（新建 / 删除队列）属于 Orange Cloud Pro。")
+        case .queues:         String(localized: "查看与管理 Cloudflare Queues（新建 / 删除、暂停投递、清空消息、改保留期与延迟）属于 Orange Cloud Pro。")
         case .aiGateway:      String(localized: "查看与管理 AI Gateway（新建 / 删除网关，配置缓存、限速与日志）属于 Orange Cloud Pro。")
-        case .durableObjects: String(localized: "查看 Durable Objects 命名空间属于 Orange Cloud Pro。")
-        case .workersAI:      String(localized: "浏览 Workers AI 模型目录属于 Orange Cloud Pro。")
-        case .hyperdrive:     String(localized: "查看与管理 Hyperdrive 数据库加速配置属于 Orange Cloud Pro。")
+        case .durableObjects: String(localized: "查看 Durable Objects 命名空间，并浏览其中的对象实例属于 Orange Cloud Pro。")
+        case .workersAI:      String(localized: "浏览 Workers AI 模型目录，并试运行文本生成模型属于 Orange Cloud Pro。")
+        case .hyperdrive:     String(localized: "查看与管理 Hyperdrive 数据库加速配置（缓存设置、改源连接、新建 / 删除）属于 Orange Cloud Pro。")
         }
     }
 

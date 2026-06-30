@@ -267,10 +267,10 @@ extension FeaturePermission {
         .init(
             id: "workers_ai",
             title: String(localized: "Workers AI"),
-            description: String(localized: "浏览可用的 Workers AI 模型"),
+            description: String(localized: "浏览模型目录，并试运行文本生成模型"),
             icon: "brain",
             readScopes: ["ai.read"],
-            editScopes: [],
+            editScopes: ["ai.write"],
             isRequired: false
         ),
         .init(
@@ -280,6 +280,15 @@ extension FeaturePermission {
             icon: "bolt.horizontal.circle",
             readScopes: ["query-cache.read"],
             editScopes: ["query-cache.write"],
+            isRequired: false
+        ),
+        .init(
+            id: "notifications",
+            title: String(localized: "通知 / 告警"),
+            description: String(localized: "管理 Cloudflare 告警策略，把告警推送到推送中心"),
+            icon: "bell.badge",
+            readScopes: ["notifications.read"],
+            editScopes: ["notifications.write"],
             isRequired: false
         ),
     ]

@@ -73,6 +73,48 @@ final class QueuesViewModel {
             self.error = error.localizedDescription
         }
     }
+
+    /// 改名 / 改投递设置，成功后用返回值替换列表内对应项（详情 sheet 读列表即时反映）
+    @discardableResult
+    func update(queueId: String, queueName: String? = nil, settings: CFQueueSettingsPatch? = nil) async -> Bool {
+        guard let accountId, !isSaving else { return false }
+        isSaving = true
+        error = nil
+        defer { isSaving = false }
+        do {
+            let updated = try await service.update(
+                accountId: accountId, queueId: queueId,
+                body: CFQueueUpdate(queueName: queueName, settings: settings)
+            )
+            if let idx = queues.firstIndex(where: { $0.queueId == queueId }) { queues[idx] = updated }
+            didChange.toggle()
+            return true
+        } catch {
+            self.error = error.localizedDescription
+            return false
+        }
+    }
+
+    @discardableResult
+    func togglePause(queueId: String, paused: Bool) async -> Bool {
+        await update(queueId: queueId, settings: CFQueueSettingsPatch(deliveryPaused: paused))
+    }
+
+    @discardableResult
+    func purge(queueId: String) async -> Bool {
+        guard let accountId, !isSaving else { return false }
+        isSaving = true
+        error = nil
+        defer { isSaving = false }
+        do {
+            try await service.purge(accountId: accountId, queueId: queueId)
+            didChange.toggle()
+            return true
+        } catch {
+            self.error = error.localizedDescription
+            return false
+        }
+    }
 }
 
 // MARK: - AI Gateway
@@ -280,6 +322,123 @@ final class HyperdriveViewModel {
             try await service.delete(accountId: accountId, configId: config.id)
             configs.removeAll { $0.id == config.id }
             didChange.toggle()
+        } catch {
+            self.error = error.localizedDescription
+        }
+    }
+
+    /// 改名 / 改缓存 / 改源连接，成功后用返回值替换列表内对应项
+    @discardableResult
+    func update(configId: String, patch: HyperdrivePatch) async -> Bool {
+        guard let accountId, !isSaving else { return false }
+        isSaving = true
+        error = nil
+        defer { isSaving = false }
+        do {
+            let updated = try await service.update(accountId: accountId, configId: configId, body: patch)
+            if let idx = configs.firstIndex(where: { $0.id == configId }) { configs[idx] = updated }
+            didChange.toggle()
+            return true
+        } catch {
+            self.error = error.localizedDescription
+            return false
+        }
+    }
+}
+
+// MARK: - Durable Objects 对象实例（只读，游标分页）
+
+@Observable
+@MainActor
+final class DurableObjectInstancesViewModel {
+
+    private(set) var instances: [DurableObjectInstance] = []
+    var isLoading = false
+    var loaded = false
+    var error: String?
+
+    private var cursor: String?
+    var hasMore: Bool { cursor != nil }
+
+    private let service: DurableObjectService
+    let accountId: String?
+    let namespaceId: String
+
+    init(service: DurableObjectService, accountId: String?, namespaceId: String) {
+        self.service = service
+        self.accountId = accountId
+        self.namespaceId = namespaceId
+    }
+
+    func load() async {
+        guard let accountId, !isLoading else { return }
+        isLoading = true
+        error = nil
+        do {
+            let page = try await service.listObjects(accountId: accountId, namespaceId: namespaceId)
+            instances = page.items
+            cursor = page.cursor
+            loaded = true
+        } catch is CancellationError {
+        } catch let urlError as URLError where urlError.code == .cancelled {
+        } catch {
+            self.error = error.localizedDescription
+        }
+        isLoading = false
+    }
+
+    func loadMore() async {
+        guard let accountId, !isLoading, let cursor else { return }
+        isLoading = true
+        do {
+            let page = try await service.listObjects(accountId: accountId, namespaceId: namespaceId, cursor: cursor)
+            instances.append(contentsOf: page.items)
+            self.cursor = page.cursor
+        } catch is CancellationError {
+        } catch let urlError as URLError where urlError.code == .cancelled {
+        } catch {
+            self.error = error.localizedDescription
+        }
+        isLoading = false
+    }
+}
+
+// MARK: - Workers AI 文本生成 Playground
+
+@Observable
+@MainActor
+final class AIPlaygroundViewModel {
+
+    var prompt = ""
+    private(set) var output = ""
+    var isRunning = false
+    var error: String?
+
+    private let service: WorkersAIService
+    let accountId: String?
+    let model: AIModel
+
+    init(service: WorkersAIService, accountId: String?, model: AIModel) {
+        self.service = service
+        self.accountId = accountId
+        self.model = model
+    }
+
+    var trimmedPrompt: String { prompt.trimmingCharacters(in: .whitespacesAndNewlines) }
+    var canRun: Bool { !trimmedPrompt.isEmpty && !isRunning && accountId != nil }
+
+    func run() async {
+        guard let accountId, canRun else { return }
+        isRunning = true
+        error = nil
+        output = ""
+        defer { isRunning = false }
+        do {
+            output = try await service.runTextGeneration(
+                accountId: accountId,
+                model: model.name ?? model.id,
+                messages: [AIChatMessage(role: "user", content: trimmedPrompt)]
+            )
         } catch {
             self.error = error.localizedDescription
         }

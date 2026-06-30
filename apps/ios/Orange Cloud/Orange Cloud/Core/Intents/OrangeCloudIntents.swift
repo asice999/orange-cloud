@@ -17,6 +17,9 @@ import Observation
 final class AppRouter {
     static let shared = AppRouter()
     var pendingModule: AppModule?
+    /// 置 true 时在根层以全屏 cover 弹出「免登录工具箱」。
+    /// 入口统一：登录页次级按钮 / 设置入口 / 通知点按都设此标志，挂在 auth 闸门之上。
+    var presentToolbox = false
 
     private init() {}
 }

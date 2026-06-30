@@ -11,7 +11,7 @@ import Foundation
 nonisolated enum OAuthConfig {
     /// 官方 OAuth Client（Cloudflare Dashboard → OAuth clients）。
     /// 仅供官方构建使用；自编译请自建 Client 与回调中转，见 CONTRIBUTING.md。
-    static let clientID = "eae9090b8f240e6dd54d9926a55d56ce"
+    static let clientID = "102240eb9095a1965ee11813ef4788cd"
 
     /// 自定义 scheme，供 Web 后端 302 跳回 App
     static let callbackScheme = "orangecloud"
@@ -20,7 +20,7 @@ nonisolated enum OAuthConfig {
 //    #if DEBUG
 //    static let redirectURI = "http://localhost:3000/oauth/callback"
 //    #else
-    static let redirectURI = "https://orange-cloud.chatiro.app/oauth/callback"
+    static let redirectURI = "https://o-c.do/oauth/callback"
 //    #endif
 
     // Cloudflare OAuth 端点

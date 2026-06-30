@@ -70,6 +70,25 @@ struct LoginView: View {
                             .shadow(color: Color.ocOrange.opacity(0.34), radius: 11, y: 8)
                         }
 
+                        // 免登录入口：开发者工具箱（不依赖 CF 账号，作为拓客入口）
+                        Button {
+                            AppRouter.shared.presentToolbox = true
+                        } label: {
+                            HStack(spacing: 10) {
+                                Image(systemName: "wrench.and.screwdriver")
+                                Text("免登录 · 开发者工具箱")
+                                    .fontWeight(.medium)
+                            }
+                            .font(.body)
+                            .foregroundStyle(Color.ocOrangeText)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(.regularMaterial, in: Capsule())
+                            .overlay(
+                                Capsule().strokeBorder(Color.ocOrange.opacity(0.35), lineWidth: 0.5)
+                            )
+                        }
+
                         Label {
                             Text("安全 OAuth 2.0 · 无需粘贴 API Token")
                         } icon: {
@@ -82,9 +101,9 @@ struct LoginView: View {
                         HStack(spacing: 6) {
                             Text("版本 \(appVersion)")
                             Text("·")
-                            Link("隐私政策", destination: URL(string: "https://orange-cloud.chatiro.app/privacy")!)
+                            Link("隐私政策", destination: URL(string: "https://o-c.do/privacy")!)
                             Text("·")
-                            Link("使用条款", destination: URL(string: "https://orange-cloud.chatiro.app/terms")!)
+                            Link("使用条款", destination: URL(string: "https://o-c.do/terms")!)
                         }
                         .font(.caption2)
                         .foregroundStyle(.tertiary)

@@ -15,6 +15,7 @@ import ActivityKit
 struct Orange_CloudApp: App {
 
     @State private var authManager: AuthManager
+    @UIApplicationDelegateAdaptor(PushAppDelegate.self) private var pushDelegate
     @Environment(\.scenePhase) private var scenePhase
 
     @AppStorage(AppAppearance.storageKey) private var appearanceRaw = AppAppearance.system.rawValue

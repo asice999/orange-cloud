@@ -1,5 +1,186 @@
 [
   {
+    "version": "1.8.1",
+    "date": "2026.06.30",
+    "channel": "App Store",
+    "inApp": false,
+    "items": [
+      {
+        "icon": "wrench.and.screwdriver.fill",
+        "title": {
+          "zh-Hans": "稳定性与体验修复",
+          "en": "Stability & experience fixes",
+          "zh-Hant": "穩定性與體驗修復",
+          "zh-HK": "穩定性與體驗修復",
+          "ja": "安定性と使い勝手の修正",
+          "es-MX": "Correcciones de estabilidad y experiencia",
+          "ko": "안정성 및 사용성 개선",
+          "pt-BR": "Correções de estabilidade e experiência",
+          "pt-PT": "Correções de estabilidade e experiência",
+          "de": "Stabilitäts- und Erlebnisverbesserungen",
+          "fr": "Corrections de stabilité et d’expérience",
+          "ar": "تحسينات الاستقرار والتجربة",
+          "tr": "Kararlılık ve deneyim düzeltmeleri"
+        },
+        "detail": {
+          "zh-Hans": "修复 Access 应用多个公共主机名只显示第一个、长时间使用后保持登录却刷新不出数据、重装后存储桶在「文件」App 重复挂载等问题，并优化「减少动画」开关与概览用量加载。",
+          "en": "Fixes an Access app showing only the first of multiple public hostnames, a rare “stays signed in but won’t refresh data” after long use, and duplicate R2 bucket mounts in Files after reinstalling; also improves the Reduce Animations toggle and Overview usage loading.",
+          "zh-Hant": "修復 Access 應用程式多個公開主機名稱只顯示第一個、長時間使用後保持登入卻無法重新整理資料、重新安裝後儲存桶在「檔案」App 重複掛載等問題，並優化「減少動畫」開關與總覽用量載入。",
+          "zh-HK": "修復 Access 應用程式多個公開主機名稱只顯示第一個、長時間使用後保持登入卻無法重新整理資料、重新安裝後儲存桶在「檔案」App 重複掛載等問題，並優化「減少動畫」開關與概覽用量載入。",
+          "ja": "Access の複数の公開ホスト名が最初の1つしか表示されない問題、長時間使用後にログイン状態のままデータを更新できない問題、再インストール後に「ファイル」で R2 バケットが重複マウントされる問題を修正し、「アニメーションを減らす」スイッチと概要の使用状況の読み込みを改善しました。",
+          "es-MX": "Corrige que una app de Access muestre solo el primero de varios nombres de host públicos, un raro “sesión iniciada pero sin actualizar datos” tras un uso prolongado y los montajes duplicados de buckets R2 en Archivos tras reinstalar; también mejora Reducir animaciones y la carga de uso en Resumen.",
+          "ko": "Access 앱에서 여러 공개 호스트 이름 중 첫 번째만 표시되던 문제, 장시간 사용 후 로그인 상태가 유지되지만 데이터가 새로 고쳐지지 않던 문제, 재설치 후 '파일'에서 R2 버킷이 중복 마운트되던 문제를 수정하고 '애니메이션 줄이기' 스위치와 개요 사용량 로딩을 개선했습니다.",
+          "pt-BR": "Corrige um app do Access que mostrava apenas o primeiro de vários nomes de host públicos, um raro “continua conectado mas não atualiza os dados” após uso prolongado e montagens duplicadas de buckets R2 em Arquivos após reinstalar; também melhora Reduzir animações e o carregamento de uso na Visão geral.",
+          "pt-PT": "Corrige uma app do Access que mostrava apenas o primeiro de vários nomes de anfitrião públicos, um raro “mantém a sessão iniciada mas não atualiza os dados” após uso prolongado e montagens duplicadas de buckets R2 em Ficheiros após reinstalar; também melhora Reduzir animações e o carregamento de utilização na Vista geral.",
+          "de": "Behebt, dass eine Access-App nur den ersten von mehreren öffentlichen Hostnamen anzeigte, ein seltenes „bleibt angemeldet, aktualisiert aber keine Daten“ nach langer Nutzung und doppelte R2-Bucket-Einbindungen in „Dateien“ nach einer Neuinstallation; verbessert außerdem „Animationen reduzieren“ und das Laden der Nutzung in der Übersicht.",
+          "fr": "Corrige une app Access n’affichant que le premier de plusieurs noms d’hôte publics, un rare « reste connecté mais n’actualise pas les données » après une utilisation prolongée et les montages en double de buckets R2 dans Fichiers après une réinstallation ; améliore aussi Réduire les animations et le chargement de l’utilisation dans l’aperçu.",
+          "ar": "يُصلح ظهور أول اسم فقط من بين عدة أسماء مضيفين عامة في تطبيق Access، ومشكلة نادرة وهي «يبقى تسجيل الدخول لكن لا تتحدّث البيانات» بعد الاستخدام الطويل، وتكرار تحميل حاويات R2 في «الملفات» بعد إعادة التثبيت؛ كما يحسّن مفتاح «تقليل الحركة» وتحميل الاستخدام في النظرة العامة.",
+          "tr": "Bir Access uygulamasının birden çok genel ana makine adından yalnızca ilkini göstermesini, uzun kullanımdan sonra nadiren görülen “oturum açık kalır ama veriler yenilenmez” sorununu ve yeniden yükleme sonrası Dosyalar’da yinelenen R2 paketi bağlamalarını giderir; ayrıca Animasyonları Azalt anahtarını ve Genel Bakış kullanım yüklemesini iyileştirir."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.8.0",
+    "date": "2026.06.29",
+    "channel": "App Store",
+    "inApp": true,
+    "items": [
+      {
+        "icon": "bell.badge.fill",
+        "title": {
+          "zh-Hans": "推送中心",
+          "en": "Push Center",
+          "zh-Hant": "推送中心",
+          "zh-HK": "推送中心",
+          "ja": "プッシュセンター",
+          "es-MX": "Centro de notificaciones",
+          "ko": "푸시 센터",
+          "pt-BR": "Central de Push",
+          "pt-PT": "Centro de Push",
+          "de": "Push-Center",
+          "fr": "Centre de push",
+          "ar": "مركز الإشعارات",
+          "tr": "Push Merkezi"
+        },
+        "detail": {
+          "zh-Hans": "内置推送服务：拿到一个专属端点，用 curl 或脚本就能把消息推到这台设备，支持标题、分组、铃声与端到端加密。无需登录 Cloudflare 即可使用。",
+          "en": "A built-in push service: get your own endpoint and send messages to this device with a simple curl or script — with titles, groups, sounds and end-to-end encryption. No Cloudflare sign-in required.",
+          "zh-Hant": "內建推送服務：取得專屬端點，用 curl 或指令稿就能把訊息推到這台裝置，支援標題、分組、鈴聲與端對端加密。無需登入 Cloudflare 即可使用。",
+          "zh-HK": "內建推送服務：取得專屬端點，用 curl 或指令稿就能把訊息推到這部裝置，支援標題、分組、鈴聲與端對端加密。無需登入 Cloudflare 即可使用。",
+          "ja": "プッシュ機能を内蔵。専用エンドポイントを取得すれば、curl やスクリプトでこの端末にメッセージを送れます。タイトル、グループ、サウンドと端末間暗号化に対応。Cloudflare へのサインインは不要です。",
+          "es-MX": "Servicio de notificaciones integrado: obtén tu propio endpoint y envía mensajes a este dispositivo con un simple curl o script, con título, grupo, sonido y cifrado de extremo a extremo. No requiere iniciar sesión en Cloudflare.",
+          "ko": "푸시 기능 내장: 전용 엔드포인트를 받아 curl이나 스크립트로 이 기기에 메시지를 보낼 수 있습니다. 제목, 그룹, 사운드와 종단 간 암호화를 지원합니다. Cloudflare 로그인이 필요 없습니다.",
+          "pt-BR": "Serviço de push integrado: obtenha seu próprio endpoint e envie mensagens para este dispositivo com um simples curl ou script — com título, grupo, som e criptografia de ponta a ponta. Não exige login na Cloudflare.",
+          "pt-PT": "Serviço de push integrado: obtenha o seu próprio endpoint e envie mensagens para este dispositivo com um simples curl ou script — com título, grupo, som e encriptação de ponta a ponta. Não exige iniciar sessão na Cloudflare.",
+          "de": "Integrierter Push-Dienst: Hol dir deinen eigenen Endpunkt und sende Nachrichten per curl oder Skript an dieses Gerät – mit Titel, Gruppe, Ton und Ende-zu-Ende-Verschlüsselung. Keine Cloudflare-Anmeldung nötig.",
+          "fr": "Service de push intégré : obtenez votre propre point de terminaison et envoyez des messages à cet appareil avec un simple curl ou script — avec titre, groupe, son et chiffrement de bout en bout. Aucune connexion Cloudflare requise.",
+          "ar": "خدمة دفع مدمجة: احصل على نقطة نهاية خاصة بك وأرسل الرسائل إلى هذا الجهاز باستخدام curl أو سكربت بسيط — مع عنوان ومجموعة وصوت وتشفير من طرف إلى طرف. لا يتطلب تسجيل الدخول إلى Cloudflare.",
+          "tr": "Yerleşik push hizmeti: kendi uç noktanızı alın ve basit bir curl veya betikle bu cihaza mesaj gönderin — başlık, grup, ses ve uçtan uca şifreleme ile. Cloudflare oturumu gerekmez."
+        }
+      },
+      {
+        "icon": "wrench.and.screwdriver.fill",
+        "title": {
+          "zh-Hans": "免登录开发者工具箱",
+          "en": "No-login developer toolbox",
+          "zh-Hant": "免登入開發者工具箱",
+          "zh-HK": "免登入開發者工具箱",
+          "ja": "ログイン不要の開発者ツールボックス",
+          "es-MX": "Caja de herramientas para desarrolladores sin iniciar sesión",
+          "ko": "로그인 없는 개발자 도구 모음",
+          "pt-BR": "Caixa de ferramentas do desenvolvedor sem login",
+          "pt-PT": "Caixa de ferramentas do programador sem início de sessão",
+          "de": "Entwickler-Toolbox ohne Anmeldung",
+          "fr": "Boîte à outils développeur sans connexion",
+          "ar": "صندوق أدوات المطوّر بدون تسجيل دخول",
+          "tr": "Girişsiz geliştirici araç kutusu"
+        },
+        "detail": {
+          "zh-Hans": "无需登录即可使用一组常用网络工具：DNS 查询、SSL 证书检查、HTTP 头、WHOIS、IP 归属、CIDR 计算与 Cloudflare trace。打开 App 在登录页就能直接进入。",
+          "en": "A set of handy network tools you can use without signing in: DNS lookup, SSL certificate inspection, HTTP headers, WHOIS, IP geolocation, a CIDR calculator and Cloudflare trace — reachable right from the login screen.",
+          "zh-Hant": "無需登入即可使用一組常用網路工具：DNS 查詢、SSL 憑證檢查、HTTP 標頭、WHOIS、IP 歸屬、CIDR 計算與 Cloudflare trace。開啟 App 在登入頁就能直接進入。",
+          "zh-HK": "無需登入即可使用一組常用網路工具：DNS 查詢、SSL 憑證檢查、HTTP 標頭、WHOIS、IP 歸屬、CIDR 計算與 Cloudflare trace。開啟 App 在登入頁就能直接進入。",
+          "ja": "ログインせずに使える定番のネットワークツール群：DNS 検索、SSL 証明書チェック、HTTP ヘッダー、WHOIS、IP 位置情報、CIDR 計算、Cloudflare trace。ログイン画面からそのまま開けます。",
+          "es-MX": "Un conjunto de herramientas de red prácticas que puedes usar sin iniciar sesión: consulta DNS, inspección de certificados SSL, encabezados HTTP, WHOIS, geolocalización de IP, calculadora CIDR y Cloudflare trace, accesibles desde la pantalla de inicio de sesión.",
+          "ko": "로그인 없이 사용할 수 있는 유용한 네트워크 도구 모음: DNS 조회, SSL 인증서 검사, HTTP 헤더, WHOIS, IP 위치, CIDR 계산기, Cloudflare trace. 로그인 화면에서 바로 열 수 있습니다.",
+          "pt-BR": "Um conjunto de ferramentas de rede úteis que você pode usar sem fazer login: consulta DNS, inspeção de certificado SSL, cabeçalhos HTTP, WHOIS, geolocalização de IP, calculadora CIDR e Cloudflare trace — acessíveis direto na tela de login.",
+          "pt-PT": "Um conjunto de ferramentas de rede úteis que pode usar sem iniciar sessão: consulta DNS, inspeção de certificado SSL, cabeçalhos HTTP, WHOIS, geolocalização de IP, calculadora CIDR e Cloudflare trace — acessíveis a partir do ecrã de início de sessão.",
+          "de": "Praktische Netzwerk-Tools, die du ohne Anmeldung nutzen kannst: DNS-Abfrage, SSL-Zertifikatsprüfung, HTTP-Header, WHOIS, IP-Geolokalisierung, ein CIDR-Rechner und Cloudflare-Trace – direkt vom Anmeldebildschirm aus erreichbar.",
+          "fr": "Un ensemble d'outils réseau pratiques utilisables sans connexion : requête DNS, inspection de certificat SSL, en-têtes HTTP, WHOIS, géolocalisation IP, calculateur CIDR et Cloudflare trace — accessibles depuis l'écran de connexion.",
+          "ar": "مجموعة من أدوات الشبكة العملية التي يمكنك استخدامها دون تسجيل الدخول: استعلام DNS، فحص شهادة SSL، ترويسات HTTP، WHOIS، تحديد موقع IP، حاسبة CIDR، وCloudflare trace — يمكن الوصول إليها مباشرةً من شاشة تسجيل الدخول.",
+          "tr": "Oturum açmadan kullanabileceğiniz pratik ağ araçları: DNS sorgusu, SSL sertifikası incelemesi, HTTP başlıkları, WHOIS, IP konumu, CIDR hesaplayıcı ve Cloudflare trace — giriş ekranından doğrudan erişilebilir."
+        }
+      },
+      {
+        "icon": "exclamationmark.bubble.fill",
+        "title": {
+          "zh-Hans": "把 Cloudflare 告警推到手机",
+          "en": "Cloudflare alerts on your phone",
+          "zh-Hant": "把 Cloudflare 告警推到手機",
+          "zh-HK": "把 Cloudflare 告警推到手機",
+          "ja": "Cloudflare のアラートをスマホへ",
+          "es-MX": "Alertas de Cloudflare en tu teléfono",
+          "ko": "휴대폰으로 받는 Cloudflare 경고",
+          "pt-BR": "Alertas da Cloudflare no seu celular",
+          "pt-PT": "Alertas da Cloudflare no seu telemóvel",
+          "de": "Cloudflare-Warnungen auf deinem Handy",
+          "fr": "Les alertes Cloudflare sur votre téléphone",
+          "ar": "تنبيهات Cloudflare على هاتفك",
+          "tr": "Cloudflare uyarıları telefonunuzda"
+        },
+        "detail": {
+          "zh-Hans": "登录后可直接管理 Cloudflare 告警策略：选择想关注的告警类型（DDoS、健康检查、证书到期、Workers 错误率等），一键接到推送中心，事件发生时直推到这台设备。需账号下有 Pro 及以上套餐的域名。",
+          "en": "Once signed in, manage your Cloudflare alert policies right here: pick the alert types you care about (DDoS, health checks, certificate expiry, Workers error rate and more) and wire them to the Push Center in one tap, so events land on this device. Requires a domain on a Pro or higher plan.",
+          "zh-Hant": "登入後可直接管理 Cloudflare 告警策略：選擇想關注的告警類型（DDoS、健康檢查、憑證到期、Workers 錯誤率等），一鍵接到推送中心，事件發生時直推到這台裝置。需帳戶下有 Pro 及以上方案的網域。",
+          "zh-HK": "登入後可直接管理 Cloudflare 告警策略：選擇想關注的告警類型（DDoS、健康檢查、憑證到期、Workers 錯誤率等），一鍵接到推送中心，事件發生時直推到這部裝置。需帳戶下有 Pro 及以上計劃的域名。",
+          "ja": "サインインすると Cloudflare のアラートポリシーをここで管理できます。気になるアラートの種類（DDoS、ヘルスチェック、証明書の有効期限、Workers のエラー率など）を選び、ワンタップでプッシュセンターに接続。イベント発生時にこの端末へ直接届きます。Pro 以上のプランのドメインが必要です。",
+          "es-MX": "Una vez que inicies sesión, administra aquí tus políticas de alertas de Cloudflare: elige los tipos de alerta que te importan (DDoS, comprobaciones de estado, vencimiento de certificados, tasa de errores de Workers y más) y conéctalos al Centro de notificaciones con un toque, para que los eventos lleguen a este dispositivo. Requiere un dominio con plan Pro o superior.",
+          "ko": "로그인하면 여기에서 Cloudflare 경고 정책을 관리할 수 있습니다. 원하는 경고 유형(DDoS, 상태 확인, 인증서 만료, Workers 오류율 등)을 골라 한 번의 탭으로 푸시 센터에 연결하면, 이벤트가 이 기기로 바로 전달됩니다. Pro 이상 요금제의 도메인이 필요합니다.",
+          "pt-BR": "Depois de fazer login, gerencie aqui suas políticas de alerta da Cloudflare: escolha os tipos de alerta que importam para você (DDoS, verificações de integridade, expiração de certificados, taxa de erros do Workers e mais) e conecte-os à Central de Push com um toque, para que os eventos cheguem a este dispositivo. Requer um domínio com plano Pro ou superior.",
+          "pt-PT": "Depois de iniciar sessão, faça aqui a gestão das suas políticas de alerta da Cloudflare: escolha os tipos de alerta que lhe interessam (DDoS, verificações de estado, expiração de certificados, taxa de erros do Workers e mais) e ligue-os ao Centro de Push com um toque, para que os eventos cheguem a este dispositivo. Requer um domínio com plano Pro ou superior.",
+          "de": "Nach der Anmeldung verwaltest du hier deine Cloudflare-Warnrichtlinien: Wähle die Warntypen, die dich interessieren (DDoS, Health Checks, Zertifikatsablauf, Workers-Fehlerrate und mehr), und verbinde sie mit einem Tippen mit dem Push-Center, damit Ereignisse auf diesem Gerät ankommen. Erfordert eine Domain mit Pro-Tarif oder höher.",
+          "fr": "Une fois connecté, gérez ici vos politiques d'alerte Cloudflare : choisissez les types d'alerte qui vous intéressent (DDoS, contrôles d'état, expiration de certificat, taux d'erreur Workers, etc.) et reliez-les au centre de push en un geste, pour que les événements arrivent sur cet appareil. Nécessite un domaine avec un forfait Pro ou supérieur.",
+          "ar": "بعد تسجيل الدخول، يمكنك إدارة سياسات تنبيهات Cloudflare من هنا: اختر أنواع التنبيهات التي تهمّك (DDoS، فحوصات السلامة، انتهاء الشهادات، معدل أخطاء Workers والمزيد) واربطها بمركز الإشعارات بنقرة واحدة، لتصل الأحداث إلى هذا الجهاز. يتطلب نطاقًا بخطة Pro أو أعلى.",
+          "tr": "Oturum açtıktan sonra Cloudflare uyarı politikalarınızı buradan yönetin: önemsediğiniz uyarı türlerini (DDoS, durum denetimleri, sertifika süresi dolması, Workers hata oranı ve daha fazlası) seçin ve tek dokunuşla Push Merkezi'ne bağlayın; böylece olaylar bu cihaza ulaşsın. Pro veya üzeri planda bir alan adı gerektirir."
+        }
+      },
+      {
+        "icon": "rectangle.3.group.fill",
+        "title": {
+          "zh-Hans": "开发者平台更进一步",
+          "en": "Developer Platform goes further",
+          "zh-Hant": "開發者平台更進一步",
+          "zh-HK": "開發者平台更進一步",
+          "ja": "開発者プラットフォームがさらに進化",
+          "es-MX": "La plataforma para desarrolladores va más allá",
+          "ko": "한 걸음 더 나아간 개발자 플랫폼",
+          "pt-BR": "A plataforma do desenvolvedor vai além",
+          "pt-PT": "A plataforma do programador vai mais longe",
+          "de": "Die Entwicklerplattform geht weiter",
+          "fr": "La plateforme développeur va plus loin",
+          "ar": "منصة المطوّرين تتقدّم خطوة أخرى",
+          "tr": "Geliştirici Platformu daha da ileride"
+        },
+        "detail": {
+          "zh-Hans": "Queues 现可暂停/恢复投递、清空消息、调整保留期与延迟；Hyperdrive 可编辑查询缓存与源数据库连接；Durable Objects 可浏览对象实例；Workers AI 能直接在 App 内试运行文本生成模型，缺权限时可一键补授权、无需退出登录。",
+          "en": "Queues can now pause/resume delivery, purge messages, and adjust retention and delay; Hyperdrive lets you edit query caching and the origin database connection; Durable Objects can browse object instances; and Workers AI runs text-generation models right in the app — with one-tap permission top-up, no sign-out needed.",
+          "zh-Hant": "Queues 現可暫停／恢復投遞、清空訊息、調整保留期與延遲；Hyperdrive 可編輯查詢快取與來源資料庫連線；Durable Objects 可瀏覽物件實例；Workers AI 能直接在 App 內試執行文字生成模型，缺權限時可一鍵補授權、無需登出。",
+          "zh-HK": "Queues 現可暫停／恢復投遞、清空訊息、調整保留期與延遲；Hyperdrive 可編輯查詢緩存與來源資料庫連線；Durable Objects 可瀏覽物件實例；Workers AI 能直接在 App 內試執行文字生成模型，缺權限時可一鍵補授權、無需登出。",
+          "ja": "Queues は配信の一時停止／再開、メッセージの消去、保持期間と遅延の調整に対応。Hyperdrive はクエリキャッシュとオリジンDB接続を編集可能。Durable Objects はオブジェクトインスタンスを閲覧可能。Workers AI はテキスト生成モデルをアプリ内で試せます（権限はワンタップで追加、サインアウト不要）。",
+          "es-MX": "Queues ahora puede pausar/reanudar la entrega, vaciar mensajes y ajustar la retención y el retraso; Hyperdrive permite editar el caché de consultas y la conexión a la base de datos de origen; Durable Objects puede explorar instancias de objetos; y Workers AI ejecuta modelos de generación de texto dentro de la app, con permisos añadidos en un toque y sin cerrar sesión.",
+          "ko": "이제 Queues에서 전송 일시중지/재개, 메시지 비우기, 보존 기간 및 지연 조정이 가능합니다. Hyperdrive에서는 쿼리 캐시와 원본 데이터베이스 연결을 편집할 수 있고, Durable Objects에서는 객체 인스턴스를 둘러볼 수 있으며, Workers AI에서는 앱 안에서 바로 텍스트 생성 모델을 실행할 수 있습니다(권한은 한 번의 탭으로 추가, 로그아웃 불필요).",
+          "pt-BR": "O Queues agora pode pausar/retomar a entrega, limpar mensagens e ajustar retenção e atraso; o Hyperdrive permite editar o cache de consultas e a conexão com o banco de dados de origem; o Durable Objects pode navegar pelas instâncias de objeto; e o Workers AI executa modelos de geração de texto dentro do app, com permissão concedida em um toque e sem sair da conta.",
+          "pt-PT": "O Queues passa a poder pausar/retomar a entrega, limpar mensagens e ajustar retenção e atraso; o Hyperdrive permite editar a cache de consultas e a ligação à base de dados de origem; o Durable Objects pode navegar pelas instâncias de objeto; e o Workers AI executa modelos de geração de texto dentro da app, com permissão concedida num toque e sem terminar sessão.",
+          "de": "Queues kann jetzt die Zustellung pausieren/fortsetzen, Nachrichten leeren sowie Aufbewahrung und Verzögerung anpassen; bei Hyperdrive lassen sich Query-Caching und die Verbindung zur Ursprungsdatenbank bearbeiten; Durable Objects kann Objektinstanzen durchsuchen; und Workers AI führt Textgenerierungsmodelle direkt in der App aus – Berechtigung per Tipp ergänzt, ohne Abmelden.",
+          "fr": "Queues peut désormais suspendre/reprendre la distribution, purger les messages et ajuster la rétention et le délai ; Hyperdrive permet de modifier le cache de requêtes et la connexion à la base de données d'origine ; Durable Objects permet de parcourir les instances d'objet ; et Workers AI exécute des modèles de génération de texte directement dans l'app — autorisation ajoutée en un geste, sans déconnexion.",
+          "ar": "يمكن الآن في Queues إيقاف/استئناف التسليم مؤقتًا، ومسح الرسائل، وضبط مدة الاحتفاظ والتأخير؛ ويتيح Hyperdrive تعديل التخزين المؤقت للاستعلامات والاتصال بقاعدة البيانات المصدر؛ ويمكن في Durable Objects تصفّح مثيلات الكائنات؛ ويشغّل Workers AI نماذج توليد النص داخل التطبيق مباشرةً — مع إضافة الإذن بنقرة واحدة دون تسجيل الخروج.",
+          "tr": "Queues artık teslimatı duraklatıp/sürdürebilir, mesajları temizleyebilir, saklama ve gecikmeyi ayarlayabilir; Hyperdrive sorgu önbelleğini ve kaynak veritabanı bağlantısını düzenlemenize olanak tanır; Durable Objects nesne örneklerine göz atabilir; ve Workers AI metin üretme modellerini doğrudan uygulamada çalıştırır — izin tek dokunuşla eklenir, oturum kapatmak gerekmez."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.7.1",
     "date": "2026.06.28",
     "channel": "App Store",

@@ -29,6 +29,15 @@ struct HyperdriveService {
         return config
     }
 
+    /// 改名 / 改缓存设置 / 改源连接。PATCH 全字段可选，omit 即不改。
+    func update(accountId: String, configId: String, body: HyperdrivePatch) async throws -> HyperdriveConfig {
+        let response: CFAPIResponse<HyperdriveConfig> = try await client.patch(
+            "accounts/\(accountId)/hyperdrive/configs/\(configId)", body: body
+        )
+        guard response.success, let config = response.result else { throw response.toAPIError() }
+        return config
+    }
+
     func delete(accountId: String, configId: String) async throws {
         try await client.delete("accounts/\(accountId)/hyperdrive/configs/\(configId)")
     }
