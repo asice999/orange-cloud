@@ -298,6 +298,9 @@ extension FeaturePermission {
     /// 根据当前选择，生成最小权限 scope 集合
     static func buildScopeSet(from permissions: [FeaturePermission]) -> Set<String> {
         var scopes = Set<String>()
+        // offline_access 让 Cloudflare OAuth 端点返回 refresh_token；
+        // 缺它则 access token 到期后无法续期，App 会提示「登录授权已失效，无法自动续期」。
+        scopes.insert("offline_access")
         for feature in permissions {
             guard feature.isEnabled else { continue }
             if feature.canEdit && !feature.editScopes.isEmpty {
