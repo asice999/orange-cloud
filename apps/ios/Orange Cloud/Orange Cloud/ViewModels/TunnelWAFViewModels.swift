@@ -129,6 +129,21 @@ final class TunnelDetailViewModel {
         isLoadingConfig = false
     }
 
+    /// 删除本隧道（危险区）。成功返回 true，视图随即 dismiss 回列表（列表 .task 会重拉）。
+    func deleteTunnel() async -> Bool {
+        guard !isSaving else { return false }
+        isSaving = true
+        error = nil
+        defer { isSaving = false }
+        do {
+            try await tunnelService.deleteTunnel(accountId: accountId, tunnelId: tunnel.id)
+            return true
+        } catch {
+            self.error = error.localizedDescription
+            return false
+        }
+    }
+
     /// 清理失活连接（危险区）。活跃的 cloudflared 会自动重连。
     func cleanupConnections() async {
         guard !isSaving else { return }

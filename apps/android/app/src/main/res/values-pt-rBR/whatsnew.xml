@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_6_0_0_title">Domínios personalizados do Pages</string>
+    <string name="whatsnew_1_6_0_0_detail">Gerencie domínios personalizados dentro de um projeto do Pages: adicionar, remover, revalidar e verificar o status do DNS — com criação do registro CNAME em um toque quando a zona do domínio está na sua conta.</string>
+    <string name="whatsnew_1_6_0_1_title">Ordenação de listas</string>
+    <string name="whatsnew_1_6_0_1_detail">As listas de Workers e Pages agora podem ser ordenadas por nome (padrão), data de criação ou atualização recente — sua escolha é lembrada.</string>
+    <string name="whatsnew_1_5_0_0_title">Caixa de ferramentas do desenvolvedor sem login</string>
+    <string name="whatsnew_1_5_0_0_detail">Um conjunto de ferramentas de rede úteis que você pode usar sem fazer login: consulta DNS, inspeção de certificado SSL, cabeçalhos HTTP, WHOIS, geolocalização de IP, calculadora CIDR e Cloudflare trace — acessíveis direto na tela de login.</string>
+    <string name="whatsnew_1_5_0_1_title">Central de Push</string>
+    <string name="whatsnew_1_5_0_1_detail">Serviço de push integrado: obtenha seu próprio endpoint e envie mensagens para este dispositivo com um simples curl ou script — com título, grupo e caixa de entrada. Não exige login na Cloudflare.</string>
+    <string name="whatsnew_1_5_0_2_title">Alertas da Cloudflare no seu celular</string>
+    <string name="whatsnew_1_5_0_2_detail">Depois de fazer login, gerencie aqui suas políticas de alerta da Cloudflare: escolha os tipos de alerta que importam para você (DDoS, verificações de integridade, expiração de certificados, taxa de erros do Workers e mais) e conecte-os à Central de Push com um toque, para que os eventos cheguem a este dispositivo. Requer um domínio com plano Pro ou superior.</string>
     <string name="whatsnew_1_4_2_0_title">Melhorias no Workers AI</string>
     <string name="whatsnew_1_4_2_0_detail">Navegue pelos modelos agrupados por tipo de tarefa, veja os detalhes do modelo e corrigimos o teste dos modelos de geração de texto.</string>
     <string name="whatsnew_1_4_0_title">Nova Plataforma para Desenvolvedores</string>

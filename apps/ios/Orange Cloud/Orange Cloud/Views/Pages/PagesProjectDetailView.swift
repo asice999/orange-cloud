@@ -16,7 +16,10 @@ struct PagesProjectDetailView: View {
     @State private var showDeploy = false
     @Environment(\.dismiss) private var dismiss
 
+    private let session: SessionStore
+
     init(project: PagesProject, session: SessionStore) {
+        self.session = session
         let accountId = session.selectedAccount?.id ?? ""
         _viewModel = State(initialValue: PagesProjectDetailViewModel(
             project: project,
@@ -96,9 +99,16 @@ struct PagesProjectDetailView: View {
             if let repo = project.source?.config?.repoLabel {
                 infoRow(project.source?.type == "gitlab" ? "GitLab" : "GitHub", value: repo)
             }
-            if let domains = project.domains, !domains.isEmpty {
-                ForEach(domains, id: \.self) { domain in
-                    infoRow("自定义域名", value: domain)
+            NavigationLink {
+                PagesDomainsView(project: project, session: session)
+            } label: {
+                HStack {
+                    Text("自定义域名")
+                    Spacer()
+                    if let domains = project.domains, !domains.isEmpty {
+                        Text("\(domains.count) 个域名")
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
             if let date = WorkerScript.parseDate(project.createdOn) {

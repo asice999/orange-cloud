@@ -10,6 +10,23 @@ import Foundation
 
 nonisolated enum WhatsNewGenerated {
     static let releases: [WhatsNewRelease] = [
+        WhatsNewRelease(version: "1.9.0", items: [
+            WhatsNewItem(
+                icon:   "globe",
+                title:  String(localized: "Pages 自定义域名", table: "WhatsNew"),
+                detail: String(localized: "Pages 项目现可直接管理自定义域名：添加、删除、重新验证并检查解析状态；域名在当前账号时，还能一键添加指向项目的 CNAME 记录。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "arrow.up.arrow.down",
+                title:  String(localized: "列表排序", table: "WhatsNew"),
+                detail: String(localized: "Workers 与 Pages 列表新增排序：默认（名称）、创建日期、最近更新，选择会被记住。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "textformat.123",
+                title:  String(localized: "数据单位显示", table: "WhatsNew"),
+                detail: String(localized: "存储与流量单位在所有语言下统一显示为国际通用符号（KB / MB / GB），不再随语言翻译。", table: "WhatsNew")
+            )
+        ]),
         WhatsNewRelease(version: "1.8.0", items: [
             WhatsNewItem(
                 icon:   "bell.badge.fill",

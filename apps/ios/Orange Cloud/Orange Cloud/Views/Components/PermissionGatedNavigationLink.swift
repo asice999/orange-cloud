@@ -79,6 +79,8 @@ struct PermissionGatedValueLink<V: Hashable>: View {
     let systemImage:   String
     let requiredScope: String
     var tint: Color = .ocOrange
+    /// List 内由系统提供 chevron；卡片等自定义容器中置 true 手动绘制
+    var showsChevron: Bool = false
     let value:         V
 
     @Environment(AuthManager.self) private var auth
@@ -94,7 +96,16 @@ struct PermissionGatedValueLink<V: Hashable>: View {
 
     var body: some View {
         if auth.hasScope(requiredScope) {
-            NavigationLink(value: value) { rowLabel }
+            NavigationLink(value: value) {
+                HStack {
+                    rowLabel
+                    if showsChevron {
+                        Image(systemName: "chevron.right")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.tertiary)
+                    }
+                }
+            }
         } else {
             Button { showDenied = true } label: {
                 HStack {

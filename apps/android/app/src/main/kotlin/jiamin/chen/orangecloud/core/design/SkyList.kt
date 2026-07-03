@@ -42,7 +42,7 @@ fun rememberSkyPhase(): SkyPhase {
 val SkyPhase.onSky: Color
     get() = if (isDark) Color(0xFFF3ECE4) else Color(0xFF24190F)
 
-/** 统一页头：可选返回 + 标题 + 刷新/加载。 */
+/** 统一页头：可选返回 + 标题 + 额外操作（如排序）+ 刷新/加载。 */
 @Composable
 fun SkyHeader(
     title: String,
@@ -54,6 +54,7 @@ fun SkyHeader(
     titleSize: Int = 28,
     refreshDescription: String = "",
     backDescription: String = "",
+    actions: @Composable () -> Unit = {},
 ) {
     Row(
         modifier = modifier
@@ -75,6 +76,7 @@ fun SkyHeader(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f),
         )
+        actions()
         if (isLoading) {
             CircularProgressIndicator(modifier = Modifier.size(22.dp), color = onSky, strokeWidth = 2.dp)
             Spacer(Modifier.width(12.dp))

@@ -36,6 +36,21 @@ struct DNSService {
         return records
     }
 
+    /// 查某主机名的解析记录（服务端按 name 精确过滤，Pages 域名解析检查用）
+    func listRecords(zoneId: String, name: String) async throws -> [DNSRecord] {
+        let response: CFAPIResponseArray<DNSRecord> = try await client.get(
+            "zones/\(zoneId)/dns_records",
+            queryItems: [
+                URLQueryItem(name: "name",     value: name),
+                URLQueryItem(name: "per_page", value: "100"),
+            ]
+        )
+        guard response.success else {
+            throw response.toAPIError()
+        }
+        return response.result ?? []
+    }
+
     /// 仅取记录总数（per_page 最小档 + result_info.total_count，不拉全量记录）
     func recordCount(zoneId: String) async throws -> Int {
         let response: CFAPIResponseArray<DNSRecord> = try await client.get(

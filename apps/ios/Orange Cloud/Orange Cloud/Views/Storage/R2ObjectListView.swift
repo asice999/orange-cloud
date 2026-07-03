@@ -399,7 +399,7 @@ private struct R2ObjectRow: View {
                     .truncationMode(.middle)
                 HStack(spacing: 6) {
                     if let size = object.size {
-                        Text(Int64(size).formatted(.byteCount(style: .file)))
+                        Text(Int64(size).ocBytes)
                     }
                     if let modified = WorkerScript.parseDate(object.lastModified) {
                         Text(modified, format: .relative(presentation: .named))
@@ -442,7 +442,7 @@ private struct R2ObjectDetailView: View {
                             .multilineTextAlignment(.trailing)
                     }
                     if let size = object.size {
-                        LabeledContent("大小", value: Int64(size).formatted(.byteCount(style: .file)))
+                        LabeledContent("大小", value: Int64(size).ocBytes)
                     }
                     if let contentType = object.httpMetadata?.contentType {
                         LabeledContent("Content-Type", value: contentType)

@@ -18,8 +18,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.CloudUpload
+import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material.icons.outlined.InsertDriveFile
@@ -59,7 +61,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -71,12 +75,15 @@ import jiamin.chen.orangecloud.R
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
+import jiamin.chen.orangecloud.core.design.SortMenuButton
 import jiamin.chen.orangecloud.core.design.StatusDot
+import jiamin.chen.orangecloud.core.design.sorted
 import jiamin.chen.orangecloud.core.design.onSky
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
 import jiamin.chen.orangecloud.core.design.theme.OcOrange
 import jiamin.chen.orangecloud.core.design.theme.OcSuccess
 import jiamin.chen.orangecloud.data.model.PagesDeployment
+import jiamin.chen.orangecloud.data.model.PagesDomain
 import jiamin.chen.orangecloud.data.model.PagesProject
 import jiamin.chen.orangecloud.ui.storage.StorageListBody
 import jiamin.chen.orangecloud.ui.storage.StorageRow
@@ -90,12 +97,22 @@ fun PagesListScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val busy by viewModel.busy.collectAsStateWithLifecycle()
+    val sort by viewModel.sort.collectAsStateWithLifecycle()
     val phase = rememberSkyPhase()
     val onSky = phase.onSky
     val snackbar = remember { SnackbarHostState() }
     var showCreate by remember { mutableStateOf(false) }
     var toDelete by remember { mutableStateOf<PagesProject?>(null) }
     LaunchedEffect(Unit) { viewModel.errors.collect { snackbar.showSnackbar(it) } }
+    val sortedState = remember(state, sort) {
+        state.copy(
+            items = sort.sorted(
+                state.items,
+                created = { it.createdOn },
+                modified = { it.latestDeployment?.modifiedOn ?: it.latestDeployment?.createdOn ?: it.createdOn },
+            ),
+        )
+    }
 
     SkyBackground(phase = phase) {
         Box(Modifier.fillMaxSize()) {
@@ -109,9 +126,14 @@ fun PagesListScreen(
                     titleSize = 22,
                     backDescription = stringResource(R.string.common_back),
                     refreshDescription = stringResource(R.string.common_refresh),
+                    actions = {
+                        if (state.items.isNotEmpty()) {
+                            SortMenuButton(sort = sort, onSky = onSky, onSelect = { viewModel.setSort(it) })
+                        }
+                    },
                 )
                 StorageListBody(
-                    state = state,
+                    state = sortedState,
                     onSky = onSky,
                     emptyIcon = Icons.Outlined.Web,
                     emptyText = stringResource(R.string.pages_empty),
@@ -198,6 +220,9 @@ fun PagesProjectDetailScreen(
     var showConfig by remember { mutableStateOf(false) }
     var showDeployChooser by remember { mutableStateOf(false) }
     var pendingZip by remember { mutableStateOf(false) }
+    var showAddDomain by remember { mutableStateOf(false) }
+    var domainSheet by remember { mutableStateOf<PagesDomain?>(null) }
+    var domainToDelete by remember { mutableStateOf<PagesDomain?>(null) }
 
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         if (uri != null) deployViewModel.deployFrom(uri, pendingZip)
@@ -206,11 +231,17 @@ fun PagesProjectDetailScreen(
     val retriedMsg = stringResource(R.string.pages_retried)
     val rolledMsg = stringResource(R.string.pages_rolled_back)
     val deployedMsg = stringResource(R.string.pages_deployed)
+    val domainAddedMsg = stringResource(R.string.pages_domain_added)
+    val domainDeletedMsg = stringResource(R.string.pages_domain_deleted)
+    val cnameCreatedMsg = stringResource(R.string.pages_cname_created)
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
                 PagesEvent.Retried -> snackbarHostState.showSnackbar(retriedMsg)
                 PagesEvent.RolledBack -> snackbarHostState.showSnackbar(rolledMsg)
+                PagesEvent.DomainAdded -> snackbarHostState.showSnackbar(domainAddedMsg)
+                PagesEvent.DomainDeleted -> snackbarHostState.showSnackbar(domainDeletedMsg)
+                PagesEvent.CnameCreated -> snackbarHostState.showSnackbar(cnameCreatedMsg)
                 is PagesEvent.Error -> snackbarHostState.showSnackbar(event.message ?: "")
             }
         }
@@ -275,6 +306,28 @@ fun PagesProjectDetailScreen(
                             }
                         }
                         item {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.fillMaxWidth().padding(start = 4.dp, top = 8.dp),
+                            ) {
+                                Text(stringResource(R.string.pages_domains_section), color = onSky, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
+                                if (state.canWrite) {
+                                    TextButton(onClick = { showAddDomain = true }, enabled = state.busyDeploymentId == null) {
+                                        Text(stringResource(R.string.pages_domain_add), color = OcOrange, fontSize = 13.sp)
+                                    }
+                                }
+                            }
+                        }
+                        if (state.domains.isEmpty()) {
+                            item {
+                                Text(stringResource(R.string.pages_domain_empty), fontSize = 13.sp, color = onSky.copy(alpha = 0.7f), modifier = Modifier.padding(start = 4.dp))
+                            }
+                        } else {
+                            items(state.domains, key = { "domain-${it.id}" }) { domain ->
+                                PagesDomainRow(domain, dnsState = state.dnsStates[domain.name], onClick = { domainSheet = domain })
+                            }
+                        }
+                        item {
                             Text(stringResource(R.string.pages_deployments), color = onSky, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(start = 4.dp, top = 8.dp))
                         }
                         items(state.deployments, key = { it.id }) { dep ->
@@ -301,6 +354,42 @@ fun PagesProjectDetailScreen(
                 onSave = { cmd, dest, root -> viewModel.updateBuildConfig(cmd, dest, root); showConfig = false },
             )
         }
+    }
+
+    if (showAddDomain) {
+        AddDomainDialog(
+            onDismiss = { showAddDomain = false },
+            onAdd = { name -> viewModel.addDomain(name); showAddDomain = false },
+        )
+    }
+
+    domainSheet?.let { domain ->
+        PagesDomainSheet(
+            domain = domain,
+            dnsState = state.dnsStates[domain.name],
+            cnameTarget = state.project?.subdomain,
+            canWrite = state.canWrite,
+            canWriteDns = state.canWriteDns,
+            busy = state.busyDeploymentId == "domain",
+            onRetry = { viewModel.retryDomain(domain); domainSheet = null },
+            onCreateCname = { viewModel.createCname(domain); domainSheet = null },
+            onDelete = { domainToDelete = domain; domainSheet = null },
+            onDismiss = { domainSheet = null },
+        )
+    }
+
+    domainToDelete?.let { domain ->
+        AlertDialog(
+            onDismissRequest = { domainToDelete = null },
+            title = { Text(stringResource(R.string.pages_domain_delete_title)) },
+            text = { Text(stringResource(R.string.pages_domain_delete_msg, domain.name)) },
+            confirmButton = {
+                TextButton(onClick = { viewModel.deleteDomain(domain); domainToDelete = null }) {
+                    Text(stringResource(R.string.dns_delete), color = Color(0xFFE5484D))
+                }
+            },
+            dismissButton = { TextButton(onClick = { domainToDelete = null }) { Text(stringResource(R.string.common_cancel)) } },
+        )
     }
 
     if (showDeployChooser) {
@@ -418,6 +507,198 @@ private fun DeploymentRow(
             }
         }
     }
+}
+
+// MARK: - 自定义域名
+
+@Composable
+private fun PagesDomainRow(
+    domain: PagesDomain,
+    dnsState: PagesDnsState?,
+    onClick: () -> Unit,
+) {
+    Surface(
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onClick),
+    ) {
+        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+            StatusDot(domainStatusColor(domain.status), size = 8.dp)
+            Spacer(Modifier.width(10.dp))
+            Column(Modifier.weight(1f)) {
+                Text(
+                    domain.name,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = FontFamily.Monospace,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+                if (dnsState == PagesDnsState.Missing) {
+                    Text(
+                        stringResource(R.string.pages_dns_missing),
+                        fontSize = 12.sp,
+                        color = Color(0xFFC77C00),
+                    )
+                }
+            }
+            Spacer(Modifier.width(8.dp))
+            Text(
+                stringResource(domainStatusLabel(domain.status)),
+                fontSize = 12.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}
+
+@Composable
+private fun AddDomainDialog(onDismiss: () -> Unit, onAdd: (String) -> Unit) {
+    var name by rememberSaveable { mutableStateOf("") }
+    val trimmed = name.trim().lowercase()
+    val valid = trimmed.contains(".") && !trimmed.contains(" ")
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.pages_domain_add)) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedTextField(name, { name = it }, label = { Text("example.com") }, singleLine = true, modifier = Modifier.fillMaxWidth())
+                Text(stringResource(R.string.pages_domain_add_hint), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = { onAdd(trimmed) }, enabled = valid) { Text(stringResource(R.string.pages_domain_add)) }
+        },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.common_cancel)) } },
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun PagesDomainSheet(
+    domain: PagesDomain,
+    dnsState: PagesDnsState?,
+    cnameTarget: String?,
+    canWrite: Boolean,
+    canWriteDns: Boolean,
+    busy: Boolean,
+    onRetry: () -> Unit,
+    onCreateCname: () -> Unit,
+    onDelete: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    val clipboard = LocalClipboardManager.current
+    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
+        Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 32.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Text(domain.name, fontSize = 17.sp, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace, color = MaterialTheme.colorScheme.onSurface, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                StatusDot(domainStatusColor(domain.status), size = 8.dp)
+                Spacer(Modifier.width(8.dp))
+                Text(stringResource(domainStatusLabel(domain.status)), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            val errMsg = domain.verificationData?.errorMessage ?: domain.validationData?.errorMessage
+            if (!errMsg.isNullOrBlank()) {
+                Text(errMsg, fontSize = 12.sp, color = Color(0xFFE5484D))
+            }
+
+            // 归属验证 TXT（zone 不在 CF 时）
+            val validation = domain.validationData
+            if (validation?.method == "txt" && validation.status != "active" &&
+                validation.txtName != null && validation.txtValue != null
+            ) {
+                Text(stringResource(R.string.pages_txt_title), fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                DomainCopyLine(stringResource(R.string.pages_txt_name), validation.txtName) {
+                    clipboard.setText(AnnotatedString(validation.txtName))
+                }
+                DomainCopyLine(stringResource(R.string.pages_txt_value), validation.txtValue) {
+                    clipboard.setText(AnnotatedString(validation.txtValue))
+                }
+            }
+
+            // DNS 解析
+            cnameTarget?.let { target ->
+                DomainCopyLine("CNAME", target) {
+                    clipboard.setText(AnnotatedString(target))
+                }
+            }
+            when (dnsState) {
+                is PagesDnsState.Resolved ->
+                    Text(stringResource(R.string.pages_dns_resolved), fontSize = 13.sp, color = OcSuccess)
+                is PagesDnsState.Conflicting ->
+                    Text(stringResource(R.string.pages_dns_conflicting) + " · " + dnsState.content, fontSize = 13.sp, color = Color(0xFFC77C00), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                PagesDnsState.Missing -> {
+                    if (canWriteDns) {
+                        Button(
+                            onClick = onCreateCname,
+                            enabled = !busy,
+                            colors = ButtonDefaults.buttonColors(containerColor = OcOrange, contentColor = Color.White),
+                            modifier = Modifier.fillMaxWidth(),
+                        ) { Text(stringResource(R.string.pages_dns_add_cname)) }
+                    }
+                    cnameTarget?.let {
+                        Text(stringResource(R.string.pages_dns_add_cname_hint, it), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+                PagesDnsState.External ->
+                    Text(stringResource(R.string.pages_dns_external, cnameTarget ?: ""), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                PagesDnsState.Unknown, null -> Unit
+            }
+
+            if (canWrite) {
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                    if (domain.status != "active") {
+                        TextButton(onClick = onRetry, enabled = !busy) {
+                            Text(stringResource(R.string.pages_domain_retry), color = OcOrange, fontSize = 13.sp)
+                        }
+                    }
+                    TextButton(onClick = onDelete, enabled = !busy) {
+                        Text(stringResource(R.string.dns_delete), color = Color(0xFFE5484D), fontSize = 13.sp)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun DomainCopyLine(label: String, value: String, onCopy: () -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().clickable(onClick = onCopy)) {
+        Text(label, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Spacer(Modifier.width(10.dp))
+        Text(
+            value,
+            fontSize = 12.sp,
+            fontFamily = FontFamily.Monospace,
+            color = MaterialTheme.colorScheme.onSurface,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f),
+        )
+        Icon(
+            Icons.Outlined.ContentCopy,
+            contentDescription = stringResource(R.string.r2_copy),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(14.dp),
+        )
+    }
+}
+
+private fun domainStatusLabel(status: String?): Int = when (status) {
+    "active" -> R.string.pages_domain_status_active
+    "pending" -> R.string.pages_domain_status_pending
+    "initializing" -> R.string.pages_domain_status_initializing
+    "deactivated" -> R.string.pages_domain_status_deactivated
+    "blocked" -> R.string.pages_domain_status_blocked
+    "error" -> R.string.pages_domain_status_error
+    else -> R.string.pages_status_unknown
+}
+
+private fun domainStatusColor(status: String?): Color = when (status) {
+    "active" -> OcSuccess
+    "pending", "initializing" -> Color(0xFFC77C00)
+    "blocked", "error" -> Color(0xFFE5484D)
+    else -> Color(0xFF8E8E93)
 }
 
 private fun deployStatusLabel(status: String): Int = when (status) {

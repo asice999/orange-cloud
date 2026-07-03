@@ -213,7 +213,7 @@ struct WorkerUploadView: View {
                     HStack {
                         Text(module.name).font(.caption.monospaced()).lineLimit(1).truncationMode(.middle)
                         Spacer()
-                        Text(Int64(module.data.count).formatted(.byteCount(style: .file)))
+                        Text(Int64(module.data.count).ocBytes)
                             .font(.caption2).foregroundStyle(.secondary)
                     }
                 }
@@ -250,7 +250,7 @@ struct WorkerUploadView: View {
                     HStack {
                         Text(file.path).font(.caption.monospaced()).lineLimit(1).truncationMode(.middle)
                         Spacer()
-                        Text(Int64(file.data.count).formatted(.byteCount(style: .file)))
+                        Text(Int64(file.data.count).ocBytes)
                             .font(.caption2).foregroundStyle(.secondary)
                     }
                 }

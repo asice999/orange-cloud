@@ -30,6 +30,13 @@ class DnsRepository @Inject constructor(
         dnsRecordDao.replaceForZone(zoneId, records.map { it.toEntity(zoneId) })
     }
 
+    /** 查某主机名的解析记录（服务端按 name 精确过滤，不入缓存；Pages 域名解析检查用）。 */
+    suspend fun recordsForName(zoneId: String, name: String): List<DnsRecord> =
+        api.getList<DnsRecord>(
+            "zones/$zoneId/dns_records",
+            listOf("name" to name, "per_page" to "100"),
+        ).items
+
     /** 新建记录，成功后写入缓存并返回。 */
     suspend fun createRecord(zoneId: String, record: CreateDnsRecord): DnsRecord {
         val saved = api.post<DnsRecord, CreateDnsRecord>("zones/$zoneId/dns_records", record)

@@ -226,7 +226,7 @@ nonisolated enum ZoneWidgetMetric: String {
     func valueText(_ zone: WidgetZoneMetrics) -> String {
         switch self {
         case .requests:  zone.requests.formatted(.number.notation(.compactName))
-        case .bandwidth: Int64(zone.bytes).formatted(.byteCount(style: .decimal))
+        case .bandwidth: Int64(zone.bytes).ocBytes
         case .threats:   zone.threats.formatted(.number.notation(.compactName))
         case .visitors:  zone.uniques.formatted(.number.notation(.compactName))
         }

@@ -29,6 +29,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.AutoAwesome
+import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Email
@@ -83,6 +84,8 @@ fun SettingsScreen(
     onAddAccount: () -> Unit = {},
     onOpenPaywall: () -> Unit = {},
     onOpenAudit: () -> Unit = {},
+    onOpenToolbox: () -> Unit = {},
+    onOpenAlerting: () -> Unit = {},
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -241,11 +244,18 @@ fun SettingsScreen(
                 }
             }
 
+            // ── 开发者工具箱（免登录，与登录页同一入口）──
+            SettingsSection(null, null) {
+                NavRow(Icons.Outlined.Build, OcOrange, stringResource(R.string.toolbox_title), onOpenToolbox)
+            }
+
             // ── 服务状态 ──
             SettingsSection(stringResource(R.string.settings_service), stringResource(R.string.settings_service_footer)) {
                 NavRow(Icons.Outlined.MonitorHeart, OcSuccess, stringResource(R.string.status_title), onOpenStatus)
                 RowDivider(indent = true)
                 NavRow(Icons.Outlined.History, Color(0xFF8B6CC7), stringResource(R.string.audit_title), onOpenAudit)
+                RowDivider(indent = true)
+                NavRow(Icons.Outlined.Notifications, OcOrange, stringResource(R.string.alerting_title), onOpenAlerting)
             }
 
             // ── 帮助与反馈 ──

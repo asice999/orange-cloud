@@ -24,25 +24,26 @@ enum CachePolicy {
         return age >= 0 && age < ttl
     }
 
+    // ⚠️ 这里只允许「纯谓词」fetch，禁止 sortBy + fetchLimit：该组合在 iOS 17.0 的
+    // CoreData 层抛 ObjC 异常，`try?` 接不住直接 SIGABRT（TF 崩溃点 D8tiH4pqdctLgx_nCLGnZ，
+    // 1.8.1/1.8.2 实测；同设备上与 @Query 同形态的纯谓词 fetch 正常）。
+    // 单账号/单域名下的缓存行数很小，内存里取 max(updatedAt) 足够。
+
     /// 某账号缓存的域名是否仍在有效期内（用于冷启动免重拉）
     static func zonesFresh(accountId: String, context: ModelContext) -> Bool {
-        var descriptor = FetchDescriptor<CachedZone>(
-            predicate: #Predicate { $0.accountId == accountId },
-            sortBy: [SortDescriptor(\.updatedAt, order: .reverse)]
+        let descriptor = FetchDescriptor<CachedZone>(
+            predicate: #Predicate { $0.accountId == accountId }
         )
-        descriptor.fetchLimit = 1
-        guard let newest = try? context.fetch(descriptor).first else { return false }
-        return isFresh(newest.updatedAt, ttl: zones)
+        guard let cached = try? context.fetch(descriptor), !cached.isEmpty else { return false }
+        return isFresh(cached.map(\.updatedAt).max(), ttl: zones)
     }
 
     /// 某域名缓存的 DNS 记录是否仍在有效期内
     static func dnsFresh(zoneId: String, context: ModelContext) -> Bool {
-        var descriptor = FetchDescriptor<CachedDNSRecord>(
-            predicate: #Predicate { $0.zoneId == zoneId },
-            sortBy: [SortDescriptor(\.updatedAt, order: .reverse)]
+        let descriptor = FetchDescriptor<CachedDNSRecord>(
+            predicate: #Predicate { $0.zoneId == zoneId }
         )
-        descriptor.fetchLimit = 1
-        guard let newest = try? context.fetch(descriptor).first else { return false }
-        return isFresh(newest.updatedAt, ttl: dns)
+        guard let cached = try? context.fetch(descriptor), !cached.isEmpty else { return false }
+        return isFresh(cached.map(\.updatedAt).max(), ttl: dns)
     }
 }

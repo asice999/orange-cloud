@@ -61,6 +61,9 @@ class SettingsViewModel @Inject constructor(
 
     fun switchSession(id: String) = authRepository.switchSession(id)
 
+    /** 重命名登录身份的展示标签（下次账号列表加载不会回填覆盖为空标签的场景） */
+    fun renameSession(id: String, label: String) = authRepository.updateSessionLabel(id, label)
+
     fun logout(sessionId: String) {
         viewModelScope.launch { authRepository.logout(sessionId) }
     }

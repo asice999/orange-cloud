@@ -29,6 +29,8 @@ final class EntitlementStore {
     /// 按 ProductID.all 顺序排列，付费墙直接展示
     private(set) var products: [Product] = []
     private(set) var isLoadingProducts = false
+    /// 恢复购买进行中（防并发 AppStore.sync 互相取消；付费墙据此禁用按钮）
+    private(set) var isRestoring = false
     var purchaseError: String?
 
     private var updatesTask: Task<Void, Never>?
@@ -101,6 +103,11 @@ final class EntitlementStore {
 
     func restorePurchases() async {
         #if !OPENSOURCE_UNLOCKED
+        // 防重入：连点「恢复购买」会并发调用 AppStore.sync()，StoreKit 把前一个取消
+        //（成对的 "restorePurchases failed: 请求已取消"）。进行中直接忽略后续调用。
+        guard !isRestoring else { return }
+        isRestoring = true
+        defer { isRestoring = false }
         do {
             try await AppStore.sync()
             await refreshEntitlements()

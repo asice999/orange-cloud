@@ -51,6 +51,12 @@
                 android:resource="@xml/shortcuts" />
         </activity>
 
+        <!-- 无痕 WebView 授权页（添加账号时用，避免 Custom Tab 复用系统浏览器 Cookie） -->
+        <activity
+            android:name=".core.util.WebAuthActivity"
+            android:excludeFromRecents="true"
+            android:exported="false" />
+
         <!-- R2 对象下载后用系统应用打开/分享（缓存目录临时文件） -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -97,5 +103,19 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/orange_cloud_widget_info" />
         </receiver>
+
+        <!-- 推送中心：FCM 接收服务（Firebase 未配置时系统不会调用）-->
+        <service
+            android:name=".core.push.OcMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <!-- 注意：action 是 com.google.firebase.MESSAGING_EVENT（无 .messaging 段）；
+                     写错服务永远不被解析，前台消息静默丢、后台走 fallback 通道、onNewToken 失效 -->
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="push_center" />
     </application>
 </manifest>

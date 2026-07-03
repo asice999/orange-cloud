@@ -172,6 +172,52 @@ struct ProGatedNavigationLink<Destination: View>: View {
     }
 }
 
+/// 行级 Pro 闸门（值式导航版）：目的页自身还要继续 push 的入口用它——eager
+/// `NavigationLink(destination:)` 构造的目的页内部再 push 在 iOS 17.0 会卡死
+/// （详见 PermissionGatedValueLink / DevHubRoute 注释），值式 + 宿主栈根 navdest 才安全。
+struct ProGatedValueLink<V: Hashable>: View {
+
+    let label:         String
+    let systemImage:   String
+    let requiredScope: String
+    let feature:       ProFeature
+    var tint: Color = .ocOrange
+    var showsChevron: Bool = false
+    let value:         V
+
+    @Environment(EntitlementStore.self) private var entitlements
+    @State private var paywallPresented = false
+
+    var body: some View {
+        if entitlements.isPro {
+            PermissionGatedValueLink(
+                label: label,
+                systemImage: systemImage,
+                requiredScope: requiredScope,
+                tint: tint,
+                showsChevron: showsChevron,
+                value: value
+            )
+        } else {
+            Button {
+                paywallPresented = true
+            } label: {
+                HStack(spacing: 12) {
+                    TintIcon(systemImage: systemImage, color: tint)
+                    Text(label)
+                        .foregroundStyle(.primary)
+                    Spacer()
+                    ProBadge()
+                }
+            }
+            .foregroundStyle(.primary)
+            .sheet(isPresented: $paywallPresented) {
+                PaywallView(feature: feature)
+            }
+        }
+    }
+}
+
 /// 整页锁定态（如存储 Tab）：占满内容区的 Pro 介绍 + 付费墙入口
 struct ProLockedView: View {
 

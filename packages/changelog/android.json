@@ -1,5 +1,179 @@
 [
   {
+    "version": "1.6.0",
+    "date": "2026.07.03",
+    "channel": "Google Play",
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "Pages 自定义域名",
+          "en": "Pages custom domains",
+          "zh-Hant": "Pages 自訂網域",
+          "zh-HK": "Pages 自訂域名",
+          "ja": "Pages カスタムドメイン",
+          "es-MX": "Dominios personalizados de Pages",
+          "ko": "Pages 사용자 지정 도메인",
+          "pt-BR": "Domínios personalizados do Pages",
+          "pt-PT": "Domínios personalizados do Pages",
+          "de": "Benutzerdefinierte Domains für Pages",
+          "fr": "Domaines personnalisés Pages",
+          "ar": "نطاقات Pages المخصصة",
+          "tr": "Pages özel alan adları"
+        },
+        "detail": {
+          "zh-Hans": "Pages 项目现可直接管理自定义域名：添加、删除、重新验证并检查解析状态；域名在当前账号时，还能一键添加指向项目的 CNAME 记录。",
+          "en": "Manage custom domains right inside a Pages project: add, remove, re-validate, and check DNS status — with one-tap CNAME setup when the domain’s zone is on your account.",
+          "zh-Hant": "Pages 專案現可直接管理自訂網域：新增、刪除、重新驗證並檢查解析狀態；網域在目前帳號時，還能一鍵新增指向專案的 CNAME 記錄。",
+          "zh-HK": "Pages 項目現可直接管理自訂域名：新增、刪除、重新驗證並檢查解析狀態；域名在當前帳戶時，還能一鍵新增指向項目的 CNAME 記錄。",
+          "ja": "Pages プロジェクト内でカスタムドメインを直接管理：追加・削除・再検証と DNS 状態の確認に対応。ドメインが現在のアカウントにある場合は、プロジェクトへ向ける CNAME レコードをワンタップで追加できます。",
+          "es-MX": "Administra dominios personalizados dentro de un proyecto de Pages: agregar, eliminar, revalidar y comprobar el estado del DNS; si la zona del dominio está en tu cuenta, agrega el registro CNAME con un toque.",
+          "ko": "Pages 프로젝트에서 사용자 지정 도메인을 직접 관리하세요: 추가·삭제·재확인과 DNS 상태 확인을 지원하며, 도메인이 현재 계정에 있으면 프로젝트를 가리키는 CNAME 레코드를 한 번에 추가할 수 있습니다.",
+          "pt-BR": "Gerencie domínios personalizados dentro de um projeto do Pages: adicionar, remover, revalidar e verificar o status do DNS — com criação do registro CNAME em um toque quando a zona do domínio está na sua conta.",
+          "pt-PT": "Faça a gestão de domínios personalizados dentro de um projeto do Pages: adicionar, remover, revalidar e verificar o estado do DNS — com criação do registo CNAME num toque quando a zona do domínio está na sua conta.",
+          "de": "Verwalte benutzerdefinierte Domains direkt im Pages-Projekt: hinzufügen, entfernen, erneut validieren und DNS-Status prüfen – mit Ein-Tipp-CNAME, wenn die Zone der Domain in deinem Konto liegt.",
+          "fr": "Gérez les domaines personnalisés directement dans un projet Pages : ajout, suppression, revalidation et vérification du DNS — avec création du CNAME en un geste quand la zone du domaine est sur votre compte.",
+          "ar": "أدر النطاقات المخصصة داخل مشروع Pages مباشرة: إضافة وحذف وإعادة تحقق وفحص حالة DNS — مع إضافة سجل CNAME بلمسة واحدة عندما تكون منطقة النطاق ضمن حسابك.",
+          "tr": "Özel alan adlarını doğrudan Pages projesi içinde yönetin: ekleme, silme, yeniden doğrulama ve DNS durumu kontrolü — alan adının bölgesi hesabınızdaysa tek dokunuşla CNAME kaydı ekleyin."
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "列表排序",
+          "en": "List sorting",
+          "zh-Hant": "清單排序",
+          "zh-HK": "列表排序",
+          "ja": "リストの並べ替え",
+          "es-MX": "Orden de listas",
+          "ko": "목록 정렬",
+          "pt-BR": "Ordenação de listas",
+          "pt-PT": "Ordenação de listas",
+          "de": "Listensortierung",
+          "fr": "Tri des listes",
+          "ar": "ترتيب القوائم",
+          "tr": "Liste sıralama"
+        },
+        "detail": {
+          "zh-Hans": "Workers 与 Pages 列表新增排序：默认（名称）、创建日期、最近更新，选择会被记住。",
+          "en": "Workers and Pages lists can now be sorted by name (default), date created, or recently updated — your choice is remembered.",
+          "zh-Hant": "Workers 與 Pages 清單新增排序：預設（名稱）、建立日期、最近更新，選擇會被記住。",
+          "zh-HK": "Workers 與 Pages 列表新增排序：默認（名稱）、創建日期、最近更新，選擇會被記住。",
+          "ja": "Workers と Pages のリストを名前（デフォルト）・作成日・最近の更新で並べ替えられるようになりました。選択は記憶されます。",
+          "es-MX": "Las listas de Workers y Pages ahora se pueden ordenar por nombre (predeterminado), fecha de creación o actualización reciente; tu elección se recuerda.",
+          "ko": "Workers와 Pages 목록을 이름(기본), 생성일, 최근 업데이트로 정렬할 수 있습니다. 선택은 기억됩니다.",
+          "pt-BR": "As listas de Workers e Pages agora podem ser ordenadas por nome (padrão), data de criação ou atualização recente — sua escolha é lembrada.",
+          "pt-PT": "As listas de Workers e Pages podem agora ser ordenadas por nome (predefinição), data de criação ou atualização recente — a sua escolha é lembrada.",
+          "de": "Workers- und Pages-Listen lassen sich jetzt nach Name (Standard), Erstellungsdatum oder letzter Aktualisierung sortieren – die Auswahl wird gemerkt.",
+          "fr": "Les listes Workers et Pages peuvent désormais être triées par nom (par défaut), date de création ou mise à jour récente — votre choix est mémorisé.",
+          "ar": "يمكن الآن ترتيب قوائم Workers و Pages حسب الاسم (افتراضي) أو تاريخ الإنشاء أو آخر تحديث — ويُحفظ اختيارك.",
+          "tr": "Workers ve Pages listeleri artık ada (varsayılan), oluşturma tarihine veya son güncellemeye göre sıralanabilir; seçiminiz hatırlanır."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.5.0",
+    "date": "2026.06.30",
+    "channel": "Google Play",
+    "items": [
+      {
+        "title": {
+          "zh-Hans": "免登录开发者工具箱",
+          "en": "No-login developer toolbox",
+          "zh-Hant": "免登入開發者工具箱",
+          "zh-HK": "免登入開發者工具箱",
+          "ja": "ログイン不要の開発者ツールボックス",
+          "es-MX": "Caja de herramientas para desarrolladores sin iniciar sesión",
+          "ko": "로그인 없는 개발자 도구 모음",
+          "pt-BR": "Caixa de ferramentas do desenvolvedor sem login",
+          "pt-PT": "Caixa de ferramentas do programador sem início de sessão",
+          "de": "Entwickler-Toolbox ohne Anmeldung",
+          "fr": "Boîte à outils développeur sans connexion",
+          "ar": "صندوق أدوات المطوّر بدون تسجيل دخول",
+          "tr": "Girişsiz geliştirici araç kutusu"
+        },
+        "detail": {
+          "zh-Hans": "无需登录即可使用一组常用网络工具：DNS 查询、SSL 证书检查、HTTP 头、WHOIS、IP 归属、CIDR 计算与 Cloudflare trace。打开 App 在登录页就能直接进入。",
+          "en": "A set of handy network tools you can use without signing in: DNS lookup, SSL certificate inspection, HTTP headers, WHOIS, IP geolocation, a CIDR calculator and Cloudflare trace — reachable right from the login screen.",
+          "zh-Hant": "無需登入即可使用一組常用網路工具：DNS 查詢、SSL 憑證檢查、HTTP 標頭、WHOIS、IP 歸屬、CIDR 計算與 Cloudflare trace。開啟 App 在登入頁就能直接進入。",
+          "zh-HK": "無需登入即可使用一組常用網路工具：DNS 查詢、SSL 憑證檢查、HTTP 標頭、WHOIS、IP 歸屬、CIDR 計算與 Cloudflare trace。開啟 App 在登入頁就能直接進入。",
+          "ja": "ログインせずに使える定番のネットワークツール群：DNS 検索、SSL 証明書チェック、HTTP ヘッダー、WHOIS、IP 位置情報、CIDR 計算、Cloudflare trace。ログイン画面からそのまま開けます。",
+          "es-MX": "Un conjunto de herramientas de red prácticas que puedes usar sin iniciar sesión: consulta DNS, inspección de certificados SSL, encabezados HTTP, WHOIS, geolocalización de IP, calculadora CIDR y Cloudflare trace, accesibles desde la pantalla de inicio de sesión.",
+          "ko": "로그인 없이 사용할 수 있는 유용한 네트워크 도구 모음: DNS 조회, SSL 인증서 검사, HTTP 헤더, WHOIS, IP 위치, CIDR 계산기, Cloudflare trace. 로그인 화면에서 바로 열 수 있습니다.",
+          "pt-BR": "Um conjunto de ferramentas de rede úteis que você pode usar sem fazer login: consulta DNS, inspeção de certificado SSL, cabeçalhos HTTP, WHOIS, geolocalização de IP, calculadora CIDR e Cloudflare trace — acessíveis direto na tela de login.",
+          "pt-PT": "Um conjunto de ferramentas de rede úteis que pode usar sem iniciar sessão: consulta DNS, inspeção de certificado SSL, cabeçalhos HTTP, WHOIS, geolocalização de IP, calculadora CIDR e Cloudflare trace — acessíveis a partir do ecrã de início de sessão.",
+          "de": "Praktische Netzwerk-Tools, die du ohne Anmeldung nutzen kannst: DNS-Abfrage, SSL-Zertifikatsprüfung, HTTP-Header, WHOIS, IP-Geolokalisierung, ein CIDR-Rechner und Cloudflare-Trace – direkt vom Anmeldebildschirm aus erreichbar.",
+          "fr": "Un ensemble d'outils réseau pratiques utilisables sans connexion : requête DNS, inspection de certificat SSL, en-têtes HTTP, WHOIS, géolocalisation IP, calculateur CIDR et Cloudflare trace — accessibles depuis l'écran de connexion.",
+          "ar": "مجموعة من أدوات الشبكة العملية التي يمكنك استخدامها دون تسجيل الدخول: استعلام DNS، فحص شهادة SSL، ترويسات HTTP، WHOIS، تحديد موقع IP، حاسبة CIDR، وCloudflare trace — يمكن الوصول إليها مباشرةً من شاشة تسجيل الدخول.",
+          "tr": "Oturum açmadan kullanabileceğiniz pratik ağ araçları: DNS sorgusu, SSL sertifikası incelemesi, HTTP başlıkları, WHOIS, IP konumu, CIDR hesaplayıcı ve Cloudflare trace — giriş ekranından doğrudan erişilebilir."
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "推送中心",
+          "en": "Push Center",
+          "zh-Hant": "推送中心",
+          "zh-HK": "推送中心",
+          "ja": "プッシュセンター",
+          "es-MX": "Centro de notificaciones",
+          "ko": "푸시 센터",
+          "pt-BR": "Central de Push",
+          "pt-PT": "Centro de Push",
+          "de": "Push-Center",
+          "fr": "Centre de push",
+          "ar": "مركز الإشعارات",
+          "tr": "Push Merkezi"
+        },
+        "detail": {
+          "zh-Hans": "内置推送服务：拿到一个专属端点，用 curl 或脚本就能把消息推到这台设备，支持标题、分组与收件箱。无需登录 Cloudflare 即可使用。",
+          "en": "A built-in push service: get your own endpoint and send messages to this device with a simple curl or script — with titles, groups and an inbox. No Cloudflare sign-in required.",
+          "zh-Hant": "內建推送服務：取得專屬端點，用 curl 或指令稿就能把訊息推到這台裝置，支援標題、分組與收件匣。無需登入 Cloudflare 即可使用。",
+          "zh-HK": "內建推送服務：取得專屬端點，用 curl 或指令稿就能把訊息推到這部裝置，支援標題、分組與收件箱。無需登入 Cloudflare 即可使用。",
+          "ja": "プッシュ機能を内蔵。専用エンドポイントを取得すれば、curl やスクリプトでこの端末にメッセージを送れます。タイトル、グループ、受信箱に対応。Cloudflare へのサインインは不要です。",
+          "es-MX": "Servicio de notificaciones integrado: obtén tu propio endpoint y envía mensajes a este dispositivo con un simple curl o script, con título, grupo y bandeja de entrada. No requiere iniciar sesión en Cloudflare.",
+          "ko": "푸시 기능 내장: 전용 엔드포인트를 받아 curl이나 스크립트로 이 기기에 메시지를 보낼 수 있습니다. 제목, 그룹, 수신함을 지원합니다. Cloudflare 로그인이 필요 없습니다.",
+          "pt-BR": "Serviço de push integrado: obtenha seu próprio endpoint e envie mensagens para este dispositivo com um simples curl ou script — com título, grupo e caixa de entrada. Não exige login na Cloudflare.",
+          "pt-PT": "Serviço de push integrado: obtenha o seu próprio endpoint e envie mensagens para este dispositivo com um simples curl ou script — com título, grupo e caixa de entrada. Não exige iniciar sessão na Cloudflare.",
+          "de": "Integrierter Push-Dienst: Hol dir deinen eigenen Endpunkt und sende Nachrichten per curl oder Skript an dieses Gerät – mit Titel, Gruppe und Posteingang. Keine Cloudflare-Anmeldung nötig.",
+          "fr": "Service de push intégré : obtenez votre propre point de terminaison et envoyez des messages à cet appareil avec un simple curl ou script — avec titre, groupe et boîte de réception. Aucune connexion Cloudflare requise.",
+          "ar": "خدمة دفع مدمجة: احصل على نقطة نهاية خاصة بك وأرسل الرسائل إلى هذا الجهاز باستخدام curl أو سكربت بسيط — مع عنوان ومجموعة وصندوق وارد. لا يتطلب تسجيل الدخول إلى Cloudflare.",
+          "tr": "Yerleşik push hizmeti: kendi uç noktanızı alın ve basit bir curl veya betikle bu cihaza mesaj gönderin — başlık, grup ve gelen kutusu ile. Cloudflare oturumu gerekmez."
+        }
+      },
+      {
+        "title": {
+          "zh-Hans": "把 Cloudflare 告警推到手机",
+          "en": "Cloudflare alerts on your phone",
+          "zh-Hant": "把 Cloudflare 告警推到手機",
+          "zh-HK": "把 Cloudflare 告警推到手機",
+          "ja": "Cloudflare のアラートをスマホへ",
+          "es-MX": "Alertas de Cloudflare en tu teléfono",
+          "ko": "휴대폰으로 받는 Cloudflare 경고",
+          "pt-BR": "Alertas da Cloudflare no seu celular",
+          "pt-PT": "Alertas da Cloudflare no seu telemóvel",
+          "de": "Cloudflare-Warnungen auf deinem Handy",
+          "fr": "Les alertes Cloudflare sur votre téléphone",
+          "ar": "تنبيهات Cloudflare على هاتفك",
+          "tr": "Cloudflare uyarıları telefonunuzda"
+        },
+        "detail": {
+          "zh-Hans": "登录后可直接管理 Cloudflare 告警策略：选择想关注的告警类型（DDoS、健康检查、证书到期、Workers 错误率等），一键接到推送中心，事件发生时直推到这台设备。需账号下有 Pro 及以上套餐的域名。",
+          "en": "Once signed in, manage your Cloudflare alert policies right here: pick the alert types you care about (DDoS, health checks, certificate expiry, Workers error rate and more) and wire them to the Push Center in one tap, so events land on this device. Requires a domain on a Pro or higher plan.",
+          "zh-Hant": "登入後可直接管理 Cloudflare 告警策略：選擇想關注的告警類型（DDoS、健康檢查、憑證到期、Workers 錯誤率等），一鍵接到推送中心，事件發生時直推到這台裝置。需帳戶下有 Pro 及以上方案的網域。",
+          "zh-HK": "登入後可直接管理 Cloudflare 告警策略：選擇想關注的告警類型（DDoS、健康檢查、憑證到期、Workers 錯誤率等），一鍵接到推送中心，事件發生時直推到這部裝置。需帳戶下有 Pro 及以上計劃的域名。",
+          "ja": "サインインすると Cloudflare のアラートポリシーをここで管理できます。気になるアラートの種類（DDoS、ヘルスチェック、証明書の有効期限、Workers のエラー率など）を選び、ワンタップでプッシュセンターに接続。イベント発生時にこの端末へ直接届きます。Pro 以上のプランのドメインが必要です。",
+          "es-MX": "Una vez que inicies sesión, administra aquí tus políticas de alertas de Cloudflare: elige los tipos de alerta que te importan (DDoS, comprobaciones de estado, vencimiento de certificados, tasa de errores de Workers y más) y conéctalos al Centro de notificaciones con un toque, para que los eventos lleguen a este dispositivo. Requiere un dominio con plan Pro o superior.",
+          "ko": "로그인하면 여기에서 Cloudflare 경고 정책을 관리할 수 있습니다. 원하는 경고 유형(DDoS, 상태 확인, 인증서 만료, Workers 오류율 등)을 골라 한 번의 탭으로 푸시 센터에 연결하면, 이벤트가 이 기기로 바로 전달됩니다. Pro 이상 요금제의 도메인이 필요합니다.",
+          "pt-BR": "Depois de fazer login, gerencie aqui suas políticas de alerta da Cloudflare: escolha os tipos de alerta que importam para você (DDoS, verificações de integridade, expiração de certificados, taxa de erros do Workers e mais) e conecte-os à Central de Push com um toque, para que os eventos cheguem a este dispositivo. Requer um domínio com plano Pro ou superior.",
+          "pt-PT": "Depois de iniciar sessão, faça aqui a gestão das suas políticas de alerta da Cloudflare: escolha os tipos de alerta que lhe interessam (DDoS, verificações de estado, expiração de certificados, taxa de erros do Workers e mais) e ligue-os ao Centro de Push com um toque, para que os eventos cheguem a este dispositivo. Requer um domínio com plano Pro ou superior.",
+          "de": "Nach der Anmeldung verwaltest du hier deine Cloudflare-Warnrichtlinien: Wähle die Warntypen, die dich interessieren (DDoS, Health Checks, Zertifikatsablauf, Workers-Fehlerrate und mehr), und verbinde sie mit einem Tippen mit dem Push-Center, damit Ereignisse auf diesem Gerät ankommen. Erfordert eine Domain mit Pro-Tarif oder höher.",
+          "fr": "Une fois connecté, gérez ici vos politiques d'alerte Cloudflare : choisissez les types d'alerte qui vous intéressent (DDoS, contrôles d'état, expiration de certificat, taux d'erreur Workers, etc.) et reliez-les au centre de push en un geste, pour que les événements arrivent sur cet appareil. Nécessite un domaine avec un forfait Pro ou supérieur.",
+          "ar": "بعد تسجيل الدخول، يمكنك إدارة سياسات تنبيهات Cloudflare من هنا: اختر أنواع التنبيهات التي تهمّك (DDoS، فحوصات السلامة، انتهاء الشهادات، معدل أخطاء Workers والمزيد) واربطها بمركز الإشعارات بنقرة واحدة، لتصل الأحداث إلى هذا الجهاز. يتطلب نطاقًا بخطة Pro أو أعلى.",
+          "tr": "Oturum açtıktan sonra Cloudflare uyarı politikalarınızı buradan yönetin: önemsediğiniz uyarı türlerini (DDoS, durum denetimleri, sertifika süresi dolması, Workers hata oranı ve daha fazlası) seçin ve tek dokunuşla Push Merkezi'ne bağlayın; böylece olaylar bu cihaza ulaşsın. Pro veya üzeri planda bir alan adı gerektirir."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.4.2",
     "date": "2026.06.29",
     "channel": "Google Play",

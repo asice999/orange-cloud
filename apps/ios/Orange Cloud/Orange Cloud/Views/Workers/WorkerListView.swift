@@ -23,6 +23,7 @@ struct WorkerListView: View {
     @State private var showTailDenied = false
     @State private var showCreate = false
     @State private var createDenied = false
+    @AppStorage("workerListSort") private var sort: ResourceSort = .name
 
     private var canWrite: Bool { auth.hasScope("workers-scripts.write") }
 
@@ -39,8 +40,10 @@ struct WorkerListView: View {
     }
 
     private var filteredScripts: [CachedWorkerScript] {
-        guard !searchText.isEmpty else { return cachedScripts }
-        return cachedScripts.filter { $0.id.localizedCaseInsensitiveContains(searchText) }
+        let scripts = searchText.isEmpty
+            ? Array(cachedScripts)
+            : cachedScripts.filter { $0.id.localizedCaseInsensitiveContains(searchText) }
+        return sort.sorted(scripts, created: \.createdOn, modified: \.modifiedOn)
     }
 
     var body: some View {
@@ -70,6 +73,9 @@ struct WorkerListView: View {
                 }
             }
             .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    ResourceSortMenu(sort: $sort)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("新建 Worker", systemImage: "plus") {
                         if canWrite { showCreate = true } else { createDenied = true }

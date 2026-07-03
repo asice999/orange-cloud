@@ -46,16 +46,9 @@ struct TunnelListView: View {
                 }
             } else {
                 List(viewModel.tunnels) { tunnel in
-                    NavigationLink {
-                        TunnelDetailView(
-                            tunnel: tunnel,
-                            accountId: accountId ?? "",
-                            session: session,
-                            listViewModel: viewModel,
-                            canWrite: canWrite,
-                            canWriteDNS: canWriteDNS
-                        )
-                    } label: {
+                    // 值式导航：详情页由宿主栈根的 .navigationDestination(for: Tunnel.self) 解析
+                    //（DashboardView），eager 形态的目的页内部再 push 在 iOS 17.0 会卡死。
+                    NavigationLink(value: tunnel) {
                         TunnelRow(tunnel: tunnel)
                     }
                     .glassRow()
@@ -184,7 +177,6 @@ struct TunnelDetailView: View {
 
     let session: SessionStore
     let accountId: String
-    let listViewModel: TunnelListViewModel
     let canWrite: Bool
 
     /// 公共主机名编辑目标（sheet item）：.new 新增，.edit 改既有。
@@ -203,13 +195,11 @@ struct TunnelDetailView: View {
         tunnel: Tunnel,
         accountId: String,
         session: SessionStore,
-        listViewModel: TunnelListViewModel,
         canWrite: Bool,
         canWriteDNS: Bool
     ) {
         self.session = session
         self.accountId = accountId
-        self.listViewModel = listViewModel
         self.canWrite = canWrite
         _viewModel = State(initialValue: TunnelDetailViewModel(
             tunnel: tunnel, accountId: accountId, session: session, canWriteDNS: canWriteDNS
@@ -241,8 +231,9 @@ struct TunnelDetailView: View {
         }
         .confirmationDialog("删除隧道", isPresented: $showDeleteConfirm, titleVisibility: .visible) {
             Button("删除「\(tunnel.name)」", role: .destructive) {
+                // 删除走详情自己的 VM；弹回列表后其 .task 重新拉取，列表自然消掉该项
                 Task {
-                    if await listViewModel.deleteTunnel(tunnel, accountId: accountId) { dismiss() }
+                    if await viewModel.deleteTunnel() { dismiss() }
                 }
             }
         } message: {
@@ -306,9 +297,9 @@ struct TunnelDetailView: View {
 
     private var connectSection: some View {
         Section {
-            NavigationLink {
-                TunnelConnectView(tunnel: tunnel, accountId: accountId, session: session)
-            } label: {
+            // 值式：连接页由栈根的 DashboardRoute navdest 解析（本页已是被 push 的目的页，
+            // eager 形态在 iOS 17.0 会失灵）
+            NavigationLink(value: DashboardRoute.tunnelConnect(tunnel)) {
                 Label("连接信息（令牌与命令）", systemImage: "link")
             }
         } footer: {

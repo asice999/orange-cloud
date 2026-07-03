@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_6_0_0_title">Pages 自定义域名</string>
+    <string name="whatsnew_1_6_0_0_detail">Pages 项目现可直接管理自定义域名：添加、删除、重新验证并检查解析状态；域名在当前账号时，还能一键添加指向项目的 CNAME 记录。</string>
+    <string name="whatsnew_1_6_0_1_title">列表排序</string>
+    <string name="whatsnew_1_6_0_1_detail">Workers 与 Pages 列表新增排序：默认（名称）、创建日期、最近更新，选择会被记住。</string>
+    <string name="whatsnew_1_5_0_0_title">免登录开发者工具箱</string>
+    <string name="whatsnew_1_5_0_0_detail">无需登录即可使用一组常用网络工具：DNS 查询、SSL 证书检查、HTTP 头、WHOIS、IP 归属、CIDR 计算与 Cloudflare trace。打开 App 在登录页就能直接进入。</string>
+    <string name="whatsnew_1_5_0_1_title">推送中心</string>
+    <string name="whatsnew_1_5_0_1_detail">内置推送服务：拿到一个专属端点，用 curl 或脚本就能把消息推到这台设备，支持标题、分组与收件箱。无需登录 Cloudflare 即可使用。</string>
+    <string name="whatsnew_1_5_0_2_title">把 Cloudflare 告警推到手机</string>
+    <string name="whatsnew_1_5_0_2_detail">登录后可直接管理 Cloudflare 告警策略：选择想关注的告警类型（DDoS、健康检查、证书到期、Workers 错误率等），一键接到推送中心，事件发生时直推到这台设备。需账号下有 Pro 及以上套餐的域名。</string>
     <string name="whatsnew_1_4_2_0_title">Workers AI 体验升级</string>
     <string name="whatsnew_1_4_2_0_detail">现在可按任务类型分组浏览模型、查看模型详情，并修复了文本生成模型的试运行。</string>
     <string name="whatsnew_1_4_0_title">全新「开发者平台」</string>

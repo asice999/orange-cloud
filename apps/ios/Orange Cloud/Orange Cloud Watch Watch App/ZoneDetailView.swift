@@ -63,7 +63,7 @@ struct ZoneDetailView: View {
             MetricTile(title: String(localized: "命中率"), value: current.cacheHitRate.map { "\(Int($0))%" } ?? "—")
             MetricTile(title: String(localized: "威胁"),   value: current.threats.watchCompact)
             MetricTile(title: String(localized: "访客"),   value: current.uniques.watchCompact)
-            MetricTile(title: String(localized: "带宽"),   value: Int64(current.bytes).formatted(.byteCount(style: .decimal)))
+            MetricTile(title: String(localized: "带宽"),   value: Int64(current.bytes).ocBytes)
         }
     }
 }

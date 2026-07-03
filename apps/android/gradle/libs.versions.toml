@@ -27,6 +27,7 @@ billing = "7.1.1"
 workManager = "2.10.1"
 coil = "2.7.0"
 glance = "1.1.1"
+firebaseBom = "33.7.0"
 
 junit = "4.13.2"
 androidxTestExt = "1.2.1"
@@ -76,6 +77,10 @@ billing-ktx = { group = "com.android.billingclient", name = "billing-ktx", versi
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workManager" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 androidx-glance-appwidget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
+
+# 推送（FCM，全风味；实际生效需在 local.properties 填 FCM_* + Firebase 项目）
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
 
 # 测试
 junit = { group = "junit", name = "junit", version.ref = "junit" }

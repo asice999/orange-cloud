@@ -333,7 +333,7 @@ struct ZoneStatWidgetView: View {
             (.requests,  String(localized: "请求"), zone.requests.formatted(.number.notation(.compactName))),
             (.threats,   String(localized: "拦截"), zone.threats.formatted(.number.notation(.compactName))),
             (.visitors,  String(localized: "访客"), zone.uniques.formatted(.number.notation(.compactName))),
-            (.bandwidth, String(localized: "带宽"), Int64(zone.bytes).formatted(.byteCount(style: .decimal))),
+            (.bandwidth, String(localized: "带宽"), Int64(zone.bytes).ocBytes),
         ]
         return Array(all.filter { $0.0 != entry.metric }.prefix(2).map { ($0.1, $0.2) })
     }
@@ -463,7 +463,7 @@ struct ZoneChartWidgetView: View {
                 if let hitRate = zone.cacheHitRate {
                     overviewStat(String(localized: "命中率"), "\(Int(hitRate))%")
                 }
-                overviewStat(String(localized: "带宽"), Int64(zone.bytes).formatted(.byteCount(style: .decimal)))
+                overviewStat(String(localized: "带宽"), Int64(zone.bytes).ocBytes)
                 overviewStat(String(localized: "威胁"), zone.threats.formatted(.number.notation(.compactName)))
                 overviewStat(String(localized: "访客"), zone.uniques.formatted(.number.notation(.compactName)))
             }

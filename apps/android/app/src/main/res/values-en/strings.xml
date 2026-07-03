@@ -237,6 +237,7 @@
     <string name="dash_quick">Quick actions</string>
     <string name="dash_refresh">Refresh status</string>
     <string name="dash_switch_account">Switch account</string>
+    <string name="dash_switch_identity">Sign-in identities</string>
     <string name="dash_add_account">Add account</string>
 
     <!-- WAF -->
@@ -336,8 +337,12 @@
     <string name="identity_logout_confirm_title">Sign out of this account?</string>
     <string name="identity_logout_confirm_msg">This removes the account\'s sign-in from this device. You can sign in again anytime.</string>
     <string name="identity_logout_confirm_msg_last">This is your last account; signing out returns you to the login screen.</string>
+    <string name="identity_rename">Rename</string>
+    <string name="identity_rename_title">Rename account</string>
+    <string name="identity_rename_hint">Enter a new account name</string>
 
     <string name="common_cancel">Cancel</string>
+    <string name="common_confirm">OK</string>
 
     <!-- Cloudflare status page -->
     <string name="status_title">Cloudflare Status</string>
@@ -1058,4 +1063,138 @@
     <string name="dev_ai_run_note">Sends one user message and shows the model\'s reply. Uses your account\'s Workers AI quota (10,000 free Neurons per day).</string>
     <string name="dev_ai_needs_write">Running a text-generation model requires Workers AI write permission (ai.write). Sign out and authorize again with that permission enabled.</string>
     <string name="dev_ai_unsupported">This model\'s input/output format differs from text generation, so it can\'t be run in the app yet.</string>
+
+    <!-- 免登录工具箱（toolbox / 推送中心入口）-->
+    <string name="tool_run">Run</string>
+    <string name="tool_copy">Copy</string>
+    <string name="tool_copied">Copied</string>
+    <string name="tool_err_input">Enter a valid value</string>
+    <string name="tool_err_network">Network error, try again</string>
+    <string name="tool_err_unsupported">RDAP is not available for this TLD</string>
+    <string name="tool_err_not_found">No result found</string>
+    <string name="toolbox_title">Developer Toolbox</string>
+    <string name="toolbox_subtitle">Handy network tools, no sign-in required</string>
+    <string name="toolbox_login_cta">Developer toolbox · no sign-in</string>
+    <string name="tool_dns_title">DNS Lookup</string>
+    <string name="tool_dns_sub">A / AAAA / CNAME / MX / TXT / NS / CAA</string>
+    <string name="tool_dns_hint">Domain, e.g. example.com</string>
+    <string name="tool_dns_blurb">Look up DNS records for a domain</string>
+    <string name="tool_dns_empty">No records of this type</string>
+    <string name="tool_ssl_title">SSL Certificate</string>
+    <string name="tool_ssl_sub">Chain, expiry, issuer</string>
+    <string name="tool_ssl_hint">Host, e.g. example.com</string>
+    <string name="tool_ssl_blurb">Inspect a site\'s SSL certificate</string>
+    <string name="tool_ssl_expired">Certificate expired</string>
+    <string name="tool_ssl_expiring">Expires in %1$d days</string>
+    <string name="tool_ssl_valid">Valid, %1$d days left</string>
+    <string name="tool_ssl_subject">Subject</string>
+    <string name="tool_ssl_issuer">Issuer</string>
+    <string name="tool_ssl_not_before">Not before</string>
+    <string name="tool_ssl_not_after">Not after</string>
+    <string name="tool_ssl_sig_alg">Signature</string>
+    <string name="tool_ssl_key">Public key</string>
+    <string name="tool_ssl_trusted">Trusted</string>
+    <string name="tool_ssl_trusted_yes">Yes</string>
+    <string name="tool_ssl_trusted_no">No</string>
+    <string name="tool_ssl_chain">Chain length</string>
+    <string name="tool_ssl_sans">Subject Alt Names</string>
+    <string name="tool_http_title">HTTP Request</string>
+    <string name="tool_http_sub">Status, headers, timing</string>
+    <string name="tool_http_hint">https:// URL</string>
+    <string name="tool_http_blurb">Send an HTTPS request, see the response</string>
+    <string name="tool_http_headers">Headers</string>
+    <string name="tool_http_body">Body</string>
+    <string name="tool_whois_title">WHOIS</string>
+    <string name="tool_whois_sub">Domain registration info</string>
+    <string name="tool_whois_hint">Domain, e.g. example.com</string>
+    <string name="tool_whois_blurb">Look up a domain\'s registration</string>
+    <string name="tool_whois_domain">Domain</string>
+    <string name="tool_whois_registrar">Registrar</string>
+    <string name="tool_whois_created">Created</string>
+    <string name="tool_whois_expires">Expires</string>
+    <string name="tool_whois_updated">Updated</string>
+    <string name="tool_whois_status">Status</string>
+    <string name="tool_whois_nameservers">Nameservers</string>
+    <string name="tool_geoip_title">IP Geolocation</string>
+    <string name="tool_geoip_sub">IP location and owner</string>
+    <string name="tool_geoip_hint">IP address (blank for your own)</string>
+    <string name="tool_geoip_blurb">Locate any IP address</string>
+    <string name="tool_geoip_location">Location</string>
+    <string name="tool_geoip_isp">ISP</string>
+    <string name="tool_geoip_timezone">Time zone</string>
+    <string name="tool_geoip_coords">Coordinates</string>
+    <string name="tool_cidr_title">CIDR Calculator</string>
+    <string name="tool_cidr_sub">Network, hosts, range</string>
+    <string name="tool_cidr_hint">e.g. 192.168.1.0/24</string>
+    <string name="tool_cidr_blurb">Compute IPv4/IPv6 subnets (offline)</string>
+    <string name="tool_cidr_network">Network</string>
+    <string name="tool_cidr_broadcast">Broadcast</string>
+    <string name="tool_cidr_first">First host</string>
+    <string name="tool_cidr_last">Last host</string>
+    <string name="tool_cidr_total">Total addresses</string>
+    <string name="tool_cidr_usable">Usable hosts</string>
+    <string name="tool_trace_title">Cloudflare Trace</string>
+    <string name="tool_trace_sub">Which CF colo you hit</string>
+    <string name="tool_trace_hint">Host (blank uses 1.1.1.1)</string>
+    <string name="tool_trace_blurb">See the Cloudflare colo your request hits</string>
+
+    <!-- 推送中心（Push Center / FCM）-->
+    <string name="push_title">Push Center</string>
+    <string name="push_subtitle">Get an endpoint and push to this device with curl or a script</string>
+    <string name="push_flagship_sub">Bark-compatible endpoint — notify with a curl</string>
+    <string name="push_unavailable">Push is not configured in this build.</string>
+    <string name="push_enable_title">Enable push</string>
+    <string name="push_enable_sub">Register this device and get your endpoint</string>
+    <string name="push_endpoint_label">Your endpoint</string>
+    <string name="push_test">Test push</string>
+    <string name="push_copy_curl">Copy curl</string>
+    <string name="push_failed">Something went wrong, try again</string>
+    <string name="push_inbox_open">Inbox (%1$d)</string>
+    <string name="push_test_title">Test push</string>
+    <string name="push_test_body">A test message from Orange Cloud</string>
+    <string name="push_inbox_title">Inbox</string>
+    <string name="push_inbox_empty">No messages yet</string>
+    <string name="push_clear">Clear all</string>
+    <string name="push_delete">Delete</string>
+    <string name="push_channel_name">Push Center</string>
+    <string name="push_channel_desc">Messages from your push endpoint</string>
+
+    <!-- CF 告警推送（Alerting）-->
+    <string name="alerting_title">Cloudflare alerts</string>
+    <string name="alerting_subtitle">Push selected alerts to this device</string>
+    <string name="alerting_missing_scope">Needs notification access — sign in again and grant Notifications.</string>
+    <string name="alerting_no_endpoint">Enable push in Push Center first.</string>
+    <string name="alerting_empty">No alert types available for this account.</string>
+    <string name="perm_notifications">Notifications</string>
+    <string name="perm_notifications_desc">Push Cloudflare alerts to your device</string>
+    <!-- Pages 自定义域名 + 列表排序 -->
+    <string name="pages_domains_section">Custom domains</string>
+    <string name="pages_domain_add">Add domain</string>
+    <string name="pages_domain_add_hint">After attaching, point the domain\'s DNS at this project for it to take effect.</string>
+    <string name="pages_domain_empty">No custom domains</string>
+    <string name="pages_domain_delete_title">Delete domain?</string>
+    <string name="pages_domain_delete_msg">%1$s will be removed from this Pages project. Existing DNS records are not affected.</string>
+    <string name="pages_domain_retry">Re-validate</string>
+    <string name="pages_domain_added">Domain added</string>
+    <string name="pages_domain_deleted">Domain deleted</string>
+    <string name="pages_cname_created">CNAME record added</string>
+    <string name="pages_domain_status_active">Active</string>
+    <string name="pages_domain_status_pending">Verifying</string>
+    <string name="pages_domain_status_initializing">Initializing</string>
+    <string name="pages_domain_status_deactivated">Deactivated</string>
+    <string name="pages_domain_status_blocked">Blocked</string>
+    <string name="pages_domain_status_error">Error</string>
+    <string name="pages_txt_title">Verification TXT record</string>
+    <string name="pages_txt_name">Record name</string>
+    <string name="pages_txt_value">Record value</string>
+    <string name="pages_dns_resolved">Pointing at this project</string>
+    <string name="pages_dns_conflicting">Not pointing at this project</string>
+    <string name="pages_dns_missing">No DNS record yet</string>
+    <string name="pages_dns_add_cname">Add CNAME record</string>
+    <string name="pages_dns_add_cname_hint">A proxied CNAME record pointing at %1$s will be added in the domain\'s zone.</string>
+    <string name="pages_dns_external">This domain isn\'t in a Cloudflare zone on this account. Add a CNAME record pointing at %1$s at your DNS provider.</string>
+    <string name="sort_label">Sort</string>
+    <string name="sort_default">Default (name)</string>
+    <string name="sort_created">Date created</string>
+    <string name="sort_modified">Recently updated</string>
 </resources>

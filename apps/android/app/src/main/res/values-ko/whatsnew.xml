@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_6_0_0_title">Pages 사용자 지정 도메인</string>
+    <string name="whatsnew_1_6_0_0_detail">Pages 프로젝트에서 사용자 지정 도메인을 직접 관리하세요: 추가·삭제·재확인과 DNS 상태 확인을 지원하며, 도메인이 현재 계정에 있으면 프로젝트를 가리키는 CNAME 레코드를 한 번에 추가할 수 있습니다.</string>
+    <string name="whatsnew_1_6_0_1_title">목록 정렬</string>
+    <string name="whatsnew_1_6_0_1_detail">Workers와 Pages 목록을 이름(기본), 생성일, 최근 업데이트로 정렬할 수 있습니다. 선택은 기억됩니다.</string>
+    <string name="whatsnew_1_5_0_0_title">로그인 없는 개발자 도구 모음</string>
+    <string name="whatsnew_1_5_0_0_detail">로그인 없이 사용할 수 있는 유용한 네트워크 도구 모음: DNS 조회, SSL 인증서 검사, HTTP 헤더, WHOIS, IP 위치, CIDR 계산기, Cloudflare trace. 로그인 화면에서 바로 열 수 있습니다.</string>
+    <string name="whatsnew_1_5_0_1_title">푸시 센터</string>
+    <string name="whatsnew_1_5_0_1_detail">푸시 기능 내장: 전용 엔드포인트를 받아 curl이나 스크립트로 이 기기에 메시지를 보낼 수 있습니다. 제목, 그룹, 수신함을 지원합니다. Cloudflare 로그인이 필요 없습니다.</string>
+    <string name="whatsnew_1_5_0_2_title">휴대폰으로 받는 Cloudflare 경고</string>
+    <string name="whatsnew_1_5_0_2_detail">로그인하면 여기에서 Cloudflare 경고 정책을 관리할 수 있습니다. 원하는 경고 유형(DDoS, 상태 확인, 인증서 만료, Workers 오류율 등)을 골라 한 번의 탭으로 푸시 센터에 연결하면, 이벤트가 이 기기로 바로 전달됩니다. Pro 이상 요금제의 도메인이 필요합니다.</string>
     <string name="whatsnew_1_4_2_0_title">Workers AI 개선</string>
     <string name="whatsnew_1_4_2_0_detail">모델을 작업 유형별로 묶어 살펴보고 모델 상세 정보를 확인할 수 있으며, 텍스트 생성 모델의 시험 실행 오류를 수정했습니다.</string>
     <string name="whatsnew_1_4_0_title">새로운 개발자 플랫폼</string>

@@ -457,6 +457,158 @@
         }
       }
     },
+    "Pages 自定义域名": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages custom domains"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages 自訂網域"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages 自訂域名"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages カスタムドメイン"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dominios personalizados de Pages"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages 사용자 지정 도메인"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Domínios personalizados do Pages"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Domínios personalizados do Pages"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Benutzerdefinierte Domains für Pages"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Domaines personnalisés Pages"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نطاقات Pages المخصصة"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages özel alan adları"
+          }
+        }
+      }
+    },
+    "Pages 项目现可直接管理自定义域名：添加、删除、重新验证并检查解析状态；域名在当前账号时，还能一键添加指向项目的 CNAME 记录。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manage custom domains right inside a Pages project: add, remove, re-validate, and check DNS status — with one-tap CNAME setup when the domain’s zone is on your account."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages 專案現可直接管理自訂網域：新增、刪除、重新驗證並檢查解析狀態；網域在目前帳號時，還能一鍵新增指向專案的 CNAME 記錄。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages 項目現可直接管理自訂域名：新增、刪除、重新驗證並檢查解析狀態；域名在當前帳戶時，還能一鍵新增指向項目的 CNAME 記錄。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages プロジェクト内でカスタムドメインを直接管理：追加・削除・再検証と DNS 状態の確認に対応。ドメインが現在のアカウントにある場合は、プロジェクトへ向ける CNAME レコードをワンタップで追加できます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Administra dominios personalizados dentro de un proyecto de Pages: agregar, eliminar, revalidar y comprobar el estado del DNS; si la zona del dominio está en tu cuenta, agrega el registro CNAME con un toque."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pages 프로젝트에서 사용자 지정 도메인을 직접 관리하세요: 추가·삭제·재확인과 DNS 상태 확인을 지원하며, 도메인이 현재 계정에 있으면 프로젝트를 가리키는 CNAME 레코드를 한 번에 추가할 수 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gerencie domínios personalizados dentro de um projeto do Pages: adicionar, remover, revalidar e verificar o status do DNS — com criação do registro CNAME em um toque quando a zona do domínio está na sua conta."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faça a gestão de domínios personalizados dentro de um projeto do Pages: adicionar, remover, revalidar e verificar o estado do DNS — com criação do registo CNAME num toque quando a zona do domínio está na sua conta."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verwalte benutzerdefinierte Domains direkt im Pages-Projekt: hinzufügen, entfernen, erneut validieren und DNS-Status prüfen – mit Ein-Tipp-CNAME, wenn die Zone der Domain in deinem Konto liegt."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gérez les domaines personnalisés directement dans un projet Pages : ajout, suppression, revalidation et vérification du DNS — avec création du CNAME en un geste quand la zone du domaine est sur votre compte."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أدر النطاقات المخصصة داخل مشروع Pages مباشرة: إضافة وحذف وإعادة تحقق وفحص حالة DNS — مع إضافة سجل CNAME بلمسة واحدة عندما تكون منطقة النطاق ضمن حسابك."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Özel alan adlarını doğrudan Pages projesi içinde yönetin: ekleme, silme, yeniden doğrulama ve DNS durumu kontrolü — alan adının bölgesi hesabınızdaysa tek dokunuşla CNAME kaydı ekleyin."
+          }
+        }
+      }
+    },
     "Queues 现可暂停/恢复投递、清空消息、调整保留期与延迟；Hyperdrive 可编辑查询缓存与源数据库连接；Durable Objects 可浏览对象实例；Workers AI 能直接在 App 内试运行文本生成模型，缺权限时可一键补授权、无需退出登录。": {
       "localizations": {
         "en": {
@@ -1137,6 +1289,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Görsel WAF kural oluşturucu"
+          }
+        }
+      }
+    },
+    "Workers 与 Pages 列表新增排序：默认（名称）、创建日期、最近更新，选择会被记住。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Workers and Pages lists can now be sorted by name (default), date created, or recently updated — your choice is remembered."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Workers 與 Pages 清單新增排序：預設（名稱）、建立日期、最近更新，選擇會被記住。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Workers 與 Pages 列表新增排序：默認（名稱）、創建日期、最近更新，選擇會被記住。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Workers と Pages のリストを名前（デフォルト）・作成日・最近の更新で並べ替えられるようになりました。選択は記憶されます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las listas de Workers y Pages ahora se pueden ordenar por nombre (predeterminado), fecha de creación o actualización reciente; tu elección se recuerda."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Workers와 Pages 목록을 이름(기본), 생성일, 최근 업데이트로 정렬할 수 있습니다. 선택은 기억됩니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As listas de Workers e Pages agora podem ser ordenadas por nome (padrão), data de criação ou atualização recente — sua escolha é lembrada."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As listas de Workers e Pages podem agora ser ordenadas por nome (predefinição), data de criação ou atualização recente — a sua escolha é lembrada."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Workers- und Pages-Listen lassen sich jetzt nach Name (Standard), Erstellungsdatum oder letzter Aktualisierung sortieren – die Auswahl wird gemerkt."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les listes Workers et Pages peuvent désormais être triées par nom (par défaut), date de création ou mise à jour récente — votre choix est mémorisé."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يمكن الآن ترتيب قوائم Workers و Pages حسب الاسم (افتراضي) أو تاريخ الإنشاء أو آخر تحديث — ويُحفظ اختيارك."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Workers ve Pages listeleri artık ada (varsayılan), oluşturma tarihine veya son güncellemeye göre sıralanabilir; seçiminiz hatırlanır."
           }
         }
       }
@@ -2053,6 +2281,82 @@
         }
       }
     },
+    "列表排序": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "List sorting"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清單排序"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "列表排序"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リストの並べ替え"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Orden de listas"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "목록 정렬"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordenação de listas"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordenação de listas"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listensortierung"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tri des listes"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ترتيب القوائم"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liste sıralama"
+          }
+        }
+      }
+    },
     "创建资源，不止于查看": {
       "localizations": {
         "en": {
@@ -2885,6 +3189,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alan adları ve Rotalar"
+          }
+        }
+      }
+    },
+    "存储与流量单位在所有语言下统一显示为国际通用符号（KB / MB / GB），不再随语言翻译。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Storage and traffic sizes now always use the universal unit symbols (KB / MB / GB) in every language, instead of localized unit names."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存與流量單位在所有語言下統一顯示為國際通用符號（KB / MB / GB），不再隨語言翻譯。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存與流量單位在所有語言下統一顯示為國際通用符號（KB / MB / GB），不再隨語言翻譯。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ストレージや通信量の単位を、どの言語でも国際的な表記（KB / MB / GB）で統一しました。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los tamaños de almacenamiento y tráfico ahora usan siempre los símbolos universales (KB / MB / GB) en todos los idiomas."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장 용량과 트래픽 단위를 모든 언어에서 국제 공용 기호(KB / MB / GB)로 통일했습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os tamanhos de armazenamento e tráfego agora usam sempre os símbolos universais (KB / MB / GB) em todos os idiomas."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os tamanhos de armazenamento e tráfego usam agora sempre os símbolos universais (KB / MB / GB) em todos os idiomas."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Speicher- und Traffic-Größen verwenden jetzt in allen Sprachen einheitlich die universellen Einheitensymbole (KB / MB / GB)."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les tailles de stockage et de trafic utilisent désormais les symboles universels (KB / MB / GB) dans toutes les langues."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أحجام التخزين وحركة المرور تُعرض الآن دائمًا بالرموز العالمية (KB / MB / GB) في جميع اللغات."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Depolama ve trafik boyutları artık tüm dillerde evrensel birim simgeleriyle (KB / MB / GB) gösteriliyor."
           }
         }
       }
@@ -3873,6 +4253,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Push Merkezi"
+          }
+        }
+      }
+    },
+    "数据单位显示": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data unit display"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "數據單位顯示"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "數據單位顯示"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "データ単位の表示"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unidades de datos"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "데이터 단위 표시"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unidades de dados"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unidades de dados"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anzeige von Dateneinheiten"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affichage des unités"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عرض وحدات البيانات"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veri birimi gösterimi"
           }
         }
       }

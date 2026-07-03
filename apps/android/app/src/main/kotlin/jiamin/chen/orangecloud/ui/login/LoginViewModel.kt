@@ -15,13 +15,16 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/** 授权页启动事件：ephemeral（freshLogin 添加账号）时用无痕 WebView，其余用 Custom Tab */
+data class AuthLaunch(val uri: Uri, val ephemeral: Boolean)
+
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : ViewModel() {
 
-    private val launchChannel = Channel<Uri>(Channel.BUFFERED)
-    /** 一次性事件：屏幕收到后用 Custom Tab 打开授权页（freshLogin 时 URL 已包成先登出再授权） */
+    private val launchChannel = Channel<AuthLaunch>(Channel.BUFFERED)
+    /** 一次性事件：屏幕收到后按 ephemeral 分流打开授权页 */
     val launchAuthTab = launchChannel.receiveAsFlow()
 
     val redirectError: StateFlow<String?> = authRepository.state
@@ -43,8 +46,8 @@ class LoginViewModel @Inject constructor(
     private fun launchAuth(scopeString: String, freshLogin: Boolean) {
         viewModelScope.launch {
             authRepository.clearRedirectError()
-            runCatching { authRepository.buildAuthorizationUri(scopeString, freshLogin) }
-                .onSuccess { launchChannel.send(it) }
+            runCatching { authRepository.buildAuthorizationUri(scopeString) }
+                .onSuccess { launchChannel.send(AuthLaunch(it, ephemeral = freshLogin)) }
         }
     }
 }

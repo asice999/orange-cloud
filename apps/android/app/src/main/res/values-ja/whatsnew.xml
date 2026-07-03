@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_6_0_0_title">Pages カスタムドメイン</string>
+    <string name="whatsnew_1_6_0_0_detail">Pages プロジェクト内でカスタムドメインを直接管理：追加・削除・再検証と DNS 状態の確認に対応。ドメインが現在のアカウントにある場合は、プロジェクトへ向ける CNAME レコードをワンタップで追加できます。</string>
+    <string name="whatsnew_1_6_0_1_title">リストの並べ替え</string>
+    <string name="whatsnew_1_6_0_1_detail">Workers と Pages のリストを名前（デフォルト）・作成日・最近の更新で並べ替えられるようになりました。選択は記憶されます。</string>
+    <string name="whatsnew_1_5_0_0_title">ログイン不要の開発者ツールボックス</string>
+    <string name="whatsnew_1_5_0_0_detail">ログインせずに使える定番のネットワークツール群：DNS 検索、SSL 証明書チェック、HTTP ヘッダー、WHOIS、IP 位置情報、CIDR 計算、Cloudflare trace。ログイン画面からそのまま開けます。</string>
+    <string name="whatsnew_1_5_0_1_title">プッシュセンター</string>
+    <string name="whatsnew_1_5_0_1_detail">プッシュ機能を内蔵。専用エンドポイントを取得すれば、curl やスクリプトでこの端末にメッセージを送れます。タイトル、グループ、受信箱に対応。Cloudflare へのサインインは不要です。</string>
+    <string name="whatsnew_1_5_0_2_title">Cloudflare のアラートをスマホへ</string>
+    <string name="whatsnew_1_5_0_2_detail">サインインすると Cloudflare のアラートポリシーをここで管理できます。気になるアラートの種類（DDoS、ヘルスチェック、証明書の有効期限、Workers のエラー率など）を選び、ワンタップでプッシュセンターに接続。イベント発生時にこの端末へ直接届きます。Pro 以上のプランのドメインが必要です。</string>
     <string name="whatsnew_1_4_2_0_title">Workers AI の改善</string>
     <string name="whatsnew_1_4_2_0_detail">モデルをタスク種別ごとに分類して閲覧でき、モデルの詳細表示と、テキスト生成モデルの試し実行の不具合を修正しました。</string>
     <string name="whatsnew_1_4_0_title">新しい「開発者プラットフォーム」</string>

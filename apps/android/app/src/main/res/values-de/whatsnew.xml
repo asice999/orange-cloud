@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_6_0_0_title">Benutzerdefinierte Domains für Pages</string>
+    <string name="whatsnew_1_6_0_0_detail">Verwalte benutzerdefinierte Domains direkt im Pages-Projekt: hinzufügen, entfernen, erneut validieren und DNS-Status prüfen – mit Ein-Tipp-CNAME, wenn die Zone der Domain in deinem Konto liegt.</string>
+    <string name="whatsnew_1_6_0_1_title">Listensortierung</string>
+    <string name="whatsnew_1_6_0_1_detail">Workers- und Pages-Listen lassen sich jetzt nach Name (Standard), Erstellungsdatum oder letzter Aktualisierung sortieren – die Auswahl wird gemerkt.</string>
+    <string name="whatsnew_1_5_0_0_title">Entwickler-Toolbox ohne Anmeldung</string>
+    <string name="whatsnew_1_5_0_0_detail">Praktische Netzwerk-Tools, die du ohne Anmeldung nutzen kannst: DNS-Abfrage, SSL-Zertifikatsprüfung, HTTP-Header, WHOIS, IP-Geolokalisierung, ein CIDR-Rechner und Cloudflare-Trace – direkt vom Anmeldebildschirm aus erreichbar.</string>
+    <string name="whatsnew_1_5_0_1_title">Push-Center</string>
+    <string name="whatsnew_1_5_0_1_detail">Integrierter Push-Dienst: Hol dir deinen eigenen Endpunkt und sende Nachrichten per curl oder Skript an dieses Gerät – mit Titel, Gruppe und Posteingang. Keine Cloudflare-Anmeldung nötig.</string>
+    <string name="whatsnew_1_5_0_2_title">Cloudflare-Warnungen auf deinem Handy</string>
+    <string name="whatsnew_1_5_0_2_detail">Nach der Anmeldung verwaltest du hier deine Cloudflare-Warnrichtlinien: Wähle die Warntypen, die dich interessieren (DDoS, Health Checks, Zertifikatsablauf, Workers-Fehlerrate und mehr), und verbinde sie mit einem Tippen mit dem Push-Center, damit Ereignisse auf diesem Gerät ankommen. Erfordert eine Domain mit Pro-Tarif oder höher.</string>
     <string name="whatsnew_1_4_2_0_title">Workers-AI-Verbesserungen</string>
     <string name="whatsnew_1_4_2_0_detail">Modelle nach Aufgabentyp gruppiert durchsuchen, Modelldetails ansehen – und der Testlauf für Textgenerierungsmodelle wurde behoben.</string>
     <string name="whatsnew_1_4_0_title">Neue Entwicklerplattform</string>

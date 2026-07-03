@@ -19,7 +19,18 @@ enum class AppAppearance(val value: Int) {
     }
 }
 
-/** App 偏好（外观 + 通知开关），存共享 DataStore。 */
+/** 资源列表排序（Workers / Pages 等通用，对应 iOS ResourceSort）。 */
+enum class ResourceSort(val value: Int) {
+    NAME(0),       // 默认：名称字母序（列表原有顺序）
+    CREATED(1),    // 创建日期，新的在前
+    MODIFIED(2);   // 最近更新，新的在前
+
+    companion object {
+        fun from(value: Int): ResourceSort = entries.firstOrNull { it.value == value } ?: NAME
+    }
+}
+
+/** App 偏好（外观 + 通知开关 + 列表排序），存共享 DataStore。 */
 @Singleton
 class AppPrefs @Inject constructor(
     private val dataStore: DataStore<Preferences>,
@@ -43,6 +54,14 @@ class AppPrefs @Inject constructor(
 
     suspend fun setNotifyWorkerErrors(enabled: Boolean) {
         dataStore.edit { it[KEY_NOTIF_WORKER] = enabled }
+    }
+
+    /** 某个资源列表的排序偏好（key 如 "workers" / "pages"）。 */
+    fun listSort(key: String): Flow<ResourceSort> =
+        dataStore.data.map { ResourceSort.from(it[intPreferencesKey("pref_sort_$key")] ?: 0) }
+
+    suspend fun setListSort(key: String, sort: ResourceSort) {
+        dataStore.edit { it[intPreferencesKey("pref_sort_$key")] = sort.value }
     }
 
     private companion object {

@@ -44,6 +44,7 @@ object PermissionCatalog {
         PermissionFeature("ai_gateway", R.string.perm_ai_gateway, R.string.perm_ai_gateway_desc, listOf(Scopes.AIG_READ), listOf(Scopes.AIG_WRITE)),
         PermissionFeature("queues", R.string.perm_queues, R.string.perm_queues_desc, listOf(Scopes.QUEUES_READ), listOf(Scopes.QUEUES_WRITE)),
         PermissionFeature("hyperdrive", R.string.perm_hyperdrive, R.string.perm_hyperdrive_desc, listOf(Scopes.HYPERDRIVE_READ), listOf(Scopes.HYPERDRIVE_WRITE)),
+        PermissionFeature("notifications", R.string.perm_notifications, R.string.perm_notifications_desc, listOf(Scopes.NOTIFICATIONS_READ), listOf(Scopes.NOTIFICATIONS_WRITE)),
     )
 
     /** 默认全选的功能 id 集合。 */

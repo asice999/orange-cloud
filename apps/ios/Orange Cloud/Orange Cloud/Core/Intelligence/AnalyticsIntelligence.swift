@@ -41,7 +41,7 @@ nonisolated struct TrafficSummaryInput: Sendable {
         var lines: [String] = []
         lines.append("Time window: \(periodLabel)")
         lines.append("Total requests: \(totalRequests.formatted(.number.grouping(.automatic)))\(Self.trend(requestsTrend))")
-        let bytes = Int64(totalBytes).formatted(.byteCount(style: .decimal))
+        let bytes = Int64(totalBytes).ocBytes
         lines.append("Data served: \(bytes)\(Self.trend(bytesTrend))")
         lines.append("Unique visitors: \(totalUniques.formatted(.number.grouping(.automatic)))\(Self.trend(uniquesTrend))")
         lines.append("Threats blocked: \(totalThreats.formatted(.number.grouping(.automatic)))\(Self.trend(threatsTrend))")

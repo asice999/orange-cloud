@@ -212,7 +212,7 @@ struct StorageView: View {
     /// 桶副标题：有用量数据时显示存储/对象/请求，否则回退到位置 · 创建日期
     private func r2Subtitle(for bucket: R2Bucket) -> String {
         if let usage = r2ViewModel.usageByBucket[bucket.name], usage.storageBytes > 0 || usage.objectCount > 0 {
-            var parts = [Int64(usage.storageBytes).formatted(.byteCount(style: .file))]
+            var parts = [Int64(usage.storageBytes).ocBytes]
             if usage.objectCount > 0 { parts.append(String(localized: "\(usage.objectCount) 个对象")) }
             if usage.totalRequests > 0 { parts.append(String(localized: "本月 \(usage.totalRequests.formatted()) 次操作")) }
             return parts.joined(separator: " · ")
@@ -250,7 +250,7 @@ struct StorageView: View {
                         icon: "cylinder", tint: .blue, mono: true,
                         name: database.name,
                         sub: [
-                            database.fileSize.map { Int64($0).formatted(.byteCount(style: .file)) },
+                            database.fileSize.map { Int64($0).ocBytes },
                             database.numTables.map { String(localized: "\($0) 张表") },
                         ].compactMap(\.self).joined(separator: " · ")
                     )

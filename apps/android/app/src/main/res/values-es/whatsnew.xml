@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_6_0_0_title">Dominios personalizados de Pages</string>
+    <string name="whatsnew_1_6_0_0_detail">Administra dominios personalizados dentro de un proyecto de Pages: agregar, eliminar, revalidar y comprobar el estado del DNS; si la zona del dominio está en tu cuenta, agrega el registro CNAME con un toque.</string>
+    <string name="whatsnew_1_6_0_1_title">Orden de listas</string>
+    <string name="whatsnew_1_6_0_1_detail">Las listas de Workers y Pages ahora se pueden ordenar por nombre (predeterminado), fecha de creación o actualización reciente; tu elección se recuerda.</string>
+    <string name="whatsnew_1_5_0_0_title">Caja de herramientas para desarrolladores sin iniciar sesión</string>
+    <string name="whatsnew_1_5_0_0_detail">Un conjunto de herramientas de red prácticas que puedes usar sin iniciar sesión: consulta DNS, inspección de certificados SSL, encabezados HTTP, WHOIS, geolocalización de IP, calculadora CIDR y Cloudflare trace, accesibles desde la pantalla de inicio de sesión.</string>
+    <string name="whatsnew_1_5_0_1_title">Centro de notificaciones</string>
+    <string name="whatsnew_1_5_0_1_detail">Servicio de notificaciones integrado: obtén tu propio endpoint y envía mensajes a este dispositivo con un simple curl o script, con título, grupo y bandeja de entrada. No requiere iniciar sesión en Cloudflare.</string>
+    <string name="whatsnew_1_5_0_2_title">Alertas de Cloudflare en tu teléfono</string>
+    <string name="whatsnew_1_5_0_2_detail">Una vez que inicies sesión, administra aquí tus políticas de alertas de Cloudflare: elige los tipos de alerta que te importan (DDoS, comprobaciones de estado, vencimiento de certificados, tasa de errores de Workers y más) y conéctalos al Centro de notificaciones con un toque, para que los eventos lleguen a este dispositivo. Requiere un dominio con plan Pro o superior.</string>
     <string name="whatsnew_1_4_2_0_title">Mejoras en Workers AI</string>
     <string name="whatsnew_1_4_2_0_detail">Explora los modelos agrupados por tipo de tarea, consulta sus detalles y se corrigió la prueba de los modelos de generación de texto.</string>
     <string name="whatsnew_1_4_0_title">Nueva plataforma para desarrolladores</string>

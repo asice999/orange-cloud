@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import jiamin.chen.orangecloud.data.local.DnsRecordDao
 import jiamin.chen.orangecloud.data.local.OrangeCloudDatabase
+import jiamin.chen.orangecloud.data.local.PushMessageDao
 import jiamin.chen.orangecloud.data.local.WorkerDao
 import jiamin.chen.orangecloud.data.local.ZoneDao
 import javax.inject.Singleton
@@ -32,4 +33,7 @@ object DatabaseModule {
 
     @Provides
     fun provideWorkerDao(database: OrangeCloudDatabase): WorkerDao = database.workerDao()
+
+    @Provides
+    fun providePushMessageDao(database: OrangeCloudDatabase): PushMessageDao = database.pushMessageDao()
 }

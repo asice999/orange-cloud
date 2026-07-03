@@ -416,7 +416,7 @@ nonisolated enum UsageFetcher {
     }
 
     private static func bytes(_ value: Int) -> String {
-        Int64(value).formatted(.byteCount(style: .decimal))
+        Int64(value).ocBytes
     }
 }
 

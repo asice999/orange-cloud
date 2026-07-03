@@ -10,7 +10,32 @@ import SwiftData
 import TipKit
 import WidgetKit
 
+/// 概览页外壳：NavigationStack 常驻，账号切换只重建栈内内容。
+///
+/// **不要把 `.id(账号)` 加回 NavigationStack 外层**（也别在 MainTabView 的 tab 上加）：
+/// 重建整个 NavigationStack 会连正在显示的导航栏一起换掉，iOS 17.0.x 的 UIKit 在
+/// `-[UINavigationBar layoutSubviews]` 对此硬断言（"top item belongs to a different
+/// navigation bar"）——冷启动账号加载完成时 id 从 nil 翻转，概览页必崩（17.1 起系统才修复）。
+/// 1.5.1 曾误诊为 TipKit popover。账号维度的 @Query 谓词刷新由栈内的 `.id` 完成。
 struct DashboardView: View {
+
+    private let session: SessionStore
+
+    init(session: SessionStore) {
+        self.session = session
+    }
+
+    var body: some View {
+        NavigationStack {
+            DashboardHomeView(session: session)
+                .id(session.selectedAccount?.id)
+        }
+    }
+}
+
+/// 概览页内容（原 DashboardView 本体）：@Query 谓词在 init 按当前账号构建，
+/// 外壳用 `.id(selectedAccount)` 在账号切换时重建本视图以刷新谓词。
+private struct DashboardHomeView: View {
 
     @Environment(SessionStore.self) private var session
     @Environment(AuthManager.self) private var auth
@@ -111,68 +136,114 @@ struct DashboardView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    daybreakHeader
-                        .islandReveal(0)
-                    if session.error != nil || viewModel.loadFailed {
-                        RefreshFailedBanner { Task { await refreshAll() } }
-                    }
-                    Group {
-                        if cachedZones.isEmpty && viewModel.isLoadingAssets {
-                            statSkeleton
-                        } else {
-                            statIslands
-                        }
-                    }
-                    .islandReveal(1)
-                    usageSection
-                        .islandReveal(2)
-                    zonesSection
-                        .islandReveal(3)
-                    networkSection
-                        .islandReveal(4)
-                    bulkRedirectsSection
-                        .islandReveal(5)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                daybreakHeader
+                    .islandReveal(0)
+                if let sid = auth.currentSessionId, auth.sessionsNeedingReauth.contains(sid) {
+                    // token 缺 refresh token（无从续期）：给「重新授权」引导而非泛化的刷新失败——
+                    // 一键重授权对同一身份原地换新令牌，成功后自动摘标并重拉数据
+                    reauthBanner(sessionId: sid)
+                } else if session.error != nil || viewModel.loadFailed {
+                    RefreshFailedBanner { Task { await refreshAll() } }
                 }
-                .padding(OCLayout.pagePadding)
-            }
-            .background { SkyBackground() }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationDestination(for: CachedZone.self) { zone in
-                ZoneDetailView(zone: zone, session: session)
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    accountMenu
+                Group {
+                    if cachedZones.isEmpty && viewModel.isLoadingAssets {
+                        statSkeleton
+                    } else {
+                        statIslands
+                    }
                 }
+                .islandReveal(1)
+                usageSection
+                    .islandReveal(2)
+                zonesSection
+                    .islandReveal(3)
+                networkSection
+                    .islandReveal(4)
+                bulkRedirectsSection
+                    .islandReveal(5)
             }
-            .task(id: session.accounts.count) {
-                AccountSwitchTip.hasMultipleAccounts = session.accounts.count > 1 || auth.sessions.count > 1
-            }
-            .task(id: displayZones.map(\.id)) {
-                await loadTraffic()
-            }
-            .task(id: session.selectedAccount?.id) {
-                await loadAssets()
-            }
-            .task(id: session.selectedAccount?.id) {
-                await loadUsage()
-            }
-            .onChange(of: accountPrefs.billingCycleDay) {
-                Task { await loadUsage(force: true) }
-            }
-            .onChange(of: dayBoundaryRaw) {
-                Task { await loadUsage(force: true) }
-            }
-            .refreshable {
-                await refreshAll()
-            }
-            .sheet(item: $usageDetail) { service in
-                usageDetailSheet(service)
+            .padding(OCLayout.pagePadding)
+        }
+        .background { SkyBackground() }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationDestination(for: CachedZone.self) { zone in
+            ZoneDetailView(zone: zone, session: session)
+        }
+        // Tunnel 全链路（列表 → 详情 → 连接信息）都挂在栈根：单一栈、不嵌套，
+        // 逐级 push 才在 iOS 17.0 正常（同 DeveloperHubView 的 DevHubRoute 做法）
+        .navigationDestination(for: DashboardRoute.self) { route in
+            switch route {
+            case .tunnels:
+                TunnelListView(session: session)
+            case .tunnelConnect(let tunnel):
+                TunnelConnectView(tunnel: tunnel, accountId: currentAccountId, session: session)
             }
         }
+        .navigationDestination(for: Tunnel.self) { tunnel in
+            TunnelDetailView(
+                tunnel: tunnel,
+                accountId: currentAccountId,
+                session: session,
+                canWrite: auth.hasScope("argotunnel.write"),
+                canWriteDNS: auth.hasScope("dns.write")
+            )
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                accountMenu
+            }
+        }
+        .task(id: session.accounts.count) {
+            AccountSwitchTip.hasMultipleAccounts = session.accounts.count > 1 || auth.sessions.count > 1
+        }
+        .task(id: displayZones.map(\.id)) {
+            await loadTraffic()
+        }
+        // 账号维度的重跑由外壳 `.id(selectedAccount?.id)` 重建本视图完成，这两个 task
+        // **不能再用 id: 键在同一个账号值上**：冷启动 selectedAccount 从 nil 翻转到账号时，
+        // 旧实例的 .task(id:) 会先于父级换代重启一次，把加载跑进 VM 的非结构化 Task（拆视图
+        // 也取消不掉），新实例又带全新 VM 再跑一遍 → 概览页全部请求成对翻倍（logs-3 已坐实）。
+        .task {
+            await loadAssets()
+        }
+        .task {
+            await loadUsage()
+        }
+        .onChange(of: accountPrefs.billingCycleDay) {
+            Task { await loadUsage(force: true) }
+        }
+        .onChange(of: dayBoundaryRaw) {
+            Task { await loadUsage(force: true) }
+        }
+        .onChange(of: auth.sessionsNeedingReauth) { old, new in
+            // 重新授权成功（当前身份的「需重授权」标记被摘除）→ 立刻重拉全部数据
+            if let sid = auth.currentSessionId, old.contains(sid), !new.contains(sid) {
+                Task { await refreshAll() }
+            }
+        }
+        .refreshable {
+            await refreshAll()
+        }
+        .sheet(item: $usageDetail) { service in
+            usageDetailSheet(service)
+        }
+    }
+
+    /// 「需重新授权」引导：说明 + 一键重授权（同身份原地换令牌），成功摘标后自动重拉
+    private func reauthBanner(sessionId: UUID) -> some View {
+        VStack(spacing: 10) {
+            Label("登录授权已失效，无法自动续期", systemImage: "key.slash")
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(.red)
+            ReauthorizeButton(sessionId: sessionId, scopes: [])
+                .font(.subheadline.weight(.semibold))
+                .buttonStyle(.borderedProminent)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .glassIsland(cornerRadius: OCLayout.chipRadius)
     }
 
     /// 下拉刷新 / 顶部失败提示重试：强制重拉账号、资产、流量、用量
@@ -226,7 +297,7 @@ struct DashboardView: View {
             value.formatted(.number.notation(.compactName))
         }
         func bytes(_ value: Int) -> String {
-            Int64(value).formatted(.byteCount(style: .decimal))
+            Int64(value).ocBytes
         }
 
         var services: [WidgetUsageService] = []
@@ -696,7 +767,7 @@ struct DashboardView: View {
         if !effectiveR2Paid {
             candidates.append(GaugedMetric(
                 context: String(localized: "存储"),
-                valueText: Int64(usage.r2StorageBytes).formatted(.byteCount(style: .decimal)),
+                valueText: Int64(usage.r2StorageBytes).ocBytes,
                 quotaText: "/ 10 GB",
                 ratio: Double(usage.r2StorageBytes) / 10_000_000_000
             ))
@@ -728,7 +799,7 @@ struct DashboardView: View {
         if let storage = usage.d1StorageBytes {
             candidates.append(GaugedMetric(
                 context: String(localized: "存储"),
-                valueText: Int64(storage).formatted(.byteCount(style: .file)),
+                valueText: Int64(storage).ocBytes,
                 quotaText: "/ 5 GB",
                 ratio: Double(storage) / 5_000_000_000
             ))
@@ -760,7 +831,7 @@ struct DashboardView: View {
         if let storage = usage.kvStorageBytes {
             candidates.append(GaugedMetric(
                 context: String(localized: "存储"),
-                valueText: Int64(storage).formatted(.byteCount(style: .file)),
+                valueText: Int64(storage).ocBytes,
                 quotaText: "/ 1 GB",
                 ratio: Double(storage) / 1_000_000_000
             ))
@@ -845,7 +916,7 @@ struct DashboardView: View {
             UsageRow(
                 icon: "externaldrive",
                 title: String(localized: "R2 存储"),
-                valueText: Int64(usage.r2StorageBytes).formatted(.byteCount(style: .decimal))
+                valueText: Int64(usage.r2StorageBytes).ocBytes
                     + (effectiveR2Paid ? "" : " / 10 GB"),
                 used: effectiveR2Paid ? nil : usage.r2StorageBytes,
                 quota: effectiveR2Paid ? nil : 10_000_000_000
@@ -904,7 +975,7 @@ struct DashboardView: View {
                 UsageRow(
                     icon: "cylinder",
                     title: String(localized: "D1 存储"),
-                    valueText: Int64(d1Storage).formatted(.byteCount(style: .file)) + " / 5 GB",
+                    valueText: Int64(d1Storage).ocBytes + " / 5 GB",
                     used: d1Storage,
                     quota: 5_000_000_000
                 )
@@ -948,7 +1019,7 @@ struct DashboardView: View {
                 UsageRow(
                     icon: "square.grid.2x2",
                     title: String(localized: "KV 存储"),
-                    valueText: Int64(kvStorage).formatted(.byteCount(style: .file)) + " / 1 GB",
+                    valueText: Int64(kvStorage).ocBytes + " / 1 GB",
                     used: kvStorage,
                     quota: 1_000_000_000
                 )
@@ -1021,15 +1092,16 @@ struct DashboardView: View {
 
     private var networkSection: some View {
         VStack(spacing: 10) {
-            ProGatedNavigationLink(
+            // Tunnel 列表点行还要继续 push 详情/连接页：必须走值式 + 栈根 navdest，
+            // eager NavigationLink(destination:) 的目的页内部再 push 在 iOS 17.0 会卡死。
+            ProGatedValueLink(
                 label: "Cloudflare Tunnel",
                 systemImage: "arrow.triangle.2.circlepath",
                 requiredScope: "argotunnel.read",
                 feature: .tunnel,
-                showsChevron: true
-            ) {
-                TunnelListView(session: session)
-            }
+                showsChevron: true,
+                value: DashboardRoute.tunnels
+            )
             Divider().padding(.leading, 44)
             ProGatedNavigationLink(
                 label: "Access 应用",
@@ -1073,6 +1145,12 @@ struct DashboardView: View {
         .glassIsland(cornerRadius: 24)
     }
 
+}
+
+/// 概览页里「目的页自身还要继续 push」的入口路由（走栈根 navdest，同 DevHubRoute）
+enum DashboardRoute: Hashable {
+    case tunnels
+    case tunnelConnect(Tunnel)
 }
 
 // MARK: - 用量宫格的服务与瓦片

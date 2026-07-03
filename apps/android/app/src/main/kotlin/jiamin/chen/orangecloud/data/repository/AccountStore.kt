@@ -1,9 +1,17 @@
 package jiamin.chen.orangecloud.data.repository
 
+import jiamin.chen.orangecloud.core.auth.AuthRepository
+import jiamin.chen.orangecloud.core.di.ApplicationScope
 import jiamin.chen.orangecloud.data.model.Account
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
@@ -17,6 +25,8 @@ import javax.inject.Singleton
 @Singleton
 class AccountStore @Inject constructor(
     private val accountRepository: AccountRepository,
+    authRepository: AuthRepository,
+    @ApplicationScope externalScope: CoroutineScope,
 ) {
     private val _accounts = MutableStateFlow<List<Account>>(emptyList())
     val accounts: StateFlow<List<Account>> = _accounts.asStateFlow()
@@ -29,6 +39,29 @@ class AccountStore @Inject constructor(
 
     private val mutex = Mutex()
     private var loaded = false
+
+    init {
+        // 登录身份变化（切换 / 新增登录 / 登出）时重置账号作用域——否则 loaded 短路会让这里
+        // 一直端着上一个身份的账号列表，切完身份全 App 仍显示旧账号数据。冷启动首值跳过
+        // （由各页 ensureLoaded 正常加载）。借鉴 fork a422015028，保留 ensureLoaded 幂等。
+        externalScope.launch {
+            authRepository.state
+                .filter { it.isReady }
+                .map { it.currentSessionId }
+                .distinctUntilChanged()
+                .drop(1)
+                .collect { sessionId ->
+                    mutex.withLock {
+                        _accounts.value = emptyList()
+                        _selectedAccountId.value = null
+                        loaded = false
+                    }
+                    if (sessionId != null) {
+                        runCatching { refresh() }
+                    }
+                }
+        }
+    }
 
     /** 幂等加载账号列表，首个账号设为当前账号。 */
     suspend fun ensureLoaded() {

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jiamin.chen.orangecloud.core.auth.AuthRepository
+import jiamin.chen.orangecloud.core.auth.AuthSessionMeta
 import jiamin.chen.orangecloud.core.auth.Scopes
 import jiamin.chen.orangecloud.data.model.Account
 import jiamin.chen.orangecloud.data.model.AnalyticsTimeRange
@@ -18,6 +19,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
@@ -44,6 +47,8 @@ data class DashboardUiState(
     val requestsToday: String = "—",
     val recentZones: List<Zone> = emptyList(),
     val isLoading: Boolean = false,
+    val authSessions: List<AuthSessionMeta> = emptyList(),
+    val currentAuthSessionId: String? = null,
 )
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -70,6 +75,23 @@ class DashboardViewModel @Inject constructor(
                 _uiState.update { it.copy(selectedAccountId = id) }
             }
         }
+        // 登录身份列表 / 当前身份：头像菜单「登录身份」段的数据源
+        viewModelScope.launch {
+            authRepository.state.collect { auth ->
+                _uiState.update {
+                    it.copy(authSessions = auth.sessions, currentAuthSessionId = auth.currentSessionId)
+                }
+            }
+        }
+        // 身份切换后整页重刷（AccountStore 已重置账号作用域）；只认 id 变化，label 重命名等不触发
+        viewModelScope.launch {
+            authRepository.state
+                .filter { it.isReady }
+                .map { it.currentSessionId }
+                .distinctUntilChanged()
+                .drop(1)
+                .collect { if (it != null) refresh() }
+        }
         // 域名计数 / 最近访问：持续观察 Room 缓存（切账号自动切流）。
         // refreshZones 写入缓存后这里会自动更新——修复冷启动一次性读空缓存恒显 0 的问题。
         viewModelScope.launch {
@@ -95,6 +117,11 @@ class DashboardViewModel @Inject constructor(
     fun selectAccount(accountId: String) {
         accountStore.select(accountId)
         refresh()
+    }
+
+    /** 切换登录身份（头像菜单「登录身份」段）；账号作用域重置与重刷由观察者链完成 */
+    fun switchAuthSession(sessionId: String) {
+        authRepository.switchSession(sessionId)
     }
 
     fun refresh() {

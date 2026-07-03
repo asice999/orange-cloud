@@ -35,4 +35,14 @@ nonisolated enum APIError: LocalizedError {
         if case .accountNotAuthorized = self { return true }
         return false
     }
+
+    /// 是否为「token 权限不足」的确定性拒绝（403，或 CF 业务错误 10000 Authentication error）。
+    /// 与网络/5xx 等瞬时失败区分：命中它说明同一 token 重试注定同样失败，可按账号记住不再探测。
+    var isPermissionDenied: Bool {
+        switch self {
+        case .forbidden:                    return true
+        case .cloudflareError(let code, _): return code == 10000
+        default:                            return false
+        }
+    }
 }

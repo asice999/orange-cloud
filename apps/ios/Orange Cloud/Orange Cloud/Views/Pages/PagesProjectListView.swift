@@ -16,6 +16,7 @@ struct PagesProjectListView: View {
     @State private var searchText = ""
     @State private var showCreate = false
     @State private var writeDenied = false
+    @AppStorage("pagesListSort") private var sort: ResourceSort = .name
 
     /// 创建项目需要写权限（page.read 已是进入本页的前置条件）
     private var canWrite: Bool { auth.hasScope("page.write") }
@@ -26,8 +27,14 @@ struct PagesProjectListView: View {
     }
 
     private var filtered: [PagesProject] {
-        guard !searchText.isEmpty else { return viewModel.projects }
-        return viewModel.projects.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        let projects = searchText.isEmpty
+            ? viewModel.projects
+            : viewModel.projects.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        return sort.sorted(
+            projects,
+            created: \.createdOn,
+            modified: { $0.latestDeployment?.modifiedOn ?? $0.latestDeployment?.createdOn ?? $0.createdOn }
+        )
     }
 
     var body: some View {
@@ -73,6 +80,9 @@ struct PagesProjectListView: View {
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $searchText, prompt: "搜索项目")
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                ResourceSortMenu(sort: $sort)
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 Button("创建项目", systemImage: "plus") {
                     if canWrite { showCreate = true } else { writeDenied = true }

@@ -445,7 +445,7 @@ struct ZoneAnalyticsSection: View {
         LazyVGrid(columns: [GridItem(.flexible(), spacing: 14), GridItem(.flexible())], spacing: 14) {
             SmallStatCard(
                 title: String(localized: "带宽"),
-                value: Int64(viewModel.totalBytes).formatted(.byteCount(style: .decimal)),
+                value: Int64(viewModel.totalBytes).ocBytes,
                 trend: viewModel.bytesTrend,
                 sparkValues: viewModel.points.map { Double($0.bytes) },
                 sparkColor: .ocOrange

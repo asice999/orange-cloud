@@ -2,6 +2,7 @@ package jiamin.chen.orangecloud.ui.root
 
 import android.content.Intent
 import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
@@ -19,7 +20,10 @@ import androidx.compose.material3.adaptive.navigationsuite.ExperimentalMaterial3
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -76,10 +80,12 @@ import jiamin.chen.orangecloud.ui.update.UpdateViewModel
 import jiamin.chen.orangecloud.ui.whatsnew.WhatsNewDialog
 import jiamin.chen.orangecloud.ui.whatsnew.WhatsNewViewModel
 import jiamin.chen.orangecloud.ui.login.LoginScreen
+import jiamin.chen.orangecloud.ui.toolbox.ToolboxNavHost
 import jiamin.chen.orangecloud.ui.settings.IdentityDetailScreen
 import jiamin.chen.orangecloud.ui.settings.SettingsScreen
 import jiamin.chen.orangecloud.ui.status.StatusScreen
 import jiamin.chen.orangecloud.ui.audit.AuditLogScreen
+import jiamin.chen.orangecloud.ui.alerting.CFAlertingScreen
 import jiamin.chen.orangecloud.ui.redirects.RedirectListsScreen
 import jiamin.chen.orangecloud.ui.redirects.RedirectItemsScreen
 import jiamin.chen.orangecloud.ui.firewall.ZoneAccessRulesScreen
@@ -113,10 +119,19 @@ import java.time.LocalTime
 @Composable
 fun OrangeCloudRoot(viewModel: RootViewModel = hiltViewModel()) {
     val authState by viewModel.authState.collectAsStateWithLifecycle()
-    when {
-        !authState.isReady -> SplashScreen()
-        authState.isLoggedIn -> MainScaffold()
-        else -> LoginScreen()
+    // 免登录工具箱：呈现在鉴权分支之上的覆盖层，登录页（未登录）与设置页（已登录）共用同一入口。
+    var showToolbox by rememberSaveable { mutableStateOf(false) }
+    Box(Modifier.fillMaxSize()) {
+        when {
+            !authState.isReady -> SplashScreen()
+            authState.isLoggedIn -> MainScaffold(onOpenToolbox = { showToolbox = true })
+            else -> LoginScreen(onOpenToolbox = { showToolbox = true })
+        }
+        if (showToolbox) {
+            // 工具子栈非起点时由内层 NavHost 消费返回；位于起点（hub）时落到此处关闭覆盖层。
+            BackHandler { showToolbox = false }
+            ToolboxNavHost(onExit = { showToolbox = false })
+        }
     }
 
     // 自助更新提示：仅 sideload 的 direct 包实际触发，覆盖于任意鉴权态之上。
@@ -169,6 +184,7 @@ private object Dest {
     const val TUNNEL_DETAIL_ROUTE = "tunnel/{tunnelId}?tunnelName={tunnelName}"
     const val STATUS = "status"
     const val AUDIT = "audit"
+    const val ALERTING = "alerting"
     const val REDIRECTS = "redirects"
     const val REDIRECT_ITEMS_ROUTE = "redirects/{listId}?listName={listName}"
     const val ZERO_TRUST = "zerotrust"
@@ -250,7 +266,7 @@ private object Dest {
         route == DASHBOARD || route == TUNNELS || route?.startsWith("tunnel/") == true ||
             route == REDIRECTS || route?.startsWith("redirects/") == true ||
             route?.startsWith("zerotrust") == true -> TopDestination.Dashboard
-        route == SETTINGS || route == STATUS || route == AUDIT || route?.startsWith("identity/") == true -> TopDestination.Settings
+        route == SETTINGS || route == STATUS || route == AUDIT || route == ALERTING || route?.startsWith("identity/") == true -> TopDestination.Settings
         route == WORKERS || route == DEV_HUB || route?.startsWith("worker/") == true || route?.startsWith("workers/") == true || route?.startsWith("tail/") == true ||
             route?.startsWith("dev/") == true || route == PAGES || route?.startsWith("pages/") == true ->
             TopDestination.Workers
@@ -276,7 +292,7 @@ private fun zoneArgs() = listOf(
 
 @OptIn(ExperimentalMaterial3AdaptiveNavigationSuiteApi::class)
 @Composable
-private fun MainScaffold() {
+private fun MainScaffold(onOpenToolbox: () -> Unit) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
@@ -295,7 +311,7 @@ private fun MainScaffold() {
     val gateViewModel: ProGateViewModel = hiltViewModel()
     val isPro by gateViewModel.isPro.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
-        loginViewModel.launchAuthTab.collect { uri -> context.launchCustomTab(uri) }
+        loginViewModel.launchAuthTab.collect { launch -> context.launchCustomTab(launch.uri, launch.ephemeral) }
     }
     val onAddAccount = {
         if (isPro) loginViewModel.login(freshLogin = true) else navController.navigate(Dest.PAYWALL)
@@ -762,6 +778,8 @@ private fun MainScaffold() {
                     onAddAccount = onAddAccount,
                     onOpenPaywall = { navController.navigate(Dest.PAYWALL) },
                     onOpenAudit = { navController.navigate(Dest.AUDIT) },
+                    onOpenToolbox = onOpenToolbox,
+                    onOpenAlerting = { navController.navigate(Dest.ALERTING) },
                 )
             }
             composable(
@@ -779,6 +797,9 @@ private fun MainScaffold() {
             }
             composable(Dest.AUDIT) {
                 AuditLogScreen(onBack = { navController.popBackStack() })
+            }
+            composable(Dest.ALERTING) {
+                CFAlertingScreen(onBack = { navController.popBackStack() })
             }
         }
     }

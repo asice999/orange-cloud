@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- ⚠️ 自动生成 —— 请勿手改。改 packages/changelog/android.json 后运行 `pnpm changelog:gen`。 -->
 <resources>
+    <string name="whatsnew_1_6_0_0_title">Pages custom domains</string>
+    <string name="whatsnew_1_6_0_0_detail">Manage custom domains right inside a Pages project: add, remove, re-validate, and check DNS status — with one-tap CNAME setup when the domain’s zone is on your account.</string>
+    <string name="whatsnew_1_6_0_1_title">List sorting</string>
+    <string name="whatsnew_1_6_0_1_detail">Workers and Pages lists can now be sorted by name (default), date created, or recently updated — your choice is remembered.</string>
+    <string name="whatsnew_1_5_0_0_title">No-login developer toolbox</string>
+    <string name="whatsnew_1_5_0_0_detail">A set of handy network tools you can use without signing in: DNS lookup, SSL certificate inspection, HTTP headers, WHOIS, IP geolocation, a CIDR calculator and Cloudflare trace — reachable right from the login screen.</string>
+    <string name="whatsnew_1_5_0_1_title">Push Center</string>
+    <string name="whatsnew_1_5_0_1_detail">A built-in push service: get your own endpoint and send messages to this device with a simple curl or script — with titles, groups and an inbox. No Cloudflare sign-in required.</string>
+    <string name="whatsnew_1_5_0_2_title">Cloudflare alerts on your phone</string>
+    <string name="whatsnew_1_5_0_2_detail">Once signed in, manage your Cloudflare alert policies right here: pick the alert types you care about (DDoS, health checks, certificate expiry, Workers error rate and more) and wire them to the Push Center in one tap, so events land on this device. Requires a domain on a Pro or higher plan.</string>
     <string name="whatsnew_1_4_2_0_title">Workers AI improvements</string>
     <string name="whatsnew_1_4_2_0_detail">Browse models grouped by task type, view model details, and the text-generation test run is fixed.</string>
     <string name="whatsnew_1_4_0_title">New Developer Platform</string>

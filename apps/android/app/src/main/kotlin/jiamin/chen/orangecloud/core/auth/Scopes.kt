@@ -70,6 +70,9 @@ object Scopes {
     const val HYPERDRIVE_READ = "query-cache.read"              // Hyperdrive（query-cache scope）
     const val HYPERDRIVE_WRITE = "query-cache.write"
     const val WORKERS_OBSERVABILITY_READ = "workers-observability.read" // Worker 日志/指标（并入 Workers 功能）
+    // 通知 / 告警（CF Alerting，把告警推到推送端点；iOS 早已在共用 client 注册，经 [[cf-oauth-scopes]] 核对）
+    const val NOTIFICATIONS_READ = "notifications.read"
+    const val NOTIFICATIONS_WRITE = "notifications.write"
 
     /**
      * 默认申请的权限集，覆盖全部已对表 iOS 的功能（账号/域名/DNS/Workers/tail/Snippets/
@@ -105,6 +108,7 @@ object Scopes {
         QUEUES_READ, QUEUES_WRITE,
         HYPERDRIVE_READ, HYPERDRIVE_WRITE,
         WORKERS_OBSERVABILITY_READ,
+        NOTIFICATIONS_READ, NOTIFICATIONS_WRITE,
     )
 
     /** 空格分隔、排序去重的 scope 字符串，直接用于 OAuth scope 参数。 */

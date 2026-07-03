@@ -186,6 +186,160 @@ final class PagesProjectDetailViewModel {
     }
 }
 
+// MARK: - 自定义域名
+
+@Observable
+@MainActor
+final class PagesDomainsViewModel {
+
+    /// 某个域名的 DNS 解析状态（zone 在当前账号内时才可查/可写）
+    enum DNSState: Equatable {
+        case resolved(String)     // 已有记录指向本项目（content）
+        case conflicting(String)  // 已有解析记录但未指向本项目
+        case missing              // zone 在账号内且尚无解析记录，可一键添加 CNAME
+        case external             // zone 不在当前账号（去域名服务商处配置）
+        case unknown              // 无 dns.read 或查询失败
+    }
+
+    private(set) var domains: [PagesDomain] = []
+    private(set) var dnsStates: [String: DNSState] = [:]   // key = 域名
+    var isLoading = false
+    var loaded = false
+    var isMutating = false
+    var error: String?
+    var didMutate = false      // sensoryFeedback 触发器
+
+    private let service: PagesService
+    private let dnsService: DNSService
+    let accountId: String
+    let projectName: String
+    /// CNAME 目标：<project>.pages.dev
+    let cnameTarget: String?
+
+    init(service: PagesService, dnsService: DNSService, accountId: String, projectName: String, subdomain: String?) {
+        self.service = service
+        self.dnsService = dnsService
+        self.accountId = accountId
+        self.projectName = projectName
+        self.cnameTarget = subdomain
+    }
+
+    func load(canReadDNS: Bool) async {
+        isLoading = true
+        error = nil
+        do {
+            domains = try await service.listDomains(accountId: accountId, projectName: projectName)
+            loaded = true
+            await refreshDNSStates(canReadDNS: canReadDNS)
+        } catch is CancellationError {
+        } catch let urlError as URLError where urlError.code == .cancelled {
+        } catch {
+            self.error = error.localizedDescription
+        }
+        isLoading = false
+    }
+
+    /// 逐域名查解析记录（zone 不在账号内或无权限时标记为不可查）
+    private func refreshDNSStates(canReadDNS: Bool) async {
+        var states: [String: DNSState] = [:]
+        for domain in domains {
+            guard let zoneTag = domain.zoneTag, !zoneTag.isEmpty else {
+                states[domain.name] = .external
+                continue
+            }
+            guard canReadDNS, let target = cnameTarget else {
+                states[domain.name] = .unknown
+                continue
+            }
+            do {
+                let records = try await dnsService.listRecords(zoneId: zoneTag, name: domain.name)
+                    .filter { ["CNAME", "A", "AAAA"].contains($0.type.uppercased()) }
+                if let hit = records.first(where: { $0.content.lowercased() == target.lowercased() }) {
+                    states[domain.name] = .resolved(hit.content)
+                } else if let other = records.first {
+                    states[domain.name] = .conflicting(other.content)
+                } else {
+                    states[domain.name] = .missing
+                }
+            } catch {
+                // zone 可能属于别的账号（403）或临时失败：不阻塞域名列表
+                states[domain.name] = .unknown
+            }
+        }
+        dnsStates = states
+    }
+
+    func add(name: String, canReadDNS: Bool) async -> Bool {
+        guard !isMutating else { return false }
+        isMutating = true
+        error = nil
+        defer { isMutating = false }
+        do {
+            _ = try await service.addDomain(accountId: accountId, projectName: projectName, name: name)
+            await load(canReadDNS: canReadDNS)
+            didMutate.toggle()
+            return true
+        } catch {
+            self.error = error.localizedDescription
+            return false
+        }
+    }
+
+    func retry(_ domain: PagesDomain, canReadDNS: Bool) async -> Bool {
+        guard !isMutating else { return false }
+        isMutating = true
+        error = nil
+        defer { isMutating = false }
+        do {
+            try await service.retryDomain(accountId: accountId, projectName: projectName, domainName: domain.name)
+            await load(canReadDNS: canReadDNS)
+            didMutate.toggle()
+            return true
+        } catch {
+            self.error = error.localizedDescription
+            return false
+        }
+    }
+
+    func delete(_ domain: PagesDomain) async -> Bool {
+        guard !isMutating else { return false }
+        isMutating = true
+        error = nil
+        defer { isMutating = false }
+        do {
+            try await service.deleteDomain(accountId: accountId, projectName: projectName, domainName: domain.name)
+            domains.removeAll { $0.id == domain.id }
+            dnsStates[domain.name] = nil
+            didMutate.toggle()
+            return true
+        } catch {
+            self.error = error.localizedDescription
+            return false
+        }
+    }
+
+    /// 一键在域名所在 Zone 添加 CNAME → <project>.pages.dev（dns.write）
+    func createCNAME(for domain: PagesDomain) async -> Bool {
+        guard !isMutating, let zoneTag = domain.zoneTag, let target = cnameTarget else { return false }
+        isMutating = true
+        error = nil
+        defer { isMutating = false }
+        do {
+            let record = CreateDNSRecord(
+                type: "CNAME", name: domain.name, content: target,
+                proxied: true, ttl: 1, priority: nil, comment: nil
+            )
+            _ = try await dnsService.createRecord(zoneId: zoneTag, record: record)
+            dnsStates[domain.name] = .resolved(target)
+            didMutate.toggle()
+            return true
+        } catch {
+            self.error = error.localizedDescription
+            return false
+        }
+    }
+}
+
 // MARK: - 直接上传部署
 
 @Observable

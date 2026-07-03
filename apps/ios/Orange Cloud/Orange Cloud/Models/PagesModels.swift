@@ -177,6 +177,80 @@ nonisolated enum PagesDeployStatus: String, Sendable {
     }
 }
 
+// MARK: - 自定义域名
+
+/// 项目自定义域名。GET /accounts/{id}/pages/projects/{name}/domains
+nonisolated struct PagesDomain: Codable, Identifiable, Sendable {
+    let id:                   String
+    let name:                 String
+    let status:               String?   // initializing | pending | active | deactivated | blocked | error
+    let zoneTag:              String?   // 域名所在 Zone（在当前 Cloudflare 上才有意义）
+    let createdOn:            String?
+    let certificateAuthority: String?
+    let validationData:       PagesDomainValidationData?
+    let verificationData:     PagesDomainVerificationData?
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, status
+        case zoneTag              = "zone_tag"
+        case createdOn            = "created_on"
+        case certificateAuthority = "certificate_authority"
+        case validationData       = "validation_data"
+        case verificationData     = "verification_data"
+    }
+
+    var statusValue: PagesDomainStatus { PagesDomainStatus(rawValue: status ?? "") ?? .unknown }
+}
+
+/// 证书验证信息（method == txt 时给出待添加的 TXT 记录）
+nonisolated struct PagesDomainValidationData: Codable, Sendable {
+    let status:       String?
+    let method:       String?    // http | txt
+    let txtName:      String?
+    let txtValue:     String?
+    let errorMessage: String?
+
+    enum CodingKeys: String, CodingKey {
+        case status, method
+        case txtName      = "txt_name"
+        case txtValue     = "txt_value"
+        case errorMessage = "error_message"
+    }
+}
+
+/// 域名归属验证信息
+nonisolated struct PagesDomainVerificationData: Codable, Sendable {
+    let status:       String?
+    let errorMessage: String?
+
+    enum CodingKeys: String, CodingKey {
+        case status
+        case errorMessage = "error_message"
+    }
+}
+
+nonisolated enum PagesDomainStatus: String, Sendable {
+    case initializing, pending, active, deactivated, blocked, error
+    case unknown = ""
+
+    var label: String {
+        switch self {
+        case .active:       String(localized: "生效中")
+        case .pending:      String(localized: "验证中")
+        case .initializing: String(localized: "初始化")
+        case .deactivated:  String(localized: "已停用")
+        case .blocked:      String(localized: "已封锁")
+        case .error:        String(localized: "错误")
+        case .unknown:      String(localized: "未知")
+        }
+    }
+}
+
+/// POST .../domains 请求体
+nonisolated struct PagesDomainAddRequest: Codable, Sendable {
+    let name: String
+}
+
 // MARK: - 写入载荷
 
 /// PATCH 项目：仅传要改的字段（顶层合并，省略字段不变）。环境变量不在此（脱敏风险，App 内只读）。

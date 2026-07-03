@@ -1,1146 +1,6 @@
 {
   "sourceLanguage" : "zh-Hans",
   "strings" : {
-    "添加主机名" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "إضافة اسم مضيف"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hostname hinzufügen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add Hostname"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Agregar nombre de host"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ajouter un nom d’hôte"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ホスト名を追加"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "호스트 이름 추가"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adicionar nome de host"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adicionar nome de anfitrião"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ana makine adı ekle"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "新增主機名稱"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "新增主機名稱"
-          }
-        }
-      }
-    },
-    "自托管应用可保护多个公共主机名（及路径），第一个为主域名。左滑删除。" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "يمكن للتطبيقات المُستضافة ذاتيًا حماية عدة أسماء مضيفين عامة (ومسارات). الأول هو النطاق الأساسي. اسحب للحذف."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Selbst gehostete Apps können mehrere öffentliche Hostnamen (und Pfade) schützen. Der erste ist die primäre Domain. Wischen zum Löschen."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Self-hosted apps can protect multiple public hostnames (and paths). The first is the primary domain. Swipe to delete."
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Las apps autoalojadas pueden proteger varios nombres de host públicos (y rutas). El primero es el dominio principal. Desliza para eliminar."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les apps auto-hébergées peuvent protéger plusieurs noms d’hôte publics (et chemins). Le premier est le domaine principal. Glissez pour supprimer."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "セルフホストのアプリは複数のパブリックホスト名（とパス）を保護できます。最初のものがメインのドメインです。スワイプで削除。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "자체 호스팅 앱은 여러 공개 호스트 이름(및 경로)을 보호할 수 있습니다. 첫 번째가 기본 도메인입니다. 밀어서 삭제."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Apps auto-hospedados podem proteger vários nomes de host públicos (e caminhos). O primeiro é o domínio principal. Deslize para excluir."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "As apps auto-alojadas podem proteger vários nomes de anfitrião públicos (e caminhos). O primeiro é o domínio principal. Deslize para eliminar."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kendi sunucunuzda barındırılan uygulamalar birden çok genel ana makine adını (ve yolları) koruyabilir. İlki birincil etki alanıdır. Silmek için kaydırın."
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自架應用程式可保護多個公開主機名稱（及路徑），第一個為主域名。左滑刪除。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自架應用程式可保護多個公開主機名稱（及路徑），第一個為主網域。左滑刪除。"
-          }
-        }
-      }
-    },
-    "端点推送" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "دفع عبر نقطة النهاية"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Endpunkt-Push"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Endpoint push"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push por endpoint"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push par point de terminaison"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "エンドポイントへプッシュ"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "엔드포인트 푸시"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push por endpoint"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push por endpoint"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uç nokta push"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "端點推送"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "端點推送"
-          }
-        }
-      }
-    },
-    "收到的推送会出现在这里，包括 App 在后台时到达的。" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تظهر الإشعارات التي تتلقاها هنا، بما في ذلك التي تصل والتطبيق في الخلفية."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Empfangene Pushes erscheinen hier, auch solche, die im Hintergrund eintreffen."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pushes you receive appear here, including those that arrive while the app is in the background."
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Las notificaciones que recibas aparecen aquí, incluidas las que llegan con la app en segundo plano."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les push reçus apparaissent ici, y compris ceux qui arrivent en arrière-plan."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "受信したプッシュはここに表示されます。アプリがバックグラウンドのときに届いたものも含みます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "받은 푸시가 여기에 표시됩니다. 앱이 백그라운드일 때 도착한 것도 포함됩니다."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "As notificações recebidas aparecem aqui, incluindo as que chegam com o app em segundo plano."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "As notificações recebidas aparecem aqui, incluindo as que chegam com a app em segundo plano."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aldığınız push’lar burada görünür; uygulama arka plandayken gelenler dâhil."
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "收到的推送會出現在這裡，包括 App 在背景時到達的。"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "收到的推送會出現在這裡，包括 App 在背景時到達的。"
-          }
-        }
-      }
-    },
-    "推送端点 · CF 告警直推" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "نقطة نهاية الدفع · تنبيهات CF مباشرة"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push-Endpunkt · CF-Warnungen direkt"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push endpoint · CF alerts direct"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Endpoint de push · alertas CF directas"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Point de terminaison push · alertes CF directes"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "プッシュエンドポイント · CF アラート直送"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "푸시 엔드포인트 · CF 경고 직접 전송"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Endpoint de push · alertas CF diretos"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Endpoint de push · alertas CF diretos"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push uç noktası · CF uyarıları doğrudan"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "推送端點 · CF 告警直推"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "推送端點 · CF 告警直推"
-          }
-        }
-      }
-    },
-    "给端点推送 · 免登录" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "دفع إلى نقطة نهاية · بدون تسجيل دخول"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "An einen Endpunkt pushen · ohne Anmeldung"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push to an endpoint · no login"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push a un endpoint · sin inicio de sesión"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push vers un point de terminaison · sans connexion"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "エンドポイントへプッシュ · ログイン不要"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "엔드포인트로 푸시 · 로그인 불필요"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push para um endpoint · sem login"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push para um endpoint · sem início de sessão"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bir uç noktaya push · girişsiz"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "給端點推送 · 免登入"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "給端點推送 · 免登入"
-          }
-        }
-      }
-    },
-    "通知 / 告警" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "الإشعارات / التنبيهات"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Benachrichtigungen / Warnungen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notifications / Alerts"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notificaciones / Alertas"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notifications / Alertes"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "通知 / アラート"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "알림 / 경고"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notificações / Alertas"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notificações / Alertas"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bildirimler / Uyarılar"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "通知 / 告警"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "通知 / 告警"
-          }
-        }
-      }
-    },
-    "管理 Cloudflare 告警策略，把告警推送到推送中心" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "إدارة سياسات تنبيهات Cloudflare ودفع التنبيهات إلى مركز الإشعارات"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cloudflare-Warnrichtlinien verwalten und Warnungen an das Push-Center senden"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Manage Cloudflare alert policies and push alerts to the Push Center"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Administra las políticas de alertas de Cloudflare y envía alertas al Centro de notificaciones"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gérez les politiques d'alerte Cloudflare et envoyez les alertes au centre de push"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cloudflare のアラートポリシーを管理し、アラートをプッシュセンターに送信します"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cloudflare 경고 정책을 관리하고 경고를 푸시 센터로 전송합니다"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gerencie as políticas de alerta da Cloudflare e envie alertas para a Central de Push"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Faça a gestão das políticas de alerta da Cloudflare e envie alertas para o Centro de Push"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cloudflare uyarı politikalarını yönetin ve uyarıları Push Merkezi'ne gönderin"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "管理 Cloudflare 告警策略，把告警推送到推送中心"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "管理 Cloudflare 告警策略，將告警推送到推送中心"
-          }
-        }
-      }
-    },
-    "CF 告警推送" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "دفع تنبيهات CF"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "CF-Warnungs-Push"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "CF Alert Push"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push de alertas de CF"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push d'alertes CF"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "CF アラート通知"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "CF 경고 푸시"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push de alertas do CF"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push de alertas do CF"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "CF Uyarı Push"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "CF 告警推送"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "CF 告警推送"
-          }
-        }
-      }
-    },
-    "需要「通知」权限" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "مطلوب إذن «الإشعارات»"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Berechtigung „Benachrichtigungen“ erforderlich"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notifications permission required"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Se requiere el permiso de Notificaciones"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Autorisation « Notifications » requise"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "「通知」権限が必要です"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "「알림」 권한이 필요합니다"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "É necessária a permissão de Notificações"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "É necessária a permissão de Notificações"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "「Bildirimler」 izni gerekli"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "需要「通知」權限"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "需要「通知」權限"
-          }
-        }
-      }
-    },
-    "管理 Cloudflare 告警需要 Notifications 权限。请到 设置 → 你的账号 重新登录以授予。" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تتطلب إدارة تنبيهات Cloudflare إذن Notifications. انتقل إلى الإعدادات ← حسابك وسجِّل الدخول مرة أخرى لمنحه."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zum Verwalten von Cloudflare-Warnungen ist die Berechtigung „Notifications“ erforderlich. Gehe zu Einstellungen → dein Konto und melde dich erneut an, um sie zu erteilen."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Managing Cloudflare alerts requires the Notifications permission. Go to Settings → your account and sign in again to grant it."
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Para administrar las alertas de Cloudflare se requiere el permiso de Notifications. Ve a Ajustes → tu cuenta e inicia sesión de nuevo para concederlo."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La gestion des alertes Cloudflare nécessite l’autorisation Notifications. Allez dans Réglages → votre compte et reconnectez-vous pour l’accorder."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cloudflare のアラートを管理するには Notifications 権限が必要です。設定 → アカウント から再度サインインして許可してください。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cloudflare 경고를 관리하려면 Notifications 권한이 필요합니다. 설정 → 내 계정에서 다시 로그인하여 권한을 부여하세요."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Para gerenciar os alertas da Cloudflare é necessária a permissão de Notifications. Vá em Ajustes → sua conta e entre novamente para conceder."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Para gerir os alertas da Cloudflare é necessária a permissão de Notifications. Vá a Definições → a sua conta e inicie sessão novamente para conceder."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cloudflare uyarılarını yönetmek için Notifications izni gerekir. Ayarlar → hesabınız bölümüne gidip yeniden oturum açarak izni verin."
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "管理 Cloudflare 告警需要 Notifications 權限。請到 設定 → 你的帳戶 重新登入以授予。"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "管理 Cloudflare 告警需要 Notifications 權限。請到 設定 → 你的帳戶 重新登入以授予。"
-          }
-        }
-      }
-    },
-    "选择" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "اختيار"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Auswählen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Select"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seleccionar"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sélectionner"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "選択"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "선택"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Selecionar"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Selecionar"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seç"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "選擇"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "選擇"
-          }
-        }
-      }
-    },
-    "已接到推送端点" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "متصل بنقطة نهاية الدفع الخاصة بك"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mit deinem Push-Endpunkt verbunden"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connected to your push endpoint"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Conectado a tu endpoint de push"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connecté à votre point de terminaison push"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "プッシュエンドポイントに接続済み"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "푸시 엔드포인트에 연결됨"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Conectado ao seu endpoint de push"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ligado ao seu endpoint de push"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push uç noktanıza bağlandı"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已接到推送端點"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已接到推送端點"
-          }
-        }
-      }
-    },
-    "开启任一告警即自动接线" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "فعّل أي تنبيه ليتم ربطه تلقائيًا"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aktiviere eine beliebige Warnung, um sie automatisch zu verbinden"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Turn on any alert to wire it up automatically"
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Activa cualquier alerta para conectarla automáticamente"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Activez une alerte pour la connecter automatiquement"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "いずれかのアラートをオンにすると自動的に接続されます"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "경고를 하나라도 켜면 자동으로 연결됩니다"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ative qualquer alerta para conectá-lo automaticamente"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ative qualquer alerta para o ligar automaticamente"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Otomatik bağlamak için herhangi bir uyarıyı açın"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "開啟任一告警即自動接線"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "開啟任一告警即自動接線"
-          }
-        }
-      }
-    },
-    "把 Cloudflare 告警（DDoS、健康检查、证书到期、Workers 错误率、部署失败…）推到这台设备。需账号下有 Pro 及以上套餐的域名。" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ادفع تنبيهات Cloudflare (DDoS، فحوصات السلامة، انتهاء صلاحية الشهادات، معدل أخطاء Workers، حالات فشل النشر…) إلى هذا الجهاز. يتطلب نطاقًا بخطة Pro أو أعلى في حسابك."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cloudflare-Warnungen (DDoS, Health Checks, Zertifikatsablauf, Workers-Fehlerrate, Deployment-Fehler…) an dieses Gerät senden. Erfordert eine Domain mit Pro-Tarif oder höher in deinem Konto."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Push Cloudflare alerts (DDoS, health checks, certificate expiry, Workers error rate, deployment failures…) to this device. Requires a domain on a Pro or higher plan in your account."
-          }
-        },
-        "es-MX" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Envía alertas de Cloudflare (DDoS, comprobaciones de estado, vencimiento de certificados, tasa de errores de Workers, fallas de implementación…) a este dispositivo. Requiere un dominio con un plan Pro o superior en tu cuenta."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Envoyez les alertes Cloudflare (DDoS, contrôles d’état, expiration de certificat, taux d’erreur Workers, échecs de déploiement…) sur cet appareil. Nécessite un domaine avec un forfait Pro ou supérieur dans votre compte."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cloudflare のアラート（DDoS、ヘルスチェック、証明書の有効期限、Workers のエラー率、デプロイ失敗など）をこの端末にプッシュします。アカウントに Pro 以上のプランのドメインが必要です。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cloudflare 경고(DDoS, 상태 확인, 인증서 만료, Workers 오류율, 배포 실패 등)를 이 기기로 푸시합니다. 계정에 Pro 이상 요금제의 도메인이 필요합니다."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Envie alertas da Cloudflare (DDoS, verificações de integridade, expiração de certificados, taxa de erros do Workers, falhas de implantação…) para este dispositivo. Requer um domínio com plano Pro ou superior na sua conta."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Envie alertas da Cloudflare (DDoS, verificações de estado, expiração de certificados, taxa de erros do Workers, falhas de implementação…) para este dispositivo. Requer um domínio com plano Pro ou superior na sua conta."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cloudflare uyarılarını (DDoS, durum denetimleri, sertifika süresi dolması, Workers hata oranı, dağıtım hataları…) bu cihaza gönderin. Hesabınızda Pro veya üzeri planda bir alan adı gerektirir."
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "把 Cloudflare 告警（DDoS、健康檢查、憑證到期、Workers 錯誤率、部署失敗…）推到這台裝置。需帳戶下有 Pro 及以上方案的網域。"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "把 Cloudflare 告警（DDoS、健康檢查、憑證到期、Workers 錯誤率、部署失敗…）推到這部裝置。需帳戶下有 Pro 及以上計劃的域名。"
-          }
-        }
-      }
-    },
     "" : {
       "localizations" : {
         "ar" : {
@@ -3125,6 +1985,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld 個 Worker"
+          }
+        }
+      }
+    },
+    "%lld 个域名" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld نطاقات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Domains"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld domains"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dominios"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld domaines"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 件のドメイン"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "도메인 %lld개"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld domínios"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld domínios"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld alan adı"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 個網域"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 個域名"
           }
         }
       }
@@ -8930,6 +7866,82 @@
         }
       }
     },
+    "CF 告警推送" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دفع تنبيهات CF"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CF-Warnungs-Push"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CF Alert Push"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push de alertas de CF"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push d'alertes CF"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CF アラート通知"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CF 경고 푸시"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push de alertas do CF"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push de alertas do CF"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CF Uyarı Push"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CF 告警推送"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CF 告警推送"
+          }
+        }
+      }
+    },
     "CF 数据中心" : {
       "localizations" : {
         "ar" : {
@@ -9087,7 +8099,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يحدّ Cloudflare API الرفع الواحد بنحو 300 ميغابايت؛ الكائنات الأكبر لا يمكن نسخها أو نقلها داخل التطبيق."
+            "value" : "يحدّ Cloudflare API الرفع الواحد بنحو 300 MB؛ الكائنات الأكبر لا يمكن نسخها أو نقلها داخل التطبيق."
           }
         },
         "de" : {
@@ -9111,7 +8123,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "L’API Cloudflare limite un envoi unique à environ 300 Mo ; les objets plus volumineux ne peuvent pas être copiés ou déplacés dans l’app."
+            "value" : "L’API Cloudflare limite un envoi unique à environ 300 MB ; les objets plus volumineux ne peuvent pas être copiés ou déplacés dans l’app."
           }
         },
         "ja" : {
@@ -15791,7 +14803,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يمكن أن تستخدم المفاتيح / للإشارة إلى مستويات المجلدات. الكائنات التي تتجاوز 300 ميغابايت لا يمكن نسخها / نقلها بسبب قيود واجهة برمجة التطبيقات."
+            "value" : "يمكن أن تستخدم المفاتيح / للإشارة إلى مستويات المجلدات. الكائنات التي تتجاوز 300 MB لا يمكن نسخها / نقلها بسبب قيود واجهة برمجة التطبيقات."
           }
         },
         "de" : {
@@ -15815,7 +14827,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les clés peuvent utiliser / pour indiquer les niveaux de dossier. Les objets de plus de 300 Mo ne peuvent pas être copiés ou déplacés en raison des limites de l’API."
+            "value" : "Les clés peuvent utiliser / pour indiquer les niveaux de dossier. Les objets de plus de 300 MB ne peuvent pas être copiés ou déplacés en raison des limites de l’API."
           }
         },
         "ja" : {
@@ -34652,6 +33664,82 @@
         }
       }
     },
+    "最近更新" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخر تحديث"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuletzt aktualisiert"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recently Updated"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualización reciente"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour récente"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近の更新"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "최근 업데이트"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização recente"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização recente"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son güncelleme"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近更新"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最近更新"
+          }
+        }
+      }
+    },
     "最近部署" : {
       "localizations" : {
         "ar" : {
@@ -36324,6 +35412,82 @@
         }
       }
     },
+    "创建日期" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تاريخ الإنشاء"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellungsdatum"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date Created"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fecha de creación"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date de création"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作成日"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "생성일"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data de criação"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data de criação"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oluşturma tarihi"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建立日期"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "創建日期"
+          }
+        }
+      }
+    },
     "创建时间" : {
       "localizations" : {
         "ar" : {
@@ -37840,6 +37004,158 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "刪除命名空間"
+          }
+        }
+      }
+    },
+    "删除域名" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف النطاق"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain entfernen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove Domain"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar dominio"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer le domaine"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ドメインを削除"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "도메인 삭제"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Excluir domínio"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar domínio"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alan adını sil"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除網域"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除域名"
+          }
+        }
+      }
+    },
+    "删除域名「%@」？" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف النطاق ”%@“؟"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domain „%@“ entfernen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove domain “%@”?"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar el dominio “%@”?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer le domaine « %@ » ?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ドメイン「%@」を削除しますか？"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "도메인 “%@”을(를) 삭제할까요?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Excluir o domínio “%@”?"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar o domínio “%@”?"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” alan adı silinsin mi?"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除網域「%@」？"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除域名「%@」？"
           }
         }
       }
@@ -56254,7 +55570,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يتجاوز الكائن 300 ميغابايت ولا يمكن نسخه أو نقله داخل التطبيق بسبب قيود Cloudflare API"
+            "value" : "يتجاوز الكائن 300 MB ولا يمكن نسخه أو نقله داخل التطبيق بسبب قيود Cloudflare API"
           }
         },
         "de" : {
@@ -56278,7 +55594,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "L’objet dépasse 300 Mo et ne peut pas être copié ou déplacé dans l’app en raison des limites de l’API Cloudflare"
+            "value" : "L’objet dépasse 300 MB et ne peut pas être copié ou déplacé dans l’app en raison des limites de l’API Cloudflare"
           }
         },
         "ja" : {
@@ -56701,6 +56017,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "封鎖時長"
+          }
+        }
+      }
+    },
+    "将从该 Pages 项目移除此域名，不影响已有 DNS 记录。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ستتم إزالة هذا النطاق من مشروع Pages، دون التأثير على سجلات DNS الحالية."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Domain wird aus diesem Pages-Projekt entfernt. Bestehende DNS-Einträge bleiben unberührt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The domain will be removed from this Pages project. Existing DNS records are not affected."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El dominio se quitará de este proyecto de Pages. Los registros DNS existentes no se verán afectados."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le domaine sera retiré de ce projet Pages. Les enregistrements DNS existants ne sont pas affectés."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このドメインを Pages プロジェクトから削除します。既存の DNS レコードには影響しません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 Pages 프로젝트에서 도메인을 제거합니다. 기존 DNS 레코드에는 영향이 없습니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O domínio será removido deste projeto do Pages. Os registros DNS existentes não serão afetados."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O domínio será removido deste projeto do Pages. Os registos DNS existentes não serão afetados."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alan adı bu Pages projesinden kaldırılacak. Mevcut DNS kayıtları etkilenmez."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "將從該 Pages 專案移除此網域，不影響現有 DNS 記錄。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "將從該 Pages 項目移除此域名，不影響現有 DNS 記錄。"
           }
         }
       }
@@ -57309,6 +56701,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "將一併移除指向它的觸發規則，此操作無法復原。"
+          }
+        }
+      }
+    },
+    "将在该域名所在的区域添加一条已代理的 CNAME 记录，指向 %@。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سيُضاف سجل CNAME مفعَّل الوكيل يشير إلى %@ في منطقة النطاق."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In der Zone der Domain wird ein Proxy-CNAME-Eintrag hinzugefügt, der auf %@ zeigt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A proxied CNAME record pointing at %@ will be added in the domain’s zone."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se agregará un registro CNAME con proxy que apunta a %@ en la zona del dominio."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un enregistrement CNAME proxifié pointant vers %@ sera ajouté dans la zone du domaine."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ドメインのゾーンに %@ を指すプロキシ済み CNAME レコードを追加します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "도메인 영역에 %@을(를) 가리키는 프록시된 CNAME 레코드를 추가합니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um registro CNAME com proxy apontando para %@ será adicionado na zona do domínio."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Será adicionado na zona do domínio um registo CNAME com proxy a apontar para %@."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alan adının bölgesine %@ adresini gösteren proxy’li bir CNAME kaydı eklenecek."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "將在該網域所在的區域新增一條已代理的 CNAME 記錄，指向 %@。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "將在該域名所在的區域新增一條已代理的 CNAME 記錄，指向 %@。"
           }
         }
       }
@@ -58221,6 +57689,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "以小寫字母／數字開頭，可包含連字號與底線。"
+          }
+        }
+      }
+    },
+    "尚无解析记录" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يوجد سجل DNS بعد"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch kein DNS-Eintrag"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No DNS record yet"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aún no hay registro DNS"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas encore d’enregistrement DNS"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DNS レコードがありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DNS 레코드가 없음"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ainda não há registro DNS"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ainda não há registo DNS"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Henüz DNS kaydı yok"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚無解析記錄"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚無解析記錄"
           }
         }
       }
@@ -59827,6 +59371,82 @@
         }
       }
     },
+    "已封锁" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محظور"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blockiert"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocked"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bloqueado"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bloqué"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ブロック済み"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "차단됨"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bloqueado"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bloqueado"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Engellendi"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已封鎖"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已封鎖"
+          }
+        }
+      }
+    },
     "已就绪" : {
       "localizations" : {
         "ar" : {
@@ -59979,6 +59599,82 @@
         }
       }
     },
+    "已指向本项目" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يشير إلى هذا المشروع"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeigt auf dieses Projekt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pointing at this project"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apunta a este proyecto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pointe vers ce projet"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このプロジェクトを指しています"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 프로젝트를 가리키고 있음"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apontando para este projeto"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A apontar para este projeto"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu projeye yönlendirilmiş"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已指向本專案"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已指向本項目"
+          }
+        }
+      }
+    },
     "已授权权限" : {
       "localizations" : {
         "ar" : {
@@ -60127,6 +59823,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已排定"
+          }
+        }
+      }
+    },
+    "已接到推送端点" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "متصل بنقطة نهاية الدفع الخاصة بك"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mit deinem Push-Endpunkt verbunden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connected to your push endpoint"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conectado a tu endpoint de push"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecté à votre point de terminaison push"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プッシュエンドポイントに接続済み"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "푸시 엔드포인트에 연결됨"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conectado ao seu endpoint de push"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ligado ao seu endpoint de push"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push uç noktanıza bağlandı"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已接到推送端點"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已接到推送端點"
           }
         }
       }
@@ -62411,6 +62183,82 @@
         }
       }
     },
+    "开启任一告警即自动接线" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعّل أي تنبيه ليتم ربطه تلقائيًا"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiviere eine beliebige Warnung, um sie automatisch zu verbinden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn on any alert to wire it up automatically"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activa cualquier alerta para conectarla automáticamente"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activez une alerte pour la connecter automatiquement"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "いずれかのアラートをオンにすると自動的に接続されます"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "경고를 하나라도 켜면 자동으로 연결됩니다"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ative qualquer alerta para conectá-lo automaticamente"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ative qualquer alerta para o ligar automaticamente"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otomatik bağlamak için herhangi bir uyarıyı açın"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開啟任一告警即自動接線"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開啟任一告警即自動接線"
+          }
+        }
+      }
+    },
     "开启后，%@ 将临时绕过 Cloudflare 缓存，源站负载会上升；3 小时后自动关闭。" : {
       "localizations" : {
         "ar" : {
@@ -64688,6 +64536,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "目前授權未包含 D1 寫入權限（d1.write）。\n請在設定中登出後重新授權以啟用此功能。"
+          }
+        }
+      }
+    },
+    "当前授权未包含 DNS 写权限（dns.write）。\n请在设置中退出登录后重新授权以启用此功能。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يتضمّن التفويض الحالي إذن الكتابة لـ DNS ‏(dns.write).\nسجّل الخروج من الإعدادات وأعد التفويض لتفعيله."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Autorisierung enthält keine Schreibberechtigung für DNS (dns.write).\nMelde dich in den Einstellungen ab und autorisiere erneut."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your authorization doesn't include write permission for DNS (dns.write).\nSign out in Settings and re-authorize to enable it."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu autorización no incluye el permiso de escritura de DNS (dns.write).\nCierra sesión en Ajustes y vuelve a autorizar para habilitarlo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre autorisation n’inclut pas la permission d’écriture DNS (dns.write).\nDéconnectez-vous dans Réglages et réautorisez pour l’activer."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在の認可には DNS の書き込み権限（dns.write）が含まれていません。\n設定でサインアウトして再認可すると有効になります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "현재 권한에 DNS 쓰기 권한(dns.write)이 없습니다.\n설정에서 로그아웃 후 다시 인증하면 활성화됩니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sua autorização não inclui a permissão de escrita de DNS (dns.write).\nSaia nas Configurações e autorize novamente para ativar."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A sua autorização não inclui a permissão de escrita de DNS (dns.write).\nTermine sessão nas Definições e autorize novamente para ativar."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yetkilendirmeniz DNS yazma iznini (dns.write) içermiyor.\nAyarlar’da çıkış yapıp yeniden yetkilendirin."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目前的授權未包含 DNS 的寫入權限（dns.write）。\n請在設定中登出後重新授權以啟用此功能。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目前的授權未包含 DNS 的寫入權限（dns.write）。\n請在設定中登出後重新授權以啟用此功能。"
           }
         }
       }
@@ -68350,6 +68274,7 @@
       }
     },
     "打开 ${module}" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -68506,7 +68431,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عند التفعيل، تظهر هذه الحزمة في تطبيق الملفات بالنظام مثل iCloud Drive — التصفح والقراءة والرفع والحذف، والفتح بأي تطبيق. الرفع لكل ملف محدود بنحو 300 ميجابايت (واجهة Cloudflare)."
+            "value" : "عند التفعيل، تظهر هذه الحزمة في تطبيق الملفات بالنظام مثل iCloud Drive — التصفح والقراءة والرفع والحذف، والفتح بأي تطبيق. الرفع لكل ملف محدود بنحو 300 MB (واجهة Cloudflare)."
           }
         },
         "de" : {
@@ -68530,7 +68455,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Une fois activé, ce bucket apparaît dans l'app Fichiers du système comme iCloud Drive — parcourir, lire, téléverser et supprimer, et ouvrir avec n'importe quelle app. Le téléversement par fichier est limité à environ 300 Mo (API Cloudflare)."
+            "value" : "Une fois activé, ce bucket apparaît dans l'app Fichiers du système comme iCloud Drive — parcourir, lire, téléverser et supprimer, et ouvrir avec n'importe quelle app. Le téléversement par fichier est limité à environ 300 MB (API Cloudflare)."
           }
         },
         "ja" : {
@@ -69637,6 +69562,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "找到「名稱伺服器（Nameservers）」設定。"
+          }
+        }
+      }
+    },
+    "把 Cloudflare 告警（DDoS、健康检查、证书到期、Workers 错误率、部署失败…）推到这台设备。需账号下有 Pro 及以上套餐的域名。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ادفع تنبيهات Cloudflare (DDoS، فحوصات السلامة، انتهاء صلاحية الشهادات، معدل أخطاء Workers، حالات فشل النشر…) إلى هذا الجهاز. يتطلب نطاقًا بخطة Pro أو أعلى في حسابك."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare-Warnungen (DDoS, Health Checks, Zertifikatsablauf, Workers-Fehlerrate, Deployment-Fehler…) an dieses Gerät senden. Erfordert eine Domain mit Pro-Tarif oder höher in deinem Konto."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push Cloudflare alerts (DDoS, health checks, certificate expiry, Workers error rate, deployment failures…) to this device. Requires a domain on a Pro or higher plan in your account."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envía alertas de Cloudflare (DDoS, comprobaciones de estado, vencimiento de certificados, tasa de errores de Workers, fallas de implementación…) a este dispositivo. Requiere un dominio con un plan Pro o superior en tu cuenta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyez les alertes Cloudflare (DDoS, contrôles d’état, expiration de certificat, taux d’erreur Workers, échecs de déploiement…) sur cet appareil. Nécessite un domaine avec un forfait Pro ou supérieur dans votre compte."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare のアラート（DDoS、ヘルスチェック、証明書の有効期限、Workers のエラー率、デプロイ失敗など）をこの端末にプッシュします。アカウントに Pro 以上のプランのドメインが必要です。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare 경고(DDoS, 상태 확인, 인증서 만료, Workers 오류율, 배포 실패 등)를 이 기기로 푸시합니다. 계정에 Pro 이상 요금제의 도메인이 필요합니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envie alertas da Cloudflare (DDoS, verificações de integridade, expiração de certificados, taxa de erros do Workers, falhas de implantação…) para este dispositivo. Requer um domínio com plano Pro ou superior na sua conta."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envie alertas da Cloudflare (DDoS, verificações de estado, expiração de certificados, taxa de erros do Workers, falhas de implementação…) para este dispositivo. Requer um domínio com plano Pro ou superior na sua conta."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare uyarılarını (DDoS, durum denetimleri, sertifika süresi dolması, Workers hata oranı, dağıtım hataları…) bu cihaza gönderin. Hesabınızda Pro veya üzeri planda bir alan adı gerektirir."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "把 Cloudflare 告警（DDoS、健康檢查、憑證到期、Workers 錯誤率、部署失敗…）推到這台裝置。需帳戶下有 Pro 及以上方案的網域。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "把 Cloudflare 告警（DDoS、健康檢查、憑證到期、Workers 錯誤率、部署失敗…）推到這部裝置。需帳戶下有 Pro 及以上計劃的域名。"
           }
         }
       }
@@ -71086,6 +71087,82 @@
         }
       }
     },
+    "挂载后需将域名解析指向本项目才能生效。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بعد الإضافة، وجِّه DNS النطاق إلى هذا المشروع ليصبح ساريًا."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nach dem Hinzufügen muss der DNS-Eintrag der Domain auf dieses Projekt zeigen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After attaching, point the domain’s DNS at this project for it to take effect."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Después de agregarlo, apunta el DNS del dominio a este proyecto para que surta efecto."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Après l’ajout, faites pointer le DNS du domaine vers ce projet pour qu’il prenne effet."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "追加後、ドメインの DNS をこのプロジェクトに向けると有効になります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "추가한 후 도메인 DNS를 이 프로젝트로 지정해야 적용됩니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depois de adicionar, aponte o DNS do domínio para este projeto para que tenha efeito."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Depois de adicionar, aponte o DNS do domínio para este projeto para que produza efeito."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ekledikten sonra alan adının DNS’ini bu projeye yönlendirin."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "掛載後需將網域解析指向本專案才會生效。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "掛載後需將域名解析指向本項目才會生效。"
+          }
+        }
+      }
+    },
     "挂载自定义域" : {
       "localizations" : {
         "ar" : {
@@ -72075,6 +72152,158 @@
         }
       }
     },
+    "授权请求包含 Cloudflare 尚未对本 App 开放的权限，无法完成登录。请更新到最新版本后重试。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يتضمن طلب التفويض أذونات لم تفتحها Cloudflare لهذا التطبيق بعد، لذا تعذّر إكمال تسجيل الدخول. يرجى التحديث إلى أحدث إصدار ثم المحاولة مرة أخرى."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Autorisierungsanfrage enthält Berechtigungen, die Cloudflare für diese App noch nicht freigegeben hat, daher kann die Anmeldung nicht abgeschlossen werden. Bitte aktualisiere auf die neueste Version und versuche es erneut."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The authorization request includes permissions Cloudflare has not yet enabled for this app, so sign-in can't be completed. Please update to the latest version and try again."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La solicitud de autorización incluye permisos que Cloudflare aún no ha habilitado para esta app, por lo que no se puede completar el inicio de sesión. Actualiza a la versión más reciente e inténtalo de nuevo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La demande d’autorisation contient des autorisations que Cloudflare n’a pas encore activées pour cette app, la connexion ne peut donc pas aboutir. Veuillez mettre à jour vers la dernière version et réessayer."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "認可リクエストに、Cloudflare がこの App にまだ開放していない権限が含まれているため、ログインを完了できません。最新バージョンに更新してからもう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "인증 요청에 Cloudflare가 아직 이 앱에 개방하지 않은 권한이 포함되어 있어 로그인을 완료할 수 없습니다. 최신 버전으로 업데이트한 후 다시 시도해 주세요."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A solicitação de autorização inclui permissões que a Cloudflare ainda não liberou para este app, então não foi possível concluir o login. Atualize para a versão mais recente e tente novamente."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O pedido de autorização inclui permissões que a Cloudflare ainda não disponibilizou para esta app, pelo que não é possível concluir o início de sessão. Atualize para a versão mais recente e tente novamente."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yetkilendirme isteği, Cloudflare'in bu uygulama için henüz açmadığı izinleri içerdiğinden oturum açma tamamlanamıyor. Lütfen en son sürüme güncelleyip yeniden deneyin."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授權請求包含 Cloudflare 尚未對本 App 開放的權限，無法完成登入。請更新至最新版本後再試。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "授權請求包含 Cloudflare 尚未對本 App 開放的權限，無法完成登入。請更新至最新版本後再試。"
+          }
+        }
+      }
+    },
+    "排序" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الترتيب"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sortieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sort"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordenar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trier"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "並べ替え"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "정렬"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordenar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ordenar"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sırala"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排序"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "排序"
+          }
+        }
+      }
+    },
     "排序查询字符串" : {
       "localizations" : {
         "ar" : {
@@ -72682,6 +72911,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "推送中心"
+          }
+        }
+      }
+    },
+    "推送端点 · CF 告警直推" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نقطة نهاية الدفع · تنبيهات CF مباشرة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push-Endpunkt · CF-Warnungen direkt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push endpoint · CF alerts direct"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endpoint de push · alertas CF directas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Point de terminaison push · alertes CF directes"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プッシュエンドポイント · CF アラート直送"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "푸시 엔드포인트 · CF 경고 직접 전송"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endpoint de push · alertas CF diretos"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endpoint de push · alertas CF diretos"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push uç noktası · CF uyarıları doğrudan"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "推送端點 · CF 告警直推"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "推送端點 · CF 告警直推"
           }
         }
       }
@@ -74358,8 +74663,81 @@
         }
       }
     },
-    "收到的推送会出现在这里。App 在后台时到达的推送将在后续版本（通知扩展）补全。" : {
-
+    "收到的推送会出现在这里，包括 App 在后台时到达的。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تظهر الإشعارات التي تتلقاها هنا، بما في ذلك التي تصل والتطبيق في الخلفية."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empfangene Pushes erscheinen hier, auch solche, die im Hintergrund eintreffen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pushes you receive appear here, including those that arrive while the app is in the background."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las notificaciones que recibas aparecen aquí, incluidas las que llegan con la app en segundo plano."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les push reçus apparaissent ici, y compris ceux qui arrivent en arrière-plan."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "受信したプッシュはここに表示されます。アプリがバックグラウンドのときに届いたものも含みます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "받은 푸시가 여기에 표시됩니다. 앱이 백그라운드일 때 도착한 것도 포함됩니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As notificações recebidas aparecem aqui, incluindo as que chegam com o app em segundo plano."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As notificações recebidas aparecem aqui, incluindo as que chegam com a app em segundo plano."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aldığınız push’lar burada görünür; uygulama arka plandayken gelenler dâhil."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收到的推送會出現在這裡，包括 App 在背景時到達的。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收到的推送會出現在這裡，包括 App 在背景時到達的。"
+          }
+        }
+      }
     },
     "收集日志" : {
       "localizations" : {
@@ -75050,7 +75428,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الملف %@ يتجاوز 25 ميغابايت، أي فوق حد Pages لكل ملف"
+            "value" : "الملف %@ يتجاوز 25 MB، أي فوق حد Pages لكل ملف"
           }
         },
         "de" : {
@@ -75074,7 +75452,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le fichier %@ dépasse 25 Mo, au-delà de la limite Pages par fichier"
+            "value" : "Le fichier %@ dépasse 25 MB, au-delà de la limite Pages par fichier"
           }
         },
         "ja" : {
@@ -75126,7 +75504,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الملف %@ يتجاوز 25 ميغابايت، أي فوق الحد لكل ملف"
+            "value" : "الملف %@ يتجاوز 25 MB، أي فوق الحد لكل ملف"
           }
         },
         "de" : {
@@ -75150,7 +75528,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le fichier %@ dépasse 25 Mo, au-delà de la limite par fichier"
+            "value" : "Le fichier %@ dépasse 25 MB, au-delà de la limite par fichier"
           }
         },
         "ja" : {
@@ -82952,6 +83330,82 @@
         }
       }
     },
+    "未指向本项目" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يشير إلى هذا المشروع"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeigt nicht auf dieses Projekt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not pointing at this project"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No apunta a este proyecto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne pointe pas vers ce projet"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このプロジェクトを指していません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 프로젝트를 가리키지 않음"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não aponta para este projeto"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não aponta para este projeto"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu projeye yönlendirilmemiş"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未指向本專案"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未指向本項目"
+          }
+        }
+      }
+    },
     "未授权" : {
       "localizations" : {
         "ar" : {
@@ -89271,6 +89725,7 @@
       }
     },
     "查询 ${zone} 的状态" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -96498,6 +96953,82 @@
         }
       }
     },
+    "没有自定义域名" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد نطاقات مخصصة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine benutzerdefinierten Domains"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Custom Domains"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay dominios personalizados"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun domaine personnalisé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カスタムドメインはありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "사용자 지정 도메인 없음"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhum domínio personalizado"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhum domínio personalizado"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Özel alan adı yok"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有自訂網域"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有自訂域名"
+          }
+        }
+      }
+    },
     "没有自定义规则" : {
       "localizations" : {
         "ar" : {
@@ -98933,6 +99464,82 @@
         }
       }
     },
+    "添加 CNAME 记录" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إضافة سجل CNAME"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CNAME-Eintrag hinzufügen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add CNAME Record"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar registro CNAME"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter un enregistrement CNAME"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CNAME レコードを追加"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CNAME 레코드 추가"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar registro CNAME"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar registo CNAME"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CNAME kaydı ekle"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增 CNAME 記錄"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增 CNAME 記錄"
+          }
+        }
+      }
+    },
     "添加 CORS 规则" : {
       "localizations" : {
         "ar" : {
@@ -99157,6 +99764,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "新增一個標頭"
+          }
+        }
+      }
+    },
+    "添加主机名" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إضافة اسم مضيف"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hostname hinzufügen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Hostname"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agregar nombre de host"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter un nom d’hôte"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ホスト名を追加"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "호스트 이름 추가"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar nome de host"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar nome de anfitrião"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ana makine adı ekle"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增主機名稱"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增主機名稱"
           }
         }
       }
@@ -105395,6 +106078,82 @@
         }
       }
     },
+    "生效中" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نشط"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiv"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actif"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "활성"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ativo"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ativo"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etkin"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生效中"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生效中"
+          }
+        }
+      }
+    },
     "用 and / or 连接多个条件；字符串加双引号；集合用 {1 2 3}；数组字段用 any(字段[*] == 值)。保存时 Cloudflare 会校验并规范化表达式。" : {
       "localizations" : {
         "ar" : {
@@ -106683,6 +107442,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "登入已過期，請重新登入"
+          }
+        }
+      }
+    },
+    "登录授权已失效，无法自动续期" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتهت صلاحية تفويض تسجيل الدخول ولا يمكن تجديده تلقائيًا"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Anmeldeautorisierung ist abgelaufen und kann nicht automatisch erneuert werden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign-in authorization has expired and can’t be renewed automatically"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La autorización de inicio de sesión expiró y no se puede renovar automáticamente"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’autorisation de connexion a expiré et ne peut pas être renouvelée automatiquement"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ログイン認証の有効期限が切れ、自動更新できません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인 인증이 만료되어 자동 갱신할 수 없습니다"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A autorização de login expirou e não pode ser renovada automaticamente"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A autorização de sessão expirou e não pode ser renovada automaticamente"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oturum açma yetkisi süresi doldu ve otomatik olarak yenilenemiyor"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入授權已失效，無法自動續期"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登入授權已失效，無法自動續期"
           }
         }
       }
@@ -108968,6 +109803,82 @@
         }
       }
     },
+    "端点推送" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دفع عبر نقطة النهاية"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endpunkt-Push"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endpoint push"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push por endpoint"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push par point de terminaison"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エンドポイントへプッシュ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "엔드포인트 푸시"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push por endpoint"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push por endpoint"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uç nokta push"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "端點推送"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "端點推送"
+          }
+        }
+      }
+    },
     "第三方 Cloudflare 客户端" : {
       "localizations" : {
         "ar" : {
@@ -109731,6 +110642,158 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "管理"
+          }
+        }
+      }
+    },
+    "管理 Cloudflare 告警策略，把告警推送到推送中心" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إدارة سياسات تنبيهات Cloudflare ودفع التنبيهات إلى مركز الإشعارات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare-Warnrichtlinien verwalten und Warnungen an das Push-Center senden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Cloudflare alert policies and push alerts to the Push Center"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Administra las políticas de alertas de Cloudflare y envía alertas al Centro de notificaciones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gérez les politiques d'alerte Cloudflare et envoyez les alertes au centre de push"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare のアラートポリシーを管理し、アラートをプッシュセンターに送信します"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare 경고 정책을 관리하고 경고를 푸시 센터로 전송합니다"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerencie as políticas de alerta da Cloudflare e envie alertas para a Central de Push"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faça a gestão das políticas de alerta da Cloudflare e envie alertas para o Centro de Push"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare uyarı politikalarını yönetin ve uyarıları Push Merkezi'ne gönderin"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理 Cloudflare 告警策略，把告警推送到推送中心"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理 Cloudflare 告警策略，將告警推送到推送中心"
+          }
+        }
+      }
+    },
+    "管理 Cloudflare 告警需要 Notifications 权限。请到 设置 → 你的账号 重新登录以授予。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تتطلب إدارة تنبيهات Cloudflare إذن Notifications. انتقل إلى الإعدادات ← حسابك وسجِّل الدخول مرة أخرى لمنحه."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zum Verwalten von Cloudflare-Warnungen ist die Berechtigung „Notifications“ erforderlich. Gehe zu Einstellungen → dein Konto und melde dich erneut an, um sie zu erteilen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Managing Cloudflare alerts requires the Notifications permission. Go to Settings → your account and sign in again to grant it."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para administrar las alertas de Cloudflare se requiere el permiso de Notifications. Ve a Ajustes → tu cuenta e inicia sesión de nuevo para concederlo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La gestion des alertes Cloudflare nécessite l’autorisation Notifications. Allez dans Réglages → votre compte et reconnectez-vous pour l’accorder."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare のアラートを管理するには Notifications 権限が必要です。設定 → アカウント から再度サインインして許可してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare 경고를 관리하려면 Notifications 권한이 필요합니다. 설정 → 내 계정에서 다시 로그인하여 권한을 부여하세요."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para gerenciar os alertas da Cloudflare é necessária a permissão de Notifications. Vá em Ajustes → sua conta e entre novamente para conceder."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para gerir os alertas da Cloudflare é necessária a permissão de Notifications. Vá a Definições → a sua conta e inicie sessão novamente para conceder."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cloudflare uyarılarını yönetmek için Notifications izni gerekir. Ayarlar → hesabınız bölümüne gidip yeniden oturum açarak izni verin."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理 Cloudflare 告警需要 Notifications 權限。請到 設定 → 你的帳戶 重新登入以授予。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理 Cloudflare 告警需要 Notifications 權限。請到 設定 → 你的帳戶 重新登入以授予。"
           }
         }
       }
@@ -110649,6 +111712,82 @@
         }
       }
     },
+    "绑定你自己的域名，并在此完成解析与验证。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اربط نطاقك الخاص وأكمل هنا إعداد DNS والتحقق."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbinden Sie Ihre eigene Domain und schließen Sie DNS-Einrichtung und Validierung hier ab."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attach your own domain, then finish DNS setup and validation here."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vincula tu propio dominio y completa aquí la resolución y la validación."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Associez votre propre domaine, puis terminez ici la résolution et la validation."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "独自ドメインを追加し、ここで DNS 設定と検証を行えます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "자신의 도메인을 연결하고 여기에서 DNS 설정과 확인을 완료하세요."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vincule seu próprio domínio e conclua aqui a resolução e a validação."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Associe o seu próprio domínio e conclua aqui a resolução e a validação."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kendi alan adınızı bağlayın, DNS kurulumunu ve doğrulamayı burada tamamlayın."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "綁定你自己的網域，並在此完成解析與驗證。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "綁定你自己的域名，並在此完成解析與驗證。"
+          }
+        }
+      }
+    },
     "结束地址" : {
       "localizations" : {
         "ar" : {
@@ -110953,6 +112092,82 @@
         }
       }
     },
+    "给端点推送 · 免登录" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دفع إلى نقطة نهاية · بدون تسجيل دخول"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An einen Endpunkt pushen · ohne Anmeldung"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push to an endpoint · no login"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push a un endpoint · sin inicio de sesión"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push vers un point de terminaison · sans connexion"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エンドポイントへプッシュ · ログイン不要"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "엔드포인트로 푸시 · 로그인 불필요"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push para um endpoint · sem login"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Push para um endpoint · sem início de sessão"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir uç noktaya push · girişsiz"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "給端點推送 · 免登入"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "給端點推送 · 免登入"
+          }
+        }
+      }
+    },
     "给自己的端点 curl 一下，就推到这台设备。免登录。" : {
       "localizations" : {
         "ar" : {
@@ -111028,6 +112243,9 @@
           }
         }
       }
+    },
+    "给自己的端点 curl 即推到手机；登录后还能把 Cloudflare 告警的 webhook 指过来。" : {
+
     },
     "继续" : {
       "localizations" : {
@@ -114830,6 +116048,7 @@
       }
     },
     "自托管应用：Access 会保护该域名（及路径）。" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -114901,6 +116120,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "自託管應用程式：Access 會保護此域名（及路徑）。"
+          }
+        }
+      }
+    },
+    "自托管应用可保护多个公共主机名（及路径），第一个为主域名。左滑删除。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يمكن للتطبيقات المُستضافة ذاتيًا حماية عدة أسماء مضيفين عامة (ومسارات). الأول هو النطاق الأساسي. اسحب للحذف."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selbst gehostete Apps können mehrere öffentliche Hostnamen (und Pfade) schützen. Der erste ist die primäre Domain. Wischen zum Löschen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Self-hosted apps can protect multiple public hostnames (and paths). The first is the primary domain. Swipe to delete."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las apps autoalojadas pueden proteger varios nombres de host públicos (y rutas). El primero es el dominio principal. Desliza para eliminar."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les apps auto-hébergées peuvent protéger plusieurs noms d’hôte publics (et chemins). Le premier est le domaine principal. Glissez pour supprimer."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "セルフホストのアプリは複数のパブリックホスト名（とパス）を保護できます。最初のものがメインのドメインです。スワイプで削除。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "자체 호스팅 앱은 여러 공개 호스트 이름(및 경로)을 보호할 수 있습니다. 첫 번째가 기본 도메인입니다. 밀어서 삭제."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apps auto-hospedados podem proteger vários nomes de host públicos (e caminhos). O primeiro é o domínio principal. Deslize para excluir."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As apps auto-alojadas podem proteger vários nomes de anfitrião públicos (e caminhos). O primeiro é o domínio principal. Deslize para eliminar."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kendi sunucunuzda barındırılan uygulamalar birden çok genel ana makine adını (ve yolları) koruyabilir. İlki birincil etki alanıdır. Silmek için kaydırın."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自架應用程式可保護多個公開主機名稱（及路徑），第一個為主網域。左滑刪除。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自架應用程式可保護多個公開主機名稱（及路徑），第一個為主域名。左滑刪除。"
           }
         }
       }
@@ -117185,6 +118480,82 @@
         }
       }
     },
+    "记录名" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اسم السجل"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eintragsname"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record Name"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nombre del registro"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom de l’enregistrement"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "レコード名"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "레코드 이름"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome do registro"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome do registo"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kayıt adı"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "記錄名稱"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "記錄名稱"
+          }
+        }
+      }
+    },
     "记录类型" : {
       "localizations" : {
         "ar" : {
@@ -118549,6 +119920,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "此命名空間下尚無物件實例。物件在首次被存取時自動建立。"
+          }
+        }
+      }
+    },
+    "该域名不在当前账号的 Cloudflare 区域内，请在域名服务商处添加指向 %@ 的 CNAME 记录。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هذا النطاق ليس ضمن منطقة Cloudflare في هذا الحساب. أضِف سجل CNAME يشير إلى %@ لدى مزوِّد DNS الخاص بك."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Domain liegt in keiner Cloudflare-Zone dieses Kontos. Fügen Sie bei Ihrem DNS-Anbieter einen CNAME-Eintrag hinzu, der auf %@ zeigt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This domain isn’t in a Cloudflare zone on this account. Add a CNAME record pointing at %@ at your DNS provider."
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este dominio no está en una zona de Cloudflare de esta cuenta. Agrega un registro CNAME que apunte a %@ en tu proveedor de DNS."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce domaine n’est pas dans une zone Cloudflare de ce compte. Ajoutez un enregistrement CNAME pointant vers %@ chez votre fournisseur DNS."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このドメインは現在のアカウントの Cloudflare ゾーンにありません。DNS プロバイダーで %@ を指す CNAME レコードを追加してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 도메인은 현재 계정의 Cloudflare 영역에 없습니다. DNS 공급업체에서 %@을(를) 가리키는 CNAME 레코드를 추가하세요."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este domínio não está em uma zona do Cloudflare desta conta. Adicione um registro CNAME apontando para %@ no seu provedor de DNS."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este domínio não está numa zona do Cloudflare desta conta. Adicione no seu fornecedor de DNS um registo CNAME a apontar para %@."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu alan adı bu hesaptaki bir Cloudflare bölgesinde değil. DNS sağlayıcınızda %@ adresini gösteren bir CNAME kaydı ekleyin."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "該網域不在目前帳號的 Cloudflare 區域內，請在網域服務商處新增指向 %@ 的 CNAME 記錄。"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "該域名不在當前帳戶的 Cloudflare 區域內，請在域名服務商處新增指向 %@ 的 CNAME 記錄。"
           }
         }
       }
@@ -122890,7 +124337,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لا يمكن بعد معاينة الكائنات التي يتجاوز حجمها 50 ميجابايت داخل التطبيق."
+            "value" : "لا يمكن بعد معاينة الكائنات التي يتجاوز حجمها 50 MB داخل التطبيق."
           }
         },
         "de" : {
@@ -122914,7 +124361,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les objets de plus de 50 Mo ne peuvent pas encore être prévisualisés dans l’app."
+            "value" : "Les objets de plus de 50 MB ne peuvent pas encore être prévisualisés dans l’app."
           }
         },
         "ja" : {
@@ -127977,6 +129424,82 @@
         }
       }
     },
+    "选择" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختيار"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auswählen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleccionar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionner"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "선택"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecionar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecionar"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seç"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇"
+          }
+        }
+      }
+    },
     "选择一个域名" : {
       "localizations" : {
         "ar" : {
@@ -129037,6 +130560,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "通知"
+          }
+        }
+      }
+    },
+    "通知 / 告警" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإشعارات / التنبيهات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigungen / Warnungen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications / Alerts"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificaciones / Alertas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications / Alertes"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知 / アラート"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알림 / 경고"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificações / Alertas"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificações / Alertas"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildirimler / Uyarılar"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知 / 告警"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知 / 告警"
           }
         }
       }
@@ -131545,6 +133144,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重新連線"
+          }
+        }
+      }
+    },
+    "重新验证" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة التحقق"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erneut validieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Re-validate"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volver a validar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revalider"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再検証"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다시 확인"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validar novamente"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validar novamente"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeniden doğrula"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新驗證"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新驗證"
           }
         }
       }
@@ -134286,6 +135961,82 @@
         }
       }
     },
+    "需要「通知」权限" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مطلوب إذن «الإشعارات»"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Berechtigung „Benachrichtigungen“ erforderlich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications permission required"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se requiere el permiso de Notificaciones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autorisation « Notifications » requise"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「通知」権限が必要です"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「알림」 권한이 필요합니다"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "É necessária a permissão de Notificações"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "É necessária a permissão de Notificações"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「Bildirimler」 izni gerekli"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要「通知」權限"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要「通知」權限"
+          }
+        }
+      }
+    },
     "需要一个 JSON 对象，形如 {\"KEY\": \"值\"}" : {
       "localizations" : {
         "ar" : {
@@ -135198,6 +136949,82 @@
         }
       }
     },
+    "验证 TXT 记录" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سجل TXT للتحقق"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TXT-Eintrag zur Verifizierung"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verification TXT Record"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registro TXT de verificación"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrement TXT de vérification"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検証用 TXT レコード"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인용 TXT 레코드"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registro TXT de verificação"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registo TXT de verificação"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doğrulama TXT kaydı"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "驗證 TXT 記錄"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "驗證 TXT 記錄"
+          }
+        }
+      }
+    },
     "验证中" : {
       "localizations" : {
         "ar" : {
@@ -135422,6 +137249,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "進階證書"
+          }
+        }
+      }
+    },
+    "默认（名称）" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "افتراضي (الاسم)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Standard (Name)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default (Name)"
+          }
+        },
+        "es-MX" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Predeterminado (nombre)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Par défaut (nom)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デフォルト（名前）"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기본(이름)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Padrão (nome)"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Predefinição (nome)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varsayılan (ad)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "預設（名稱）"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "默認（名稱）"
           }
         }
       }

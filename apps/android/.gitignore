@@ -23,3 +23,7 @@ fastlane/Preview.html
 fastlane/test_output/
 # 截图体积大且可由 orange-cloud/appstore 流水线复现，不入库（与 iOS 一致）
 fastlane/metadata/android/*/images/
+
+firebase-service-account.json
+
+google-services.json

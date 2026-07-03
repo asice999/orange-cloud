@@ -165,7 +165,7 @@ struct KVValueView: View {
                 ContentUnavailableView {
                     Label("二进制数据", systemImage: "doc.zipper")
                 } description: {
-                    Text("该值不是 UTF-8 文本（\(Int64(viewModel.byteCount).formatted(.byteCount(style: .file)))），暂不支持预览")
+                    Text("该值不是 UTF-8 文本（\(Int64(viewModel.byteCount).ocBytes)），暂不支持预览")
                 }
             } else {
                 editor
@@ -246,7 +246,7 @@ struct KVValueView: View {
             }
 
             Label {
-                Text("\(Int64(viewModel.byteCount).formatted(.byteCount(style: .file)))\(canWrite ? "" : String(localized: " · 只读授权"))")
+                Text("\(Int64(viewModel.byteCount).ocBytes)\(canWrite ? "" : String(localized: " · 只读授权"))")
             } icon: {
                 Image(systemName: canWrite ? "pencil" : "lock")
             }

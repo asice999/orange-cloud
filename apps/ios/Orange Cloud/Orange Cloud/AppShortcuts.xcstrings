@@ -2,6 +2,7 @@
   "sourceLanguage" : "en",
   "strings" : {
     "打开 ${applicationName}" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -63,13 +64,13 @@
             "value" : "${applicationName} uygulamasını aç"
           }
         },
-        "zh-HK" : {
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "開啟 ${applicationName}"
           }
         },
-        "zh-Hant" : {
+        "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "開啟 ${applicationName}"
@@ -140,21 +141,22 @@
             "value" : "${applicationName} ile alan adı durumunu kontrol et"
           }
         },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "查詢 ${applicationName} 域名狀態"
-          }
-        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "查詢 ${applicationName} 網域狀態"
           }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查詢 ${applicationName} 域名狀態"
+          }
         }
       }
     },
     "用 ${applicationName} 查域名" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -216,16 +218,16 @@
             "value" : "${applicationName} ile alan adlarını kontrol et"
           }
         },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用 ${applicationName} 查域名"
-          }
-        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "用 ${applicationName} 查網域"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用 ${applicationName} 查域名"
           }
         }
       }

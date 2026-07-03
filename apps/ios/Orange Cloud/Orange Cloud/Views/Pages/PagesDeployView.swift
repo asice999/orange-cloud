@@ -150,7 +150,7 @@ struct PagesDeployView: View {
                     HStack {
                         Text(file.path).font(.caption.monospaced()).lineLimit(1).truncationMode(.middle)
                         Spacer()
-                        Text(Int64(file.data.count).formatted(.byteCount(style: .file)))
+                        Text(Int64(file.data.count).ocBytes)
                             .font(.caption2).foregroundStyle(.secondary)
                     }
                 }

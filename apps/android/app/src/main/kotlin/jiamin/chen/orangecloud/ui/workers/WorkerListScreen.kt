@@ -43,11 +43,14 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import jiamin.chen.orangecloud.R
+import androidx.compose.runtime.remember
 import jiamin.chen.orangecloud.core.design.SkyBackground
 import jiamin.chen.orangecloud.core.design.SkyEmptyState
 import jiamin.chen.orangecloud.core.design.SkyHeader
+import jiamin.chen.orangecloud.core.design.SortMenuButton
 import jiamin.chen.orangecloud.core.design.onSky
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
+import jiamin.chen.orangecloud.core.design.sorted
 import jiamin.chen.orangecloud.core.design.theme.OcOrange
 import jiamin.chen.orangecloud.data.model.WorkerScript
 
@@ -58,8 +61,12 @@ fun WorkerListScreen(
     viewModel: WorkerListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val sort by viewModel.sort.collectAsStateWithLifecycle()
     val phase = rememberSkyPhase()
     val onSky = phase.onSky
+    val sortedWorkers = remember(uiState.workers, sort) {
+        sort.sorted(uiState.workers, created = { it.createdOn }, modified = { it.modifiedOn })
+    }
 
     SkyBackground(phase = phase) {
       Box(Modifier.fillMaxSize()) {
@@ -70,6 +77,11 @@ fun WorkerListScreen(
                 isLoading = uiState.isLoading,
                 onRefresh = { viewModel.refresh() },
                 refreshDescription = stringResource(R.string.common_refresh),
+                actions = {
+                    if (uiState.workers.isNotEmpty()) {
+                        SortMenuButton(sort = sort, onSky = onSky, onSelect = { viewModel.setSort(it) })
+                    }
+                },
             )
 
             when {
@@ -89,7 +101,7 @@ fun WorkerListScreen(
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
-                    items(uiState.workers, key = { it.id }) { worker ->
+                    items(sortedWorkers, key = { it.id }) { worker ->
                         WorkerRow(worker, onClick = { onWorkerClick(worker.id) })
                     }
                 }

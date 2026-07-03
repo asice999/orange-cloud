@@ -82,7 +82,7 @@ struct HTTPProbeToolView: View {
         [
             ToolKVRow("状态", "\(r.statusCode) \(r.statusText)"),
             ToolKVRow("耗时", "\(r.durationMS) ms"),
-            ToolKVRow("大小", ByteCountFormatter.string(fromByteCount: Int64(r.bodyByteCount), countStyle: .binary)),
+            ToolKVRow("大小", Int64(r.bodyByteCount).ocBytesBinary),
             ToolKVRow("最终地址", r.finalURL),
         ]
     }

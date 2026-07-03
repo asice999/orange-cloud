@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jiamin.chen.orangecloud.core.auth.AuthRepository
 import jiamin.chen.orangecloud.core.auth.Scopes
+import jiamin.chen.orangecloud.core.system.AppPrefs
+import jiamin.chen.orangecloud.core.system.ResourceSort
 import jiamin.chen.orangecloud.data.model.WorkerScript
 import jiamin.chen.orangecloud.data.repository.AccountStore
 import jiamin.chen.orangecloud.data.repository.WorkerRepository
@@ -35,8 +37,17 @@ data class WorkerListUiState(
 class WorkerListViewModel @Inject constructor(
     private val accountStore: AccountStore,
     private val workerRepository: WorkerRepository,
+    private val appPrefs: AppPrefs,
     authRepository: AuthRepository,
 ) : ViewModel() {
+
+    /** 列表排序偏好（持久化，与 iOS @AppStorage 对应）。 */
+    val sort: StateFlow<ResourceSort> = appPrefs.listSort("workers")
+        .stateIn(viewModelScope, SharingStarted.Eagerly, ResourceSort.NAME)
+
+    fun setSort(sort: ResourceSort) {
+        viewModelScope.launch { appPrefs.setListSort("workers", sort) }
+    }
 
     private val hasReadScope = authRepository.hasScope(Scopes.WORKERS_READ)
     private val canWriteScope = authRepository.hasScope(Scopes.WORKERS_WRITE)

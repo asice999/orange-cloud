@@ -189,10 +189,23 @@ final class DashboardViewModel {
             return
         }
 
+        // 订阅接口需要 billing 权限（OAuth token 不带）：首个确定性拒绝后按账号跨启动记住，
+        // 不再每次冷启动发一条注定 403 的探测（同账户级分析 authz 的惰性识别）；
+        // 下拉刷新（force）会重探，权限恢复时自动回归并摘除标记。
         if force || billingAttemptedForAccount != accountId {
             billingAttemptedForAccount = accountId
-            billing = (try? await accountService.listSubscriptions(accountId: accountId))
-                .map(BillingInfo.derive(from:))
+            if force || !BillingProbeCache.isUnavailable(accountId: accountId) {
+                do {
+                    billing = BillingInfo.derive(from: try await accountService.listSubscriptions(accountId: accountId))
+                    BillingProbeCache.markAvailable(accountId: accountId)
+                } catch {
+                    billing = nil
+                    if let apiError = error as? APIError, apiError.isPermissionDenied {
+                        BillingProbeCache.markUnavailable(accountId: accountId)
+                        AppLog.network.info("subscriptions endpoint permission denied; skipping billing probe for account=\(accountId)")
+                    }
+                }
+            }
         }
 
         // 订阅周期有效才采用：必须在过去、未结束，且不超过 GraphQL 数据留存（约 31 天）
@@ -372,6 +385,31 @@ final class DashboardViewModel {
         WidgetCenter.shared.reloadTimelines(ofKind: "ZoneStatusWidget")
         // 数据刷新后把最新快照推给 Apple Watch
         WatchSessionManager.shared.pushCurrentState()
+    }
+}
+
+/// 订阅接口可用性缓存（按账号，跨启动持久）：OAuth token 无 billing 权限时该接口恒 403（cf=10000），
+/// 首个确定性拒绝后记住不再探测，免得每次启动固定一条 403 噪音；下拉刷新（force）会绕过重探。
+nonisolated enum BillingProbeCache {
+
+    private static let key = "billingProbeUnavailableAccounts"
+
+    static func isUnavailable(accountId: String) -> Bool {
+        (UserDefaults.standard.stringArray(forKey: key) ?? []).contains(accountId)
+    }
+
+    static func markUnavailable(accountId: String) {
+        var list = UserDefaults.standard.stringArray(forKey: key) ?? []
+        guard !list.contains(accountId) else { return }
+        list.append(accountId)
+        UserDefaults.standard.set(list, forKey: key)
+    }
+
+    static func markAvailable(accountId: String) {
+        var list = UserDefaults.standard.stringArray(forKey: key) ?? []
+        guard let index = list.firstIndex(of: accountId) else { return }
+        list.remove(at: index)
+        UserDefaults.standard.set(list, forKey: key)
     }
 }
 

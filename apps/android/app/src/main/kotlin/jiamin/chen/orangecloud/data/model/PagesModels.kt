@@ -83,6 +83,42 @@ data class PagesTriggerMetadata(
     val shortHash: String? get() = commitHash?.take(8)
 }
 
+// MARK: - 自定义域名
+
+/** 项目自定义域名。GET /accounts/{id}/pages/projects/{name}/domains */
+@Serializable
+data class PagesDomain(
+    val id: String,
+    val name: String,
+    val status: String? = null, // initializing | pending | active | deactivated | blocked | error
+    @SerialName("zone_tag") val zoneTag: String? = null,
+    @SerialName("created_on") val createdOn: String? = null,
+    @SerialName("certificate_authority") val certificateAuthority: String? = null,
+    @SerialName("validation_data") val validationData: PagesDomainValidationData? = null,
+    @SerialName("verification_data") val verificationData: PagesDomainVerificationData? = null,
+)
+
+/** 证书验证信息（method == txt 时给出待添加的 TXT 记录）。 */
+@Serializable
+data class PagesDomainValidationData(
+    val status: String? = null,
+    val method: String? = null, // http | txt
+    @SerialName("txt_name") val txtName: String? = null,
+    @SerialName("txt_value") val txtValue: String? = null,
+    @SerialName("error_message") val errorMessage: String? = null,
+)
+
+/** 域名归属验证信息。 */
+@Serializable
+data class PagesDomainVerificationData(
+    val status: String? = null,
+    @SerialName("error_message") val errorMessage: String? = null,
+)
+
+/** POST .../domains 请求体。 */
+@Serializable
+data class PagesDomainAddRequest(val name: String)
+
 /** retry / rollback 的空 POST 体。 */
 @Serializable
 class PagesEmptyBody

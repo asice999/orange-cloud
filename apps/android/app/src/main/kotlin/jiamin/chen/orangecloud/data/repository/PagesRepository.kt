@@ -9,6 +9,8 @@ import jiamin.chen.orangecloud.data.model.PagesAssetUpload
 import jiamin.chen.orangecloud.data.model.PagesCreateRequest
 import jiamin.chen.orangecloud.data.model.PagesDeployFile
 import jiamin.chen.orangecloud.data.model.PagesDeployment
+import jiamin.chen.orangecloud.data.model.PagesDomain
+import jiamin.chen.orangecloud.data.model.PagesDomainAddRequest
 import jiamin.chen.orangecloud.data.model.PagesEmptyBody
 import jiamin.chen.orangecloud.data.model.PagesHashesBody
 import jiamin.chen.orangecloud.data.model.PagesProject
@@ -72,6 +74,27 @@ class PagesRepository @Inject constructor(
         }
         return all
     }
+
+    // MARK: - 自定义域名
+
+    /** 项目自定义域名列表。 */
+    suspend fun listDomains(accountId: String, projectName: String): List<PagesDomain> =
+        api.getList<PagesDomain>("accounts/$accountId/pages/projects/$projectName/domains").items
+
+    /** 挂载自定义域名（page.write）。挂载后仍需 DNS 指向 <project>.pages.dev 才能生效。 */
+    suspend fun addDomain(accountId: String, projectName: String, name: String): PagesDomain =
+        api.post("accounts/$accountId/pages/projects/$projectName/domains", PagesDomainAddRequest(name))
+
+    /** 重新验证域名（PATCH 触发重试；DNS 记录补好后用它催一次）。 */
+    suspend fun retryDomain(accountId: String, projectName: String, domainName: String) {
+        api.patch<kotlinx.serialization.json.JsonElement, PagesEmptyBody>(
+            "accounts/$accountId/pages/projects/$projectName/domains/$domainName", PagesEmptyBody(),
+        )
+    }
+
+    /** 从项目移除自定义域名（不动 DNS 记录）。 */
+    suspend fun deleteDomain(accountId: String, projectName: String, domainName: String) =
+        api.delete("accounts/$accountId/pages/projects/$projectName/domains/$domainName")
 
     /** 重试部署（重新构建并部署）。 */
     suspend fun retryDeployment(accountId: String, projectName: String, deploymentId: String): PagesDeployment =

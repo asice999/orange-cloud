@@ -57,6 +57,7 @@ import jiamin.chen.orangecloud.core.design.onSky
 import jiamin.chen.orangecloud.core.design.rememberSkyPhase
 import jiamin.chen.orangecloud.core.design.theme.OcOrange
 import jiamin.chen.orangecloud.core.design.theme.OcSuccess
+import jiamin.chen.orangecloud.core.auth.AuthSessionMeta
 import jiamin.chen.orangecloud.data.model.Account
 import jiamin.chen.orangecloud.data.model.Zone
 
@@ -184,8 +185,11 @@ fun DashboardScreen(
 
             if (menuOpen) {
                 AccountMenu(
+                    sessions = state.authSessions,
+                    currentSessionId = state.currentAuthSessionId,
                     accounts = state.accounts,
                     currentId = state.selectedAccountId,
+                    onPickSession = { viewModel.switchAuthSession(it); menuOpen = false },
                     onPick = { viewModel.selectAccount(it); menuOpen = false },
                     onAddAccount = { menuOpen = false; onAddAccount() },
                     onDismiss = { menuOpen = false },
@@ -236,8 +240,11 @@ private fun QuickAction(icon: androidx.compose.ui.graphics.vector.ImageVector, l
 
 @Composable
 private fun AccountMenu(
+    sessions: List<AuthSessionMeta>,
+    currentSessionId: String?,
     accounts: List<Account>,
     currentId: String?,
+    onPickSession: (String) -> Unit,
     onPick: (String) -> Unit,
     onAddAccount: () -> Unit,
     onDismiss: () -> Unit,
@@ -254,6 +261,27 @@ private fun AccountMenu(
                 .width(264.dp),
         ) {
             Column(Modifier.padding(8.dp)) {
+                if (sessions.size > 1) {
+                    Text(
+                        stringResource(R.string.dash_switch_identity),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = cs.onSurfaceVariant,
+                        modifier = Modifier.padding(start = 12.dp, top = 8.dp, bottom = 6.dp),
+                    )
+                    sessions.forEach { session ->
+                        Row(
+                            Modifier.fillMaxWidth().clickable { onPickSession(session.id) }.padding(10.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            ZoneAvatar(session.label, size = 38.dp)
+                            Spacer(Modifier.width(12.dp))
+                            Text(session.label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = cs.onSurface, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                            if (session.id == currentSessionId) Icon(Icons.Outlined.Check, contentDescription = null, tint = cs.primary, modifier = Modifier.size(18.dp))
+                        }
+                    }
+                    Box(Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 6.dp).height(1.dp).background(cs.outlineVariant))
+                }
                 Text(
                     stringResource(R.string.dash_switch_account),
                     fontSize = 12.sp,

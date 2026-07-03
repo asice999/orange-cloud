@@ -1,5 +1,185 @@
 [
   {
+    "version": "1.9.0",
+    "date": "2026.07.03",
+    "channel": "App Store",
+    "items": [
+      {
+        "icon": "globe",
+        "title": {
+          "zh-Hans": "Pages 自定义域名",
+          "en": "Pages custom domains",
+          "zh-Hant": "Pages 自訂網域",
+          "zh-HK": "Pages 自訂域名",
+          "ja": "Pages カスタムドメイン",
+          "es-MX": "Dominios personalizados de Pages",
+          "ko": "Pages 사용자 지정 도메인",
+          "pt-BR": "Domínios personalizados do Pages",
+          "pt-PT": "Domínios personalizados do Pages",
+          "de": "Benutzerdefinierte Domains für Pages",
+          "fr": "Domaines personnalisés Pages",
+          "ar": "نطاقات Pages المخصصة",
+          "tr": "Pages özel alan adları"
+        },
+        "detail": {
+          "zh-Hans": "Pages 项目现可直接管理自定义域名：添加、删除、重新验证并检查解析状态；域名在当前账号时，还能一键添加指向项目的 CNAME 记录。",
+          "en": "Manage custom domains right inside a Pages project: add, remove, re-validate, and check DNS status — with one-tap CNAME setup when the domain’s zone is on your account.",
+          "zh-Hant": "Pages 專案現可直接管理自訂網域：新增、刪除、重新驗證並檢查解析狀態；網域在目前帳號時，還能一鍵新增指向專案的 CNAME 記錄。",
+          "zh-HK": "Pages 項目現可直接管理自訂域名：新增、刪除、重新驗證並檢查解析狀態；域名在當前帳戶時，還能一鍵新增指向項目的 CNAME 記錄。",
+          "ja": "Pages プロジェクト内でカスタムドメインを直接管理：追加・削除・再検証と DNS 状態の確認に対応。ドメインが現在のアカウントにある場合は、プロジェクトへ向ける CNAME レコードをワンタップで追加できます。",
+          "es-MX": "Administra dominios personalizados dentro de un proyecto de Pages: agregar, eliminar, revalidar y comprobar el estado del DNS; si la zona del dominio está en tu cuenta, agrega el registro CNAME con un toque.",
+          "ko": "Pages 프로젝트에서 사용자 지정 도메인을 직접 관리하세요: 추가·삭제·재확인과 DNS 상태 확인을 지원하며, 도메인이 현재 계정에 있으면 프로젝트를 가리키는 CNAME 레코드를 한 번에 추가할 수 있습니다.",
+          "pt-BR": "Gerencie domínios personalizados dentro de um projeto do Pages: adicionar, remover, revalidar e verificar o status do DNS — com criação do registro CNAME em um toque quando a zona do domínio está na sua conta.",
+          "pt-PT": "Faça a gestão de domínios personalizados dentro de um projeto do Pages: adicionar, remover, revalidar e verificar o estado do DNS — com criação do registo CNAME num toque quando a zona do domínio está na sua conta.",
+          "de": "Verwalte benutzerdefinierte Domains direkt im Pages-Projekt: hinzufügen, entfernen, erneut validieren und DNS-Status prüfen – mit Ein-Tipp-CNAME, wenn die Zone der Domain in deinem Konto liegt.",
+          "fr": "Gérez les domaines personnalisés directement dans un projet Pages : ajout, suppression, revalidation et vérification du DNS — avec création du CNAME en un geste quand la zone du domaine est sur votre compte.",
+          "ar": "أدر النطاقات المخصصة داخل مشروع Pages مباشرة: إضافة وحذف وإعادة تحقق وفحص حالة DNS — مع إضافة سجل CNAME بلمسة واحدة عندما تكون منطقة النطاق ضمن حسابك.",
+          "tr": "Özel alan adlarını doğrudan Pages projesi içinde yönetin: ekleme, silme, yeniden doğrulama ve DNS durumu kontrolü — alan adının bölgesi hesabınızdaysa tek dokunuşla CNAME kaydı ekleyin."
+        }
+      },
+      {
+        "icon": "arrow.up.arrow.down",
+        "title": {
+          "zh-Hans": "列表排序",
+          "en": "List sorting",
+          "zh-Hant": "清單排序",
+          "zh-HK": "列表排序",
+          "ja": "リストの並べ替え",
+          "es-MX": "Orden de listas",
+          "ko": "목록 정렬",
+          "pt-BR": "Ordenação de listas",
+          "pt-PT": "Ordenação de listas",
+          "de": "Listensortierung",
+          "fr": "Tri des listes",
+          "ar": "ترتيب القوائم",
+          "tr": "Liste sıralama"
+        },
+        "detail": {
+          "zh-Hans": "Workers 与 Pages 列表新增排序：默认（名称）、创建日期、最近更新，选择会被记住。",
+          "en": "Workers and Pages lists can now be sorted by name (default), date created, or recently updated — your choice is remembered.",
+          "zh-Hant": "Workers 與 Pages 清單新增排序：預設（名稱）、建立日期、最近更新，選擇會被記住。",
+          "zh-HK": "Workers 與 Pages 列表新增排序：默認（名稱）、創建日期、最近更新，選擇會被記住。",
+          "ja": "Workers と Pages のリストを名前（デフォルト）・作成日・最近の更新で並べ替えられるようになりました。選択は記憶されます。",
+          "es-MX": "Las listas de Workers y Pages ahora se pueden ordenar por nombre (predeterminado), fecha de creación o actualización reciente; tu elección se recuerda.",
+          "ko": "Workers와 Pages 목록을 이름(기본), 생성일, 최근 업데이트로 정렬할 수 있습니다. 선택은 기억됩니다.",
+          "pt-BR": "As listas de Workers e Pages agora podem ser ordenadas por nome (padrão), data de criação ou atualização recente — sua escolha é lembrada.",
+          "pt-PT": "As listas de Workers e Pages podem agora ser ordenadas por nome (predefinição), data de criação ou atualização recente — a sua escolha é lembrada.",
+          "de": "Workers- und Pages-Listen lassen sich jetzt nach Name (Standard), Erstellungsdatum oder letzter Aktualisierung sortieren – die Auswahl wird gemerkt.",
+          "fr": "Les listes Workers et Pages peuvent désormais être triées par nom (par défaut), date de création ou mise à jour récente — votre choix est mémorisé.",
+          "ar": "يمكن الآن ترتيب قوائم Workers و Pages حسب الاسم (افتراضي) أو تاريخ الإنشاء أو آخر تحديث — ويُحفظ اختيارك.",
+          "tr": "Workers ve Pages listeleri artık ada (varsayılan), oluşturma tarihine veya son güncellemeye göre sıralanabilir; seçiminiz hatırlanır."
+        }
+      },
+      {
+        "icon": "textformat.123",
+        "title": {
+          "zh-Hans": "数据单位显示",
+          "en": "Data unit display",
+          "zh-Hant": "數據單位顯示",
+          "zh-HK": "數據單位顯示",
+          "ja": "データ単位の表示",
+          "es-MX": "Unidades de datos",
+          "ko": "데이터 단위 표시",
+          "pt-BR": "Unidades de dados",
+          "pt-PT": "Unidades de dados",
+          "de": "Anzeige von Dateneinheiten",
+          "fr": "Affichage des unités",
+          "ar": "عرض وحدات البيانات",
+          "tr": "Veri birimi gösterimi"
+        },
+        "detail": {
+          "zh-Hans": "存储与流量单位在所有语言下统一显示为国际通用符号（KB / MB / GB），不再随语言翻译。",
+          "en": "Storage and traffic sizes now always use the universal unit symbols (KB / MB / GB) in every language, instead of localized unit names.",
+          "zh-Hant": "儲存與流量單位在所有語言下統一顯示為國際通用符號（KB / MB / GB），不再隨語言翻譯。",
+          "zh-HK": "儲存與流量單位在所有語言下統一顯示為國際通用符號（KB / MB / GB），不再隨語言翻譯。",
+          "ja": "ストレージや通信量の単位を、どの言語でも国際的な表記（KB / MB / GB）で統一しました。",
+          "es-MX": "Los tamaños de almacenamiento y tráfico ahora usan siempre los símbolos universales (KB / MB / GB) en todos los idiomas.",
+          "ko": "저장 용량과 트래픽 단위를 모든 언어에서 국제 공용 기호(KB / MB / GB)로 통일했습니다.",
+          "pt-BR": "Os tamanhos de armazenamento e tráfego agora usam sempre os símbolos universais (KB / MB / GB) em todos os idiomas.",
+          "pt-PT": "Os tamanhos de armazenamento e tráfego usam agora sempre os símbolos universais (KB / MB / GB) em todos os idiomas.",
+          "de": "Speicher- und Traffic-Größen verwenden jetzt in allen Sprachen einheitlich die universellen Einheitensymbole (KB / MB / GB).",
+          "fr": "Les tailles de stockage et de trafic utilisent désormais les symboles universels (KB / MB / GB) dans toutes les langues.",
+          "ar": "أحجام التخزين وحركة المرور تُعرض الآن دائمًا بالرموز العالمية (KB / MB / GB) في جميع اللغات.",
+          "tr": "Depolama ve trafik boyutları artık tüm dillerde evrensel birim simgeleriyle (KB / MB / GB) gösteriliyor."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.8.2",
+    "date": "2026.07.02",
+    "channel": "App Store",
+    "inApp": false,
+    "items": [
+      {
+        "icon": "wrench.and.screwdriver.fill",
+        "title": {
+          "zh-Hans": "稳定性修复",
+          "en": "Stability fixes",
+          "zh-Hant": "穩定性修復",
+          "zh-HK": "穩定性修復",
+          "ja": "安定性の修正",
+          "es-MX": "Correcciones de estabilidad",
+          "ko": "안정성 수정",
+          "pt-BR": "Correções de estabilidade",
+          "pt-PT": "Correções de estabilidade",
+          "de": "Stabilitätskorrekturen",
+          "fr": "Corrections de stabilité",
+          "ar": "إصلاحات الاستقرار",
+          "tr": "Kararlılık düzeltmeleri"
+        },
+        "detail": {
+          "zh-Hans": "修复 iOS 17.0 上打开概览页闪退的问题；登录授权失效无法自动续期时，概览页现在会给出「一键重新授权」引导，不再反复提示刷新失败。",
+          "en": "Fixes a crash when opening Overview on iOS 17.0. When sign-in authorization can no longer be renewed automatically, Overview now offers one-tap re-authorization instead of repeated refresh failures.",
+          "zh-Hant": "修復在 iOS 17.0 上開啟總覽頁閃退的問題；登入授權失效無法自動續期時，總覽頁現在會提供「一鍵重新授權」引導，不再反覆提示重新整理失敗。",
+          "zh-HK": "修復在 iOS 17.0 上開啟概覽頁閃退的問題；登入授權失效無法自動續期時，概覽頁現在會提供「一鍵重新授權」引導，不再反覆提示重新整理失敗。",
+          "ja": "iOS 17.0 で概要ページを開くとクラッシュする問題を修正しました。ログイン認証を自動更新できない場合は、概要ページにワンタップ再認証の案内を表示し、更新失敗の繰り返しをなくしました。",
+          "es-MX": "Corrige un cierre inesperado al abrir Resumen en iOS 17.0. Cuando la autorización de inicio de sesión ya no puede renovarse automáticamente, Resumen ahora ofrece reautorizar con un toque en lugar de fallas de actualización repetidas.",
+          "ko": "iOS 17.0에서 개요 페이지를 열 때 앱이 종료되는 문제를 수정했습니다. 로그인 인증을 자동 갱신할 수 없을 때는 개요 페이지에서 원탭 재인증 안내를 제공하여 새로 고침 실패가 반복되지 않습니다.",
+          "pt-BR": "Corrige uma falha ao abrir a Visão geral no iOS 17.0. Quando a autorização de login não puder mais ser renovada automaticamente, a Visão geral agora oferece reautorização com um toque em vez de falhas repetidas de atualização.",
+          "pt-PT": "Corrige uma falha ao abrir a Vista geral no iOS 17.0. Quando a autorização de sessão já não puder ser renovada automaticamente, a Vista geral passa a oferecer reautorização com um toque em vez de falhas repetidas de atualização.",
+          "de": "Behebt einen Absturz beim Öffnen der Übersicht unter iOS 17.0. Kann die Anmeldeautorisierung nicht mehr automatisch erneuert werden, bietet die Übersicht jetzt eine Neuautorisierung mit einem Tipp statt wiederholter Aktualisierungsfehler.",
+          "fr": "Corrige un plantage à l’ouverture de l’aperçu sous iOS 17.0. Lorsque l’autorisation de connexion ne peut plus être renouvelée automatiquement, l’aperçu propose désormais une réautorisation en un geste au lieu d’échecs d’actualisation répétés.",
+          "ar": "يصلح انهيارًا عند فتح صفحة النظرة العامة على iOS 17.0. وعندما يتعذر تجديد تفويض تسجيل الدخول تلقائيًا، تعرض النظرة العامة الآن إرشادًا لإعادة التفويض بنقرة واحدة بدلًا من تكرار فشل التحديث.",
+          "tr": "iOS 17.0'da Genel Bakış sayfası açılırken oluşan çökmeyi düzeltir. Oturum açma yetkisi otomatik olarak yenilenemediğinde Genel Bakış artık tekrarlanan yenileme hataları yerine tek dokunuşla yeniden yetkilendirme sunar."
+        }
+      },
+      {
+        "icon": "speedometer",
+        "title": {
+          "zh-Hans": "滑动更流畅",
+          "en": "Smoother scrolling",
+          "zh-Hant": "捲動更流暢",
+          "zh-HK": "滑動更流暢",
+          "ja": "スクロールがより滑らかに",
+          "es-MX": "Desplazamiento más fluido",
+          "ko": "더 부드러운 스크롤",
+          "pt-BR": "Rolagem mais fluida",
+          "pt-PT": "Deslocação mais fluida",
+          "de": "Flüssigeres Scrollen",
+          "fr": "Défilement plus fluide",
+          "ar": "تمرير أكثر سلاسة",
+          "tr": "Daha akıcı kaydırma"
+        },
+        "detail": {
+          "zh-Hans": "重做玻璃卡片的渲染方式：观感不变，滚动开销大幅下降，列表与概览页滑动明显更顺滑，旧机型尤其受益。",
+          "en": "Glass cards are rendered with far less overhead while looking identical — lists and Overview scroll noticeably smoother, especially on older devices.",
+          "zh-Hant": "重做玻璃卡片的算繪方式：觀感不變、捲動負擔大幅下降，清單與總覽頁捲動明顯更順暢，舊機型尤其受益。",
+          "zh-HK": "重做玻璃卡片的渲染方式：觀感不變、滑動負擔大幅下降，列表與概覽頁滑動明顯更順暢，舊機型尤其受益。",
+          "ja": "ガラスカードの描画方式を見直しました。見た目はそのままにスクロール時の負荷を大幅に削減し、リストや概要ページのスクロールが特に旧機種で滑らかになりました。",
+          "es-MX": "Las tarjetas de vidrio ahora se dibujan con mucho menos costo manteniendo el mismo aspecto: las listas y Resumen se desplazan con notable mayor fluidez, sobre todo en equipos antiguos.",
+          "ko": "글래스 카드 렌더링을 개선했습니다. 보이는 모습은 그대로 유지하면서 스크롤 부하를 크게 줄여, 목록과 개요 페이지가 특히 구형 기기에서 눈에 띄게 부드러워졌습니다.",
+          "pt-BR": "Os cartões de vidro agora são renderizados com muito menos custo, mantendo o mesmo visual — as listas e a Visão geral rolam visivelmente mais suave, principalmente em aparelhos antigos.",
+          "pt-PT": "Os cartões de vidro passam a ser renderizados com muito menos custo, mantendo o mesmo aspeto — as listas e a Vista geral deslizam visivelmente melhor, sobretudo em dispositivos antigos.",
+          "de": "Glaskarten werden bei gleichem Aussehen deutlich günstiger gerendert – Listen und die Übersicht scrollen spürbar flüssiger, besonders auf älteren Geräten.",
+          "fr": "Les cartes en verre sont rendues avec beaucoup moins de coût tout en gardant le même aspect — les listes et l’aperçu défilent nettement plus fluidement, surtout sur les appareils anciens.",
+          "ar": "أصبحت البطاقات الزجاجية تُرسم بكلفة أقل بكثير مع الحفاظ على المظهر نفسه — تمرير القوائم وصفحة النظرة العامة أصبح أكثر سلاسة، خصوصًا على الأجهزة الأقدم.",
+          "tr": "Cam kartlar aynı görünümü koruyarak çok daha düşük maliyetle çiziliyor — listeler ve Genel Bakış, özellikle eski cihazlarda belirgin şekilde daha akıcı kayıyor."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.8.1",
     "date": "2026.06.30",
     "channel": "App Store",

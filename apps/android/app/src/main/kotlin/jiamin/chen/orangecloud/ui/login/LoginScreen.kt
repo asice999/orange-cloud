@@ -1,5 +1,6 @@
 package jiamin.chen.orangecloud.ui.login
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.Bolt
+import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Dns
@@ -39,6 +41,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
@@ -80,13 +83,13 @@ import jiamin.chen.orangecloud.core.design.theme.OcSuccess
 import jiamin.chen.orangecloud.core.util.launchCustomTab
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginScreen(viewModel: LoginViewModel = hiltViewModel(), onOpenToolbox: () -> Unit = {}) {
     val context = LocalContext.current
     val error by viewModel.redirectError.collectAsStateWithLifecycle()
     var showAuthorize by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        viewModel.launchAuthTab.collect { uri -> context.launchCustomTab(uri) }
+        viewModel.launchAuthTab.collect { launch -> context.launchCustomTab(launch.uri, launch.ephemeral) }
     }
 
     if (showAuthorize) {
@@ -95,12 +98,12 @@ fun LoginScreen(viewModel: LoginViewModel = hiltViewModel()) {
             onContinue = { levels -> showAuthorize = false; viewModel.loginWithLevels(levels) },
         )
     } else {
-        BrandView(error = error, onSignIn = { showAuthorize = true })
+        BrandView(error = error, onSignIn = { showAuthorize = true }, onOpenToolbox = onOpenToolbox)
     }
 }
 
 @Composable
-private fun BrandView(error: String?, onSignIn: () -> Unit) {
+private fun BrandView(error: String?, onSignIn: () -> Unit, onOpenToolbox: () -> Unit) {
     val phase = rememberSkyPhase()
     val cs = MaterialTheme.colorScheme
 
@@ -135,6 +138,18 @@ private fun BrandView(error: String?, onSignIn: () -> Unit) {
                     Icon(Icons.Outlined.VerifiedUser, contentDescription = null, tint = OcSuccess, modifier = Modifier.size(15.dp))
                     Spacer(Modifier.width(7.dp))
                     Text(stringResource(R.string.login_secure), fontSize = 12.sp, color = cs.onSurfaceVariant)
+                }
+                Spacer(Modifier.height(16.dp))
+                // 免登录 · 开发者工具箱（次级入口，方案 A：白底 0.5px 描边胶囊）
+                OutlinedButton(
+                    onClick = onOpenToolbox,
+                    border = BorderStroke(0.5.dp, cs.outline),
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = cs.onSurface),
+                    modifier = Modifier.fillMaxWidth().height(50.dp),
+                ) {
+                    Icon(Icons.Outlined.Build, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Spacer(Modifier.width(8.dp))
+                    Text(stringResource(R.string.toolbox_login_cta), fontSize = 15.sp, fontWeight = FontWeight.Medium)
                 }
                 if (error != null) {
                     Spacer(Modifier.height(14.dp))
