@@ -288,6 +288,19 @@ struct SettingsView: View {
                 }
                 .glassRow()
 
+                // ── 体验者计划（opt-in 遥测）──
+                Section {
+                    Toggle(isOn: Bindable(TelemetryStore.shared).isOptedIn) {
+                        HStack(spacing: 12) {
+                            TintIcon(systemImage: "waveform.path.ecg", color: .teal)
+                            Text("体验者计划")
+                        }
+                    }
+                } footer: {
+                    Text("开启后上报匿名诊断日志与崩溃信息（不含令牌、账号数据或任何个人信息），帮助我们更快定位登录与稳定性问题。")
+                }
+                .glassRow()
+
                 // ── 关于（详情收进二级页，给根页减负）──
                 Section {
                     NavigationLink {

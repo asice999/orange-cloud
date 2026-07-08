@@ -70,7 +70,11 @@ class TailNotifier @Inject constructor(
                 .setContentIntent(pending)
                 .build()
         }
-        runCatching { manager.notify(NOTIFICATION_ID, notification) }
+        try {
+            manager.notify(NOTIFICATION_ID, notification)
+        } catch (_: SecurityException) {
+            // 权限在 hasPermission() 检查后被撤销的窗口期
+        }
     }
 
     /** API 36 实况通知：setShortCriticalText 状态栏短文（实时事件数）+ FLAG_PROMOTED_ONGOING 促升。 */

@@ -36,6 +36,9 @@ nonisolated enum RefreshGate {
         guard fd >= 0 else { return nil }
         for _ in 0..<120 {                                   // 120 × 50ms ≈ 6s 上限
             if lock(fd, type: Int16(F_WRLCK)) { return fd }
+            // 显式检查取消：`try?` 会吞掉 sleep 抛出的 CancellationError，BGAppRefresh
+            // 到期 cancel 后若仍空转抢锁，进程会带着待抢句柄被挂起
+            if Task.isCancelled { break }
             try? await Task.sleep(nanoseconds: 50_000_000)
         }
         close(fd)                                            // 超时没抢到：关掉句柄，降级

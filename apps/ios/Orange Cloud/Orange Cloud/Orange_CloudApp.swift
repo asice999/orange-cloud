@@ -41,6 +41,9 @@ struct Orange_CloudApp: App {
         }
         WatchSessionManager.shared.start(authManager: manager)
         EntitlementStore.shared.start()
+        // 体验者计划：仅当用户此前已同意才会真正拉起 Sentry（默认不初始化）。
+        // 须在 CrashReporter.install() 之后，让 Sentry 链式保留我们的崩溃 handler。
+        _ = TelemetryStore.shared
         Self.reapOrphanTailActivities()
         try? Tips.configure()
         AppLog.logLaunch(

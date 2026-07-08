@@ -56,6 +56,9 @@ nonisolated struct AppLog: Sendable {
         case .error:  logger.error("\(message, privacy: .public)")
         }
         LogFileStore.shared.append(level: level, category: category, message: message)
+        // 体验者计划（opt-in）：auth 时间线 + 全类别 error 镜像到 Sentry。
+        // 消息已按上方脱敏铁律清洗，未开启时此调用是空转。
+        TelemetryReporter.forward(category: category.rawValue, level: level.rawValue, message: message)
     }
 
     // MARK: - 启动环境头

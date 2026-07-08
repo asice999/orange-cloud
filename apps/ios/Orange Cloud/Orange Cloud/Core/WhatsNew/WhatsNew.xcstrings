@@ -1749,6 +1749,82 @@
         }
       }
     },
+    "体验者计划": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insider Program"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "體驗者計畫"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "體驗者計劃"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "インサイダープログラム"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Programa Insider"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "인사이더 프로그램"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Programa Insider"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Programa Insider"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insider-Programm"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Programme Insider"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برنامج تحسين التطبيق"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insider Programı"
+          }
+        }
+      }
+    },
     "修复了 App 在部分 iOS 17 设备上一启动就闪退的问题。": {
       "localizations": {
         "en": {
@@ -3193,6 +3269,82 @@
         }
       }
     },
+    "域名详情新增「规则」统一入口：单条重定向、源站、配置、压缩与自定义错误五类规则支持查看、启停、新建、编辑与删除；Page Rules 与 URL 正规化支持查看与启停。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Domain details gain a unified “Rules” entry: Single Redirects, Origin, Configuration, Compression and Custom Error rules with view, toggle, create, edit and delete; Page Rules and URL Normalization support view and toggle."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "網域詳情新增「規則」統一入口：單條重新導向、來源、組態、壓縮與自訂錯誤五類規則支援檢視、啟停、新增、編輯與刪除；Page Rules 與 URL 正規化支援檢視與啟停。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "域名詳情新增「規則」統一入口：單條重新導向、源站、配置、壓縮與自訂錯誤五類規則支援查看、啟停、新增、編輯與刪除；Page Rules 與 URL 正規化支援查看與啟停。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ドメイン詳細に「ルール」の統一入口を追加。単一リダイレクト、オリジン、設定、圧縮、カスタムエラーの 5 種類のルールで表示・オン/オフ・作成・編集・削除に対応し、Page Rules と URL 正規化は表示とオン/オフに対応します。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los detalles del dominio incorporan una entrada unificada de «Reglas»: redirecciones individuales, origen, configuración, compresión y errores personalizados admiten ver, activar/desactivar, crear, editar y eliminar; Page Rules y la normalización de URL admiten ver y activar/desactivar."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "도메인 상세에 '규칙' 통합 입구가 추가되었습니다. 단일 리디렉션, 오리진, 구성, 압축, 사용자 지정 오류 다섯 가지 규칙에서 보기·켜기/끄기·생성·편집·삭제를 지원하며, Page Rules와 URL 정규화는 보기와 켜기/끄기를 지원합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os detalhes do domínio ganham uma entrada unificada de “Regras”: redirecionamentos individuais, origem, configuração, compressão e erros personalizados com ver, ativar/desativar, criar, editar e excluir; Page Rules e normalização de URL permitem ver e ativar/desativar."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os detalhes do domínio ganham uma entrada unificada de «Regras»: redirecionamentos individuais, origem, configuração, compressão e erros personalizados com ver, ativar/desativar, criar, editar e eliminar; Page Rules e normalização de URL permitem ver e ativar/desativar."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Domain-Details erhalten einen einheitlichen Bereich „Regeln“: Einzelweiterleitungen, Origin-, Konfigurations-, Komprimierungs- und benutzerdefinierte Fehlerregeln mit Anzeigen, Ein/Aus, Erstellen, Bearbeiten und Löschen; Page Rules und URL-Normalisierung unterstützen Anzeigen und Ein/Aus."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les détails du domaine gagnent une entrée unifiée « Règles » : redirections unitaires, règles d’origine, de configuration, de compression et d’erreurs personnalisées avec affichage, activation, création, modification et suppression ; les Page Rules et la normalisation d’URL prennent en charge l’affichage et l’activation."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحصل تفاصيل النطاق على مدخل موحّد «القواعد»: قواعد إعادة التوجيه الفردية والمصدر والتهيئة والضغط والأخطاء المخصصة مع العرض والتفعيل والإنشاء والتحرير والحذف؛ وتدعم Page Rules وتطبيع عناوين URL العرض والتفعيل."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alan adı ayrıntılarına birleşik \"Kurallar\" girişi eklendi: tekil yönlendirme, kaynak, yapılandırma, sıkıştırma ve özel hata kuralları görüntüleme, açma/kapatma, oluşturma, düzenleme ve silmeyi destekler; Page Rules ve URL normalleştirme görüntüleme ile açma/kapatmayı destekler."
+          }
+        }
+      }
+    },
     "存储与流量单位在所有语言下统一显示为国际通用符号（KB / MB / GB），不再随语言翻译。": {
       "localizations": {
         "en": {
@@ -4409,6 +4561,82 @@
         }
       }
     },
+    "新增可随时开关的体验者计划：默认关闭，加入后才会匿名上报诊断信息，帮助我们更快定位闪退与登录问题；不收集任何个人身份数据。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New opt-in Insider Program, off by default: join to share anonymous diagnostics that help us pinpoint crashes and sign-in issues faster. No personal data is collected."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增可隨時開關的體驗者計畫：預設關閉，加入後才會匿名回報診斷資訊，協助我們更快定位閃退與登入問題；不收集任何個人身分資料。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增可隨時開關的體驗者計劃：預設關閉，加入後才會匿名上報診斷資訊，協助我們更快定位閃退與登入問題；不收集任何個人身份資料。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "任意参加のインサイダープログラムを追加しました。既定ではオフで、参加した場合のみ匿名の診断情報を送信し、クラッシュやログイン問題の特定に役立てます。個人を特定できるデータは収集しません。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuevo programa Insider opcional, desactivado de forma predeterminada: al unirte, se envían diagnósticos anónimos que nos ayudan a localizar más rápido los cierres inesperados y problemas de inicio de sesión. No se recopilan datos personales."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "언제든 켜고 끌 수 있는 인사이더 프로그램이 추가되었습니다. 기본은 꺼짐이며, 참여할 때만 익명 진단 정보를 전송해 앱 종료와 로그인 문제를 더 빠르게 파악하도록 돕습니다. 개인 식별 데이터는 수집하지 않습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novo Programa Insider opcional, desativado por padrão: ao participar, diagnósticos anônimos nos ajudam a localizar falhas e problemas de login mais rápido. Nenhum dado pessoal é coletado."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novo Programa Insider opcional, desativado por predefinição: ao aderir, diagnósticos anónimos ajudam-nos a localizar falhas e problemas de sessão mais depressa. Não são recolhidos dados pessoais."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neues Insider-Programm zum Mitmachen, standardmäßig aus: Nach dem Beitritt helfen anonyme Diagnosedaten, Abstürze und Anmeldeprobleme schneller einzugrenzen. Es werden keine personenbezogenen Daten erfasst."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveau programme Insider facultatif, désactivé par défaut : en le rejoignant, des diagnostics anonymes nous aident à localiser plus vite les plantages et problèmes de connexion. Aucune donnée personnelle n’est collectée."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برنامج تحسين التطبيق الجديد اختياري ومعطّل افتراضيًا: عند الانضمام تُرسل بيانات تشخيصية مجهولة تساعدنا على تحديد الانهيارات ومشكلات تسجيل الدخول بشكل أسرع، ولا تُجمع أي بيانات شخصية."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İsteğe bağlı yeni Insider Programı, varsayılan olarak kapalı: katıldığınızda anonim tanılama verileri çökmeleri ve oturum açma sorunlarını daha hızlı bulmamıza yardımcı olur. Hiçbir kişisel veri toplanmaz."
+          }
+        }
+      }
+    },
     "新增德语、法语、阿拉伯语与土耳其语；并改进崩溃诊断，帮助更快定位疑难问题。": {
       "localizations": {
         "en": {
@@ -5397,6 +5625,158 @@
         }
       }
     },
+    "根治 iOS 17.0 上概览页、资源列表与域名详情的多处闪退与冻结；同时修复 Tunnel 页面卡死与冷启动请求翻倍的问题。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fixes multiple crashes and freezes on iOS 17.0 across Overview, resource lists and domain details, plus the Tunnel page hanging and doubled requests on cold launch."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根治 iOS 17.0 上總覽頁、資源列表與網域詳情的多處閃退與凍結；同時修復 Tunnel 頁面卡死與冷啟動請求翻倍的問題。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根治 iOS 17.0 上概覽頁、資源列表與域名詳情的多處閃退與凍結；同時修復 Tunnel 頁面卡死與冷啟動請求翻倍的問題。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS 17.0 における概要ページ、リソース一覧、ドメイン詳細での複数のクラッシュとフリーズを根本から修正。Tunnel ページのフリーズや、コールド起動時にリクエストが倍増する問題も修正しました。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrige de raíz varios cierres inesperados y bloqueos en iOS 17.0 en Resumen, las listas de recursos y los detalles del dominio; también soluciona el bloqueo de la página de Tunnel y las solicitudes duplicadas al iniciar en frío."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS 17.0에서 개요 페이지, 리소스 목록, 도메인 상세의 여러 앱 종료·멈춤 문제를 근본적으로 해결했습니다. Tunnel 페이지 멈춤과 콜드 시작 시 요청이 두 배로 발생하는 문제도 수정했습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrige na raiz várias falhas e travamentos no iOS 17.0 na Visão geral, nas listas de recursos e nos detalhes do domínio; também resolve o travamento da página de Tunnel e as solicitações duplicadas na inicialização a frio."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrige na raiz várias falhas e bloqueios no iOS 17.0 na Vista geral, nas listas de recursos e nos detalhes do domínio; resolve ainda o bloqueio da página de Tunnel e os pedidos duplicados no arranque a frio."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Behebt mehrere Abstürze und Einfrieren unter iOS 17.0 in der Übersicht, in Ressourcenlisten und in den Domain-Details; außerdem hängt die Tunnel-Seite nicht mehr und beim Kaltstart werden Anfragen nicht mehr doppelt gesendet."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrige à la racine plusieurs plantages et blocages sous iOS 17.0 dans l’aperçu, les listes de ressources et les détails du domaine ; corrige aussi le blocage de la page Tunnel et le doublement des requêtes au démarrage à froid."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعالج جذريًا عدة انهيارات وتجمّدات على iOS 17.0 في النظرة العامة وقوائم الموارد وتفاصيل النطاق؛ كما يصلح تجمّد صفحة Tunnel وتضاعف الطلبات عند التشغيل البارد."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS 17.0'da Genel Bakış, kaynak listeleri ve alan adı ayrıntılarındaki birden çok çökme ve donmayı kökten düzeltir; ayrıca Tunnel sayfasının donması ve soğuk başlatmada isteklerin ikiye katlanması sorunlarını giderir."
+          }
+        }
+      }
+    },
+    "根治部分用户「自动退出账号」的问题：授权流程补齐长期凭证，登录状态不再随令牌到期而失效；若授权仍失效，概览页会提供「一键重新授权」引导。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fixes the root cause of being signed out unexpectedly: the authorization flow now obtains long-lived credentials, so your session no longer lapses when the token expires. If authorization does become invalid, Overview offers one-tap re-authorization."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根治部分使用者「自動登出帳號」的問題：授權流程補齊長期憑證，登入狀態不再隨權杖到期而失效；若授權仍失效，總覽頁會提供「一鍵重新授權」引導。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根治部分用戶「自動登出帳戶」的問題：授權流程補齊長期憑證，登入狀態不再隨令牌到期而失效；若授權仍失效，概覽頁會提供「一鍵重新授權」引導。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一部のユーザーで発生していた「自動的にログアウトされる」問題を根本から修正しました。認証フローが長期資格情報を取得するようになり、トークンの期限切れでセッションが失われることはありません。認証が無効になった場合は、概要ページにワンタップ再認証の案内を表示します。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrige de raíz el cierre de sesión inesperado: el flujo de autorización ahora obtiene credenciales de larga duración, por lo que la sesión ya no caduca con el token. Si la autorización deja de ser válida, Resumen ofrece reautorizar con un toque."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일부 사용자의 '자동 로그아웃' 문제를 근본적으로 해결했습니다. 인증 과정에서 장기 자격 증명을 받아 토큰이 만료되어도 로그인 상태가 유지됩니다. 인증이 무효화된 경우에는 개요 페이지에서 원탭 재인증 안내를 제공합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrige na raiz o problema de desconexão inesperada: o fluxo de autorização agora obtém credenciais de longa duração, e a sessão não expira mais com o token. Se a autorização ficar inválida, a Visão geral oferece reautorização com um toque."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrige na raiz o problema de fim de sessão inesperado: o fluxo de autorização passa a obter credenciais de longa duração, pelo que a sessão já não expira com o token. Se a autorização ficar inválida, a Vista geral oferece reautorização com um toque."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Behebt die Ursache unerwarteter Abmeldungen: Der Autorisierungsablauf holt jetzt langlebige Anmeldedaten ein, sodass die Sitzung nicht mehr mit dem Token abläuft. Wird die Autorisierung dennoch ungültig, bietet die Übersicht eine Neuautorisierung mit einem Tipp."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrige à la racine les déconnexions inattendues : le flux d’autorisation obtient désormais des identifiants de longue durée, la session n’expire donc plus avec le jeton. Si l’autorisation devient invalide, l’aperçu propose une réautorisation en un geste."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعالج جذريًا مشكلة «تسجيل الخروج التلقائي» لدى بعض المستخدمين: يحصل تدفق التفويض الآن على بيانات اعتماد طويلة الأمد، فلا تنتهي الجلسة بانتهاء صلاحية الرمز. وإذا أصبح التفويض غير صالح، تعرض النظرة العامة إعادة التفويض بنقرة واحدة."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bazı kullanıcıların beklenmedik şekilde oturumdan çıkarılması sorununu kökten çözer: yetkilendirme akışı artık uzun ömürlü kimlik bilgileri alır, bu yüzden oturum belirteç süresi dolunca kapanmaz. Yetki yine geçersiz olursa Genel Bakış tek dokunuşla yeniden yetkilendirme sunar."
+          }
+        }
+      }
+    },
     "浏览 Pages 项目与部署，一键重试 / 回滚 / 删除部署，并编辑构建配置。": {
       "localizations": {
         "en": {
@@ -5545,6 +5925,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alan adı ekle"
+          }
+        }
+      }
+    },
+    "滑动更流畅": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smoother scrolling"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "捲動更流暢"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "滑動更流暢"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "スクロールがより滑らかに"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desplazamiento más fluido"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "더 부드러운 스크롤"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rolagem mais fluida"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deslocação mais fluida"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flüssigeres Scrollen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Défilement plus fluide"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تمرير أكثر سلاسة"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daha akıcı kaydırma"
           }
         }
       }
@@ -6081,6 +6537,82 @@
         }
       }
     },
+    "稳定性修复": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stability fixes"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "穩定性修復"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "穩定性修復"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "安定性の修正"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Correcciones de estabilidad"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "안정성 수정"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Correções de estabilidade"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Correções de estabilidade"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilitätskorrekturen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrections de stabilité"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إصلاحات الاستقرار"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kararlılık düzeltmeleri"
+          }
+        }
+      }
+    },
     "管理 Worker 的环境变量与密钥，随手增删改。": {
       "localizations": {
         "en": {
@@ -6309,6 +6841,82 @@
         }
       }
     },
+    "规则中心": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rules hub"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "規則中心"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "規則中心"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ルールセンター"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Centro de reglas"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "규칙 센터"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Central de regras"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Central de regras"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regel-Center"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Centre de règles"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مركز القواعد"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kural Merkezi"
+          }
+        }
+      }
+    },
     "设备端 AI 助手": {
       "localizations": {
         "en": {
@@ -6533,6 +7141,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pages ve Workers dağıtın"
+          }
+        }
+      }
+    },
+    "重做玻璃卡片的渲染方式：观感不变，滚动开销大幅下降，列表与概览页滑动明显更顺滑，旧机型尤其受益。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glass cards are rendered with far less overhead while looking identical — lists and Overview scroll noticeably smoother, especially on older devices."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重做玻璃卡片的算繪方式：觀感不變、捲動負擔大幅下降，清單與總覽頁捲動明顯更順暢，舊機型尤其受益。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重做玻璃卡片的渲染方式：觀感不變、滑動負擔大幅下降，列表與概覽頁滑動明顯更順暢，舊機型尤其受益。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ガラスカードの描画方式を見直しました。見た目はそのままにスクロール時の負荷を大幅に削減し、リストや概要ページのスクロールが特に旧機種で滑らかになりました。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las tarjetas de vidrio ahora se dibujan con mucho menos costo manteniendo el mismo aspecto: las listas y Resumen se desplazan con notable mayor fluidez, sobre todo en equipos antiguos."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "글래스 카드 렌더링을 개선했습니다. 보이는 모습은 그대로 유지하면서 스크롤 부하를 크게 줄여, 목록과 개요 페이지가 특히 구형 기기에서 눈에 띄게 부드러워졌습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os cartões de vidro agora são renderizados com muito menos custo, mantendo o mesmo visual — as listas e a Visão geral rolam visivelmente mais suave, principalmente em aparelhos antigos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os cartões de vidro passam a ser renderizados com muito menos custo, mantendo o mesmo aspeto — as listas e a Vista geral deslizam visivelmente melhor, sobretudo em dispositivos antigos."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glaskarten werden bei gleichem Aussehen deutlich günstiger gerendert – Listen und die Übersicht scrollen spürbar flüssiger, besonders auf älteren Geräten."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les cartes en verre sont rendues avec beaucoup moins de coût tout en gardant le même aspect — les listes et l’aperçu défilent nettement plus fluidement, surtout sur les appareils anciens."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أصبحت البطاقات الزجاجية تُرسم بكلفة أقل بكثير مع الحفاظ على المظهر نفسه — تمرير القوائم وصفحة النظرة العامة أصبح أكثر سلاسة، خصوصًا على الأجهزة الأقدم."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cam kartlar aynı görünümü koruyarak çok daha düşük maliyetle çiziliyor — listeler ve Genel Bakış, özellikle eski cihazlarda belirgin şekilde daha akıcı kayıyor."
           }
         }
       }

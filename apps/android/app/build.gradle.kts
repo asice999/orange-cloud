@@ -40,12 +40,12 @@ android {
 
     defaultConfig {
         applicationId = "jiamin.chen.orangecloud"
-        // 基线 Android 9（API 28）覆盖 ~97% 设备；Material You 动态取色(API31)/AGSL(API33)/
-        // 实况通知促升(API36) 均 if-guard 渐进增强，Android 9–11 落固定品牌调色板与常驻通知回退。
-        minSdk = 28
+        // 基线 Android 8.0（API 26）覆盖 ~99% 设备；Material You 动态取色(API31)/AGSL(API33)/
+        // 实况通知促升(API36) 均 if-guard 渐进增强，Android 8–11 落固定品牌调色板与常驻通知回退。
+        minSdk = 26
         targetSdk = 36
-        versionCode = 9
-        versionName = "1.6.0"
+        versionCode = 11
+        versionName = "1.6.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // OAuth 回调（Web 后端 302 跳回的自定义 scheme）

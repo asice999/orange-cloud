@@ -60,9 +60,9 @@ struct PagesProjectListView: View {
                 List {
                     Section {
                         ForEach(filtered) { project in
-                            NavigationLink {
-                                PagesProjectDetailView(project: project, session: session)
-                            } label: {
+                            // 项目详情自身还要 push（域名/部署/构建配置），行必须值式：
+                            // 本页已被 value push 进 DevHub 栈，行内 eager 目的页再 push 会失灵
+                            NavigationLink(value: PagesProjectRoute(project: project)) {
                                 PagesProjectRow(project: project)
                             }
                         }
@@ -160,4 +160,13 @@ struct PagesStatusBadge: View {
         case .canceled, .unknown: .gray
         }
     }
+}
+
+/// Pages 项目行的值式路由（宿主 DevHub 栈根解析）。PagesProject 嵌套配置类型多、
+/// 未整体 Hashable，按项目名做导航身份（同账号下项目名唯一）。
+nonisolated struct PagesProjectRoute: Hashable {
+    let project: PagesProject
+
+    static func == (lhs: Self, rhs: Self) -> Bool { lhs.project.name == rhs.project.name }
+    func hash(into hasher: inout Hasher) { hasher.combine(project.name) }
 }

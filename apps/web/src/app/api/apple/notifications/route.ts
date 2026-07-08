@@ -45,7 +45,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 	}
 
 	// 3) bundleId 校验：拒绝非本 App 的通知
-	const bundleId = decoded.payload.data?.bundleId ?? decoded.transaction?.bundleId;
+	const bundleId =
+		decoded.payload.data?.bundleId ??
+		decoded.payload.summary?.bundleId ??
+		decoded.transaction?.bundleId;
 	if (bundleId && bundleId !== EXPECTED_BUNDLE_ID) {
 		return NextResponse.json({ error: "unexpected bundleId" }, { status: 401 });
 	}

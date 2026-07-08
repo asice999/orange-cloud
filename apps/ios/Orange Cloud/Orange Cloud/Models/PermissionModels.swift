@@ -178,6 +178,23 @@ extension FeaturePermission {
             editScopes: ["cache-settings.write"],
             isRequired: false
         ),
+        // 规则中心（1.8.2(26) 上线）：五个 Rulesets phase + Page Rules；
+        // config-settings 同时覆盖 URL 正规化。缺这组会导致登录后进规则页还要逐个补授权。
+        .init(
+            id: "zone_rules",
+            title: String(localized: "规则中心"),
+            description: String(localized: "单条重定向、源站、配置、压缩、自定义错误与 Page Rules"),
+            icon: "list.bullet.rectangle",
+            readScopes: [
+                "dynamic-redirect.read", "origin.read", "config-settings.read",
+                "response-compression.read", "custom-errors.read", "page-rules.read",
+            ],
+            editScopes: [
+                "dynamic-redirect.write", "origin.write", "config-settings.write",
+                "response-compression.write", "custom-errors.write", "page-rules.write",
+            ],
+            isRequired: false
+        ),
         .init(
             id: "ssl_certs",
             title: String(localized: "SSL 证书"),

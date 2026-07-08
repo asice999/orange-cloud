@@ -55,6 +55,7 @@ private struct SessionRootView: View {
         MainTabView()
             .environment(session)
             .whatsNewSheet()
+            .telemetryConsentPrompt()
     }
 }
 

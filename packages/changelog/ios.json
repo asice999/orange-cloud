@@ -1,9 +1,84 @@
 [
   {
-    "version": "1.9.0",
-    "date": "2026.07.03",
+    "version": "1.8.3",
+    "date": "2026.07.07",
     "channel": "App Store",
+    "inApp": false,
     "items": [
+      {
+        "icon": "wrench.and.screwdriver.fill",
+        "title": {
+          "zh-Hans": "稳定性修复",
+          "en": "Stability fixes",
+          "zh-Hant": "穩定性修復",
+          "zh-HK": "穩定性修復",
+          "ja": "安定性の修正",
+          "es-MX": "Correcciones de estabilidad",
+          "ko": "안정성 개선",
+          "pt-BR": "Correções de estabilidade",
+          "pt-PT": "Correções de estabilidade",
+          "de": "Stabilitätsverbesserungen",
+          "fr": "Corrections de stabilité",
+          "ar": "إصلاحات الاستقرار",
+          "tr": "Kararlılık düzeltmeleri"
+        },
+        "detail": {
+          "zh-Hans": "修复概览页「Access 应用 / Gateway 策略 / Bulk Redirects」点击后卡死或闪退的问题（iOS 17 设备尤为明显），并排查修复 Pages 项目子页打不开等同类导航隐患；iOS 17.0 个别设备上缓存数据库损坏导致的启动闪退现在会自动修复；另修复授权回调与后台令牌刷新的两类偶发退出。",
+          "en": "Fixes freezes and crashes when tapping “Access Apps / Gateway Policies / Bulk Redirects” on the Overview page (most noticeable on iOS 17), along with similar navigation issues such as Pages project sub-pages failing to open. Startup crashes caused by a corrupted cache database on a few iOS 17.0 devices are now repaired automatically, and two rare exits around the sign-in callback and background token refresh are fixed.",
+          "zh-Hant": "修復總覽頁「Access 應用程式 / Gateway 政策 / Bulk Redirects」點按後卡死或閃退的問題（iOS 17 裝置尤為明顯），並排查修復 Pages 專案子頁無法開啟等同類導覽問題；iOS 17.0 個別裝置上快取資料庫損毀導致的啟動閃退現在會自動修復；另修復授權回呼與背景權杖重新整理的兩類偶發退出。",
+          "zh-HK": "修復總覽頁「Access 應用程式 / Gateway 政策 / Bulk Redirects」點按後卡死或閃退的問題（iOS 17 裝置尤為明顯），並排查修復 Pages 專案子頁無法開啟等同類導覽問題；iOS 17.0 個別裝置上緩存資料庫損毀導致的啟動閃退現在會自動修復；另修復授權回調與背景令牌刷新的兩類偶發退出。",
+          "ja": "概要ページの「Access アプリ / Gateway ポリシー / Bulk Redirects」をタップするとフリーズまたはクラッシュする問題（iOS 17 端末で顕著）を修正し、Pages プロジェクトのサブページが開けないなど同種のナビゲーション問題も修正しました。iOS 17.0 の一部端末でキャッシュデータベースの破損による起動時クラッシュが自動修復されるようになり、サインインコールバックとバックグラウンドのトークン更新に関する 2 種類のまれな強制終了も修正しています。",
+          "es-MX": "Corrige bloqueos y cierres al tocar «Aplicaciones de Access / Políticas de Gateway / Bulk Redirects» en la página de resumen (especialmente en iOS 17), junto con problemas de navegación similares, como subpáginas de proyectos de Pages que no se abrían. Los cierres al iniciar causados por una base de datos de caché dañada en algunos dispositivos con iOS 17.0 ahora se reparan automáticamente, y se corrigen dos cierres poco frecuentes relacionados con el callback de inicio de sesión y la actualización del token en segundo plano.",
+          "ko": "개요 페이지에서 'Access 앱 / Gateway 정책 / Bulk Redirects'를 탭하면 멈추거나 종료되는 문제(iOS 17 기기에서 두드러짐)를 수정하고, Pages 프로젝트 하위 페이지가 열리지 않는 등 유사한 내비게이션 문제도 함께 수정했습니다. 일부 iOS 17.0 기기에서 캐시 데이터베이스 손상으로 발생하던 실행 시 종료가 이제 자동으로 복구되며, 로그인 콜백과 백그라운드 토큰 갱신 관련 두 가지 드문 종료 현상도 수정했습니다.",
+          "pt-BR": "Corrige travamentos e fechamentos ao tocar em “Apps do Access / Políticas do Gateway / Bulk Redirects” na página de visão geral (mais evidente no iOS 17), além de problemas de navegação semelhantes, como subpáginas de projetos do Pages que não abriam. Fechamentos na inicialização causados por banco de dados de cache corrompido em alguns aparelhos com iOS 17.0 agora são reparados automaticamente, e dois encerramentos raros ligados ao callback de login e à atualização do token em segundo plano foram corrigidos.",
+          "pt-PT": "Corrige bloqueios e fechos ao tocar em «Apps do Access / Políticas do Gateway / Bulk Redirects» na página de visão geral (mais evidente no iOS 17), bem como problemas de navegação semelhantes, como subpáginas de projetos do Pages que não abriam. Os fechos no arranque causados por uma base de dados de cache danificada em alguns dispositivos com iOS 17.0 são agora reparados automaticamente, e foram corrigidos dois encerramentos raros relacionados com o callback de início de sessão e a atualização do token em segundo plano.",
+          "de": "Behebt Einfrieren und Abstürze beim Antippen von „Access-Apps / Gateway-Richtlinien / Bulk Redirects“ auf der Übersichtsseite (besonders auf iOS 17) sowie ähnliche Navigationsprobleme, etwa nicht öffnende Unterseiten von Pages-Projekten. Startabstürze durch eine beschädigte Cache-Datenbank auf einzelnen iOS-17.0-Geräten werden jetzt automatisch repariert; außerdem wurden zwei seltene Abstürze rund um den Anmelde-Callback und die Token-Aktualisierung im Hintergrund behoben.",
+          "fr": "Corrige les blocages et plantages lors de l’appui sur « Applications Access / Politiques Gateway / Bulk Redirects » sur la page d’aperçu (surtout sous iOS 17), ainsi que des problèmes de navigation similaires, comme des sous-pages de projets Pages qui ne s’ouvraient pas. Les plantages au démarrage dus à une base de cache corrompue sur certains appareils iOS 17.0 sont désormais réparés automatiquement, et deux fermetures rares liées au rappel de connexion et à l’actualisation du jeton en arrière-plan sont corrigées.",
+          "ar": "يعالج هذا التحديث تجمّد التطبيق أو انهياره عند النقر على «تطبيقات Access / سياسات Gateway / Bulk Redirects» في صفحة النظرة العامة (خاصة على iOS 17)، إضافة إلى مشاكل تنقّل مماثلة مثل تعذّر فتح الصفحات الفرعية لمشاريع Pages. كما يُصلح الآن تلقائيًا انهيار بدء التشغيل الناتج عن تلف قاعدة بيانات التخزين المؤقت على بعض أجهزة iOS 17.0، ويعالج حالتين نادرتين من الإغلاق تتعلقان برد نداء تسجيل الدخول وتحديث الرمز في الخلفية.",
+          "tr": "Genel bakış sayfasında “Access Uygulamaları / Gateway Politikaları / Bulk Redirects” öğelerine dokununca donma veya kapanma sorunu (özellikle iOS 17 cihazlarda) ve Pages proje alt sayfalarının açılmaması gibi benzer gezinme sorunları giderildi. Bazı iOS 17.0 cihazlarda bozuk önbellek veritabanının neden olduğu açılış çökmeleri artık otomatik olarak onarılıyor; ayrıca oturum açma geri çağrısı ve arka plan token yenilemeyle ilgili iki nadir kapanma düzeltildi."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.8.2",
+    "date": "2026.07.05",
+    "channel": "App Store",
+    "inApp": true,
+    "items": [
+      {
+        "icon": "arrow.triangle.branch",
+        "title": {
+          "zh-Hans": "规则中心",
+          "en": "Rules hub",
+          "zh-Hant": "規則中心",
+          "zh-HK": "規則中心",
+          "ja": "ルールセンター",
+          "es-MX": "Centro de reglas",
+          "ko": "규칙 센터",
+          "pt-BR": "Central de regras",
+          "pt-PT": "Central de regras",
+          "de": "Regel-Center",
+          "fr": "Centre de règles",
+          "ar": "مركز القواعد",
+          "tr": "Kural Merkezi"
+        },
+        "detail": {
+          "zh-Hans": "域名详情新增「规则」统一入口：单条重定向、源站、配置、压缩与自定义错误五类规则支持查看、启停、新建、编辑与删除；Page Rules 与 URL 正规化支持查看与启停。",
+          "en": "Domain details gain a unified “Rules” entry: Single Redirects, Origin, Configuration, Compression and Custom Error rules with view, toggle, create, edit and delete; Page Rules and URL Normalization support view and toggle.",
+          "zh-Hant": "網域詳情新增「規則」統一入口：單條重新導向、來源、組態、壓縮與自訂錯誤五類規則支援檢視、啟停、新增、編輯與刪除；Page Rules 與 URL 正規化支援檢視與啟停。",
+          "zh-HK": "域名詳情新增「規則」統一入口：單條重新導向、源站、配置、壓縮與自訂錯誤五類規則支援查看、啟停、新增、編輯與刪除；Page Rules 與 URL 正規化支援查看與啟停。",
+          "ja": "ドメイン詳細に「ルール」の統一入口を追加。単一リダイレクト、オリジン、設定、圧縮、カスタムエラーの 5 種類のルールで表示・オン/オフ・作成・編集・削除に対応し、Page Rules と URL 正規化は表示とオン/オフに対応します。",
+          "es-MX": "Los detalles del dominio incorporan una entrada unificada de «Reglas»: redirecciones individuales, origen, configuración, compresión y errores personalizados admiten ver, activar/desactivar, crear, editar y eliminar; Page Rules y la normalización de URL admiten ver y activar/desactivar.",
+          "ko": "도메인 상세에 '규칙' 통합 입구가 추가되었습니다. 단일 리디렉션, 오리진, 구성, 압축, 사용자 지정 오류 다섯 가지 규칙에서 보기·켜기/끄기·생성·편집·삭제를 지원하며, Page Rules와 URL 정규화는 보기와 켜기/끄기를 지원합니다.",
+          "pt-BR": "Os detalhes do domínio ganham uma entrada unificada de “Regras”: redirecionamentos individuais, origem, configuração, compressão e erros personalizados com ver, ativar/desativar, criar, editar e excluir; Page Rules e normalização de URL permitem ver e ativar/desativar.",
+          "pt-PT": "Os detalhes do domínio ganham uma entrada unificada de «Regras»: redirecionamentos individuais, origem, configuração, compressão e erros personalizados com ver, ativar/desativar, criar, editar e eliminar; Page Rules e normalização de URL permitem ver e ativar/desativar.",
+          "de": "Die Domain-Details erhalten einen einheitlichen Bereich „Regeln“: Einzelweiterleitungen, Origin-, Konfigurations-, Komprimierungs- und benutzerdefinierte Fehlerregeln mit Anzeigen, Ein/Aus, Erstellen, Bearbeiten und Löschen; Page Rules und URL-Normalisierung unterstützen Anzeigen und Ein/Aus.",
+          "fr": "Les détails du domaine gagnent une entrée unifiée « Règles » : redirections unitaires, règles d’origine, de configuration, de compression et d’erreurs personnalisées avec affichage, activation, création, modification et suppression ; les Page Rules et la normalisation d’URL prennent en charge l’affichage et l’activation.",
+          "ar": "تحصل تفاصيل النطاق على مدخل موحّد «القواعد»: قواعد إعادة التوجيه الفردية والمصدر والتهيئة والضغط والأخطاء المخصصة مع العرض والتفعيل والإنشاء والتحرير والحذف؛ وتدعم Page Rules وتطبيع عناوين URL العرض والتفعيل.",
+          "tr": "Alan adı ayrıntılarına birleşik \"Kurallar\" girişi eklendi: tekil yönlendirme, kaynak, yapılandırma, sıkıştırma ve özel hata kuralları görüntüleme, açma/kapatma, oluşturma, düzenleme ve silmeyi destekler; Page Rules ve URL normalleştirme görüntüleme ile açma/kapatmayı destekler."
+        }
+      },
       {
         "icon": "globe",
         "title": {
@@ -71,6 +146,72 @@
         }
       },
       {
+        "icon": "person.badge.key.fill",
+        "title": {
+          "zh-Hans": "登录更稳定",
+          "en": "More reliable sign-in",
+          "zh-Hant": "登入更穩定",
+          "zh-HK": "登入更穩定",
+          "ja": "ログインがより安定",
+          "es-MX": "Inicio de sesión más estable",
+          "ko": "더 안정적인 로그인",
+          "pt-BR": "Login mais estável",
+          "pt-PT": "Sessão mais estável",
+          "de": "Stabilere Anmeldung",
+          "fr": "Connexion plus fiable",
+          "ar": "تسجيل دخول أكثر استقرارًا",
+          "tr": "Daha kararlı oturum açma"
+        },
+        "detail": {
+          "zh-Hans": "根治部分用户「自动退出账号」的问题：授权流程补齐长期凭证，登录状态不再随令牌到期而失效；若授权仍失效，概览页会提供「一键重新授权」引导。",
+          "en": "Fixes the root cause of being signed out unexpectedly: the authorization flow now obtains long-lived credentials, so your session no longer lapses when the token expires. If authorization does become invalid, Overview offers one-tap re-authorization.",
+          "zh-Hant": "根治部分使用者「自動登出帳號」的問題：授權流程補齊長期憑證，登入狀態不再隨權杖到期而失效；若授權仍失效，總覽頁會提供「一鍵重新授權」引導。",
+          "zh-HK": "根治部分用戶「自動登出帳戶」的問題：授權流程補齊長期憑證，登入狀態不再隨令牌到期而失效；若授權仍失效，概覽頁會提供「一鍵重新授權」引導。",
+          "ja": "一部のユーザーで発生していた「自動的にログアウトされる」問題を根本から修正しました。認証フローが長期資格情報を取得するようになり、トークンの期限切れでセッションが失われることはありません。認証が無効になった場合は、概要ページにワンタップ再認証の案内を表示します。",
+          "es-MX": "Corrige de raíz el cierre de sesión inesperado: el flujo de autorización ahora obtiene credenciales de larga duración, por lo que la sesión ya no caduca con el token. Si la autorización deja de ser válida, Resumen ofrece reautorizar con un toque.",
+          "ko": "일부 사용자의 '자동 로그아웃' 문제를 근본적으로 해결했습니다. 인증 과정에서 장기 자격 증명을 받아 토큰이 만료되어도 로그인 상태가 유지됩니다. 인증이 무효화된 경우에는 개요 페이지에서 원탭 재인증 안내를 제공합니다.",
+          "pt-BR": "Corrige na raiz o problema de desconexão inesperada: o fluxo de autorização agora obtém credenciais de longa duração, e a sessão não expira mais com o token. Se a autorização ficar inválida, a Visão geral oferece reautorização com um toque.",
+          "pt-PT": "Corrige na raiz o problema de fim de sessão inesperado: o fluxo de autorização passa a obter credenciais de longa duração, pelo que a sessão já não expira com o token. Se a autorização ficar inválida, a Vista geral oferece reautorização com um toque.",
+          "de": "Behebt die Ursache unerwarteter Abmeldungen: Der Autorisierungsablauf holt jetzt langlebige Anmeldedaten ein, sodass die Sitzung nicht mehr mit dem Token abläuft. Wird die Autorisierung dennoch ungültig, bietet die Übersicht eine Neuautorisierung mit einem Tipp.",
+          "fr": "Corrige à la racine les déconnexions inattendues : le flux d’autorisation obtient désormais des identifiants de longue durée, la session n’expire donc plus avec le jeton. Si l’autorisation devient invalide, l’aperçu propose une réautorisation en un geste.",
+          "ar": "يعالج جذريًا مشكلة «تسجيل الخروج التلقائي» لدى بعض المستخدمين: يحصل تدفق التفويض الآن على بيانات اعتماد طويلة الأمد، فلا تنتهي الجلسة بانتهاء صلاحية الرمز. وإذا أصبح التفويض غير صالح، تعرض النظرة العامة إعادة التفويض بنقرة واحدة.",
+          "tr": "Bazı kullanıcıların beklenmedik şekilde oturumdan çıkarılması sorununu kökten çözer: yetkilendirme akışı artık uzun ömürlü kimlik bilgileri alır, bu yüzden oturum belirteç süresi dolunca kapanmaz. Yetki yine geçersiz olursa Genel Bakış tek dokunuşla yeniden yetkilendirme sunar."
+        }
+      },
+      {
+        "icon": "waveform.path.ecg",
+        "title": {
+          "zh-Hans": "体验者计划",
+          "en": "Insider Program",
+          "zh-Hant": "體驗者計畫",
+          "zh-HK": "體驗者計劃",
+          "ja": "インサイダープログラム",
+          "es-MX": "Programa Insider",
+          "ko": "인사이더 프로그램",
+          "pt-BR": "Programa Insider",
+          "pt-PT": "Programa Insider",
+          "de": "Insider-Programm",
+          "fr": "Programme Insider",
+          "ar": "برنامج تحسين التطبيق",
+          "tr": "Insider Programı"
+        },
+        "detail": {
+          "zh-Hans": "新增可随时开关的体验者计划：默认关闭，加入后才会匿名上报诊断信息，帮助我们更快定位闪退与登录问题；不收集任何个人身份数据。",
+          "en": "New opt-in Insider Program, off by default: join to share anonymous diagnostics that help us pinpoint crashes and sign-in issues faster. No personal data is collected.",
+          "zh-Hant": "新增可隨時開關的體驗者計畫：預設關閉，加入後才會匿名回報診斷資訊，協助我們更快定位閃退與登入問題；不收集任何個人身分資料。",
+          "zh-HK": "新增可隨時開關的體驗者計劃：預設關閉，加入後才會匿名上報診斷資訊，協助我們更快定位閃退與登入問題；不收集任何個人身份資料。",
+          "ja": "任意参加のインサイダープログラムを追加しました。既定ではオフで、参加した場合のみ匿名の診断情報を送信し、クラッシュやログイン問題の特定に役立てます。個人を特定できるデータは収集しません。",
+          "es-MX": "Nuevo programa Insider opcional, desactivado de forma predeterminada: al unirte, se envían diagnósticos anónimos que nos ayudan a localizar más rápido los cierres inesperados y problemas de inicio de sesión. No se recopilan datos personales.",
+          "ko": "언제든 켜고 끌 수 있는 인사이더 프로그램이 추가되었습니다. 기본은 꺼짐이며, 참여할 때만 익명 진단 정보를 전송해 앱 종료와 로그인 문제를 더 빠르게 파악하도록 돕습니다. 개인 식별 데이터는 수집하지 않습니다.",
+          "pt-BR": "Novo Programa Insider opcional, desativado por padrão: ao participar, diagnósticos anônimos nos ajudam a localizar falhas e problemas de login mais rápido. Nenhum dado pessoal é coletado.",
+          "pt-PT": "Novo Programa Insider opcional, desativado por predefinição: ao aderir, diagnósticos anónimos ajudam-nos a localizar falhas e problemas de sessão mais depressa. Não são recolhidos dados pessoais.",
+          "de": "Neues Insider-Programm zum Mitmachen, standardmäßig aus: Nach dem Beitritt helfen anonyme Diagnosedaten, Abstürze und Anmeldeprobleme schneller einzugrenzen. Es werden keine personenbezogenen Daten erfasst.",
+          "fr": "Nouveau programme Insider facultatif, désactivé par défaut : en le rejoignant, des diagnostics anonymes nous aident à localiser plus vite les plantages et problèmes de connexion. Aucune donnée personnelle n’est collectée.",
+          "ar": "برنامج تحسين التطبيق الجديد اختياري ومعطّل افتراضيًا: عند الانضمام تُرسل بيانات تشخيصية مجهولة تساعدنا على تحديد الانهيارات ومشكلات تسجيل الدخول بشكل أسرع، ولا تُجمع أي بيانات شخصية.",
+          "tr": "İsteğe bağlı yeni Insider Programı, varsayılan olarak kapalı: katıldığınızda anonim tanılama verileri çökmeleri ve oturum açma sorunlarını daha hızlı bulmamıza yardımcı olur. Hiçbir kişisel veri toplanmaz."
+        }
+      },
+      {
         "icon": "textformat.123",
         "title": {
           "zh-Hans": "数据单位显示",
@@ -102,15 +243,7 @@
           "ar": "أحجام التخزين وحركة المرور تُعرض الآن دائمًا بالرموز العالمية (KB / MB / GB) في جميع اللغات.",
           "tr": "Depolama ve trafik boyutları artık tüm dillerde evrensel birim simgeleriyle (KB / MB / GB) gösteriliyor."
         }
-      }
-    ]
-  },
-  {
-    "version": "1.8.2",
-    "date": "2026.07.02",
-    "channel": "App Store",
-    "inApp": false,
-    "items": [
+      },
       {
         "icon": "wrench.and.screwdriver.fill",
         "title": {
@@ -129,19 +262,19 @@
           "tr": "Kararlılık düzeltmeleri"
         },
         "detail": {
-          "zh-Hans": "修复 iOS 17.0 上打开概览页闪退的问题；登录授权失效无法自动续期时，概览页现在会给出「一键重新授权」引导，不再反复提示刷新失败。",
-          "en": "Fixes a crash when opening Overview on iOS 17.0. When sign-in authorization can no longer be renewed automatically, Overview now offers one-tap re-authorization instead of repeated refresh failures.",
-          "zh-Hant": "修復在 iOS 17.0 上開啟總覽頁閃退的問題；登入授權失效無法自動續期時，總覽頁現在會提供「一鍵重新授權」引導，不再反覆提示重新整理失敗。",
-          "zh-HK": "修復在 iOS 17.0 上開啟概覽頁閃退的問題；登入授權失效無法自動續期時，概覽頁現在會提供「一鍵重新授權」引導，不再反覆提示重新整理失敗。",
-          "ja": "iOS 17.0 で概要ページを開くとクラッシュする問題を修正しました。ログイン認証を自動更新できない場合は、概要ページにワンタップ再認証の案内を表示し、更新失敗の繰り返しをなくしました。",
-          "es-MX": "Corrige un cierre inesperado al abrir Resumen en iOS 17.0. Cuando la autorización de inicio de sesión ya no puede renovarse automáticamente, Resumen ahora ofrece reautorizar con un toque en lugar de fallas de actualización repetidas.",
-          "ko": "iOS 17.0에서 개요 페이지를 열 때 앱이 종료되는 문제를 수정했습니다. 로그인 인증을 자동 갱신할 수 없을 때는 개요 페이지에서 원탭 재인증 안내를 제공하여 새로 고침 실패가 반복되지 않습니다.",
-          "pt-BR": "Corrige uma falha ao abrir a Visão geral no iOS 17.0. Quando a autorização de login não puder mais ser renovada automaticamente, a Visão geral agora oferece reautorização com um toque em vez de falhas repetidas de atualização.",
-          "pt-PT": "Corrige uma falha ao abrir a Vista geral no iOS 17.0. Quando a autorização de sessão já não puder ser renovada automaticamente, a Vista geral passa a oferecer reautorização com um toque em vez de falhas repetidas de atualização.",
-          "de": "Behebt einen Absturz beim Öffnen der Übersicht unter iOS 17.0. Kann die Anmeldeautorisierung nicht mehr automatisch erneuert werden, bietet die Übersicht jetzt eine Neuautorisierung mit einem Tipp statt wiederholter Aktualisierungsfehler.",
-          "fr": "Corrige un plantage à l’ouverture de l’aperçu sous iOS 17.0. Lorsque l’autorisation de connexion ne peut plus être renouvelée automatiquement, l’aperçu propose désormais une réautorisation en un geste au lieu d’échecs d’actualisation répétés.",
-          "ar": "يصلح انهيارًا عند فتح صفحة النظرة العامة على iOS 17.0. وعندما يتعذر تجديد تفويض تسجيل الدخول تلقائيًا، تعرض النظرة العامة الآن إرشادًا لإعادة التفويض بنقرة واحدة بدلًا من تكرار فشل التحديث.",
-          "tr": "iOS 17.0'da Genel Bakış sayfası açılırken oluşan çökmeyi düzeltir. Oturum açma yetkisi otomatik olarak yenilenemediğinde Genel Bakış artık tekrarlanan yenileme hataları yerine tek dokunuşla yeniden yetkilendirme sunar."
+          "zh-Hans": "根治 iOS 17.0 上概览页、资源列表与域名详情的多处闪退与冻结；同时修复 Tunnel 页面卡死与冷启动请求翻倍的问题。",
+          "en": "Fixes multiple crashes and freezes on iOS 17.0 across Overview, resource lists and domain details, plus the Tunnel page hanging and doubled requests on cold launch.",
+          "zh-Hant": "根治 iOS 17.0 上總覽頁、資源列表與網域詳情的多處閃退與凍結；同時修復 Tunnel 頁面卡死與冷啟動請求翻倍的問題。",
+          "zh-HK": "根治 iOS 17.0 上概覽頁、資源列表與域名詳情的多處閃退與凍結；同時修復 Tunnel 頁面卡死與冷啟動請求翻倍的問題。",
+          "ja": "iOS 17.0 における概要ページ、リソース一覧、ドメイン詳細での複数のクラッシュとフリーズを根本から修正。Tunnel ページのフリーズや、コールド起動時にリクエストが倍増する問題も修正しました。",
+          "es-MX": "Corrige de raíz varios cierres inesperados y bloqueos en iOS 17.0 en Resumen, las listas de recursos y los detalles del dominio; también soluciona el bloqueo de la página de Tunnel y las solicitudes duplicadas al iniciar en frío.",
+          "ko": "iOS 17.0에서 개요 페이지, 리소스 목록, 도메인 상세의 여러 앱 종료·멈춤 문제를 근본적으로 해결했습니다. Tunnel 페이지 멈춤과 콜드 시작 시 요청이 두 배로 발생하는 문제도 수정했습니다.",
+          "pt-BR": "Corrige na raiz várias falhas e travamentos no iOS 17.0 na Visão geral, nas listas de recursos e nos detalhes do domínio; também resolve o travamento da página de Tunnel e as solicitações duplicadas na inicialização a frio.",
+          "pt-PT": "Corrige na raiz várias falhas e bloqueios no iOS 17.0 na Vista geral, nas listas de recursos e nos detalhes do domínio; resolve ainda o bloqueio da página de Tunnel e os pedidos duplicados no arranque a frio.",
+          "de": "Behebt mehrere Abstürze und Einfrieren unter iOS 17.0 in der Übersicht, in Ressourcenlisten und in den Domain-Details; außerdem hängt die Tunnel-Seite nicht mehr und beim Kaltstart werden Anfragen nicht mehr doppelt gesendet.",
+          "fr": "Corrige à la racine plusieurs plantages et blocages sous iOS 17.0 dans l’aperçu, les listes de ressources et les détails du domaine ; corrige aussi le blocage de la page Tunnel et le doublement des requêtes au démarrage à froid.",
+          "ar": "يعالج جذريًا عدة انهيارات وتجمّدات على iOS 17.0 في النظرة العامة وقوائم الموارد وتفاصيل النطاق؛ كما يصلح تجمّد صفحة Tunnel وتضاعف الطلبات عند التشغيل البارد.",
+          "tr": "iOS 17.0'da Genel Bakış, kaynak listeleri ve alan adı ayrıntılarındaki birden çok çökme ve donmayı kökten düzeltir; ayrıca Tunnel sayfasının donması ve soğuk başlatmada isteklerin ikiye katlanması sorunlarını giderir."
         }
       },
       {

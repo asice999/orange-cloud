@@ -265,12 +265,20 @@ final class AuthManager {
         let challenge = PKCEHelper.generateCodeChallenge(from: verifier)
         let state     = UUID().uuidString
 
+        // CF dash OAuth（Hydra 系）只在请求 offline_access 时才签发 refresh token；
+        // 2026-06-29 client 轮换后不带它的新登录拿不到 refresh token，access token
+        // 到期即会话搁浅（重授权横幅反复出现的根因）。在此单一咽喉点统一追加，
+        // 覆盖登录与重授权两条流，勿在 UI 层散落。wrangler 同样携带该 scope。
+        let scopeWithOffline = scopeString.components(separatedBy: " ").contains("offline_access")
+            ? scopeString
+            : scopeString + " offline_access"
+
         var components = URLComponents(url: OAuthConfig.authorizationURL, resolvingAgainstBaseURL: false)!
         components.queryItems = [
             URLQueryItem(name: "response_type",         value: "code"),
             URLQueryItem(name: "client_id",             value: OAuthConfig.clientID),
             URLQueryItem(name: "redirect_uri",          value: OAuthConfig.redirectURI),
-            URLQueryItem(name: "scope",                 value: scopeString),
+            URLQueryItem(name: "scope",                 value: scopeWithOffline),
             URLQueryItem(name: "state",                 value: state),
             URLQueryItem(name: "code_challenge",        value: challenge),
             URLQueryItem(name: "code_challenge_method", value: "S256"),
@@ -284,7 +292,15 @@ final class AuthManager {
     /// 打开系统授权窗口，等待 orangecloud:// 回调
     private func authenticate(with url: URL, ephemeral: Bool) async throws -> URL {
         try await withCheckedThrowingContinuation { continuation in
+            // 一次性闸门：iOS 27.0 beta 的 ASWebAuthenticationSession 存在边缘场景下二次回调
+            // （TF 崩溃点 DJnovd2VRb7MLu8RZc6FmU，二次 resume 直接 trap），第二次到达只记日志。
+            var resumed = false
             let completion: (URL?, (any Error)?) -> Void = { callbackURL, error in
+                guard !resumed else {
+                    AppLog.auth.error("ASWebAuthenticationSession completion 二次回调，已忽略")
+                    return
+                }
+                resumed = true
                 if let callbackURL {
                     continuation.resume(returning: callbackURL)
                 } else {
@@ -421,6 +437,23 @@ final class AuthManager {
     /// ③ **轮换自愈**：拿锁后才读 token（用钥匙串里最新一份去刷新，而非调用时手里的陈旧令牌）；被拒时
     ///    若发现 refresh token 已被别的进程轮换走，用新令牌重试一次再判定，避免良性竞态误登出。
     private func performTokenRefresh(sessionId: UUID) async throws -> String {
+        // 0xdead10cc 防线（TF 崩溃点 Dcm1DbRURSxqamd0_K0IG5）：进程若在持有共享容器
+        // fcntl 锁时被挂起（BGAppRefresh 被掐 / 用户刚退后台），RunningBoard 直接杀进程。
+        // 用后台任务断言把「拿锁→刷新→放锁」整段罩住，把挂起推迟到锁释放之后。
+        var assertion = UIBackgroundTaskIdentifier.invalid
+        assertion = UIApplication.shared.beginBackgroundTask(withName: "token-refresh-lock") {
+            if assertion != .invalid {
+                UIApplication.shared.endBackgroundTask(assertion)
+                assertion = .invalid
+            }
+        }
+        defer {
+            if assertion != .invalid {
+                UIApplication.shared.endBackgroundTask(assertion)
+                assertion = .invalid
+            }
+        }
+
         // 跨进程独占锁（best-effort，拿不到也照常刷）
         let lock = await RefreshGate.acquire(sessionId: sessionId.uuidString)
         defer { RefreshGate.release(lock) }

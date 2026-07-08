@@ -122,6 +122,42 @@ private struct WhatsNewModifier: ViewModifier {
             lastSeen = current          // 版本升了但无可展示内容：对齐，避免反复评估
         } else {
             payload = Payload(items: unseen)   // 内容与呈现同时确定，避免 iOS 17 捕获旧值
+            WhatsNewGate.presentedThisLaunch = true   // 体验者计划询问本次让路
         }
+    }
+}
+
+// MARK: - 体验者计划一次性询问
+
+/// 登录后主界面挂载：consent 尚未选择时弹一次「加入体验者计划？」。
+/// 与 What's New 错峰（同一启动只出一个弹窗）；拒绝后不再打扰，设置里可随时改。
+struct TelemetryConsentModifier: ViewModifier {
+
+    @State private var showAsk = false
+    private let telemetry = TelemetryStore.shared
+
+    func body(content: Content) -> some View {
+        content
+            .task {
+                guard telemetry.consent == .unasked else { return }
+                // 等 What's New 先完成评估/呈现；主界面稳定后再问
+                try? await Task.sleep(for: .seconds(2))
+                guard !WhatsNewGate.presentedThisLaunch,
+                      telemetry.consent == .unasked else { return }
+                showAsk = true
+            }
+            .alert("加入体验者计划？", isPresented: $showAsk) {
+                Button("加入") { telemetry.setConsent(.granted) }
+                Button("暂不", role: .cancel) { telemetry.setConsent(.declined) }
+            } message: {
+                Text("开启后，App 会上报匿名诊断日志与崩溃信息（不含令牌、账号数据或任何个人信息），帮助我们更快定位登录与稳定性问题。可随时在设置中关闭。")
+            }
+    }
+}
+
+extension View {
+    /// 体验者计划一次性询问（挂在登录后的会话根视图，What's New 之后）
+    func telemetryConsentPrompt() -> some View {
+        modifier(TelemetryConsentModifier())
     }
 }

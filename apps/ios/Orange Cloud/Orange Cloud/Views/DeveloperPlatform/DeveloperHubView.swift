@@ -14,7 +14,16 @@ struct DeveloperHubView: View {
     let session: SessionStore
 
     var body: some View {
+        // NavigationStack 常驻，账号切换只重建栈内内容（.id 在栈内、挂在 hubList 上）。
+        // **不要把 .id(账号) 挪回栈外或 MainTabView**：selectedAccount 可能在本 Tab 可见时
+        // 才翻转，重建可见 NavigationStack 在 iOS 17.0.x 导航栏硬断言必崩（1.8.2(24) 复发根因）。
         NavigationStack {
+            hubList
+                .id(session.selectedAccount?.id)
+        }
+    }
+
+    private var hubList: some View {
             List {
                 // List 内由系统提供 NavigationLink chevron，勿再传 showsChevron（否则双箭头）。
                 Section("计算") {
@@ -26,13 +35,18 @@ struct DeveloperHubView: View {
                         requiredScope: "workers-scripts.read",
                         value: DevHubRoute.workers
                     )
-                    ProGatedNavigationLink(
+                    // Pages 链路（列表 → 项目详情 → 域名/部署/构建配置）同 Workers：
+                    // 列表与详情都要继续 push，入口必须值式（判据见 PermissionGatedValueLink 注释）
+                    ProGatedValueLink(
                         label: "Cloudflare Pages", systemImage: "doc.richtext",
-                        requiredScope: "page.read", feature: .pages
-                    ) { PagesProjectListView(session: session) }
+                        requiredScope: "page.read", feature: .pages,
+                        value: DevHubRoute.pages
+                    )
                 }
                 .glassRow()
 
+                // 以下入口的目的页均为叶子（内部只开 sheet、不再 push），List 行内 eager
+                // 形态实测安全，保留；若哪个目的页日后加了内层 push，必须改值式。
                 Section("数据与消息") {
                     ProGatedNavigationLink(
                         label: "Queues", systemImage: "tray.2",
@@ -70,16 +84,20 @@ struct DeveloperHubView: View {
             .navigationDestination(for: DevHubRoute.self) { route in
                 switch route {
                 case .workers: WorkerListView(session: session)
+                case .pages: PagesProjectListView(session: session)
                 }
             }
             .navigationDestination(for: CachedWorkerScript.self) { script in
                 WorkerDetailView(script: script, session: session)
             }
-        }
+            .navigationDestination(for: PagesProjectRoute.self) { route in
+                PagesProjectDetailView(project: route.project, session: session)
+            }
     }
 }
 
 /// 开发者平台里「目的页自身还要继续 push」的入口路由（走宿主栈根 navdest）
 enum DevHubRoute: Hashable {
     case workers
+    case pages
 }

@@ -4,6 +4,16 @@
 import { type BarkPush, sendBark } from "../notify/bark";
 import type { DecodedNotification } from "./types";
 
+// 「入账」通知类型：真正有钱进账的事件（新订阅 / 续期 / 买断 / 优惠兑换）。
+// 退款、到期、续订开关、价格调整、退款申请等都不算入账——尤其 CONSUMPTION_REQUEST（退款申请）
+// 会带上原购价（非 0），仅凭金额无法区分，必须靠类型闸门。
+const REVENUE_TYPES = new Set<string>([
+	"SUBSCRIBED",
+	"DID_RENEW",
+	"ONE_TIME_CHARGE",
+	"OFFER_REDEEMED",
+]);
+
 // 通知类型 → 中文标签（带 emoji）。未知类型回退原始字符串。
 const TYPE_LABEL: Record<string, string> = {
 	SUBSCRIBED: "🎉 新订阅",
@@ -19,7 +29,7 @@ const TYPE_LABEL: Record<string, string> = {
 	REFUND_DECLINED: "🚫 退款被拒",
 	REFUND_REVERSED: "↪️ 退款撤销",
 	REVOKE: "🔕 权益撤销",
-	CONSUMPTION_REQUEST: "📨 消费信息请求",
+	CONSUMPTION_REQUEST: "📨 退款申请",
 	RENEWAL_EXTENDED: "📅 续订已延长",
 	RENEWAL_EXTENSION: "📅 续订延长",
 	ONE_TIME_CHARGE: "💰 买断购买",
@@ -44,6 +54,8 @@ export interface BuiltMessage {
 	body: string;
 	group: string;
 	isSandbox: boolean;
+	/** Bark 推送级别：仅「入账且金额>0」的生产事件用 timeSensitive 穿透专注模式。 */
+	level: NonNullable<BarkPush["level"]>;
 }
 
 /** 解码后的通知 → Bark 标题/正文（纯函数）。 */
@@ -66,8 +78,21 @@ export function buildBarkMessage(decoded: DecodedNotification): BuiltMessage {
 	if (price) parts.push(price);
 	if (transaction?.storefront) parts.push(transaction.storefront);
 	parts.push(environment);
+	if (transaction?.offerIdentifier) parts.push(transaction?.offerIdentifier);
 
-	return { title, body: parts.join(" · "), group: !isSandbox ? "Orange Cloud IAP" : "[🧪]Orange Cloud IAP", isSandbox };
+	// 入账（收入类型）且金额 > 0 才是「真金白银」，用 timeSensitive 穿透专注模式；
+	// 其余生产事件用 active（正常提醒、不穿透），沙盒一律 passive（静默入列）。
+	const isPaidRevenue =
+		REVENUE_TYPES.has(type) && typeof transaction?.price === "number" && transaction.price > 0;
+	const level: BuiltMessage["level"] = isSandbox ? "passive" : isPaidRevenue ? "timeSensitive" : "active";
+
+	return {
+		title,
+		body: parts.join(" · "),
+		group: !isSandbox ? "Orange Cloud IAP" : "[🧪]Orange Cloud IAP",
+		isSandbox,
+		level,
+	};
 }
 
 /**
@@ -86,9 +111,10 @@ export async function notifyAppleEvent(
 		body: msg.body,
 		group: msg.group,
 		icon: "https://o-c.do/icons/icon-64.png",
-		// 真金白银的生产事件用 timeSensitive（穿透专注模式）；沙盒静默。
-		level: msg.isSandbox ? "passive" : "timeSensitive",
-		...(msg.isSandbox ? {} : { sound: "minuet" }),
+		// 级别在 buildBarkMessage 里决定：仅「入账且金额>0」穿透专注模式。
+		level: msg.level,
+		// 只有入账（== timeSensitive）才响，其余（退款申请 / 到期 / 沙盒…）一律静默。
+		...(msg.level === "timeSensitive" ? { sound: "paymentsuccess" } : {}),
 	};
 	try {
 		await sendBark(deviceKey, push, server);

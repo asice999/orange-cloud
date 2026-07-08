@@ -7,7 +7,6 @@ import AppStoreBadge, { TESTFLIGHT_URL, APP_STORE_COMING } from "@/components/Ap
 import HomeRankBadge from "@/components/HomeRankBadge";
 import AndroidBadge from "@/components/AndroidBadge";
 import { getBuyContent } from "@/lib/buy/content";
-import ProductHuntBadge from "@/components/ProductHuntBadge";
 import PhoneDemo, { type PhoneStrings } from "@/components/PhoneDemo";
 import HorizonArc from "@/components/HorizonArc";
 import Reveal from "@/components/Reveal";
@@ -371,13 +370,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 						<Reveal index={2}>
 							<div className="mt-9 flex flex-col items-center gap-4">
 								<AppStoreBadge
-										locale={locale}
-										alt={t("badge.alt")}
-										comingLabel={t("badge.comingLabel")}
-										coming={APP_STORE_COMING}
-									/>
+									locale={locale}
+									alt={t("badge.alt")}
+									comingLabel={t("badge.comingLabel")}
+									coming={APP_STORE_COMING}
+								/>
 								<AndroidBadge locale={locale} strings={buy.download} />
-								<ProductHuntBadge alt={t("productHunt.alt")} />
 							</div>
 							<p className="mt-5 text-[13px] t-tertiary">{t("cta.requirement")}</p>
 						</Reveal>

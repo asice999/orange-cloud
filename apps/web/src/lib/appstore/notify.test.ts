@@ -74,3 +74,35 @@ describe("buildBarkMessage", () => {
 		expect(m.body).toBe("Production");
 	});
 });
+
+describe("buildBarkMessage · level（timeSensitive 闸门）", () => {
+	it("入账类型 + 金额>0：timeSensitive（新订阅 / 续期 / 买断 / 兑换）", () => {
+		for (const type of ["SUBSCRIBED", "DID_RENEW", "ONE_TIME_CHARGE", "OFFER_REDEEMED"]) {
+			expect(buildBarkMessage(decoded({ type, price: 19990 })).level).toBe("timeSensitive");
+		}
+	});
+
+	it("退款申请：文案为「退款申请」，即便带原购价（非0）也只 active，不穿透专注", () => {
+		const m = buildBarkMessage(decoded({ type: "CONSUMPTION_REQUEST", price: 68000 }));
+		expect(m.title).toBe("📨 退款申请");
+		expect(m.level).toBe("active");
+	});
+
+	it("退款 / 到期等非入账事件：active", () => {
+		expect(buildBarkMessage(decoded({ type: "REFUND" })).level).toBe("active");
+		expect(buildBarkMessage(decoded({ type: "EXPIRED" })).level).toBe("active");
+	});
+
+	it("入账类型但金额为0（如免费试用首发）：active", () => {
+		expect(buildBarkMessage(decoded({ type: "SUBSCRIBED", price: 0 })).level).toBe("active");
+	});
+
+	it("入账类型但无交易体：active", () => {
+		expect(buildBarkMessage(decoded({ type: "SUBSCRIBED", withTxn: false })).level).toBe("active");
+	});
+
+	it("沙盒：入账也只 passive（静默）", () => {
+		const m = buildBarkMessage(decoded({ type: "ONE_TIME_CHARGE", price: 49990, environment: "Sandbox" }));
+		expect(m.level).toBe("passive");
+	});
+});
