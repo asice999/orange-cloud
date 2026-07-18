@@ -37,61 +37,56 @@ struct WAFRuleListView: View {
     }
 
     var body: some View {
-        AnyView(
-            mainContent
-                .background { SkyBackground() }
-                .navigationTitle("WAF 防火墙")
-                .navigationBarTitleDisplayMode(.inline)
-                .searchable(text: $searchText, prompt: "搜索规则")
-                .toolbar { toolbarContent }
-                .sheet(isPresented: $showForm) {
-                    WAFRuleFormView(viewModel: viewModel, rule: nil)
-                }
-                .sheet(item: $editingRule) { rule in
-                    WAFRuleFormView(viewModel: viewModel, rule: rule)
-                }
-                .task { await viewModel.load() }
-                .confirmationDialog("删除规则", isPresented: .init(get: { ruleToDelete != nil }, set: { if !$0 { ruleToDelete = nil } }), titleVisibility: .visible) {
-                    if let rule = ruleToDelete {
-                        Button("删除「\(rule.description ?? String(localized: "未命名规则"))」", role: .destructive) {
-                            Task { await viewModel.delete(rule: rule) }
+        mainContent
+            .background { SkyBackground() }
+            .navigationTitle("WAF 防火墙")
+            .navigationBarTitleDisplayMode(.inline)
+            .searchable(text: $searchText, prompt: "搜索规则")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("添加", systemImage: "plus") {
+                        if canWrite {
+                            showForm = true
+                        } else {
+                            showDenied = true
                         }
                     }
-                } message: {
-                    Text("此操作不可撤销，规则将立即停止生效。")
-                }
-                .alert("暂不支持编辑", isPresented: $showUnsupportedEdit) {
-                    Button("好", role: .cancel) {}
-                } message: {
-                    Text("「跳过」等带额外参数的规则暂不支持在 App 内编辑，请在 Cloudflare Dashboard 中修改。")
-                }
-                .alert("权限不足", isPresented: $showDenied) {
-                    Button("好", role: .cancel) {}
-                } message: {
-                    Text("当前授权未包含 WAF 编辑权限（zone-waf.write）。\n请在设置中退出登录后重新授权以启用此功能。")
-                }
-                .alert("出错了", isPresented: .init(
-                    get: { viewModel.error != nil && !showForm && editingRule == nil },
-                    set: { if !$0 { viewModel.error = nil } }
-                )) {
-                    Button("好", role: .cancel) {}
-                } message: {
-                    Text(viewModel.error ?? "")
-                }
-        )
-    }
-
-    @ToolbarContentBuilder
-    private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            Button("添加", systemImage: "plus") {
-                if canWrite {
-                    showForm = true
-                } else {
-                    showDenied = true
                 }
             }
-        }
+            .sheet(isPresented: $showForm) {
+                WAFRuleFormView(viewModel: viewModel, rule: nil)
+            }
+            .sheet(item: $editingRule) { rule in
+                WAFRuleFormView(viewModel: viewModel, rule: rule)
+            }
+            .task { await viewModel.load() }
+            .confirmationDialog("删除规则", isPresented: .init(get: { ruleToDelete != nil }, set: { if !$0 { ruleToDelete = nil } }), titleVisibility: .visible) {
+                if let rule = ruleToDelete {
+                    Button("删除「\(rule.description ?? String(localized: "未命名规则"))」", role: .destructive) {
+                        Task { await viewModel.delete(rule: rule) }
+                    }
+                }
+            } message: {
+                Text("此操作不可撤销，规则将立即停止生效。")
+            }
+            .alert("暂不支持编辑", isPresented: $showUnsupportedEdit) {
+                Button("好", role: .cancel) {}
+            } message: {
+                Text("「跳过」等带额外参数的规则暂不支持在 App 内编辑，请在 Cloudflare Dashboard 中修改。")
+            }
+            .alert("权限不足", isPresented: $showDenied) {
+                Button("好", role: .cancel) {}
+            } message: {
+                Text("当前授权未包含 WAF 编辑权限（zone-waf.write）。\n请在设置中退出登录后重新授权以启用此功能。")
+            }
+            .alert("出错了", isPresented: .init(
+                get: { viewModel.error != nil && !showForm && editingRule == nil },
+                set: { if !$0 { viewModel.error = nil } }
+            )) {
+                Button("好", role: .cancel) {}
+            } message: {
+                Text(viewModel.error ?? "")
+            }
     }
 
     @ViewBuilder
