@@ -111,7 +111,6 @@ struct WorkerSecretsView: View {
                 .scrollContentBackground(.hidden)
                 .refreshable { await viewModel.load() }
             }
-        }
     }
 
     // MARK: - 密钥
