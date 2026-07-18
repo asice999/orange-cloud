@@ -31,58 +31,60 @@ struct WorkerSecretsView: View {
     private var canBind:    Bool { canWrite && (canReadD1 || canReadKV) }
 
     var body: some View {
-        mainContent
-            .background { SkyBackground() }
-            .navigationTitle("变量与密钥")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar { toolbarContent }
-            .confirmationDialog(secretToDelete.map { String(localized: "删除密钥「\($0.name)」？") } ?? "",
-                isPresented: Binding(get: { secretToDelete != nil }, set: { if !$0 { secretToDelete = nil } }),
-                titleVisibility: .visible
-            ) {
-                Button("删除", role: .destructive) {
-                    if let s = secretToDelete { Task { await viewModel.deleteSecret(s) } }
+        AnyView(
+            mainContent
+                .background { SkyBackground() }
+                .navigationTitle("变量与密钥")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar { toolbarContent }
+                .confirmationDialog(secretToDelete.map { String(localized: "删除密钥「\($0.name)」？") } ?? "",
+                    isPresented: Binding(get: { secretToDelete != nil }, set: { if !$0 { secretToDelete = nil } }),
+                    titleVisibility: .visible
+                ) {
+                    Button("删除", role: .destructive) {
+                        if let s = secretToDelete { Task { await viewModel.deleteSecret(s) } }
+                    }
+                } message: {
+                    Text("密钥值无法读回，删除后需重新设置，不可撤销。")
                 }
-            } message: {
-                Text("密钥值无法读回，删除后需重新设置，不可撤销。")
-            }
-            .confirmationDialog(variableToDelete.map { String(localized: "删除变量「\($0.name)」？") } ?? "",
-                isPresented: Binding(get: { variableToDelete != nil }, set: { if !$0 { variableToDelete = nil } }),
-                titleVisibility: .visible
-            ) {
-                Button("删除", role: .destructive) {
-                    if let v = variableToDelete { Task { await viewModel.deleteVariable(v) } }
+                .confirmationDialog(variableToDelete.map { String(localized: "删除变量「\($0.name)」？") } ?? "",
+                    isPresented: Binding(get: { variableToDelete != nil }, set: { if !$0 { variableToDelete = nil } }),
+                    titleVisibility: .visible
+                ) {
+                    Button("删除", role: .destructive) {
+                        if let v = variableToDelete { Task { await viewModel.deleteVariable(v) } }
+                    }
                 }
-            }
-            .confirmationDialog(bindingToUnbind.map { String(localized: "解除绑定「\($0.name)」？") } ?? "",
-                isPresented: Binding(get: { bindingToUnbind != nil }, set: { if !$0 { bindingToUnbind = nil } }),
-                titleVisibility: .visible
-            ) {
-                Button("解除绑定", role: .destructive) {
-                    if let b = bindingToUnbind { Task { await viewModel.unbindResource(b) } }
+                .confirmationDialog(bindingToUnbind.map { String(localized: "解除绑定「\($0.name)」？") } ?? "",
+                    isPresented: Binding(get: { bindingToUnbind != nil }, set: { if !$0 { bindingToUnbind = nil } }),
+                    titleVisibility: .visible
+                ) {
+                    Button("解除绑定", role: .destructive) {
+                        if let b = bindingToUnbind { Task { await viewModel.unbindResource(b) } }
+                    }
+                } message: {
+                    Text("仅解除该 Worker 与此资源的绑定，不会删除资源本身。")
                 }
-            } message: {
-                Text("仅解除该 Worker 与此资源的绑定，不会删除资源本身。")
-            }
-            .task { if !viewModel.loaded { await viewModel.load() } }
-            .sheet(item: $sheet) { kind in
-                switch kind {
-                case .bulkImport:
-                    WorkerBulkImportSheet(viewModel: viewModel)
-                case .bindResource:
-                    WorkerBindResourceSheet(viewModel: viewModel, canReadD1: canReadD1, canReadKV: canReadKV)
-                default:
-                    WorkerValueEditorSheet(kind: kind, viewModel: viewModel)
+                .task { if !viewModel.loaded { await viewModel.load() } }
+                .sheet(item: $sheet) { kind in
+                    switch kind {
+                    case .bulkImport:
+                        WorkerBulkImportSheet(viewModel: viewModel)
+                    case .bindResource:
+                        WorkerBindResourceSheet(viewModel: viewModel, canReadD1: canReadD1, canReadKV: canReadKV)
+                    default:
+                        WorkerValueEditorSheet(kind: kind, viewModel: viewModel)
+                    }
                 }
-            }
-            .alert("出错了", isPresented: .init(
-                get: { viewModel.error != nil && sheet == nil },
-                set: { if !$0 { viewModel.error = nil } }
-            )) {
-                Button("好", role: .cancel) {}
-            } message: {
-                Text(viewModel.error ?? "")
-            }
+                .alert("出错了", isPresented: .init(
+                    get: { viewModel.error != nil && sheet == nil },
+                    set: { if !$0 { viewModel.error = nil } }
+                )) {
+                    Button("好", role: .cancel) {}
+                } message: {
+                    Text(viewModel.error ?? "")
+                }
+        )
     }
 
     @ToolbarContentBuilder
