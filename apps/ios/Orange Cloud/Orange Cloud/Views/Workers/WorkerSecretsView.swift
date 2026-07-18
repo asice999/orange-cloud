@@ -31,7 +31,12 @@ struct WorkerSecretsView: View {
     private var canBind:    Bool { canWrite && (canReadD1 || canReadKV) }
 
     var body: some View {
-        mainContent
+        layoutModifiers
+    }
+
+    @ViewBuilder
+    private var layoutModifiers: some View {
+        presentationModifiers
             .background { SkyBackground() }
             .navigationTitle("变量与密钥")
             .navigationBarTitleDisplayMode(.inline)
@@ -44,6 +49,11 @@ struct WorkerSecretsView: View {
                     }
                 }
             }
+    }
+
+    @ViewBuilder
+    private var presentationModifiers: some View {
+        mainContent
             .confirmationDialog(secretToDelete.map { String(localized: "删除密钥「\($0.name)」？") } ?? "",
                 isPresented: Binding(get: { secretToDelete != nil }, set: { if !$0 { secretToDelete = nil } }),
                 titleVisibility: .visible

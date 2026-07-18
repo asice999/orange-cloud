@@ -37,7 +37,12 @@ struct WAFRuleListView: View {
     }
 
     var body: some View {
-        mainContent
+        layoutModifiers
+    }
+
+    @ViewBuilder
+    private var layoutModifiers: some View {
+        presentationModifiers
             .background { SkyBackground() }
             .navigationTitle("WAF 防火墙")
             .navigationBarTitleDisplayMode(.inline)
@@ -53,6 +58,11 @@ struct WAFRuleListView: View {
                     }
                 }
             }
+    }
+
+    @ViewBuilder
+    private var presentationModifiers: some View {
+        mainContent
             .sheet(isPresented: $showForm) {
                 WAFRuleFormView(viewModel: viewModel, rule: nil)
             }
