@@ -1,5 +1,260 @@
 [
   {
+    "version": "1.8.6",
+    "date": "2026.07.18",
+    "channel": "App Store",
+    "inApp": true,
+    "items": [
+      {
+        "icon": "globe",
+        "title": {
+          "zh-Hans": "workers.dev 子域直达",
+          "en": "One-tap workers.dev URL",
+          "zh-Hant": "workers.dev 子網域直達",
+          "zh-HK": "workers.dev 子網域直達",
+          "ja": "workers.dev サブドメインに直接アクセス",
+          "es-MX": "Acceso directo al subdominio workers.dev",
+          "ko": "workers.dev 서브도메인 바로 열기",
+          "pt-BR": "Acesso direto ao subdomínio workers.dev",
+          "pt-PT": "Acesso direto ao subdomínio workers.dev",
+          "de": "Direkter workers.dev-Zugriff",
+          "fr": "Accès direct au sous-domaine workers.dev",
+          "ar": "وصول مباشر إلى نطاق workers.dev الفرعي",
+          "tr": "workers.dev alt alan adına doğrudan erişim"
+        },
+        "detail": {
+          "zh-Hans": "Worker 开启 workers.dev 子域后，直接显示完整访问地址，点一下即可打开。",
+          "en": "When a Worker’s workers.dev subdomain is on, its full URL now shows right there — tap to open.",
+          "zh-Hant": "Worker 開啟 workers.dev 子網域後，直接顯示完整存取網址，點一下即可開啟。",
+          "zh-HK": "Worker 開啟 workers.dev 子網域後，直接顯示完整存取網址，點一下即可開啟。",
+          "ja": "Worker の workers.dev サブドメインを有効にすると、完全な URL が表示され、タップして開けます。",
+          "es-MX": "Cuando el subdominio workers.dev de un Worker está activo, ahora se muestra su URL completa: tócala para abrir.",
+          "ko": "Worker의 workers.dev 서브도메인을 켜면 전체 주소가 바로 표시되며, 탭하면 열립니다.",
+          "pt-BR": "Quando o subdomínio workers.dev de um Worker está ativo, a URL completa aparece ali — toque para abrir.",
+          "pt-PT": "Quando o subdomínio workers.dev de um Worker está ativo, o URL completo aparece ali — toque para abrir.",
+          "de": "Ist die workers.dev-Subdomain eines Workers aktiv, wird jetzt die vollständige URL angezeigt – zum Öffnen tippen.",
+          "fr": "Lorsque le sous-domaine workers.dev d’un Worker est activé, son URL complète s’affiche : touchez pour l’ouvrir.",
+          "ar": "عند تفعيل نطاق workers.dev الفرعي لأحد Workers، يظهر عنوانه الكامل الآن — انقر لفتحه.",
+          "tr": "Bir Worker’ın workers.dev alt alan adı açıkken tam adresi artık orada görünür; açmak için dokunun."
+        }
+      },
+      {
+        "icon": "cube.fill",
+        "title": {
+          "zh-Hans": "快速绑定 D1 / KV",
+          "en": "Quickly bind D1 / KV",
+          "zh-Hant": "快速綁定 D1 / KV",
+          "zh-HK": "快速綁定 D1 / KV",
+          "ja": "D1 / KV をすばやくバインド",
+          "es-MX": "Vincula D1 / KV rápidamente",
+          "ko": "D1 / KV 빠른 바인딩",
+          "pt-BR": "Vincule D1 / KV rapidamente",
+          "pt-PT": "Vincule D1 / KV rapidamente",
+          "de": "D1 / KV schnell binden",
+          "fr": "Lier rapidement D1 / KV",
+          "ar": "ربط D1 / KV بسرعة",
+          "tr": "D1 / KV’yi hızlıca bağla"
+        },
+        "detail": {
+          "zh-Hans": "在变量与密钥页直接把现有 D1 数据库或 KV 命名空间绑定到 Worker，也能一键解除。",
+          "en": "Bind an existing D1 database or KV namespace to a Worker right from the bindings page — and unbind just as easily.",
+          "zh-Hant": "在變數與密鑰頁直接把現有 D1 資料庫或 KV 命名空間綁定到 Worker，也能一鍵解除。",
+          "zh-HK": "在變數與密鑰頁直接把現有 D1 資料庫或 KV 命名空間綁定到 Worker，也能一鍵解除。",
+          "ja": "変数とシークレットのページから、既存の D1 データベースや KV ネームスペースを Worker にバインドでき、解除も簡単です。",
+          "es-MX": "Vincula una base de datos D1 o un espacio de nombres KV existente a un Worker desde la página de vínculos, y desvincúlalos con la misma facilidad.",
+          "ko": "변수·시크릿 페이지에서 기존 D1 데이터베이스나 KV 네임스페이스를 Worker에 바인딩하고, 해제도 간편합니다.",
+          "pt-BR": "Vincule um banco de dados D1 ou namespace KV existente a um Worker direto na página de vínculos — e desvincule com a mesma facilidade.",
+          "pt-PT": "Vincule uma base de dados D1 ou namespace KV existente a um Worker diretamente na página de ligações — e desvincule com a mesma facilidade.",
+          "de": "Binde eine vorhandene D1-Datenbank oder einen KV-Namespace direkt auf der Bindungsseite an einen Worker – und löse die Bindung ebenso einfach.",
+          "fr": "Liez une base de données D1 ou un espace de noms KV existant à un Worker depuis la page des liaisons, et dissociez-les tout aussi facilement.",
+          "ar": "اربط قاعدة بيانات D1 أو مساحة أسماء KV موجودة بأحد Workers مباشرة من صفحة الروابط، وألغِ الربط بالسهولة نفسها.",
+          "tr": "Mevcut bir D1 veritabanını veya KV ad alanını bağlamalar sayfasından doğrudan bir Worker’a bağlayın; bağlantıyı kaldırmak da aynı kolaylıkta."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.8.5",
+    "date": "2026.07.18",
+    "channel": "App Store",
+    "inApp": true,
+    "items": [
+      {
+        "icon": "clock.arrow.circlepath",
+        "title": {
+          "zh-Hans": "Worker 部署历史",
+          "en": "Worker deployment history",
+          "zh-Hant": "Worker 部署歷史",
+          "zh-HK": "Worker 部署歷史",
+          "ja": "Worker のデプロイ履歴",
+          "es-MX": "Historial de despliegues de Worker",
+          "ko": "Worker 배포 기록",
+          "pt-BR": "Histórico de implantações do Worker",
+          "pt-PT": "Histórico de implementações do Worker",
+          "de": "Worker-Bereitstellungsverlauf",
+          "fr": "Historique des déploiements Worker",
+          "ar": "سجل عمليات نشر Worker",
+          "tr": "Worker dağıtım geçmişi"
+        },
+        "detail": {
+          "zh-Hans": "查看每个 Worker 的历次部署记录，并可删除不再需要的旧部署。",
+          "en": "See every past deployment of a Worker and delete older ones you no longer need.",
+          "zh-Hant": "檢視每個 Worker 的歷次部署記錄，並可刪除不再需要的舊部署。",
+          "zh-HK": "查看每個 Worker 的歷次部署記錄，並可刪除不再需要的舊部署。",
+          "ja": "各 Worker の過去のデプロイを確認し、不要になった古いデプロイを削除できます。",
+          "es-MX": "Consulta cada despliegue anterior de un Worker y elimina los que ya no necesites.",
+          "ko": "각 Worker의 과거 배포를 확인하고 더 이상 필요 없는 이전 배포를 삭제할 수 있습니다.",
+          "pt-BR": "Veja todas as implantações anteriores de um Worker e exclua as antigas que não precisa mais.",
+          "pt-PT": "Veja todas as implementações anteriores de um Worker e elimine as antigas de que já não precisa.",
+          "de": "Sieh dir alle bisherigen Bereitstellungen eines Workers an und lösche nicht mehr benötigte alte Bereitstellungen.",
+          "fr": "Consultez tous les déploiements passés d’un Worker et supprimez les anciens dont vous n’avez plus besoin.",
+          "ar": "اطّلع على كل عمليات نشر Worker السابقة واحذف القديمة التي لم تعد بحاجة إليها.",
+          "tr": "Bir Worker’ın geçmiş tüm dağıtımlarını görün ve artık ihtiyaç duymadığınız eskileri silin."
+        }
+      },
+      {
+        "icon": "square.and.pencil",
+        "title": {
+          "zh-Hans": "就地编辑与删除 Worker",
+          "en": "Edit and delete Workers in place",
+          "zh-Hant": "就地編輯與刪除 Worker",
+          "zh-HK": "就地編輯與刪除 Worker",
+          "ja": "Worker をその場で編集・削除",
+          "es-MX": "Edita y elimina Workers directamente",
+          "ko": "Worker를 바로 편집·삭제",
+          "pt-BR": "Edite e exclua Workers diretamente",
+          "pt-PT": "Edite e elimine Workers diretamente",
+          "de": "Worker direkt bearbeiten und löschen",
+          "fr": "Modifier et supprimer des Workers sur place",
+          "ar": "تعديل وحذف Workers مباشرةً",
+          "tr": "Worker’ları yerinde düzenleyin ve silin"
+        },
+        "detail": {
+          "zh-Hans": "直接载入线上源码修改后重新部署，变量、密钥与绑定自动保留；也可从 .js 文件导入，或删除整个 Worker。",
+          "en": "Load the live source, edit it and redeploy — your variables, secrets and bindings are kept. You can also import from a .js file or delete the whole Worker.",
+          "zh-Hant": "直接載入線上原始碼修改後重新部署，變數、密鑰與繫結自動保留；也可從 .js 檔案匯入，或刪除整個 Worker。",
+          "zh-HK": "直接載入線上原始碼修改後重新部署，變數、密鑰與綁定自動保留；也可從 .js 檔案匯入，或刪除整個 Worker。",
+          "ja": "稼働中のソースを読み込んで編集し、再デプロイできます。変数・シークレット・バインディングは保持されます。.js ファイルからの読み込みや Worker 全体の削除にも対応します。",
+          "es-MX": "Carga el código en producción, edítalo y vuelve a desplegar; se conservan tus variables, secretos y enlaces. También puedes importar desde un archivo .js o eliminar todo el Worker.",
+          "ko": "실행 중인 소스를 불러와 수정한 뒤 다시 배포할 수 있으며 변수, 비밀, 바인딩이 유지됩니다. .js 파일에서 가져오거나 Worker 전체를 삭제할 수도 있습니다.",
+          "pt-BR": "Carregue o código em produção, edite e reimplante — suas variáveis, segredos e bindings são mantidos. Também dá para importar de um arquivo .js ou excluir o Worker inteiro.",
+          "pt-PT": "Carregue o código em produção, edite e reimplante — as suas variáveis, segredos e ligações são mantidos. Também pode importar de um ficheiro .js ou eliminar o Worker inteiro.",
+          "de": "Lade den Live-Quellcode, bearbeite ihn und stelle neu bereit – Variablen, Secrets und Bindings bleiben erhalten. Du kannst auch aus einer .js-Datei importieren oder den ganzen Worker löschen.",
+          "fr": "Chargez le code en production, modifiez-le et redéployez ; vos variables, secrets et liaisons sont conservés. Vous pouvez aussi importer depuis un fichier .js ou supprimer le Worker entier.",
+          "ar": "حمّل الشيفرة المباشرة وعدّلها وأعد النشر مع الحفاظ على المتغيرات والأسرار والارتباطات. يمكنك أيضًا الاستيراد من ملف ‎.js‎ أو حذف Worker بالكامل.",
+          "tr": "Canlı kaynağı yükleyip düzenleyin ve yeniden dağıtın; değişkenleriniz, gizli anahtarlarınız ve bağlamalarınız korunur. Ayrıca bir .js dosyasından içe aktarabilir veya Worker’ın tamamını silebilirsiniz."
+        }
+      },
+      {
+        "icon": "tablecells",
+        "title": {
+          "zh-Hans": "删除 D1 数据表",
+          "en": "Delete D1 tables",
+          "zh-Hant": "刪除 D1 資料表",
+          "zh-HK": "刪除 D1 資料表",
+          "ja": "D1 テーブルを削除",
+          "es-MX": "Eliminar tablas de D1",
+          "ko": "D1 테이블 삭제",
+          "pt-BR": "Excluir tabelas do D1",
+          "pt-PT": "Eliminar tabelas do D1",
+          "de": "D1-Tabellen löschen",
+          "fr": "Supprimer des tables D1",
+          "ar": "حذف جداول D1",
+          "tr": "D1 tablolarını silme"
+        },
+        "detail": {
+          "zh-Hans": "在查询控制台长按任意表即可删除，需输入表名二次确认。",
+          "en": "Long-press any table in the query console to drop it, with a type-the-name confirmation.",
+          "zh-Hant": "在查詢主控台長按任一表即可刪除，需輸入表名二次確認。",
+          "zh-HK": "在查詢控制台長按任一表即可刪除，需輸入表名二次確認。",
+          "ja": "クエリコンソールでテーブルを長押しすると削除できます。テーブル名の入力による確認付きです。",
+          "es-MX": "Mantén pulsada cualquier tabla en la consola de consultas para eliminarla, con confirmación escribiendo su nombre.",
+          "ko": "쿼리 콘솔에서 테이블을 길게 눌러 삭제할 수 있으며 이름을 입력해 확인합니다.",
+          "pt-BR": "Toque e segure qualquer tabela no console de consultas para excluí-la, com confirmação digitando o nome.",
+          "pt-PT": "Toque sem soltar em qualquer tabela na consola de consultas para a eliminar, com confirmação escrevendo o nome.",
+          "de": "Halte in der Abfragekonsole eine Tabelle gedrückt, um sie zu löschen – mit Bestätigung durch Eingabe des Namens.",
+          "fr": "Appuyez longuement sur une table dans la console de requêtes pour la supprimer, avec confirmation en saisissant son nom.",
+          "ar": "اضغط مطوّلاً على أي جدول في وحدة الاستعلام لحذفه، مع تأكيد بكتابة الاسم.",
+          "tr": "Sorgu konsolunda bir tabloya uzun basarak silin; adını yazarak onaylayın."
+        }
+      }
+    ]
+  },
+  {
+    "version": "1.8.4",
+    "date": "2026.07.10",
+    "channel": "App Store",
+    "inApp": true,
+    "items": [
+      {
+        "icon": "shield.lefthalf.filled",
+        "title": {
+          "zh-Hans": "编辑 WAF 规则",
+          "en": "Edit WAF rules",
+          "zh-Hant": "編輯 WAF 規則",
+          "zh-HK": "編輯 WAF 規則",
+          "ja": "WAF ルールの編集",
+          "es-MX": "Editar reglas de WAF",
+          "ko": "WAF 규칙 편집",
+          "pt-BR": "Editar regras do WAF",
+          "pt-PT": "Editar regras do WAF",
+          "de": "WAF-Regeln bearbeiten",
+          "fr": "Modifier les règles WAF",
+          "ar": "تعديل قواعد WAF",
+          "tr": "WAF kurallarını düzenleme"
+        },
+        "detail": {
+          "zh-Hans": "WAF 自定义防火墙规则现在支持编辑：点按任意规则即可修改动作、表达式、名称与启用状态，无需再删除后重建。",
+          "en": "WAF custom firewall rules can now be edited: tap any rule to change its action, expression, name and enabled state — no need to delete and recreate it.",
+          "zh-Hant": "WAF 自訂防火牆規則現在支援編輯：點按任一規則即可修改動作、運算式、名稱與啟用狀態，不必再刪除後重建。",
+          "zh-HK": "WAF 自訂防火牆規則現在支援編輯：點按任一規則即可修改動作、運算式、名稱與啟用狀態，無需再刪除後重建。",
+          "ja": "WAF のカスタムファイアウォールルールを編集できるようになりました。任意のルールをタップして、アクション・式・名前・有効状態を変更でき、削除して作り直す必要はありません。",
+          "es-MX": "Ahora puedes editar las reglas de firewall personalizadas de WAF: toca cualquier regla para cambiar su acción, expresión, nombre y estado, sin tener que eliminarla y volver a crearla.",
+          "ko": "이제 WAF 사용자 지정 방화벽 규칙을 편집할 수 있습니다. 규칙을 탭해 동작, 표현식, 이름, 사용 여부를 변경할 수 있어 삭제 후 다시 만들 필요가 없습니다.",
+          "pt-BR": "Agora é possível editar as regras de firewall personalizadas do WAF: toque em qualquer regra para alterar ação, expressão, nome e estado, sem precisar excluir e recriar.",
+          "pt-PT": "Agora é possível editar as regras de firewall personalizadas do WAF: toque em qualquer regra para alterar ação, expressão, nome e estado, sem ter de eliminar e recriar.",
+          "de": "WAF-eigene Firewall-Regeln lassen sich jetzt bearbeiten: Tippe auf eine Regel, um Aktion, Ausdruck, Name und Aktivierungsstatus zu ändern – ohne sie löschen und neu anlegen zu müssen.",
+          "fr": "Les règles de pare-feu personnalisées WAF sont désormais modifiables : touchez une règle pour changer son action, son expression, son nom et son état, sans avoir à la supprimer puis à la recréer.",
+          "ar": "يمكنك الآن تعديل قواعد جدار الحماية المخصّصة في WAF: انقر على أي قاعدة لتغيير إجرائها وتعبيرها واسمها وحالة تفعيلها، دون الحاجة إلى حذفها وإعادة إنشائها.",
+          "tr": "Artık WAF özel güvenlik duvarı kurallarını düzenleyebilirsiniz: bir kurala dokunarak eylemini, ifadesini, adını ve etkin durumunu değiştirin; silip yeniden oluşturmanıza gerek yok."
+        }
+      },
+      {
+        "icon": "wrench.and.screwdriver.fill",
+        "title": {
+          "zh-Hans": "稳定性修复",
+          "en": "Stability fixes",
+          "zh-Hant": "穩定性修復",
+          "zh-HK": "穩定性修復",
+          "ja": "安定性の修正",
+          "es-MX": "Correcciones de estabilidad",
+          "ko": "안정성 개선",
+          "pt-BR": "Correções de estabilidade",
+          "pt-PT": "Correções de estabilidade",
+          "de": "Stabilitätsverbesserungen",
+          "fr": "Corrections de stabilité",
+          "ar": "إصلاحات الاستقرار",
+          "tr": "Kararlılık düzeltmeleri"
+        },
+        "detail": {
+          "zh-Hans": "进一步收敛 iOS 17 上由缓存数据库引发的偶发闪退：缓存读写全部加上异常兜底并在启动时预热，个别设备上残留的启动崩溃不再发生。",
+          "en": "Further hardens against rare crashes caused by the cache database on iOS 17: all cache reads and writes now have exception fallbacks and are warmed up at launch, so the startup crashes that lingered on a few devices no longer occur.",
+          "zh-Hant": "進一步收斂 iOS 17 上由快取資料庫引發的偶發閃退：快取讀寫全部加上例外兜底並在啟動時預熱，個別裝置上殘留的啟動閃退不再發生。",
+          "zh-HK": "進一步收斂 iOS 17 上由緩存資料庫引發的偶發閃退：緩存讀寫全部加上例外兜底並在啟動時預熱，個別裝置上殘留的啟動閃退不再發生。",
+          "ja": "iOS 17 でキャッシュデータベースに起因するまれなクラッシュをさらに抑制しました。キャッシュの読み書きすべてに例外時のフォールバックを追加し、起動時にウォームアップするようにしたため、一部の端末で残っていた起動時クラッシュが発生しなくなりました。",
+          "es-MX": "Refuerza aún más frente a cierres poco frecuentes provocados por la base de datos de caché en iOS 17: todas las lecturas y escrituras de caché ahora tienen protección ante excepciones y se precalientan al iniciar, por lo que los cierres al arrancar que quedaban en algunos dispositivos ya no ocurren.",
+          "ko": "iOS 17에서 캐시 데이터베이스로 인한 드문 종료를 더욱 방지했습니다. 모든 캐시 읽기/쓰기에 예외 대비가 추가되고 실행 시 예열되어, 일부 기기에 남아 있던 실행 시 종료가 더 이상 발생하지 않습니다.",
+          "pt-BR": "Reforça ainda mais contra fechamentos raros causados pelo banco de dados de cache no iOS 17: todas as leituras e gravações de cache agora têm proteção contra exceções e são pré-aquecidas na inicialização, então os fechamentos ao iniciar que persistiam em alguns aparelhos não ocorrem mais.",
+          "pt-PT": "Reforça ainda mais contra fechos raros causados pela base de dados de cache no iOS 17: todas as leituras e escritas de cache passam a ter proteção contra exceções e são pré-aquecidas no arranque, pelo que os fechos no arranque que persistiam em alguns dispositivos deixam de ocorrer.",
+          "de": "Härtet weiter gegen seltene Abstürze durch die Cache-Datenbank unter iOS 17 ab: Alle Cache-Zugriffe haben jetzt eine Ausnahmebehandlung und werden beim Start vorgewärmt, sodass die Startabstürze, die auf einzelnen Geräten verblieben, nicht mehr auftreten.",
+          "fr": "Renforce encore la protection contre les plantages rares dus à la base de cache sous iOS 17 : toutes les lectures et écritures du cache disposent désormais d’un repli en cas d’exception et sont préchauffées au démarrage, de sorte que les plantages au lancement qui persistaient sur certains appareils ne se produisent plus.",
+          "ar": "يعزّز الحماية أكثر من الانهيارات النادرة الناتجة عن قاعدة بيانات التخزين المؤقت على iOS 17: أصبحت جميع عمليات قراءة وكتابة التخزين المؤقت محميّة من الاستثناءات ويجري تسخينها عند بدء التشغيل، فلم تعد انهيارات بدء التشغيل التي بقيت على بعض الأجهزة تحدث.",
+          "tr": "iOS 17'de önbellek veritabanının yol açtığı nadir çökmelere karşı korumayı daha da güçlendirir: tüm önbellek okuma ve yazma işlemleri artık istisna yedeğine sahip ve başlatmada ön ısıtılıyor; böylece bazı cihazlarda kalan başlatma çökmeleri artık yaşanmıyor."
+        }
+      }
+    ]
+  },
+  {
     "version": "1.8.3",
     "date": "2026.07.07",
     "channel": "App Store",

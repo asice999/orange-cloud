@@ -8,6 +8,7 @@
 
 import Foundation
 import Observation
+import UIKit
 
 // MARK: - R2
 
@@ -513,6 +514,18 @@ final class D1QueryViewModel {
     var error: String?
     var didRun = false      // sensoryFeedback 触发器
 
+    /// 结果驻留封顶：单条语句只保留前 maxStoredRows 行（大结果集整包驻留内存
+    /// 是概览 hang / 内存告警的源头），原始行数记在 originalRowCounts 供提示
+    static let maxStoredRows = 500
+    private(set) var originalRowCounts: [Int] = []
+
+    /// SELECT / WITH 且不带 LIMIT：执行前提醒可能返回大量行
+    var needsLimitReminder: Bool {
+        let statement = sql.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        guard statement.hasPrefix("select") || statement.hasPrefix("with") else { return false }
+        return statement.range(of: #"\blimit\b"#, options: .regularExpression) == nil
+    }
+
     /// 数据库内的用户表（排除 sqlite_* 与 D1 内部表）
     private(set) var tables: [String] = []
     private(set) var tablesLoaded = false
@@ -548,13 +561,49 @@ final class D1QueryViewModel {
         isRunning = true
         error = nil
         do {
-            results = try await service.query(accountId: accountId, databaseId: databaseId, sql: statement)
+            let raw = try await service.query(accountId: accountId, databaseId: databaseId, sql: statement)
+            originalRowCounts = raw.map { $0.results?.count ?? 0 }
+            results = raw.map { result in
+                guard let rows = result.results, rows.count > Self.maxStoredRows else { return result }
+                return D1QueryResult(
+                    results: Array(rows.prefix(Self.maxStoredRows)),
+                    success: result.success,
+                    meta: result.meta
+                )
+            }
             didRun.toggle()
         } catch {
             self.error = error.localizedDescription
             results = []
+            originalRowCounts = []
         }
         isRunning = false
+    }
+
+    // MARK: - 删表（DROP TABLE）
+
+    var isDroppingTable = false
+    var dropError: String?
+
+    /// 标识符加引号并转义内部双引号，防 SQL 注入（对齐 D1TableViewModel.quoted）
+    private func quoted(_ identifier: String) -> String {
+        "\"" + identifier.replacingOccurrences(of: "\"", with: "\"\"") + "\""
+    }
+
+    /// DROP TABLE：删除整张表及其全部数据（d1.write 门控，标识符加引号防注入）
+    func dropTable(_ name: String) async -> Bool {
+        guard !isDroppingTable else { return false }
+        isDroppingTable = true
+        dropError = nil
+        defer { isDroppingTable = false }
+        do {
+            _ = try await service.query(accountId: accountId, databaseId: databaseId, sql: "DROP TABLE IF EXISTS \(quoted(name))")
+            tables.removeAll { $0 == name }
+            return true
+        } catch {
+            dropError = error.localizedDescription
+            return false
+        }
     }
 }
 
@@ -565,6 +614,8 @@ final class D1TableViewModel {
     private(set) var columns: [D1Column] = []
     private(set) var rows: [[String: JSONValue]] = []
     private(set) var hasMore = false
+    /// 各列展示宽度（首页数据采样一次算定，懒加载行直接用定宽保证列对齐）
+    private(set) var columnWidths: [String: CGFloat] = [:]
     var isLoading = false
     var isSaving = false
     var error: String?
@@ -572,6 +623,13 @@ final class D1TableViewModel {
 
     /// 行编辑用的 rowid 键（别名避免与同名列冲突）
     static let rowidKey = "_oc_rowid_"
+    /// 单元格取数截断长度：分页 SQL 里 substr 只取前 cellLimit+1 个字符，
+    /// 防大 TEXT/BLOB 字段拖爆网络包 / JSON 解码内存 / CoreText 排版（主线程 hang 源）
+    static let cellLimit = 256
+    /// 已加载行数上限：到顶停止翻页，引导用查询控制台加 WHERE 筛选
+    static let maxLoadedRows = 1000
+
+    var reachedCap: Bool { rows.count >= Self.maxLoadedRows }
 
     private var offset = 0
     private let pageSize = 50
@@ -613,6 +671,7 @@ final class D1TableViewModel {
             }
             offset = 0
             rows = try await fetchPage(offset: 0)
+            computeColumnWidths()
         } catch {
             self.error = error.localizedDescription
         }
@@ -620,7 +679,7 @@ final class D1TableViewModel {
     }
 
     func loadMore() async {
-        guard hasMore, !isLoading else { return }
+        guard hasMore, !isLoading, !reachedCap else { return }
         isLoading = true
         do {
             // 先取下一页，成功后再推进 offset；否则瞬时失败会永久跳过这一页
@@ -635,12 +694,89 @@ final class D1TableViewModel {
 
     private func fetchPage(offset: Int) async throws -> [[String: JSONValue]] {
         // 多取 1 行用于判断是否还有下一页
-        let sql = "SELECT rowid AS \(Self.rowidKey), * FROM \(quotedTable) LIMIT \(pageSize + 1) OFFSET \(offset)"
+        let sql = "SELECT rowid AS \(Self.rowidKey), \(projection) FROM \(quotedTable) LIMIT \(pageSize + 1) OFFSET \(offset)"
         let results = try await service.query(accountId: accountId, databaseId: databaseId, sql: sql)
         var page = results.first?.results ?? []
         hasMore = page.count > pageSize
         if hasMore { page.removeLast() }
         return page
+    }
+
+    /// 分页查询的列投影：TEXT/BLOB 亲和列只取前 cellLimit+1 个字符（+1 用于判断
+    /// 原值是否更长），数值/时间列取原值。完整值在行编辑时按 rowid 单独取。
+    private var projection: String {
+        guard !columns.isEmpty else { return "*" }
+        return columns.map { column in
+            let q = quoted(column.name)
+            return Self.isTruncatable(declaredType: column.type)
+                ? "substr(\(q), 1, \(Self.cellLimit + 1)) AS \(q)"
+                : q
+        }.joined(separator: ", ")
+    }
+
+    /// 数值/布尔/时间列值天然短，取原值；TEXT / BLOB / 无声明类型才截断
+    nonisolated static func isTruncatable(declaredType: String) -> Bool {
+        let type = declaredType.uppercased()
+        if type.contains("INT") || type.contains("REAL") || type.contains("FLOA")
+            || type.contains("DOUB") || type.contains("DEC") || type.contains("NUM")
+            || type.contains("BOOL") || type.contains("DATE") || type.contains("TIME") {
+            return false
+        }
+        return true
+    }
+
+    /// 单元格展示文本（含截断省略号），列表与列宽测量共用同一口径
+    nonisolated static func displayText(for value: JSONValue?) -> String {
+        guard let value else { return "NULL" }
+        if case .null = value { return "NULL" }
+        let text = value.displayText
+        if text.count > cellLimit { return String(text.prefix(cellLimit)) + "…" }
+        return text.isEmpty ? "''" : text
+    }
+
+    /// 行编辑前取整行完整值（列表里大字段是截断的）。无截断单元格直接复用当前行，
+    /// 免一次网络往返；取失败置 error 并返回 nil。
+    func fullRow(from row: [String: JSONValue]) async -> [String: JSONValue]? {
+        let hasTruncated = row.values.contains { value in
+            if case .string(let text) = value { return text.count > Self.cellLimit }
+            return false
+        }
+        guard hasTruncated, let rowid = row[Self.rowidKey]?.displayText, !rowid.isEmpty else {
+            return row
+        }
+        error = nil
+        do {
+            let results = try await service.query(
+                accountId: accountId, databaseId: databaseId,
+                sql: "SELECT rowid AS \(Self.rowidKey), * FROM \(quotedTable) WHERE rowid = ?",
+                params: [rowid]
+            )
+            return results.first?.results?.first ?? row
+        } catch {
+            self.error = error.localizedDescription
+            return nil
+        }
+    }
+
+    /// 列宽 = 表头与首页采样行的理想宽度取大，夹在 44...180pt；只在首次加载后算一次
+    private func computeColumnWidths() {
+        let size = UIFont.preferredFont(forTextStyle: .caption1).pointSize
+        let cellFont = UIFont.monospacedSystemFont(ofSize: size, weight: .regular)
+        let headerFont = UIFont.systemFont(ofSize: size, weight: .bold)
+        var widths: [String: CGFloat] = [:]
+        for column in columns {
+            // 主键列头多一个钥匙图标的余量
+            var maxWidth = (column.name as NSString)
+                .size(withAttributes: [.font: headerFont]).width + (column.isPrimaryKey ? 14 : 0)
+            for row in rows.prefix(50) {
+                let text = Self.displayText(for: row[column.name])
+                let width = (text as NSString).size(withAttributes: [.font: cellFont]).width
+                if width > maxWidth { maxWidth = width }
+                if maxWidth >= 180 { break }
+            }
+            widths[column.name] = min(180, max(44, ceil(maxWidth)))
+        }
+        columnWidths = widths
     }
 
     /// 仅更新变更列（参数化，rowid 定位）。成功返回 true 并重载当前数据。

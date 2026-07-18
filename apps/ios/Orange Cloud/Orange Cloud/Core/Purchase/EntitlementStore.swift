@@ -113,8 +113,19 @@ final class EntitlementStore {
             await refreshEntitlements()
             AppLog.purchase.notice("restorePurchases synced, pro=\(entitled)")
         } catch {
-            AppLog.purchase.error("restorePurchases failed: \(error.localizedDescription)")
-            purchaseError = error.localizedDescription
+            // 用户主动取消（关掉 App Store 登录弹窗等）不是故障：不弹错误、降级 info 不进遥测
+            let isCancellation: Bool = {
+                if error is CancellationError { return true }
+                if let urlError = error as? URLError, urlError.code == .cancelled { return true }
+                if case StoreKitError.userCancelled = error { return true }
+                return false
+            }()
+            if isCancellation {
+                AppLog.purchase.info("restorePurchases cancelled by user")
+            } else {
+                AppLog.purchase.error("restorePurchases failed: \(error.localizedDescription)")
+                purchaseError = error.localizedDescription
+            }
         }
         #endif
     }

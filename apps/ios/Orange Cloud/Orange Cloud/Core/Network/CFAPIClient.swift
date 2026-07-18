@@ -81,7 +81,7 @@ actor CFAPIClient {
         do {
             (tempURL, response) = try await session.download(for: request)
         } catch {
-            AppLog.network.error("GET /\(Self.logPath(path)) download error: \(error.localizedDescription)")
+            Self.logTransportError("GET", path, "download error", error)
             throw APIError.networkError(error)
         }
         guard let http = response as? HTTPURLResponse else {
@@ -138,7 +138,7 @@ actor CFAPIClient {
         do {
             (data, response) = try await session.upload(for: request, fromFile: fileURL, delegate: delegate)
         } catch {
-            AppLog.network.error("PUT /\(Self.logPath(path)) upload error: \(error.localizedDescription)")
+            Self.logTransportError("PUT", path, "upload error", error)
             throw APIError.networkError(error)
         }
         guard let http = response as? HTTPURLResponse else {
@@ -284,7 +284,7 @@ actor CFAPIClient {
         do {
             (data, response) = try await session.data(for: request)
         } catch {
-            AppLog.network.error("\(method) /\(Self.logPath(path)) (jwt) network error: \(error.localizedDescription)")
+            Self.logTransportError(method, path, "(jwt) network error", error)
             throw APIError.networkError(error)
         }
         guard let http = response as? HTTPURLResponse else {
@@ -385,7 +385,7 @@ actor CFAPIClient {
         do {
             (data, response) = try await session.data(for: request)
         } catch {
-            AppLog.network.error("\(method) /\(Self.logPath(path)) (jwt mp) network error: \(error.localizedDescription)")
+            Self.logTransportError(method, path, "(jwt mp) network error", error)
             throw APIError.networkError(error)
         }
         guard let http = response as? HTTPURLResponse else {
@@ -491,7 +491,7 @@ actor CFAPIClient {
         do {
             (data, response) = try await session.data(for: urlRequest)
         } catch {
-            AppLog.network.error("\(method) /\(Self.logPath(path)) network error: \(error.localizedDescription)")
+            Self.logTransportError(method, path, "network error", error)
             throw APIError.networkError(error)
         }
 
@@ -521,9 +521,12 @@ actor CFAPIClient {
             )
         }
 
-        // 结果各记一行（2xx → info 带响应体大小；其余 → error 带 CF 业务错误码/消息），便于排查
+        // 结果各记一行（2xx → info 带响应体大小；其余 → error 带 CF 业务错误码/消息），便于排查。
+        // 预期业务状态（未开通 R2 / 尚无 ruleset 等）降级 info，不进遥测。
         if (200...299).contains(http.statusCode) {
             AppLog.network.info("\(method) /\(Self.logPath(path)) -> \(http.statusCode) (\(elapsedMs)ms, \(Self.sizeLabel(data.count)))")
+        } else if Self.isExpectedBusinessState(status: http.statusCode, path: path, data: data) {
+            AppLog.network.info("\(method) /\(Self.logPath(path)) -> \(http.statusCode) (\(elapsedMs)ms)\(Self.cfErrorSummary(data))")
         } else {
             AppLog.network.error("\(method) /\(Self.logPath(path)) -> \(http.statusCode) (\(elapsedMs)ms)\(Self.cfErrorSummary(data))")
         }
@@ -578,6 +581,45 @@ actor CFAPIClient {
     /// 日志用路径：截断，避免把超长 KV key 等用户数据完整写进日志
     private static func logPath(_ path: String) -> String {
         path.count > 80 ? String(path.prefix(80)) + "…" : path
+    }
+
+    // MARK: - 日志降噪（取消与预期业务状态不按故障记）
+
+    /// 用户侧取消（滑走页面 / 下拉刷新中断 / Task 取消）：预期行为，
+    /// 降级 info——error 级会被遥测升为 Sentry 事件，取消类曾是噪音大头。
+    private static func isCancellation(_ error: Error) -> Bool {
+        if error is CancellationError { return true }
+        if let urlError = error as? URLError, urlError.code == .cancelled { return true }
+        return false
+    }
+
+    /// 传输层失败统一记录：取消降级 info，其余保持 error
+    private static func logTransportError(_ method: String, _ path: String, _ label: String, _ error: Error) {
+        let line = "\(method) /\(logPath(path)) \(label): \(error.localizedDescription)"
+        if isCancellation(error) {
+            AppLog.network.info("\(line)")
+        } else {
+            AppLog.network.error("\(line)")
+        }
+    }
+
+    /// 预期业务状态（非故障，UI 均按空态/降级处理）：
+    /// 账号未开通 R2（403 cf=10042）、zone 该阶段还没有 entrypoint ruleset
+    ///（404 cf=10003，Snippets / WAF / 速率限制首次进入的常态）、
+    /// OAuth token 无账单读权限（subscriptions 403 cf=10000）。
+    private static func isExpectedBusinessState(status: Int, path: String, data: Data) -> Bool {
+        guard let code = cfErrorCode(data) else { return false }
+        switch (status, code) {
+        case (403, 10042): return true
+        case (404, 10003): return true
+        case (403, 10000): return path.hasSuffix("/subscriptions")
+        default:           return false
+        }
+    }
+
+    private static func cfErrorCode(_ data: Data) -> Int? {
+        guard let env = try? JSONDecoder().decode(CFAPIResponse<EmptyResponse>.self, from: data) else { return nil }
+        return env.errors.first?.code
     }
 
     // MARK: - 解码与诊断（统一记日志，绝不写入数据值，仅字段路径/错误码）

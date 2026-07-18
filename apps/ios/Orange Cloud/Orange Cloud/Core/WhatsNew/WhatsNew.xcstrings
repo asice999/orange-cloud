@@ -1293,6 +1293,234 @@
         }
       }
     },
+    "WAF 自定义防火墙规则现在支持编辑：点按任意规则即可修改动作、表达式、名称与启用状态，无需再删除后重建。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WAF custom firewall rules can now be edited: tap any rule to change its action, expression, name and enabled state — no need to delete and recreate it."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WAF 自訂防火牆規則現在支援編輯：點按任一規則即可修改動作、運算式、名稱與啟用狀態，不必再刪除後重建。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WAF 自訂防火牆規則現在支援編輯：點按任一規則即可修改動作、運算式、名稱與啟用狀態，無需再刪除後重建。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WAF のカスタムファイアウォールルールを編集できるようになりました。任意のルールをタップして、アクション・式・名前・有効状態を変更でき、削除して作り直す必要はありません。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ahora puedes editar las reglas de firewall personalizadas de WAF: toca cualquier regla para cambiar su acción, expresión, nombre y estado, sin tener que eliminarla y volver a crearla."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이제 WAF 사용자 지정 방화벽 규칙을 편집할 수 있습니다. 규칙을 탭해 동작, 표현식, 이름, 사용 여부를 변경할 수 있어 삭제 후 다시 만들 필요가 없습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agora é possível editar as regras de firewall personalizadas do WAF: toque em qualquer regra para alterar ação, expressão, nome e estado, sem precisar excluir e recriar."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agora é possível editar as regras de firewall personalizadas do WAF: toque em qualquer regra para alterar ação, expressão, nome e estado, sem ter de eliminar e recriar."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WAF-eigene Firewall-Regeln lassen sich jetzt bearbeiten: Tippe auf eine Regel, um Aktion, Ausdruck, Name und Aktivierungsstatus zu ändern – ohne sie löschen und neu anlegen zu müssen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les règles de pare-feu personnalisées WAF sont désormais modifiables : touchez une règle pour changer son action, son expression, son nom et son état, sans avoir à la supprimer puis à la recréer."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يمكنك الآن تعديل قواعد جدار الحماية المخصّصة في WAF: انقر على أي قاعدة لتغيير إجرائها وتعبيرها واسمها وحالة تفعيلها، دون الحاجة إلى حذفها وإعادة إنشائها."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artık WAF özel güvenlik duvarı kurallarını düzenleyebilirsiniz: bir kurala dokunarak eylemini, ifadesini, adını ve etkin durumunu değiştirin; silip yeniden oluşturmanıza gerek yok."
+          }
+        }
+      }
+    },
+    "Worker 开启 workers.dev 子域后，直接显示完整访问地址，点一下即可打开。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When a Worker’s workers.dev subdomain is on, its full URL now shows right there — tap to open."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker 開啟 workers.dev 子網域後，直接顯示完整存取網址，點一下即可開啟。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker 開啟 workers.dev 子網域後，直接顯示完整存取網址，點一下即可開啟。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker の workers.dev サブドメインを有効にすると、完全な URL が表示され、タップして開けます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuando el subdominio workers.dev de un Worker está activo, ahora se muestra su URL completa: tócala para abrir."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker의 workers.dev 서브도메인을 켜면 전체 주소가 바로 표시되며, 탭하면 열립니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando o subdomínio workers.dev de um Worker está ativo, a URL completa aparece ali — toque para abrir."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando o subdomínio workers.dev de um Worker está ativo, o URL completo aparece ali — toque para abrir."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ist die workers.dev-Subdomain eines Workers aktiv, wird jetzt die vollständige URL angezeigt – zum Öffnen tippen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lorsque le sous-domaine workers.dev d’un Worker est activé, son URL complète s’affiche : touchez pour l’ouvrir."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عند تفعيل نطاق workers.dev الفرعي لأحد Workers، يظهر عنوانه الكامل الآن — انقر لفتحه."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir Worker’ın workers.dev alt alan adı açıkken tam adresi artık orada görünür; açmak için dokunun."
+          }
+        }
+      }
+    },
+    "Worker 部署历史": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker deployment history"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker 部署歷史"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker 部署歷史"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker のデプロイ履歴"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historial de despliegues de Worker"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker 배포 기록"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Histórico de implantações do Worker"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Histórico de implementações do Worker"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker-Bereitstellungsverlauf"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historique des déploiements Worker"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سجل عمليات نشر Worker"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker dağıtım geçmişi"
+          }
+        }
+      }
+    },
     "Workers 与 Pages 列表新增排序：默认（名称）、创建日期、最近更新，选择会被记住。": {
       "localizations": {
         "en": {
@@ -1517,6 +1745,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zero Trust düzenleme"
+          }
+        }
+      }
+    },
+    "workers.dev 子域直达": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One-tap workers.dev URL"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "workers.dev 子網域直達"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "workers.dev 子網域直達"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "workers.dev サブドメインに直接アクセス"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acceso directo al subdominio workers.dev"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "workers.dev 서브도메인 바로 열기"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acesso direto ao subdomínio workers.dev"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acesso direto ao subdomínio workers.dev"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Direkter workers.dev-Zugriff"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accès direct au sous-domaine workers.dev"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وصول مباشر إلى نطاق workers.dev الفرعي"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "workers.dev alt alan adına doğrudan erişim"
           }
         }
       }
@@ -2509,6 +2813,82 @@
         }
       }
     },
+    "删除 D1 数据表": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete D1 tables"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刪除 D1 資料表"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刪除 D1 資料表"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1 テーブルを削除"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar tablas de D1"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1 테이블 삭제"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Excluir tabelas do D1"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar tabelas do D1"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1-Tabellen löschen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer des tables D1"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حذف جداول D1"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1 tablolarını silme"
+          }
+        }
+      }
+    },
     "刷新失败不再弹窗打断，下拉刷新更稳定可靠。": {
       "localizations": {
         "en": {
@@ -3041,6 +3421,82 @@
         }
       }
     },
+    "在变量与密钥页直接把现有 D1 数据库或 KV 命名空间绑定到 Worker，也能一键解除。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bind an existing D1 database or KV namespace to a Worker right from the bindings page — and unbind just as easily."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在變數與密鑰頁直接把現有 D1 資料庫或 KV 命名空間綁定到 Worker，也能一鍵解除。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在變數與密鑰頁直接把現有 D1 資料庫或 KV 命名空間綁定到 Worker，也能一鍵解除。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "変数とシークレットのページから、既存の D1 データベースや KV ネームスペースを Worker にバインドでき、解除も簡単です。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincula una base de datos D1 o un espacio de nombres KV existente a un Worker desde la página de vínculos, y desvincúlalos con la misma facilidad."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "변수·시크릿 페이지에서 기존 D1 데이터베이스나 KV 네임스페이스를 Worker에 바인딩하고, 해제도 간편합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincule um banco de dados D1 ou namespace KV existente a um Worker direto na página de vínculos — e desvincule com a mesma facilidade."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincule uma base de dados D1 ou namespace KV existente a um Worker diretamente na página de ligações — e desvincule com a mesma facilidade."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Binde eine vorhandene D1-Datenbank oder einen KV-Namespace direkt auf der Bindungsseite an einen Worker – und löse die Bindung ebenso einfach."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liez une base de données D1 ou un espace de noms KV existant à un Worker depuis la page des liaisons, et dissociez-les tout aussi facilement."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اربط قاعدة بيانات D1 أو مساحة أسماء KV موجودة بأحد Workers مباشرة من صفحة الروابط، وألغِ الربط بالسهولة نفسها."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mevcut bir D1 veritabanını veya KV ad alanını bağlamalar sayfasından doğrudan bir Worker’a bağlayın; bağlantıyı kaldırmak da aynı kolaylıkta."
+          }
+        }
+      }
+    },
     "在域名详情查看、编辑、新建 Cloudflare 边缘代码片段，并管理触发规则——轻量版 Workers，Pro 解锁。": {
       "localizations": {
         "en": {
@@ -3189,6 +3645,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apple Intelligence olan cihazlarda, isteğinizi bir cümleyle tanımlayarak özel bir WAF kuralı oluşturun — ve mevcut kuralları sade bir dile çevirin. Tamamen cihazda, çevrimdışı çalışır."
+          }
+        }
+      }
+    },
+    "在查询控制台长按任意表即可删除，需输入表名二次确认。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Long-press any table in the query console to drop it, with a type-the-name confirmation."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在查詢主控台長按任一表即可刪除，需輸入表名二次確認。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在查詢控制台長按任一表即可刪除，需輸入表名二次確認。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "クエリコンソールでテーブルを長押しすると削除できます。テーブル名の入力による確認付きです。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantén pulsada cualquier tabla en la consola de consultas para eliminarla, con confirmación escribiendo su nombre."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "쿼리 콘솔에서 테이블을 길게 눌러 삭제할 수 있으며 이름을 입력해 확인합니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque e segure qualquer tabela no console de consultas para excluí-la, com confirmação digitando o nome."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque sem soltar em qualquer tabela na consola de consultas para a eliminar, com confirmação escrevendo o nome."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Halte in der Abfragekonsole eine Tabelle gedrückt, um sie zu löschen – mit Bestätigung durch Eingabe des Namens."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Appuyez longuement sur une table dans la console de requêtes pour la supprimer, avec confirmation en saisissant son nom."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اضغط مطوّلاً على أي جدول في وحدة الاستعلام لحذفه، مع تأكيد بكتابة الاسم."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sorgu konsolunda bir tabloya uzun basarak silin; adını yazarak onaylayın."
           }
         }
       }
@@ -3497,6 +4029,82 @@
         }
       }
     },
+    "就地编辑与删除 Worker": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit and delete Workers in place"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "就地編輯與刪除 Worker"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "就地編輯與刪除 Worker"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker をその場で編集・削除"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edita y elimina Workers directamente"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker를 바로 편집·삭제"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edite e exclua Workers diretamente"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edite e elimine Workers diretamente"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker direkt bearbeiten und löschen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier et supprimer des Workers sur place"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعديل وحذف Workers مباشرةً"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Worker’ları yerinde düzenleyin ve silin"
+          }
+        }
+      }
+    },
     "开关域名的邮件路由，增删改转发规则，并管理账号内的已验证目的地址。": {
       "localizations": {
         "en": {
@@ -3645,6 +4253,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Geliştirici Platformu daha da ileride"
+          }
+        }
+      }
+    },
+    "快速绑定 D1 / KV": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quickly bind D1 / KV"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "快速綁定 D1 / KV"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "快速綁定 D1 / KV"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1 / KV をすばやくバインド"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincula D1 / KV rápidamente"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1 / KV 빠른 바인딩"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincule D1 / KV rapidamente"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincule D1 / KV rapidamente"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1 / KV schnell binden"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lier rapidement D1 / KV"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ربط D1 / KV بسرعة"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D1 / KV’yi hızlıca bağla"
           }
         }
       }
@@ -5625,6 +6309,82 @@
         }
       }
     },
+    "查看每个 Worker 的历次部署记录，并可删除不再需要的旧部署。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See every past deployment of a Worker and delete older ones you no longer need."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢視每個 Worker 的歷次部署記錄，並可刪除不再需要的舊部署。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看每個 Worker 的歷次部署記錄，並可刪除不再需要的舊部署。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "各 Worker の過去のデプロイを確認し、不要になった古いデプロイを削除できます。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta cada despliegue anterior de un Worker y elimina los que ya no necesites."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "각 Worker의 과거 배포를 확인하고 더 이상 필요 없는 이전 배포를 삭제할 수 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja todas as implantações anteriores de um Worker e exclua as antigas que não precisa mais."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja todas as implementações anteriores de um Worker e elimine as antigas de que já não precisa."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieh dir alle bisherigen Bereitstellungen eines Workers an und lösche nicht mehr benötigte alte Bereitstellungen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultez tous les déploiements passés d’un Worker et supprimez les anciens dont vous n’avez plus besoin."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اطّلع على كل عمليات نشر Worker السابقة واحذف القديمة التي لم تعد بحاجة إليها."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir Worker’ın geçmiş tüm dağıtımlarını görün ve artık ihtiyaç duymadığınız eskileri silin."
+          }
+        }
+      }
+    },
     "根治 iOS 17.0 上概览页、资源列表与域名详情的多处闪退与冻结；同时修复 Tunnel 页面卡死与冷启动请求翻倍的问题。": {
       "localizations": {
         "en": {
@@ -6537,6 +7297,82 @@
         }
       }
     },
+    "直接载入线上源码修改后重新部署，变量、密钥与绑定自动保留；也可从 .js 文件导入，或删除整个 Worker。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Load the live source, edit it and redeploy — your variables, secrets and bindings are kept. You can also import from a .js file or delete the whole Worker."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "直接載入線上原始碼修改後重新部署，變數、密鑰與繫結自動保留；也可從 .js 檔案匯入，或刪除整個 Worker。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "直接載入線上原始碼修改後重新部署，變數、密鑰與綁定自動保留；也可從 .js 檔案匯入，或刪除整個 Worker。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "稼働中のソースを読み込んで編集し、再デプロイできます。変数・シークレット・バインディングは保持されます。.js ファイルからの読み込みや Worker 全体の削除にも対応します。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carga el código en producción, edítalo y vuelve a desplegar; se conservan tus variables, secretos y enlaces. También puedes importar desde un archivo .js o eliminar todo el Worker."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "실행 중인 소스를 불러와 수정한 뒤 다시 배포할 수 있으며 변수, 비밀, 바인딩이 유지됩니다. .js 파일에서 가져오거나 Worker 전체를 삭제할 수도 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carregue o código em produção, edite e reimplante — suas variáveis, segredos e bindings são mantidos. Também dá para importar de um arquivo .js ou excluir o Worker inteiro."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carregue o código em produção, edite e reimplante — as suas variáveis, segredos e ligações são mantidos. Também pode importar de um ficheiro .js ou eliminar o Worker inteiro."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lade den Live-Quellcode, bearbeite ihn und stelle neu bereit – Variablen, Secrets und Bindings bleiben erhalten. Du kannst auch aus einer .js-Datei importieren oder den ganzen Worker löschen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chargez le code en production, modifiez-le et redéployez ; vos variables, secrets et liaisons sont conservés. Vous pouvez aussi importer depuis un fichier .js ou supprimer le Worker entier."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حمّل الشيفرة المباشرة وعدّلها وأعد النشر مع الحفاظ على المتغيرات والأسرار والارتباطات. يمكنك أيضًا الاستيراد من ملف ‎.js‎ أو حذف Worker بالكامل."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Canlı kaynağı yükleyip düzenleyin ve yeniden dağıtın; değişkenleriniz, gizli anahtarlarınız ve bağlamalarınız korunur. Ayrıca bir .js dosyasından içe aktarabilir veya Worker’ın tamamını silebilirsiniz."
+          }
+        }
+      }
+    },
     "稳定性修复": {
       "localizations": {
         "en": {
@@ -6841,6 +7677,82 @@
         }
       }
     },
+    "编辑 WAF 规则": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit WAF rules"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "編輯 WAF 規則"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "編輯 WAF 規則"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WAF ルールの編集"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar reglas de WAF"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WAF 규칙 편집"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar regras do WAF"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar regras do WAF"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WAF-Regeln bearbeiten"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier les règles WAF"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعديل قواعد WAF"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "WAF kurallarını düzenleme"
+          }
+        }
+      }
+    },
     "规则中心": {
       "localizations": {
         "en": {
@@ -7065,6 +7977,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yük dengeleme"
+          }
+        }
+      }
+    },
+    "进一步收敛 iOS 17 上由缓存数据库引发的偶发闪退：缓存读写全部加上异常兜底并在启动时预热，个别设备上残留的启动崩溃不再发生。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Further hardens against rare crashes caused by the cache database on iOS 17: all cache reads and writes now have exception fallbacks and are warmed up at launch, so the startup crashes that lingered on a few devices no longer occur."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "進一步收斂 iOS 17 上由快取資料庫引發的偶發閃退：快取讀寫全部加上例外兜底並在啟動時預熱，個別裝置上殘留的啟動閃退不再發生。"
+          }
+        },
+        "zh-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "進一步收斂 iOS 17 上由緩存資料庫引發的偶發閃退：緩存讀寫全部加上例外兜底並在啟動時預熱，個別裝置上殘留的啟動閃退不再發生。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS 17 でキャッシュデータベースに起因するまれなクラッシュをさらに抑制しました。キャッシュの読み書きすべてに例外時のフォールバックを追加し、起動時にウォームアップするようにしたため、一部の端末で残っていた起動時クラッシュが発生しなくなりました。"
+          }
+        },
+        "es-MX": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refuerza aún más frente a cierres poco frecuentes provocados por la base de datos de caché en iOS 17: todas las lecturas y escrituras de caché ahora tienen protección ante excepciones y se precalientan al iniciar, por lo que los cierres al arrancar que quedaban en algunos dispositivos ya no ocurren."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS 17에서 캐시 데이터베이스로 인한 드문 종료를 더욱 방지했습니다. 모든 캐시 읽기/쓰기에 예외 대비가 추가되고 실행 시 예열되어, 일부 기기에 남아 있던 실행 시 종료가 더 이상 발생하지 않습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reforça ainda mais contra fechamentos raros causados pelo banco de dados de cache no iOS 17: todas as leituras e gravações de cache agora têm proteção contra exceções e são pré-aquecidas na inicialização, então os fechamentos ao iniciar que persistiam em alguns aparelhos não ocorrem mais."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reforça ainda mais contra fechos raros causados pela base de dados de cache no iOS 17: todas as leituras e escritas de cache passam a ter proteção contra exceções e são pré-aquecidas no arranque, pelo que os fechos no arranque que persistiam em alguns dispositivos deixam de ocorrer."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Härtet weiter gegen seltene Abstürze durch die Cache-Datenbank unter iOS 17 ab: Alle Cache-Zugriffe haben jetzt eine Ausnahmebehandlung und werden beim Start vorgewärmt, sodass die Startabstürze, die auf einzelnen Geräten verblieben, nicht mehr auftreten."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renforce encore la protection contre les plantages rares dus à la base de cache sous iOS 17 : toutes les lectures et écritures du cache disposent désormais d’un repli en cas d’exception et sont préchauffées au démarrage, de sorte que les plantages au lancement qui persistaient sur certains appareils ne se produisent plus."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعزّز الحماية أكثر من الانهيارات النادرة الناتجة عن قاعدة بيانات التخزين المؤقت على iOS 17: أصبحت جميع عمليات قراءة وكتابة التخزين المؤقت محميّة من الاستثناءات ويجري تسخينها عند بدء التشغيل، فلم تعد انهيارات بدء التشغيل التي بقيت على بعض الأجهزة تحدث."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS 17'de önbellek veritabanının yol açtığı nadir çökmelere karşı korumayı daha da güçlendirir: tüm önbellek okuma ve yazma işlemleri artık istisna yedeğine sahip ve başlatmada ön ısıtılıyor; böylece bazı cihazlarda kalan başlatma çökmeleri artık yaşanmıyor."
           }
         }
       }

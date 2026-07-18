@@ -10,6 +10,47 @@ import Foundation
 
 nonisolated enum WhatsNewGenerated {
     static let releases: [WhatsNewRelease] = [
+        WhatsNewRelease(version: "1.8.6", items: [
+            WhatsNewItem(
+                icon:   "globe",
+                title:  String(localized: "workers.dev 子域直达", table: "WhatsNew"),
+                detail: String(localized: "Worker 开启 workers.dev 子域后，直接显示完整访问地址，点一下即可打开。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "cube.fill",
+                title:  String(localized: "快速绑定 D1 / KV", table: "WhatsNew"),
+                detail: String(localized: "在变量与密钥页直接把现有 D1 数据库或 KV 命名空间绑定到 Worker，也能一键解除。", table: "WhatsNew")
+            )
+        ]),
+        WhatsNewRelease(version: "1.8.5", items: [
+            WhatsNewItem(
+                icon:   "clock.arrow.circlepath",
+                title:  String(localized: "Worker 部署历史", table: "WhatsNew"),
+                detail: String(localized: "查看每个 Worker 的历次部署记录，并可删除不再需要的旧部署。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "square.and.pencil",
+                title:  String(localized: "就地编辑与删除 Worker", table: "WhatsNew"),
+                detail: String(localized: "直接载入线上源码修改后重新部署，变量、密钥与绑定自动保留；也可从 .js 文件导入，或删除整个 Worker。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "tablecells",
+                title:  String(localized: "删除 D1 数据表", table: "WhatsNew"),
+                detail: String(localized: "在查询控制台长按任意表即可删除，需输入表名二次确认。", table: "WhatsNew")
+            )
+        ]),
+        WhatsNewRelease(version: "1.8.4", items: [
+            WhatsNewItem(
+                icon:   "shield.lefthalf.filled",
+                title:  String(localized: "编辑 WAF 规则", table: "WhatsNew"),
+                detail: String(localized: "WAF 自定义防火墙规则现在支持编辑：点按任意规则即可修改动作、表达式、名称与启用状态，无需再删除后重建。", table: "WhatsNew")
+            ),
+            WhatsNewItem(
+                icon:   "wrench.and.screwdriver.fill",
+                title:  String(localized: "稳定性修复", table: "WhatsNew"),
+                detail: String(localized: "进一步收敛 iOS 17 上由缓存数据库引发的偶发闪退：缓存读写全部加上异常兜底并在启动时预热，个别设备上残留的启动崩溃不再发生。", table: "WhatsNew")
+            )
+        ]),
         WhatsNewRelease(version: "1.8.2", items: [
             WhatsNewItem(
                 icon:   "arrow.triangle.branch",

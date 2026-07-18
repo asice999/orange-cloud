@@ -32,39 +32,31 @@ struct D1TableView: View {
     private var canWrite: Bool { auth.hasScope("d1.write") }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 12) {
-                if viewModel.rows.isEmpty && viewModel.isLoading {
-                    gridSkeleton
-                } else if viewModel.rows.isEmpty {
+        Group {
+            if viewModel.rows.isEmpty && viewModel.isLoading {
+                ScrollView {
+                    gridSkeleton.padding()
+                }
+            } else if viewModel.rows.isEmpty {
+                ScrollView {
                     ContentUnavailableView {
                         Label("空表", systemImage: "tablecells")
                     } description: {
                         Text("这张表里还没有数据")
                     }
                     .padding(.top, 40)
-                } else {
-                    grid
-
-                    if viewModel.hasMore {
-                        Button {
-                            Task { await viewModel.loadMore() }
-                        } label: {
-                            if viewModel.isLoading {
-                                ProgressView().frame(maxWidth: .infinity)
-                            } else {
-                                Text("加载更多").frame(maxWidth: .infinity)
-                            }
-                        }
-                        .buttonStyle(.bordered)
-                    }
+                }
+            } else {
+                VStack(alignment: .leading, spacing: 8) {
+                    dataTable
 
                     Text(canWrite ? String(localized: "点按一行进行编辑。") : String(localized: "当前授权仅限读取（d1.read）。"))
                         .font(.caption)
                         .foregroundStyle(.tertiary)
+                        .padding(.horizontal, 4)
                 }
+                .padding()
             }
-            .padding()
         }
         .background { SkyBackground() }
         .navigationTitle(tableName)
@@ -127,56 +119,24 @@ struct D1TableView: View {
         .skeletonPulse()
     }
 
-    // MARK: - 数据网格
+    // MARK: - 数据表格（双轴滚动 + LazyVStack：行滚出屏即回收，大表不撑爆布局与内存）
 
-    private var grid: some View {
-        ScrollView(.horizontal, showsIndicators: true) {
-            Grid(alignment: .leading, horizontalSpacing: 16, verticalSpacing: 0) {
-                GridRow {
-                    ForEach(viewModel.columns) { column in
-                        VStack(alignment: .leading, spacing: 1) {
-                            HStack(spacing: 3) {
-                                Text(column.name)
-                                    .font(.caption.bold())
-                                if column.isPrimaryKey {
-                                    Image(systemName: "key.fill")
-                                        .font(.system(size: 8))
-                                        .foregroundStyle(Color.ocOrangeText)
-                                }
-                            }
-                            Text(column.type.isEmpty ? "—" : column.type)
-                                .font(.caption2)
-                                .foregroundStyle(.tertiary)
-                        }
-                    }
-                }
-                .padding(.vertical, 6)
+    private var dataTable: some View {
+        ScrollView([.vertical, .horizontal], showsIndicators: true) {
+            LazyVStack(alignment: .leading, spacing: 0) {
+                headerRow
+                    .padding(.vertical, 6)
 
                 Divider()
 
                 ForEach(Array(viewModel.rows.enumerated()), id: \.offset) { index, row in
-                    GridRow {
-                        ForEach(viewModel.columns) { column in
-                            Text(cellText(row[column.name]))
-                                .font(.caption.monospaced())
-                                .foregroundStyle(row[column.name] == nil || isNull(row[column.name]) ? .tertiary : .primary)
-                                .lineLimit(1)
-                                .frame(maxWidth: 180, alignment: .leading)
-                        }
-                    }
-                    .padding(.vertical, 7)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        if canWrite {
-                            editingRow = row
-                        } else {
-                            showDenied = true
-                        }
-                    }
+                    rowView(row)
                     if index < viewModel.rows.count - 1 {
                         Divider()
                     }
                 }
+
+                tableFooter
             }
             .padding(OCLayout.islandPadding)
         }
@@ -185,11 +145,81 @@ struct D1TableView: View {
         .environment(\.layoutDirection, .leftToRight)
     }
 
-    private func cellText(_ value: JSONValue?) -> String {
-        guard let value else { return "NULL" }
-        if case .null = value { return "NULL" }
-        let text = value.displayText
-        return text.isEmpty ? "''" : text
+    private var headerRow: some View {
+        HStack(alignment: .top, spacing: 16) {
+            ForEach(viewModel.columns) { column in
+                VStack(alignment: .leading, spacing: 1) {
+                    HStack(spacing: 3) {
+                        Text(column.name)
+                            .font(.caption.bold())
+                        if column.isPrimaryKey {
+                            Image(systemName: "key.fill")
+                                .font(.system(size: 8))
+                                .foregroundStyle(Color.ocOrangeText)
+                        }
+                    }
+                    Text(column.type.isEmpty ? "—" : column.type)
+                        .font(.caption2)
+                        .foregroundStyle(.tertiary)
+                }
+                .frame(width: columnWidth(column), alignment: .leading)
+            }
+        }
+    }
+
+    /// 懒加载行用定宽列（首页采样算定），保证行间对齐、免全局布局
+    private func rowView(_ row: [String: JSONValue]) -> some View {
+        HStack(alignment: .top, spacing: 16) {
+            ForEach(viewModel.columns) { column in
+                Text(D1TableViewModel.displayText(for: row[column.name]))
+                    .font(.caption.monospaced())
+                    .foregroundStyle(isNull(row[column.name]) ? .tertiary : .primary)
+                    .lineLimit(1)
+                    .frame(width: columnWidth(column), alignment: .leading)
+            }
+        }
+        .padding(.vertical, 7)
+        .contentShape(Rectangle())
+        .onTapGesture { tapRow(row) }
+    }
+
+    /// 行尾 sentinel：滚到底自动翻页；到行数上限后停下并给出筛选指引
+    @ViewBuilder
+    private var tableFooter: some View {
+        if viewModel.reachedCap {
+            Text("已加载 \(D1TableViewModel.maxLoadedRows) 行，请在查询控制台用 WHERE 条件继续筛选")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .padding(.vertical, 10)
+        } else if viewModel.hasMore {
+            HStack(spacing: 8) {
+                ProgressView()
+                Text("加载更多")
+            }
+            .font(.caption)
+            .foregroundStyle(.tertiary)
+            .padding(.vertical, 10)
+            .onAppear {
+                Task { await viewModel.loadMore() }
+            }
+        }
+    }
+
+    private func columnWidth(_ column: D1Column) -> CGFloat {
+        viewModel.columnWidths[column.name] ?? 120
+    }
+
+    /// 点行编辑：列表里大字段是截断的，先按 rowid 取整行完整值再开编辑器
+    private func tapRow(_ row: [String: JSONValue]) {
+        guard canWrite else {
+            showDenied = true
+            return
+        }
+        Task {
+            if let full = await viewModel.fullRow(from: row) {
+                editingRow = full
+            }
+        }
     }
 
     private func isNull(_ value: JSONValue?) -> Bool {
@@ -211,6 +241,9 @@ private struct D1RowEditorView: View {
     let viewModel: D1TableViewModel
     let row: [String: JSONValue]
     let canWrite: Bool
+
+    /// 超过此长度的文本字段转只读预览（TextField 排大文本会卡主线程），改值走查询控制台
+    private static let largeFieldLimit = 8_000
 
     @Environment(\.dismiss) private var dismiss
     @State private var fields: [String: String] = [:]
@@ -367,11 +400,24 @@ private struct D1RowEditorView: View {
         case .date:
             dateField(binding: binding, originalIsNull: originalIsNull, includesTime: false, label: column.name)
         case .text:
-            TextField(originalIsNull ? "NULL" : "", text: binding, axis: .vertical)
-                .lineLimit(1...4)
-                .font(.callout.monospaced())
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
+            let current = binding.wrappedValue
+            if current.count > Self.largeFieldLimit {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(current.prefix(300) + "…")
+                        .font(.caption.monospaced())
+                        .foregroundStyle(.secondary)
+                        .lineLimit(4)
+                    Text("字段过大（\(current.count) 字符），请在查询控制台修改")
+                        .font(.caption2)
+                        .foregroundStyle(.tertiary)
+                }
+            } else {
+                TextField(originalIsNull ? "NULL" : "", text: binding, axis: .vertical)
+                    .lineLimit(1...4)
+                    .font(.callout.monospaced())
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+            }
         }
     }
 

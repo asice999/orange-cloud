@@ -1,7 +1,7 @@
 {
-  "versionCode": 11,
-  "versionName": "1.6.2",
+  "versionCode": 17,
+  "versionName": "1.6.4",
   "minVersionCode": 1,
   "url": "https://o-c.do/orange-cloud.apk",
-  "note": "修复登录一段时间后被自动退出账号的问题。更新后请重新登录一次即可恢复正常。"
+  "note": "修复：账号用量在冷启动时误显「需要流量分析权限」的问题；Worker 新建/编辑/删除已归入 Pro 会员。"
 }
