@@ -1,6 +1,6 @@
 name: Build Mobile Release
 
-on:
+"on":
   workflow_dispatch:
     inputs:
       tag_name:
@@ -100,12 +100,12 @@ jobs:
         run: |
           if [ -n "$ANDROID_KEYSTORE_BASE64" ] && [ -n "$ANDROID_KEYSTORE_PASSWORD" ] && [ -n "$ANDROID_KEY_ALIAS" ] && [ -n "$ANDROID_KEY_PASSWORD" ]; then
             echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > apps/android/release-upload.jks
-            cat > apps/android/keystore.properties <<EOF
-storeFile=release-upload.jks
-storePassword=$ANDROID_KEYSTORE_PASSWORD
-keyAlias=$ANDROID_KEY_ALIAS
-keyPassword=$ANDROID_KEY_PASSWORD
-EOF
+            printf '%s\n' \
+              'storeFile=release-upload.jks' \
+              "storePassword=$ANDROID_KEYSTORE_PASSWORD" \
+              "keyAlias=$ANDROID_KEY_ALIAS" \
+              "keyPassword=$ANDROID_KEY_PASSWORD" \
+              > apps/android/keystore.properties
             echo "enabled=true" >> "$GITHUB_OUTPUT"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
