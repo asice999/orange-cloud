@@ -111,6 +111,12 @@ jobs:
             echo "enabled=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Normalize Android daemon JDK for CI
+        shell: bash
+        run: |
+          rm -f apps/android/gradle/gradle-daemon-jvm.properties
+          echo "Using CI-provided JAVA_HOME=$JAVA_HOME"
+
       - name: Build signed direct release APK
         if: steps.signing.outputs.enabled == 'true'
         working-directory: apps/android
