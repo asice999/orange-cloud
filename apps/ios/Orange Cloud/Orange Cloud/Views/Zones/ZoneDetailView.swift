@@ -40,7 +40,11 @@ struct ZoneDetailView: View {
             analyticsService: session.analyticsService, zoneId: zoneId
         ))
         _actionsViewModel = State(initialValue: ZoneActionsViewModel(
-            service: session.zoneSettingsService, zoneId: zoneId
+            service: session.zoneSettingsService,
+            zoneService: session.zoneService,
+            botService: session.botManagementService,
+            zoneId: zoneId,
+            paused: zone.paused
         ))
     }
 
@@ -53,7 +57,11 @@ struct ZoneDetailView: View {
 
     private var canReadSettings: Bool { auth.hasScope("zone-settings.read") }
     private var canEditSettings: Bool { auth.hasScope("zone-settings.write") }
+    private var canReadBots: Bool { auth.hasScope("bot-management.read") }
+    private var canEditBots: Bool { auth.hasScope("bot-management.write") }
     private var canPurge: Bool { auth.hasScope("cache.purge") }
+    /// 暂停 / 恢复走 zone 本身，权限与 zone-settings 那条链路无关
+    private var canEditZone: Bool { auth.hasScope("zone.write") }
 
     /// DNS 记录数：本地已同步过记录用实时缓存计数；否则用 Dashboard/入页回写的
     /// total_count（CachedZone.dnsRecordCount），避免首进详情页默认显示 0 条。
@@ -61,8 +69,14 @@ struct ZoneDetailView: View {
         records.isEmpty ? (zone.dnsRecordCount ?? 0) : records.count
     }
 
+    /// hero 卡状态：暂停优先于 status（暂停时 API 的 status 仍是 active），
+    /// 且以 ViewModel 的实时值为准，切换后立刻翻牌
+    private var displayStatus: String {
+        actionsViewModel.paused ? "paused" : zone.status
+    }
+
     private var statusText: String {
-        switch zone.status {
+        switch displayStatus {
         case "active":                  String(localized: "已启用")
         case "pending", "initializing": String(localized: "待激活")
         default:                        String(localized: "已暂停")
@@ -106,6 +120,16 @@ struct ZoneDetailView: View {
                         DNSListView(zoneId: zone.id, zoneName: zone.name, session: session)
                     }
                     .listRowStyleValue(String(localized: "\(dnsRecordDisplayCount) 条"))
+
+                    // zone 级 DNS 策略（DNSSEC / CNAME 展平 / NS 类型），与逐条记录分开
+                    PermissionGatedValueLink(
+                        label: String(localized: "DNS 设置"),
+                        systemImage: "gearshape.2",
+                        requiredScope: "zone-dns-settings.read",
+                        tint: .indigo,
+                        showsChevron: true,
+                        value: ZoneRoute.dnsSettings(zoneId: zone.id, zoneName: zone.name)
+                    )
 
                     ProGatedNavigationLink(
                         label: String(localized: "WAF 防火墙"),
@@ -191,6 +215,16 @@ struct ZoneDetailView: View {
                         ZoneAccessRulesView(zoneId: zone.id, session: session)
                     }
 
+                    // 与负载均衡的监控器不同源：这里监控单个源站，单源站也能用
+                    PermissionGatedValueLink(
+                        label: String(localized: "健康检查"),
+                        systemImage: "waveform.path.ecg",
+                        requiredScope: "healthcheck.read",
+                        tint: .green,
+                        showsChevron: true,
+                        value: ZoneRoute.healthChecks(zoneId: zone.id, zoneName: zone.name)
+                    )
+
                     ProGatedValueLink(
                         label: String(localized: "负载均衡"),
                         systemImage: "arrow.left.arrow.right",
@@ -202,6 +236,122 @@ struct ZoneDetailView: View {
                     )
                 }
 
+                // 整卡仅在读到任一组配置时出现：
+                // 机器人管控全套餐可用但需 bot-management.read；
+                // 上面两个 zone setting 是 Pro/Business 起，免费套餐读取即失败。
+                // 与其给用户一排永远打不开的锁，不如不显示。
+                if actionsViewModel.botConfigLoaded || actionsViewModel.aiSettingsAvailable {
+                    sectionCard(String(localized: "AI 内容控制")) {
+                        if actionsViewModel.botConfigLoaded {
+                            settingPickerRow(
+                                title: String(localized: "AI 爬虫"),
+                                subtitle: String(localized: "抓取内容用于训练或问答的机器人"),
+                                icon: "ant",
+                                tint: .indigo,
+                                selection: actionsViewModel.aiBotsProtection,
+                                isBusy: actionsViewModel.isUpdatingBotConfig,
+                                canEdit: canEditBots,
+                                deniedScope: "bot-management.write",
+                                requestChange: { mode in
+                                    Task { await actionsViewModel.setAIBotsProtection(mode) }
+                                }
+                            )
+
+                            settingToggleRow(
+                                title: String(localized: "链接迷宫"),
+                                subtitle: String(localized: "用无尽链接消耗违规爬虫"),
+                                icon: "arrow.triangle.turn.up.right.diamond",
+                                tint: .indigo,
+                                isOn: actionsViewModel.crawlerProtection,
+                                isBusy: actionsViewModel.isUpdatingBotConfig,
+                                canEdit: canEditBots,
+                                isLoaded: true,
+                                deniedScope: "bot-management.write",
+                                requestToggle: { on in
+                                    Task { await actionsViewModel.setCrawlerProtection(on) }
+                                }
+                            )
+
+                            settingToggleRow(
+                                title: String(localized: "拦截内容机器人"),
+                                subtitle: String(localized: "拦下低可信自动流量，已验证的机器人除外"),
+                                icon: "person.badge.shield.checkmark",
+                                tint: .indigo,
+                                isOn: actionsViewModel.contentBotsProtection,
+                                isBusy: actionsViewModel.isUpdatingBotConfig,
+                                canEdit: canEditBots,
+                                isLoaded: true,
+                                deniedScope: "bot-management.write",
+                                requestToggle: { on in
+                                    Task { await actionsViewModel.setContentBotsProtection(on) }
+                                }
+                            )
+
+                            settingToggleRow(
+                                title: String(localized: "托管 robots.txt"),
+                                subtitle: String(localized: "由 Cloudflare 维护，置于现有内容之前"),
+                                icon: "list.bullet.rectangle",
+                                tint: .teal,
+                                isOn: actionsViewModel.managedRobotsTxt,
+                                isBusy: actionsViewModel.isUpdatingBotConfig,
+                                canEdit: canEditBots,
+                                isLoaded: true,
+                                deniedScope: "bot-management.write",
+                                requestToggle: { on in
+                                    Task { await actionsViewModel.setManagedRobotsTxt(on) }
+                                }
+                            )
+
+                            settingToggleRow(
+                                title: String(localized: "内容使用声明"),
+                                subtitle: String(localized: "在 robots.txt 中声明内容的使用许可"),
+                                icon: "doc.badge.gearshape",
+                                tint: .teal,
+                                isOn: actionsViewModel.robotsLicense,
+                                isBusy: actionsViewModel.isUpdatingBotConfig,
+                                canEdit: canEditBots,
+                                isLoaded: true,
+                                deniedScope: "bot-management.write",
+                                requestToggle: { on in
+                                    Task { await actionsViewModel.setRobotsLicense(on) }
+                                }
+                            )
+                        }
+
+                        if actionsViewModel.aiSettingsAvailable {
+                            settingToggleRow(
+                                title: String(localized: "AI 训练重定向"),
+                                subtitle: String(localized: "把用于模型训练的爬虫引走"),
+                                icon: "arrow.triangle.branch",
+                                tint: .purple,
+                                isOn: actionsViewModel.aiTrainingRedirect,
+                                isBusy: actionsViewModel.isTogglingAITrainingRedirect,
+                                canEdit: canEditSettings,
+                                isLoaded: true,
+                                deniedScope: "zone-settings.write",
+                                requestToggle: { on in
+                                    Task { await actionsViewModel.setAITrainingRedirect(on) }
+                                }
+                            )
+
+                            settingToggleRow(
+                                title: String(localized: "面向 Agent 的 Markdown"),
+                                subtitle: String(localized: "按请求把页面转成 Markdown 返回"),
+                                icon: "doc.plaintext",
+                                tint: .teal,
+                                isOn: actionsViewModel.markdownForAgents,
+                                isBusy: actionsViewModel.isTogglingMarkdownForAgents,
+                                canEdit: canEditSettings,
+                                isLoaded: true,
+                                deniedScope: "zone-settings.write",
+                                requestToggle: { on in
+                                    Task { await actionsViewModel.setMarkdownForAgents(on) }
+                                }
+                            )
+                        }
+                    }
+                }
+
                 sectionCard(String(localized: "操作")) {
                     settingToggleRow(
                         title: String(localized: "Under Attack 模式"),
@@ -210,6 +360,9 @@ struct ZoneDetailView: View {
                         tint: .red,
                         isOn: actionsViewModel.underAttack,
                         isBusy: actionsViewModel.isTogglingUnderAttack,
+                        canEdit: canEditSettings,
+                        isLoaded: actionsViewModel.settingsLoaded,
+                        deniedScope: canReadSettings ? "zone-settings.write" : "zone-settings.read",
                         requestToggle: { on in pendingAction = .underAttack(on) }
                     )
 
@@ -220,7 +373,25 @@ struct ZoneDetailView: View {
                         tint: .blue,
                         isOn: actionsViewModel.devMode,
                         isBusy: actionsViewModel.isTogglingDevMode,
+                        canEdit: canEditSettings,
+                        isLoaded: actionsViewModel.settingsLoaded,
+                        deniedScope: canReadSettings ? "zone-settings.write" : "zone-settings.read",
                         requestToggle: { on in pendingAction = .devMode(on) }
+                    )
+
+                    // 暂停态一直可读（zone.read 是登录基础权限），故 isLoaded 恒 true：
+                    // 无 zone.write 时行内显示当前开/关而非锁，符合「能看不能改」的一致语义。
+                    settingToggleRow(
+                        title: String(localized: "暂停 Cloudflare"),
+                        subtitle: String(localized: "流量绕过 Cloudflare，仅保留 DNS 解析"),
+                        icon: "pause.circle",
+                        tint: .gray,
+                        isOn: actionsViewModel.paused,
+                        isBusy: actionsViewModel.isTogglingPause,
+                        canEdit: canEditZone,
+                        isLoaded: true,
+                        deniedScope: "zone.write",
+                        requestToggle: { on in pendingAction = .pause(on) }
                     )
 
                     Button {
@@ -317,7 +488,16 @@ struct ZoneDetailView: View {
         .task {
             if canReadSettings {
                 await actionsViewModel.loadSettings()
+                await actionsViewModel.loadAISettings()
             }
+            if canReadBots {
+                await actionsViewModel.loadBotConfig()
+            }
+        }
+        .task {
+            // 暂停态只需 zone.read（登录必备），与上面的 settings 权限无关：
+            // 进页用 API 校准一次，纠正列表缓存里过期的暂停态
+            await syncPausedFromAPI()
         }
         .task {
             // 该 zone 尚未统计过记录数（前 50 个之外 / Dashboard 未加载完就进来）：
@@ -334,7 +514,12 @@ struct ZoneDetailView: View {
             }
             if canReadSettings {
                 await actionsViewModel.loadSettings()
+                await actionsViewModel.loadAISettings()
             }
+            if canReadBots {
+                await actionsViewModel.loadBotConfig()
+            }
+            await syncPausedFromAPI()
         }
         .confirmationDialog(
             pendingAction?.title ?? "",
@@ -350,6 +535,10 @@ struct ZoneDetailView: View {
                     switch action {
                     case .underAttack(let on): await actionsViewModel.setUnderAttack(on)
                     case .devMode(let on):     await actionsViewModel.setDevMode(on)
+                    case .pause(let on):
+                        if await actionsViewModel.setPaused(on) {
+                            writeBackPaused(actionsViewModel.paused)
+                        }
                     }
                 }
             }
@@ -402,7 +591,79 @@ struct ZoneDetailView: View {
         }
     }
 
+    // MARK: - 暂停态与缓存同步
+
+    /// 从 API 校准暂停态并回写缓存（列表/首页读的是同一份 CachedZone）
+    private func syncPausedFromAPI() async {
+        guard let paused = await actionsViewModel.refreshPaused() else { return }
+        writeBackPaused(paused)
+    }
+
+    private func writeBackPaused(_ paused: Bool) {
+        guard zone.paused != paused else { return }
+        zone.paused = paused
+        SafeCache.perform("暂停状态保存") { try modelContext.save() }
+    }
+
     // MARK: - 设置开关行
+
+    /// canEdit / isLoaded / deniedScope 由调用方给：Under Attack 与开发模式走
+    /// zone-settings.*，暂停走 zone.write，两条权限链路不共用。
+    /// 三档选择行。与 settingToggleRow 同构，只是右侧从开关换成菜单；
+    /// 无写权限时显示当前档位并在点击时提示缺失 scope。
+    private func settingPickerRow(
+        title: String,
+        subtitle: String,
+        icon: String,
+        tint: Color,
+        selection: AIBotsProtection,
+        isBusy: Bool,
+        canEdit: Bool,
+        deniedScope: String,
+        requestChange: @escaping (AIBotsProtection) -> Void
+    ) -> some View {
+        HStack(spacing: 12) {
+            TintIcon(systemImage: icon, color: tint)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(title)
+                Text(subtitle)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            if isBusy {
+                ProgressView()
+            } else if canEdit {
+                Menu {
+                    ForEach(AIBotsProtection.allCases) { mode in
+                        Button {
+                            requestChange(mode)
+                        } label: {
+                            if mode == selection {
+                                Label(mode.label, systemImage: "checkmark")
+                            } else {
+                                Text(mode.label)
+                            }
+                        }
+                    }
+                } label: {
+                    Text(selection.label)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                .accessibilityLabel(title)
+            } else {
+                Button {
+                    deniedScopeHint = deniedScope
+                    showActionDenied = true
+                } label: {
+                    Text(selection.label)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+    }
 
     private func settingToggleRow(
         title: String,
@@ -411,6 +672,9 @@ struct ZoneDetailView: View {
         tint: Color,
         isOn: Bool,
         isBusy: Bool,
+        canEdit: Bool,
+        isLoaded: Bool,
+        deniedScope: String,
         requestToggle: @escaping (Bool) -> Void
     ) -> some View {
         HStack(spacing: 12) {
@@ -424,7 +688,7 @@ struct ZoneDetailView: View {
             Spacer()
             if isBusy {
                 ProgressView()
-            } else if canEditSettings && actionsViewModel.settingsLoaded {
+            } else if canEdit && isLoaded {
                 Toggle("", isOn: Binding(
                     get: { isOn },
                     set: { on in requestToggle(on) }
@@ -433,10 +697,10 @@ struct ZoneDetailView: View {
                 .accessibilityLabel(title)
             } else {
                 Button {
-                    deniedScopeHint = canReadSettings ? "zone-settings.write" : "zone-settings.read"
+                    deniedScopeHint = deniedScope
                     showActionDenied = true
                 } label: {
-                    if actionsViewModel.settingsLoaded {
+                    if isLoaded {
                         // 只读授权：显示当前状态
                         Text(isOn ? String(localized: "开") : String(localized: "关"))
                             .font(.subheadline)
@@ -450,7 +714,7 @@ struct ZoneDetailView: View {
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(title)
-                .accessibilityValue(actionsViewModel.settingsLoaded ? (isOn ? String(localized: "开") : String(localized: "关")) : "")
+                .accessibilityValue(isLoaded ? (isOn ? String(localized: "开") : String(localized: "关")) : "")
                 .accessibilityHint("需要额外授权才能修改")
             }
         }
@@ -467,11 +731,11 @@ struct ZoneDetailView: View {
                 .minimumScaleFactor(0.7)
             HStack(spacing: 8) {
                 HStack(spacing: 5) {
-                    StatusDot(status: zone.status, size: 7)
+                    StatusDot(status: displayStatus, size: 7)
                         .accessibilityHidden(true)
                     Text(statusText)
                         .font(.footnote.weight(.medium))
-                        .foregroundStyle(zone.status == "active" ? Color.green : Color.secondary)
+                        .foregroundStyle(displayStatus == "active" ? Color.green : Color.secondary)
                 }
                 .accessibilityElement(children: .combine)
                 PlanBadge(planName: zone.planName)
@@ -508,11 +772,14 @@ struct ZoneDetailView: View {
 private nonisolated enum PendingZoneAction: Identifiable {
     case underAttack(Bool)
     case devMode(Bool)
+    /// true = 暂停 Cloudflare，false = 恢复
+    case pause(Bool)
 
     var id: String {
         switch self {
         case .underAttack(let on): "underAttack-\(on)"
         case .devMode(let on):     "devMode-\(on)"
+        case .pause(let on):       "pause-\(on)"
         }
     }
 
@@ -522,6 +789,8 @@ private nonisolated enum PendingZoneAction: Identifiable {
         case .underAttack(false): String(localized: "关闭 Under Attack 模式？")
         case .devMode(true):      String(localized: "开启开发模式？")
         case .devMode(false):     String(localized: "关闭开发模式？")
+        case .pause(true):        String(localized: "暂停 Cloudflare？")
+        case .pause(false):       String(localized: "恢复 Cloudflare？")
         }
     }
 
@@ -529,6 +798,8 @@ private nonisolated enum PendingZoneAction: Identifiable {
         switch self {
         case .underAttack(true), .devMode(true):   String(localized: "确认开启")
         case .underAttack(false), .devMode(false): String(localized: "确认关闭")
+        case .pause(true):                         String(localized: "确认暂停")
+        case .pause(false):                        String(localized: "确认恢复")
         }
     }
 
@@ -542,6 +813,10 @@ private nonisolated enum PendingZoneAction: Identifiable {
             String(localized: "开启后，\(zoneName) 将临时绕过 Cloudflare 缓存，源站负载会上升；3 小时后自动关闭。")
         case .devMode(false):
             String(localized: "关闭后，\(zoneName) 立即恢复缓存加速。")
+        case .pause(true):
+            String(localized: "暂停后，\(zoneName) 的流量不再经过 Cloudflare：WAF、缓存加速与源站 IP 隐藏都会失效，DNS 仍由 Cloudflare 解析。生效约需 5 分钟。")
+        case .pause(false):
+            String(localized: "恢复后，\(zoneName) 的流量重新经由 Cloudflare 代理，缓存与安全防护随之生效。生效约需 5 分钟。")
         }
     }
 }
@@ -569,6 +844,8 @@ private extension View {
 enum ZoneRoute: Hashable {
     case rulesHub(zoneId: String, zoneName: String)
     case loadBalancers(zoneId: String, zoneName: String)
+    case healthChecks(zoneId: String, zoneName: String)
+    case dnsSettings(zoneId: String, zoneName: String)
     case snippets(zoneId: String, zoneName: String)
     case bulkRedirects
 }
@@ -582,6 +859,10 @@ extension View {
                 ZoneRulesHubView(zoneId: zoneId, zoneName: zoneName, session: session)
             case .loadBalancers(let zoneId, let zoneName):
                 LoadBalancerListView(zoneId: zoneId, zoneName: zoneName, session: session)
+            case .healthChecks(let zoneId, let zoneName):
+                HealthCheckListView(zoneId: zoneId, zoneName: zoneName, session: session)
+            case .dnsSettings(let zoneId, let zoneName):
+                ZoneDNSSettingsView(zoneId: zoneId, zoneName: zoneName, session: session)
             case .snippets(let zoneId, let zoneName):
                 SnippetsListView(zoneId: zoneId, zoneName: zoneName, session: session)
             case .bulkRedirects:

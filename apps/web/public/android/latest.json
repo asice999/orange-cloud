@@ -1,7 +1,7 @@
 {
-  "versionCode": 21,
-  "versionName": "1.7.1",
+  "versionCode": 23,
+  "versionName": "2.0.0",
   "minVersionCode": 1,
   "url": "https://o-c.do/orange-cloud.apk",
-  "note": "新增：多账号时记住你上次选中的账号，下次打开直接进入，不再固定回第一个。修复：账号切换菜单可上下滚动、完整显示所有账号，「添加账号」不再被挤出屏幕。"
+  "note": "本次为 2.0 大版本：AI 爬虫管控、独立健康检查与源站推送、域名注册商、请求追踪、DNS 进阶设置、Worker 构建记录与失败提醒，另新增 R2 数据目录、托管头、URL 扫描与 Email 抑制。"
 }
