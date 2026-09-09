@@ -134,5 +134,5 @@ jobs:
             使用 AltStore / SideStore / 爱思助手 自签安装 IPA
           files: apps/ios/OrangeCloud-*.ipa
           draft: false
-          prerelease: true
+          prerelease: ${{ !startsWith(github.ref, 'refs/tags/v') }}
           generate_release_notes: false
