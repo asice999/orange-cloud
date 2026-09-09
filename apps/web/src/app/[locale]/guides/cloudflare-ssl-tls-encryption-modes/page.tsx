@@ -40,8 +40,13 @@ const FAQ: Array<{ q: string; a: string }> = [
 
 const RELATED: RelatedLink[] = [
 	{
+		href: "/guides/cloudflare-error-526-invalid-ssl-certificate",
+		label: "Cloudflare error 526: invalid SSL certificate",
+		note: "What Full (strict) does when the origin certificate does not check out \u2014 the error this setting exists to produce.",
+	},
+	{
 		href: "/guides/what-is-the-orange-cloud-in-cloudflare",
-		label: "What does the orange cloud mean in Cloudflare?",
+		label: "What is the orange cloud in Cloudflare?",
 		note: "The prerequisite: encryption modes only apply to records that are proxied in the first place.",
 	},
 	{
@@ -51,7 +56,7 @@ const RELATED: RelatedLink[] = [
 	},
 	{
 		href: "/guides/why-is-cloudflare-not-caching-my-site",
-		label: "Why is Cloudflare not caching my site?",
+		label: "cf-cache-status: DYNAMIC vs BYPASS vs MISS",
 		note: "The origin scheme this setting picks is part of every cache key — what that means in practice.",
 	},
 	{
@@ -165,7 +170,7 @@ export default async function EncryptionModesGuide({ params }: { params: Promise
 					connects directly, so there is no second hop for the mode to govern. If that distinction is new,
 					start with{" "}
 					<Link href="/guides/what-is-the-orange-cloud-in-cloudflare">
-						what the orange cloud means in Cloudflare
+						what the orange cloud is and what proxying changes
 					</Link>
 					.
 				</p>

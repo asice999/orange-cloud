@@ -57,12 +57,12 @@ const FAQ: Array<{ q: string; a: string }> = [
 const RELATED: RelatedLink[] = [
 	{
 		href: "/guides/why-is-cloudflare-not-caching-my-site",
-		label: "Why is Cloudflare not caching my site?",
+		label: "What cf-cache-status DYNAMIC, BYPASS and MISS mean",
 		note: "The opposite problem, and the header that tells them apart: DYNAMIC, BYPASS and a MISS that never becomes a HIT.",
 	},
 	{
 		href: "/guides/what-is-the-orange-cloud-in-cloudflare",
-		label: "What does the orange cloud mean in Cloudflare?",
+		label: "What does DNS only mean in Cloudflare?",
 		note: "Nothing is cached — and nothing can be purged — on a hostname that is set to DNS only.",
 	},
 	{

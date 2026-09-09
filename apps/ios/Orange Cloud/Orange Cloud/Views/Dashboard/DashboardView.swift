@@ -814,28 +814,13 @@ private struct DashboardHomeView: View {
                     .padding(.vertical, 16)
                     .glassIsland(cornerRadius: OCLayout.chipRadius)
             } else if let usage = viewModel.usage {
-#if OPENSOURCE_UNLOCKED
-                if viewModel.needsReauthForWorkersObservability {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Label("Workers 用量需重新授权", systemImage: "person.badge.key")
-                            .font(.caption.weight(.medium))
-                            .foregroundStyle(.orange)
-                        Text("Cloudflare 将 Workers 分析迁移至 Observability 权限。请在 设置 → 账号 重新登录并接受所有权限后可见。")
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(10)
-                    .glassIsland(cornerRadius: OCLayout.chipRadius)
-                    .padding(.horizontal, 4)
-                } else if viewModel.accountLevelDataLimited {
-                    Label("Workers / R2 用量需付费版 Cloudflare · D1 存储与域名分析正常", systemImage: "info.circle")
-                        .font(.caption)
+                if viewModel.accountAnalyticsPartial {
+                    // 部分时间窗被 authz 挡（免费账号常见）：数据照常显示，
+                    // 只说明缺的那部分为 0 是权限所致，不是加载失败
+                    Label("部分周期数据需付费版 Cloudflare 账号，显示为 0 的项非加载失败", systemImage: "info.circle")
+                        .font(.footnote)
                         .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 4)
                 }
-#endif
                 usageGrid(usage)
             } else if viewModel.accountAnalyticsUnavailable {
                 accountAnalyticsUnavailableCard
