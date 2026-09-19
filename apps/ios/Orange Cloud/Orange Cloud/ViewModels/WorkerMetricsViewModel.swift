@@ -32,6 +32,9 @@ final class WorkerMetricsViewModel {
     }
 
     func load(force: Bool = false) async {
+        // 范围钉在发起时刻：.task(id: range) 切范围会取消旧任务，旧任务的 catch 不能把
+        // 「已取消」写进 error、也不能把新任务刚置好的 isLoading 关掉。
+        let range = self.range
         if !force, let cached = cache[range] {
             metrics = cached.metrics
             series = cached.series
@@ -52,24 +55,18 @@ final class WorkerMetricsViewModel {
             let series = (try? await seriesTask) ?? []
 
             cache[range] = (metrics, series)
+            guard range == self.range else { return }
             self.metrics = metrics
             self.series = series
         } catch let error as APIError where error.isAccountNotAuthorized {
-#if OPENSOURCE_UNLOCKED
-            // ====== 自编译版：跳过账户级数据权限门控 ======
-            // Worker metrics authz 回落至空图表，不显示门控提示。
-            self.metrics = WorkerMetrics(requests: 0, errors: 0, subrequests: 0, cpuP50Us: nil, cpuP99Us: nil, cpuTotalUs: nil, statusBreakdown: [])
-            self.series = []
-            accountAnalyticsUnavailable = false
-            self.error = nil
-#else
+            guard range == self.range else { return }
             accountAnalyticsUnavailable = true
             self.error = nil
-#endif
         } catch {
+            guard range == self.range, !error.isCancellation else { return }
             self.error = error.localizedDescription
         }
-        isLoading = false
+        if range == self.range { isLoading = false }
     }
 
     func refresh() async {
