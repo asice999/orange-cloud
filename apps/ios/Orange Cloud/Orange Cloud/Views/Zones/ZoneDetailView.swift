@@ -25,15 +25,15 @@ struct ZoneDetailView: View {
 
     // 操作区
     @State private var actionsViewModel: ZoneActionsViewModel
-    @State private var showPurgeConfirm = false
-    @State private var showInvalidateConfirm = false
-    @State private var showPurgeSheet = false
-    @State private var showPurgeDone = false
-    @State private var showInvalidateDone = false
-    @State private var showActionDenied = false
-    @State private var deniedScopeHint = ""
+    @State var showPurgeConfirm = false
+    @State var showInvalidateConfirm = false
+    @State var showPurgeSheet = false
+    @State var showPurgeDone = false
+    @State var showInvalidateDone = false
+    @State var showActionDenied = false
+    @State var deniedScopeHint = ""
     /// 开关类操作先收口到这里，confirmationDialog 确认后才调 API
-    @State private var pendingAction: PendingZoneAction?
+    @State var pendingAction: PendingZoneAction?
 
     init(zone: CachedZone, session: SessionStore) {
         self.zone = zone
@@ -537,7 +537,9 @@ struct ZoneDetailView: View {
                     }
     }
 
-    var body: some View {
+    /// 详情页主体（拆出以降低 Swift 编译器 type-check 复杂度）
+    @ViewBuilder
+    private var detailCore: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
                 heroCard
@@ -571,169 +573,205 @@ struct ZoneDetailView: View {
             }
             .padding()
         }
-        .background { SkyBackground() }
-        .navigationTitle(zone.name)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                // 置顶以 PinnedResourceStore 为准（跨资源类型统一）；同时把旧的
-                // CachedZone.pinned 字段镜像写回，老数据/其它入口读它时不至于分裂。
-                Button(isPinned ? String(localized: "取消固定") : String(localized: "固定到首页"),
-                       systemImage: isPinned ? "pin.fill" : "pin") {
-                    let nowPinned = pinnedStore.toggle(
-                        PinnedResource(type: .zone, resourceId: zone.id),
-                        accountId: zone.accountId
-                    )
-                    withAnimation(.smooth) {
-                        zone.pinned = nowPinned
+    }
+
+
+    /// 修饰链与 dialog/alert 群（拆出以降低 type-check 复杂度）
+    private struct DetailModifiers: ViewModifier {
+        let view: ZoneDetailView
+
+        @Environment(AuthManager.self) private var auth
+        @Environment(\.modelContext) private var modelContext
+        @Query private var records: [CachedDNSRecord]
+
+        private var zone: CachedZone { view.zone }
+        private var session: SessionStore { view.session }
+        private var actionsViewModel: ZoneActionsViewModel { view.actionsViewModel }
+        private var pinnedStore: PinnedResourceStore { view.pinnedStore }
+
+        private var isPinned: Bool { view.isPinned }
+        private var pendingAction: PendingZoneAction? { view.pendingAction }
+        func syncPausedFromAPI() async { await view.syncPausedFromAPI() }
+        func writeBackPaused(_ paused: Bool) { view.writeBackPaused(paused) }
+        private var showPurgeConfirm: Binding<Bool> { view.$showPurgeConfirm }
+        private var showInvalidateConfirm: Binding<Bool> { view.$showInvalidateConfirm }
+        private var showPurgeSheet: Binding<Bool> { view.$showPurgeSheet }
+        private var showPurgeDone: Binding<Bool> { view.$showPurgeDone }
+        private var showInvalidateDone: Binding<Bool> { view.$showInvalidateDone }
+        private var showActionDenied: Binding<Bool> { view.$showActionDenied }
+        private var deniedScopeHint: String { view.deniedScopeHint }
+
+        func body(content: Content) -> some View {
+            content
+            .background { SkyBackground() }
+            .navigationTitle(zone.name)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    // 置顶以 PinnedResourceStore 为准（跨资源类型统一）；同时把旧的
+                    // CachedZone.pinned 字段镜像写回，老数据/其它入口读它时不至于分裂。
+                    Button(isPinned ? String(localized: "取消固定") : String(localized: "固定到首页"),
+                           systemImage: isPinned ? "pin.fill" : "pin") {
+                        let nowPinned = pinnedStore.toggle(
+                            PinnedResource(type: .zone, resourceId: zone.id),
+                            accountId: zone.accountId
+                        )
+                        withAnimation(.smooth) {
+                            zone.pinned = nowPinned
+                        }
+                        SafeCache.perform("pin 状态保存") { try modelContext.save() }
                     }
-                    SafeCache.perform("pin 状态保存") { try modelContext.save() }
+                    .contentTransition(.symbolEffect(.replace))
                 }
-                .contentTransition(.symbolEffect(.replace))
             }
-        }
-        .sensoryFeedback(.impact(weight: .light), trigger: zone.pinned)
-        .sensoryFeedback(.success, trigger: actionsViewModel.didPurge)
-        .sensoryFeedback(.success, trigger: actionsViewModel.didInvalidate)
-        .task {
-            if canReadSettings {
-                await actionsViewModel.loadSettings()
-                await actionsViewModel.loadAISettings()
+            .sensoryFeedback(.impact(weight: .light), trigger: zone.pinned)
+            .sensoryFeedback(.success, trigger: actionsViewModel.didPurge)
+            .sensoryFeedback(.success, trigger: actionsViewModel.didInvalidate)
+            .task {
+                if canReadSettings {
+                    await actionsViewModel.loadSettings()
+                    await actionsViewModel.loadAISettings()
+                }
+                if canReadBots {
+                    await actionsViewModel.loadBotConfig()
+                }
+                if canReadPrecursor {
+                    await actionsViewModel.loadPrecursor()
+                }
             }
-            if canReadBots {
-                await actionsViewModel.loadBotConfig()
+            .task {
+                // 暂停态只需 zone.read（登录必备），与上面的 settings 权限无关：
+                // 进页用 API 校准一次，纠正列表缓存里过期的暂停态
+                await syncPausedFromAPI()
             }
-            if canReadPrecursor {
-                await actionsViewModel.loadPrecursor()
+            .task {
+                // 该 zone 尚未统计过记录数（前 50 个之外 / Dashboard 未加载完就进来）：
+                // 入页轻量拉一次 total_count 回写缓存，首屏不显示 0 条
+                if zone.dnsRecordCount == nil, records.isEmpty, auth.hasScope("dns.read"),
+                   let count = try? await session.dnsService.recordCount(zoneId: zone.id) {
+                    zone.dnsRecordCount = count
+                    SafeCache.perform("dnsRecordCount 保存") { try modelContext.save() }
+                }
             }
-        }
-        .task {
-            // 暂停态只需 zone.read（登录必备），与上面的 settings 权限无关：
-            // 进页用 API 校准一次，纠正列表缓存里过期的暂停态
-            await syncPausedFromAPI()
-        }
-        .task {
-            // 该 zone 尚未统计过记录数（前 50 个之外 / Dashboard 未加载完就进来）：
-            // 入页轻量拉一次 total_count 回写缓存，首屏不显示 0 条
-            if zone.dnsRecordCount == nil, records.isEmpty, auth.hasScope("dns.read"),
-               let count = try? await session.dnsService.recordCount(zoneId: zone.id) {
-                zone.dnsRecordCount = count
-                SafeCache.perform("dnsRecordCount 保存") { try modelContext.save() }
+            .refreshable {
+                if auth.hasScope("analytics.read") {
+                    await analyticsViewModel.refresh()
+                    await trafficDetailsViewModel.refresh(range: analyticsViewModel.selectedRange)
+                }
+                if canReadSettings {
+                    await actionsViewModel.loadSettings()
+                    await actionsViewModel.loadAISettings()
+                }
+                if canReadBots {
+                    await actionsViewModel.loadBotConfig()
+                }
+                if canReadPrecursor {
+                    await actionsViewModel.loadPrecursor()
+                }
+                await syncPausedFromAPI()
             }
-        }
-        .refreshable {
-            if auth.hasScope("analytics.read") {
-                await analyticsViewModel.refresh()
-                await trafficDetailsViewModel.refresh(range: analyticsViewModel.selectedRange)
-            }
-            if canReadSettings {
-                await actionsViewModel.loadSettings()
-                await actionsViewModel.loadAISettings()
-            }
-            if canReadBots {
-                await actionsViewModel.loadBotConfig()
-            }
-            if canReadPrecursor {
-                await actionsViewModel.loadPrecursor()
-            }
-            await syncPausedFromAPI()
-        }
-        .confirmationDialog(
-            pendingAction?.title ?? "",
-            isPresented: .init(
-                get: { pendingAction != nil },
-                set: { if !$0 { pendingAction = nil } }
-            ),
-            titleVisibility: .visible,
-            presenting: pendingAction
-        ) { action in
-            Button(action.confirmLabel) {
-                Task {
-                    switch action {
-                    case .underAttack(let on): await actionsViewModel.setUnderAttack(on)
-                    case .devMode(let on):     await actionsViewModel.setDevMode(on)
-                    case .pause(let on):
-                        if await actionsViewModel.setPaused(on) {
-                            writeBackPaused(actionsViewModel.paused)
+            .confirmationDialog(
+                pendingAction?.title ?? "",
+                isPresented: .init(
+                    get: { pendingAction != nil },
+                    set: { if !$0 { view.pendingAction = nil } }
+                ),
+                titleVisibility: .visible,
+                presenting: pendingAction
+            ) { action in
+                Button(action.confirmLabel) {
+                    Task {
+                        switch action {
+                        case .underAttack(let on): await actionsViewModel.setUnderAttack(on)
+                        case .devMode(let on):     await actionsViewModel.setDevMode(on)
+                        case .pause(let on):
+                            if await actionsViewModel.setPaused(on) {
+                                writeBackPaused(actionsViewModel.paused)
+                            }
                         }
                     }
                 }
+            } message: { action in
+                Text(action.message(zoneName: zone.name))
             }
-        } message: { action in
-            Text(action.message(zoneName: zone.name))
-        }
-        .confirmationDialog("清理全部缓存？", isPresented: $showPurgeConfirm, titleVisibility: .visible) {
-            Button("清理", role: .destructive) {
-                Task { await actionsViewModel.purgeCache() }
+            .confirmationDialog("清理全部缓存？", isPresented: $showPurgeConfirm, titleVisibility: .visible) {
+                Button("清理", role: .destructive) {
+                    Task { await actionsViewModel.purgeCache() }
+                }
+            } message: {
+                Text("将清空 \(zone.name) 在 Cloudflare 边缘的所有缓存，回源流量会短暂上升。")
             }
-        } message: {
-            Text("将清空 \(zone.name) 在 Cloudflare 边缘的所有缓存，回源流量会短暂上升。")
-        }
-        .alert("缓存已清理", isPresented: $showPurgeDone) {
-            Button("好", role: .cancel) {}
-        } message: {
-            Text("边缘节点将在数秒内完成清理。")
-        }
-        .confirmationDialog("标记过期", isPresented: $showInvalidateConfirm, titleVisibility: .visible) {
-            Button("标记过期") {
-                Task { await actionsViewModel.purgeCache(action: .invalidate) }
+            .alert("缓存已清理", isPresented: $showPurgeDone) {
+                Button("好", role: .cancel) {}
+            } message: {
+                Text("边缘节点将在数秒内完成清理。")
             }
-        } message: {
-            Text(String(localized: "将把该域名的全部缓存标记为过期。") + "\n"
-                 + String(localized: "保留缓存但标记为过期，下次请求时向源站校验；内容没变（304）就继续用缓存。需要源站返回 ETag 或 Last-Modified。"))
-        }
-        .alert("已标记为过期", isPresented: $showInvalidateDone) {
-            Button("好", role: .cancel) {}
-        } message: {
-            Text("保留缓存但标记为过期，下次请求时向源站校验；内容没变（304）就继续用缓存。需要源站返回 ETag 或 Last-Modified。")
-        }
-        .sheet(isPresented: $showPurgeSheet) {
-            PurgeCacheSheet(zoneName: zone.name) { mode, items, action in
-                switch mode {
-                case .url:    await actionsViewModel.purgeURLs(items, action: action)
-                case .prefix: await actionsViewModel.purgePrefixes(items, action: action)
-                case .host:   await actionsViewModel.purgeHosts(items, action: action)
-                case .tag:    await actionsViewModel.purgeTags(items, action: action)
+            .confirmationDialog("标记过期", isPresented: $showInvalidateConfirm, titleVisibility: .visible) {
+                Button("标记过期") {
+                    Task { await actionsViewModel.purgeCache(action: .invalidate) }
+                }
+            } message: {
+                Text(String(localized: "将把该域名的全部缓存标记为过期。") + "\n"
+                     + String(localized: "保留缓存但标记为过期，下次请求时向源站校验；内容没变（304）就继续用缓存。需要源站返回 ETag 或 Last-Modified。"))
+            }
+            .alert("已标记为过期", isPresented: $showInvalidateDone) {
+                Button("好", role: .cancel) {}
+            } message: {
+                Text("保留缓存但标记为过期，下次请求时向源站校验；内容没变（304）就继续用缓存。需要源站返回 ETag 或 Last-Modified。")
+            }
+            .sheet(isPresented: $showPurgeSheet) {
+                PurgeCacheSheet(zoneName: zone.name) { mode, items, action in
+                    switch mode {
+                    case .url:    await actionsViewModel.purgeURLs(items, action: action)
+                    case .prefix: await actionsViewModel.purgePrefixes(items, action: action)
+                    case .host:   await actionsViewModel.purgeHosts(items, action: action)
+                    case .tag:    await actionsViewModel.purgeTags(items, action: action)
+                    }
                 }
             }
-        }
-        .onChange(of: actionsViewModel.didPurge) {
-            showPurgeDone = true
-        }
-        .onChange(of: actionsViewModel.didInvalidate) {
-            showInvalidateDone = true
-        }
-        .alert("权限不足", isPresented: $showActionDenied) {
-            if let sessionId = auth.currentSessionId, !deniedScopeHint.isEmpty {
-                Button("一键重授权") {
-                    let scope = deniedScopeHint
-                    Task { await auth.reauthorize(sessionId: sessionId, additionalScopes: [scope]) }
-                }
+            .onChange(of: actionsViewModel.didPurge) {
+                showPurgeDone = true
             }
-            Button("好", role: .cancel) {}
-        } message: {
-            Text("当前授权未包含此操作所需权限（\(deniedScopeHint)）。点「一键重授权」补齐，无需退出登录。")
+            .onChange(of: actionsViewModel.didInvalidate) {
+                showInvalidateDone = true
+            }
+            .alert("权限不足", isPresented: $showActionDenied) {
+                if let sessionId = auth.currentSessionId, !deniedScopeHint.isEmpty {
+                    Button("一键重授权") {
+                        let scope = deniedScopeHint
+                        Task { await auth.reauthorize(sessionId: sessionId, additionalScopes: [scope]) }
+                    }
+                }
+                Button("好", role: .cancel) {}
+            } message: {
+                Text("当前授权未包含此操作所需权限（\(deniedScopeHint)）。点「一键重授权」补齐，无需退出登录。")
+            }
+            .alert("操作失败", isPresented: .init(
+                get: { actionsViewModel.error != nil },
+                set: { if !$0 { actionsViewModel.error = nil } }
+            )) {
+                apiErrorDocButton(for: actionsViewModel.error)
+                Button("好", role: .cancel) {}
+            } message: {
+                Text(actionsViewModel.error ?? "")
+            }
         }
-        .alert("操作失败", isPresented: .init(
-            get: { actionsViewModel.error != nil },
-            set: { if !$0 { actionsViewModel.error = nil } }
-        )) {
-            apiErrorDocButton(for: actionsViewModel.error)
-            Button("好", role: .cancel) {}
-        } message: {
-            Text(actionsViewModel.error ?? "")
-        }
+    }
+
+    var body: some View {
+        detailCore
+            .modifier(DetailModifiers(view: self))
     }
 
     // MARK: - 暂停态与缓存同步
 
     /// 从 API 校准暂停态并回写缓存（列表/首页读的是同一份 CachedZone）
-    private func syncPausedFromAPI() async {
+    func syncPausedFromAPI() async {
         guard let paused = await actionsViewModel.refreshPaused() else { return }
         writeBackPaused(paused)
     }
 
-    private func writeBackPaused(_ paused: Bool) {
+    func writeBackPaused(_ paused: Bool) {
         guard zone.paused != paused else { return }
         zone.paused = paused
         SafeCache.perform("暂停状态保存") { try modelContext.save() }
