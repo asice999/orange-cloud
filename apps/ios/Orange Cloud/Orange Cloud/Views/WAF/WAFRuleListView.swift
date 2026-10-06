@@ -166,6 +166,64 @@ struct WAFRuleListView: View {
                 .refreshable { await detachedRefresh { await viewModel.load() } }
             }
         }
+        .background { SkyBackground() }
+        .navigationTitle("WAF 防火墙")
+        .navigationBarTitleDisplayMode(.inline)
+        .searchable(text: $searchText, prompt: "搜索规则")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("添加", systemImage: "plus") {
+                    if canWrite {
+                        showForm = true
+                    } else {
+                        showDenied = true
+                    }
+                }
+            }
+        }
+        .sheet(isPresented: $showForm) {
+            WAFRuleFormView(viewModel: viewModel, rule: nil)
+        }
+        .sheet(item: $editingRule) { rule in
+            WAFRuleFormView(viewModel: viewModel, rule: rule)
+        }
+        .task { await viewModel.load() }
+        .confirmationDialog(
+            "删除规则",
+            isPresented: .init(
+                get: { ruleToDelete != nil },
+                set: { if !$0 { ruleToDelete = nil } }
+            ),
+            titleVisibility: .visible
+        ) {
+            if let rule = ruleToDelete {
+                Button("删除「\(rule.description ?? String(localized: "未命名规则"))」", role: .destructive) {
+                    Task { await viewModel.delete(rule: rule) }
+                }
+            }
+        } message: {
+            Text("此操作不可撤销，规则将立即停止生效。")
+        }
+        .alert("暂不支持编辑", isPresented: $showUnsupportedEdit) {
+            Button("好", role: .cancel) {}
+        } message: {
+            Text("「跳过」等带额外参数的规则暂不支持在 App 内编辑，请在 Cloudflare Dashboard 中修改。")
+        }
+        .alert("权限不足", isPresented: $showDenied) {
+            Button("好", role: .cancel) {}
+        } message: {
+            Text("当前授权未包含 WAF 编辑权限（zone-waf.write）。\n请在设置中退出登录后重新授权以启用此功能。")
+        }
+        .alert("出错了", isPresented: .init(
+            get: { viewModel.error != nil && !showForm && editingRule == nil },
+            set: { if !$0 { viewModel.error = nil } }
+        )) {
+            apiErrorDocButton(for: viewModel.error)
+            Button("好", role: .cancel) {}
+        } message: {
+            Text(viewModel.error ?? "")
+        }
+    }
 }
 
 // MARK: - 新建 / 编辑规则表单
@@ -280,11 +338,20 @@ private struct WAFRuleFormView: View {
                     expressionSection
                 }
 
+                RuleValidateSection(
+                    isValidating: viewModel.isValidating,
+                    passed: viewModel.validationPassed,
+                    disabled: !canSave || viewModel.isValidating
+                ) {
+                    Task { await validate() }
+                }
+
                 if let error = viewModel.error {
                     Section {
                         Text(error)
                             .font(.footnote)
                             .foregroundStyle(.red)
+                        APIErrorDocLink(message: error)
                     }
                 }
             }
@@ -308,9 +375,12 @@ private struct WAFRuleFormView: View {
                 }
             }
             .interactiveDismissDisabled(viewModel.isSaving)
+            // 草稿一改，上次的「校验通过」就不再代表当前内容
+            .onChange(of: draftSignature) { viewModel.validationPassed = false }
             .onDisappear {
                 viewModel.error = nil
                 viewModel.generationError = nil
+                viewModel.validationPassed = false
             }
         }
     }
@@ -469,19 +539,36 @@ private struct WAFRuleFormView: View {
         }
     }
 
-    private func save() async {
-        viewModel.error = nil
+    /// 保存与校验共用的草稿；本地语法检查不过时写 error 并返回 nil
+    private func makeDraft() -> WAFRuleCreate? {
         let trimmedExpression = effectiveExpression
         if let problem = WAFExpressionLint.problem(in: trimmedExpression) {
             viewModel.error = problem
-            return
+            return nil
         }
-        let draft = WAFRuleCreate(
+        return WAFRuleCreate(
             action: action.rawValue,
             expression: trimmedExpression,
             description: name.trimmingCharacters(in: .whitespaces),
             enabled: enabled
         )
+    }
+
+    /// 草稿指纹：任一字段变动即清掉上次的校验结果
+    private var draftSignature: String {
+        [name, action.rawValue, String(enabled), effectiveExpression].joined(separator: "\u{1F}")
+    }
+
+    /// 「校验」：发保存同款请求带 ?dry_run=true，不落库、不关表单
+    private func validate() async {
+        viewModel.error = nil
+        guard let draft = makeDraft() else { return }
+        await viewModel.validate(ruleId: rule?.id, draft: draft)
+    }
+
+    private func save() async {
+        viewModel.error = nil
+        guard let draft = makeDraft() else { return }
         let saved: Bool
         if let rule {
             saved = await viewModel.updateRule(ruleId: rule.id, draft: draft)

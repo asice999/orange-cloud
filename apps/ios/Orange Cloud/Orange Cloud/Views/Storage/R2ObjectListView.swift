@@ -34,7 +34,8 @@ struct R2ObjectListView: View {
         _viewModel = State(initialValue: R2ObjectListViewModel(
             service: session.r2Service,
             accountId: session.selectedAccount?.id ?? "",
-            bucketName: bucket.name
+            bucketName: bucket.name,
+            jurisdiction: bucket.jurisdiction
         ))
     }
 
@@ -140,55 +141,46 @@ struct R2ObjectListView: View {
             } message: {
                 Text("此操作不可撤销。")
             }
-            .alert("权限不足", isPresented: $showDenied) {
-                Button("好", role: .cancel) {}
-            } message: {
-                Text("当前授权未包含 R2 写权限（workers-r2.write）。\n请在设置中退出登录后重新授权以启用此功能。")
-            }
-            .alert("出错了", isPresented: .init(
-                get: { viewModel.error != nil && selectedObject == nil },
-                set: { if !$0 { viewModel.error = nil } }
-            )) {
-                Button("好", role: .cancel) {}
-            } message: {
-                Text(viewModel.error ?? "")
-            }
-            .sensoryFeedback(.success, trigger: viewModel.didUpload)
-            .sensoryFeedback(.success, trigger: viewModel.didTransfer)
-            .sheet(item: $transferTarget) { request in
-                R2TransferSheet(object: request.object, mode: request.mode) { destinationKey in
-                    Task {
-                        switch request.mode {
-                        case .copy: _ = await viewModel.copyObject(request.object, to: destinationKey)
-                        case .move: _ = await viewModel.moveObject(request.object, to: destinationKey)
-                        }
-                    }
-                }
-                .presentationDetents([.medium])
-            }
-            .alert("对象过大", isPresented: $showTooLarge) {
-                Button("好", role: .cancel) {}
-            } message: {
-                Text("Cloudflare API 单次上传上限约 300 MB，超过的对象无法在 App 内复制或移动。")
-            }
-            .overlay {
-                if viewModel.isDownloading {
-                    ZStack {
-                        Color.black.opacity(0.15).ignoresSafeArea()
-                        ProgressView("下载中…")
-                            .padding(18)
-                            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .alert("权限不足", isPresented: $showDenied) {
+            Button("好", role: .cancel) {}
+        } message: {
+            Text("当前授权未包含 R2 写权限（workers-r2.write）。\n请在设置中退出登录后重新授权以启用此功能。")
+        }
+        .alert("出错了", isPresented: .init(
+            get: { viewModel.error != nil && selectedObject == nil },
+            set: { if !$0 { viewModel.error = nil } }
+        )) {
+            apiErrorDocButton(for: viewModel.error)
+            Button("好", role: .cancel) {}
+        } message: {
+            Text(viewModel.error ?? "")
+        }
+        .sensoryFeedback(.success, trigger: viewModel.didUpload)
+        .sensoryFeedback(.success, trigger: viewModel.didTransfer)
+        .sheet(item: $transferTarget) { request in
+            R2TransferSheet(object: request.object, mode: request.mode) { destinationKey in
+                Task {
+                    switch request.mode {
+                    case .copy: _ = await viewModel.copyObject(request.object, to: destinationKey)
+                    case .move: _ = await viewModel.moveObject(request.object, to: destinationKey)
                     }
                 }
             }
-            .overlay {
-                if viewModel.isTransferring {
-                    TransferProgressOverlay(
-                        label: viewModel.transferLabel ?? String(localized: "处理中…"),
-                        progress: viewModel.transferProgress
-                    )
-                }
+            .presentationDetents([.medium])
+        }
+        .alert("对象过大", isPresented: $showTooLarge) {
+            Button("好", role: .cancel) {}
+        } message: {
+            Text("Cloudflare API 单次上传上限约 300 MB，超过的对象无法在 App 内复制或移动。")
+        }
+        .overlay {
+            if viewModel.isTransferring {
+                TransferProgressOverlay(
+                    label: viewModel.transferLabel ?? String(localized: "处理中…"),
+                    progress: viewModel.transferProgress
+                )
             }
+        }
     }
 
     /// 发起复制 / 移动：先过写权限与 300MB 体积守卫，再弹目标 Key 编辑表单
