@@ -121,17 +121,9 @@ struct ZoneDetailView: View {
         }
     }
 
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 22) {
-                heroCard
-
-                // 分析：图表直接内嵌第一层级，置于管理之前
-                analyticsBlock
-
-                // 本卡内 eager 门控行的保留判据：目的页是叶子（内部只开 sheet、不再 push）。
-                // 「规则」「负载均衡」的目的页还要继续 push，已改值式（ZoneRoute + 栈根 navdest）；
-                // 其余若日后加内层 push，必须同步改值式。
+    /// 拆出 body 以降低 Swift 编译器 type-check 复杂度
+    @ViewBuilder
+    private var managementBlock: some View {
                 sectionCard(String(localized: "管理")) {
                     PermissionGatedNavigationLink(
                         label: String(localized: "DNS 记录"),
@@ -269,12 +261,11 @@ struct ZoneDetailView: View {
                         value: ZoneRoute.loadBalancers(zoneId: zone.id, zoneName: zone.name)
                     )
                 }
+    }
 
-                // 整卡仅在读到任一组配置时出现：
-                // 机器人管控全套餐可用但需 bot-management.read；
-                // 两个 zone setting 是 Pro 起，免费套餐读得到但不可改（editable == false）。
-                // 与其给用户一排永远打不开的锁，不如不显示。
-                if actionsViewModel.botConfigLoaded || actionsViewModel.aiSettingsAvailable {
+    /// 拆出 body 以降低 Swift 编译器 type-check 复杂度
+    @ViewBuilder
+    private var aiControlBlock: some View {
                     sectionCard(String(localized: "AI 内容控制")) {
                         if actionsViewModel.botConfigLoaded {
                             // 2026-09-15 起 ai_bots_protection 拆成三类：响应带任一新字段就换成三个选择行，
@@ -413,8 +404,11 @@ struct ZoneDetailView: View {
                             )
                         }
                     }
-                }
+    }
 
+    /// 拆出 body 以降低 Swift 编译器 type-check 复杂度
+    @ViewBuilder
+    private var actionsBlock: some View {
                 sectionCard(String(localized: "操作")) {
                     settingToggleRow(
                         title: String(localized: "Under Attack 模式"),
@@ -526,8 +520,11 @@ struct ZoneDetailView: View {
                     }
                     .disabled(actionsViewModel.isPurging)
                 }
+    }
 
-                if !zone.nameServers.isEmpty {
+    /// 拆出 body 以降低 Swift 编译器 type-check 复杂度
+    @ViewBuilder
+    private var nameServersBlock: some View {
                     sectionCard("Name Servers") {
                         VStack(alignment: .leading, spacing: 8) {
                             ForEach(zone.nameServers, id: \.self) { server in
@@ -538,6 +535,30 @@ struct ZoneDetailView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
+    }
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 22) {
+                heroCard
+
+                // 分析：图表直接内嵌第一层级，置于管理之前
+                analyticsBlock
+
+                managementBlock
+
+                // 整卡仅在读到任一组配置时出现：
+                // 机器人管控全套餐可用但需 bot-management.read；
+                // 两个 zone setting 是 Pro 起，免费套餐读得到但不可改（editable == false）。
+                // 与其给用户一排永远打不开的锁，不如不显示。
+                if actionsViewModel.botConfigLoaded || actionsViewModel.aiSettingsAvailable {
+                    aiControlBlock
+                }
+
+                actionsBlock
+
+                if !zone.nameServers.isEmpty {
+                    nameServersBlock
                 }
 
                 // Zone ID footer
